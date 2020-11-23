@@ -1,8 +1,9 @@
 package com.example.eatgo.interfaces;
 
+import com.example.eatgo.domain.MenuItem;
+import com.example.eatgo.domain.MenuItemRepository;
 import com.example.eatgo.domain.Restaurant;
 import com.example.eatgo.domain.RestaurantRepository;
-import com.example.eatgo.domain.RestaurantRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +15,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-    private final RestaurantRepository repository;
+    private final RestaurantRepository restaurantRepository;
+    private final MenuItemRepository menuItemRepository;
 
     @GetMapping("/restaurants")
     public List<Restaurant> list() {
-        return repository.findAll();
+        return restaurantRepository.findAll();
     }
     @GetMapping("restaurants/{id}")
     public Restaurant detail(@PathVariable Long id) {
-        return repository.findById(id);
+        Restaurant restaurant = restaurantRepository.findById(id);
+
+        List<MenuItem> menuItemList = menuItemRepository.findAllByRestaurantId(id);
+        restaurant.setMenuItems(menuItemList);
+
+        return restaurant;
     }
 }

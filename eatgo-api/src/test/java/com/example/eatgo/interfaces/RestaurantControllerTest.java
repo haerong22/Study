@@ -1,5 +1,7 @@
 package com.example.eatgo.interfaces;
 
+import com.example.eatgo.domain.MenuItemRepository;
+import com.example.eatgo.domain.MenuItemRepositoryImpl;
 import com.example.eatgo.domain.RestaurantRepository;
 import com.example.eatgo.domain.RestaurantRepositoryImpl;
 import org.hamcrest.core.StringContains;
@@ -19,11 +21,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(RestaurantController.class)
 class RestaurantControllerTest {
 
-    @ Autowired
+    @Autowired
     private MockMvc mvc;
 
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
+
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepository menuItemRepository;
 
     @Test
     public void list() throws Exception {
@@ -38,7 +43,8 @@ class RestaurantControllerTest {
         mvc.perform(get("/restaurants/1004"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(StringContains.containsString("\"id\":1004")) )
-                .andExpect(content().string(StringContains.containsString("\"name\":\"Bob zip\"")) );
+                .andExpect(content().string(StringContains.containsString("\"name\":\"Bob zip\"")) )
+                .andExpect(content().string(StringContains.containsString("kimchi")));
 
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
