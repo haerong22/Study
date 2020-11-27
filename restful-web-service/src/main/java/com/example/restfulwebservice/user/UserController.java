@@ -14,11 +14,11 @@ import java.util.Locale;
 @RestController
 public class UserController {
     private final UserDaoService userDaoService;
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
-    public UserController(UserDaoService userDaoService) {
+    public UserController(UserDaoService userDaoService, MessageSource messageSource) {
         this.userDaoService = userDaoService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/users")
