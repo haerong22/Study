@@ -1,7 +1,10 @@
-let m = require('./math-tools');
+const fs = require('fs');
+const os = require('os');
 
-console.log(m.PI);
-console.log(m.add(1,2));
-console.log(m.subtract(1,2));
-console.log(m.multiply(1,2));
-console.log(m.divide(1,2));
+
+let filelist = fs.readdirSync('.');
+console.log(filelist);
+
+fs.writeFileSync('new', 'Hello Node.js');
+
+console.log(os.cpus());
