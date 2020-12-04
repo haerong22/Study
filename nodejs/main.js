@@ -1,10 +1,5 @@
-const fs = require('fs');
-const os = require('os');
+const cowsay = require('cowsay');
 
-
-let filelist = fs.readdirSync('.');
-console.log(filelist);
-
-fs.writeFileSync('new', 'Hello Node.js');
-
-console.log(os.cpus());
+console.log(cowsay.say({
+  text : "I love javascript",
+}));
