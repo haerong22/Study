@@ -1,17 +1,19 @@
-const fs = require('fs');
+const EventEmitter = require('events');
 
-// console.log('Start');
+const myEmitter = new EventEmitter();
+const myEmitter2 = new EventEmitter();
 
-// let content = fs.readFileSync('./new', 'utf8');
-// console.log(content);
+const obj = {
+  type: 'text',
+  data: 'Hello CodeIt',
+  date: '2020-09-01'
+}
 
-// console.log('Finish');
-
-console.log('Start');
-
-fs.readFile('./new', 'utf8', (error, data) => {
-  console.log(data);
+myEmitter.on('test', (info) => {
+  console.log(info)
+  // console.log(arg2)
+  // console.log(arg3)
 });
 
 
-console.log('Finish');
+myEmitter.emit('test', obj);
