@@ -1,19 +1,7 @@
-const EventEmitter = require('events');
+const http = require('http');
 
-const myEmitter = new EventEmitter();
-const myEmitter2 = new EventEmitter();
-
-const obj = {
-  type: 'text',
-  data: 'Hello CodeIt',
-  date: '2020-09-01'
-}
-
-myEmitter.on('test', (info) => {
-  console.log(info)
-  // console.log(arg2)
-  // console.log(arg3)
+let server = http.createServer(function (request, response) {
+  response.end('<h1>Hello world!</h1>')
 });
 
-
-myEmitter.emit('test', obj);
+server.listen(3000);
