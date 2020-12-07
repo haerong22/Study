@@ -1,0 +1,21 @@
+{
+  "name": "codeit_node_study",
+  "version": "1.0.0",
+  "description": "Basic programming on Node.js",
+  "main": "main.js",
+  "dependencies": {
+    "cowsay": "^1.4.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node.js",
+    "learn",
+    "beginner"
+  ],
+  "author": "Codeit Teacher",
+  "license": "ISC"
+}
