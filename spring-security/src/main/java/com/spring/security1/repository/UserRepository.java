@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 // JpaRepository를 상속 했기 때문에 @Repository 어노테이션이 없어도 IoC된다.
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+    // findBy규칙 ->Username 문법
+    // select * from user where username='?';
+    User findByUsername(String username);
 }
