@@ -1,6 +1,9 @@
 package com.spring.security1.config.oauth;
 
 import com.spring.security1.config.auth.PrincipalDetails;
+import com.spring.security1.config.oauth.provider.FacebookUserInfo;
+import com.spring.security1.config.oauth.provider.GoogleUserInfo;
+import com.spring.security1.config.oauth.provider.OAuth2UserInfo;
 import com.spring.security1.model.User;
 import com.spring.security1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +33,20 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         // userRequest 정보 -> loadUser함수 -> 구글로 부터 회원 프로필 받아준다.
         System.out.println("userRequest: "+ oAuth2User.getAttributes());
 
-        String provider = userRequest.getClientRegistration().getRegistrationId(); // google
-        String providerId = oAuth2User.getAttribute("sub");
+        OAuth2UserInfo oAuth2UserInfo = null;
+        if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+            System.out.println("구글 로그인 요청");
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")){
+            System.out.println("페이스북 로그인 요청");
+            oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        }
+
+        String provider = oAuth2UserInfo.getProvider();
+        String providerId = oAuth2UserInfo.getProviderId();
         String username = provider+"_"+providerId;
         String password = bCryptPasswordEncoder.encode("패스워드");
-        String email = oAuth2User.getAttribute("email");
+        String email = oAuth2UserInfo.getEmail();
         String role = "ROLE_USER";
 
         User userEntity = userRepository.findByUsername(username);
