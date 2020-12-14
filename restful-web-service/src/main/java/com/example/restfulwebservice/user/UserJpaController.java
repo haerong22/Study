@@ -78,7 +78,7 @@ public class UserJpaController {
         post.setUser(user.get());
         Post savedPost = postRepository.save(post);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI location = ServletUriComponentsBuilder. ()
                 .path("/{id}")
                 .buildAndExpand(savedPost.getId())
                 .toUri();
