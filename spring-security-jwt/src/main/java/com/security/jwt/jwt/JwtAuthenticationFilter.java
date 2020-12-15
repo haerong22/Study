@@ -1,5 +1,7 @@
 package com.security.jwt.jwt;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.jwt.auth.PrincipalDetails;
 import com.security.jwt.model.User;
@@ -15,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 // 스프링 시큐리티 에서 UsernamePasswordAuthenticationFilter는
 // /login 요청해서 username, password를 전송하면 (post) 동작한다.
@@ -73,9 +76,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     // successfulAuthentication 메소드 실행
     // JWT 토큰을 만들어서 request요청한 사용자에게 JWT토큰을 response한다.
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                    FilterChain chain, Authentication authResult) throws IOException, ServletException {
         System.out.println("인증 완료 후 successfulAuthentication 실행");
+        PrincipalDetails principalDetails= (PrincipalDetails) authResult.getPrincipal();
 
-        super.successfulAuthentication(request, response, chain, authResult);
+        // RSA방식이 아닌 HASH 방식 (secret key 필요 )
+        String jwtToken = JWT.create()
+                .withSubject("wj토큰")
+                .withExpiresAt(new Date(System.currentTimeMillis()+(60000 * 10)))
+                .withClaim("id", principalDetails.getUser().getId())
+                .withClaim("username", principalDetails.getUser().getUsername())
+                .sign(Algorithm.HMAC512("wj"));
+
+        response.addHeader("Authorization", "Bearer " + jwtToken);
     }
 }
