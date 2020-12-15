@@ -1,9 +1,9 @@
-package com.security.jwt.jwt;
+package com.security.jwt.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.security.jwt.auth.PrincipalDetails;
+import com.security.jwt.config.auth.PrincipalDetails;
 import com.security.jwt.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -84,11 +84,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // RSA방식이 아닌 HASH 방식 (secret key 필요 )
         String jwtToken = JWT.create()
                 .withSubject("wj토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis()+(60000 * 10)))
+                .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("username", principalDetails.getUser().getUsername())
-                .sign(Algorithm.HMAC512("wj"));
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
-        response.addHeader("Authorization", "Bearer " + jwtToken);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
     }
 }

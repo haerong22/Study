@@ -1,4 +1,4 @@
-package com.security.jwt.auth;
+package com.security.jwt.config.auth;
 
 import com.security.jwt.model.User;
 import lombok.Data;
