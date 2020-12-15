@@ -2,7 +2,6 @@ package com.security.jwt.config;
 
 import com.security.jwt.filter.MyFilter1;
 import com.security.jwt.filter.MyFilter2;
-import com.security.jwt.filter.MyFilter3;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +25,12 @@ public class FilterConfig {
         return bean;
     }
 
-    @Bean
-    public FilterRegistrationBean<MyFilter3> filter3() {
-        FilterRegistrationBean<MyFilter3> bean = new FilterRegistrationBean<>(new MyFilter3());
-        bean.addUrlPatterns("/*");
-        bean.setOrder(0); // 낮은 번호의 필터부터 실행 된다.
-        return bean;
-    }
+//    @Bean
+//    public FilterRegistrationBean<MyFilter3> filter3() {
+//        FilterRegistrationBean<MyFilter3> bean = new FilterRegistrationBean<>(new MyFilter3());
+//        bean.addUrlPatterns("/*");
+//        bean.setOrder(0); // 낮은 번호의 필터부터 실행 된다.
+//        return bean;
+//    }
 
 }
