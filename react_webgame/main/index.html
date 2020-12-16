@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/react@16/umd/react.development.js"></script> <!--리액트 핵심 코드-->
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script> <!-- 리액트 코드를 웹에 붙이는 역할-->
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div> <!-- 결과 : <div id="root"><button>Like</button></div> -->
+        <script type="text/babel">
+            class LikeButton extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        liked: false 
+                    };
+                }
+                
+                render() {
+                    return <button type="submit" onClick={() => { this.setState({ liked: true })}}>
+                        {this.state.liked === true ? 'Liked': 'Like'}
+                    </button>; 
+                    // JSX ( JS + XML )
+                }
+            }
+        </script>
+        <script type="text/babel">
+            ReactDOM.render(<div><LikeButton/><LikeButton/><LikeButton/><LikeButton/></div>, document.querySelector('#root'));
+        </script>
+    </body>
+</html>
