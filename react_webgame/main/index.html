@@ -43,14 +43,14 @@
 
 				render() {
 					return (
-						<div>
+						<React.Fragment>
 								<div>{this.state.first} 곱하기 {this.state.second} 는?</div>
 								<form onSubmit={this.onSubmit}>
 										<input type="number" value={this.state.value} onChange={this.onChange}/>
 										<button>입력!</button>
 								</form>
 								<div>{this.state.result}</div>
-						</div>
+						</React.Fragment>
 					);
 				}
 			}
