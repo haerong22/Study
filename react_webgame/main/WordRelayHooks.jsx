@@ -2,7 +2,7 @@ const React = require('react');
 const { useState, useRef } = React;
 
 const WordRelayHooks = () => {
-    const [word, setword] = useState('리액트!!');
+    const [word, setword] = useState('리액트');
     const [value, setvalue] = useState('');
     const [result, setresult] = useState('');
     const [words, setwords] = useState('리액트');
@@ -25,7 +25,7 @@ const WordRelayHooks = () => {
     }
 
     const onChangeInput = (e) => {
-        this.setState({ value: e.target.value })
+        setvalue(e.currentTarget.value);
     }
 
     return (
@@ -41,4 +41,4 @@ const WordRelayHooks = () => {
     )
 }
 
-module.exports = WordRelay;
+module.exports = WordRelayHooks;

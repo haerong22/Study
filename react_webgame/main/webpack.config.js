@@ -16,7 +16,7 @@ module.exports = {
 
 	module: {
 		rules: [{
-			test: /\.jsx?/, // js, jsx 파일에 babel-loader적용
+			test: /\.jsx?$/, // js, jsx 파일에 babel-loader적용
 			loader: 'babel-loader',
 			options: {
 				presets: [
@@ -43,11 +43,11 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'app.js',
-		publicPath: './dist/',
+		publicPath: '/dist/',
 	}, // 출력
 
 	devServer: {
-		publicPath: './dist/',
+		publicPath: '/dist/',
 		hot: true,
 	},
 };
