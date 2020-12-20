@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Try from './Try';
 
 // 숫자 4개를 겹치지않고 랜덤하고 뽑는 함수
 function getNumbers() {
@@ -41,9 +42,9 @@ class NumberBaseball extends Component {
                         { fruit: '포도', description: '맛있다'},
                         { fruit: '귤', description: '시다'},
                         { fruit: '수박', description: '달다'},    
-                    ].map((v) => {
+                    ].map((v, i) => {
                         return (
-                            <li key={v.fruit}><b>{v.fruit}</b> - {v.description}</li>
+                            <Try key={v.fruit} value={v} index={i} />
                         )
                     })}
 
