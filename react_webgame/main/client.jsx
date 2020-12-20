@@ -1,6 +1,6 @@
-const React = require('react');
-const ReactDom = require('react-dom');
+import React from 'react';
+import ReactDom from 'react-dom';
 
-const WordRelayHooks = require('./WordRelayHooks');
+import NumberBaseball from './NumberBaseball';
 
-ReactDom.render(<WordRelayHooks />, document.querySelector('#root'));
+ReactDom.render(<NumberBaseball />, document.querySelector('#root'));
