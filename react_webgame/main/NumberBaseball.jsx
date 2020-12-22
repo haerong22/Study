@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import Try from './Try';
 
 // 숫자 4개를 겹치지않고 랜덤하고 뽑는 함수
@@ -12,7 +12,7 @@ function getNumbers() {
     return array;
 }
 
-const NumberBaseball = () => {
+const NumberBaseball = memo(() => {
     const [result, setresult] = useState('');
     const [value, setvalue] = useState('');
     const [answer, setanswer] = useState(getNumbers());
@@ -76,5 +76,5 @@ const NumberBaseball = () => {
             </ul>
         </>
     )
-}
+});
 export default NumberBaseball; // import NumberBaseball

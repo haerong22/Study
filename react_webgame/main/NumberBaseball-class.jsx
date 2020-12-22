@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Try from './Try';
+import React, { PureComponent } from 'react';
+import Try from './Try-class';
 
 // 숫자 4개를 겹치지않고 랜덤하고 뽑는 함수
 function getNumbers() {
@@ -12,7 +12,7 @@ function getNumbers() {
     return array;
 }
 
-class NumberBaseball extends Component {
+class NumberBaseball extends PureComponent {
     state = {
         result: '',
         value: '',
