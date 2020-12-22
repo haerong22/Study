@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import Try from './Try-class';
 
 // 숫자 4개를 겹치지않고 랜덤하고 뽑는 함수
@@ -36,6 +36,7 @@ class NumberBaseball extends PureComponent {
                 answer: getNumbers(),
                 tries: [],
             });
+            this.inputRef.current.focus();
         } else { 
             const answerArray = value.split('').map((v) => parseInt(v));
             let strike = 0;
@@ -64,6 +65,7 @@ class NumberBaseball extends PureComponent {
                         value: '',
                     }                      
                 });
+                this.inputRef.current.focus();
             }
         }
     }
@@ -74,10 +76,7 @@ class NumberBaseball extends PureComponent {
         })
     }
 
-    input;
-    onRefInput = (c) => {
-        this.input = c;
-    }
+    inputRef = createRef();
 
     render() {
         const { result, value, tries } = this.state;
@@ -85,7 +84,7 @@ class NumberBaseball extends PureComponent {
             <>
                 <h1>{result}</h1>
                 <form onSubmit={this.onSubmitForm}>
-                    <input ref={this.onRefInput} maxLength={4} value={value} onChange={this.onChangeInput}/>
+                    <input autoFocus ref={this.inputRef} maxLength={4} value={value} onChange={this.onChangeInput}/>
                     <button>입력!</button>
                 </form>
                 <div>시도: {tries.length}</div>

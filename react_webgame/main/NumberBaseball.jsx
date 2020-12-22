@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, useRef, memo } from 'react';
 import Try from './Try';
 
 // 숫자 4개를 겹치지않고 랜덤하고 뽑는 함수
@@ -17,7 +17,8 @@ const NumberBaseball = memo(() => {
     const [value, setvalue] = useState('');
     const [answer, setanswer] = useState(getNumbers());
     const [tries, settries] = useState([]);
-    
+    const inputRef = useRef(null);
+
     const onSubmitForm = (e) => {
         e.preventDefault();
         if(value === answer.join('')) { // 정답
@@ -29,6 +30,7 @@ const NumberBaseball = memo(() => {
             setvalue('');
             setanswer(getNumbers());
             settries([]);
+            inputRef.current.focus();
         } else { 
             const answerArray = value.split('').map((v) => parseInt(v));
             let strike = 0;
@@ -52,6 +54,7 @@ const NumberBaseball = memo(() => {
                 })
                 setvalue('');
             }
+            inputRef.current.focus();
         }
     }
 
@@ -63,7 +66,7 @@ const NumberBaseball = memo(() => {
         <>
             <h1>{result}</h1>
             <form onSubmit={onSubmitForm}>
-                <input maxLength={4} value={value} onChange={onChangeInput}/>
+                <input ref={inputRef} maxLength={4} value={value} onChange={onChangeInput}/>
                 <button>입력!</button>
             </form>
             <div>시도: {tries.length}</div>
