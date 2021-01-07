@@ -1,0 +1,30 @@
+인터페이스
+ - 기능에 대한 선언과 구현 분리
+    Ainterface : 선언 , AinterfaceImpl : 구현
+
+ - 기능을 사용할 수 있는 통로
+    Ainterface 타입으로 AimterfaceImple 객체를 생성 및 메소드 사용
+
+델리게이트
+ - 위임하다
+    AObj 에서 funcAA를 사용하기위해 AinterfaceImpl 객체를 호출, 메소드 사용
+ - 어떤 객체가 어떤 기능을 수행할 때 그 객체 이외의 다른 객체의 기능을 사용 
+
+Strategy pattern
+ - 여러 알고리즘을 하나의 추상적인 접근점을 만들어 접근 점에서 서로 교환 가능하도록 하는 패턴
+
+요구사항
+ - 신작 게임에서 케릭터의 무기를 구현
+ - 무기 종류는 총, 검 두가지
+
+ -> Weapon interface 생성
+ -> Weapon을 상속 받는 Gun, Sword 클래스 생성
+ -> GameCharacter 클래스에서 attack 메소드를 사용하기 위해
+    Weapon 객체를 호출 하여 사용( attack 메소드 직접 구현 X )
+ -> Main 클래스에서 GameCharacter 객체를 생성하고 사용
+
+추가사항
+ - 무기 도끼 추가
+
+ -> 다른 코드들을 변경할 필요 없이
+    Weapon을 상속받은 Ax클래스만 추가하여 사용가능 해진다.
