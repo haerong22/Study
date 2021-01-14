@@ -1,0 +1,3 @@
+Composite Pattern
+ - 컨테이너와 내용물을 같게 다루기
+ - Composite 패턴을 통해서 트리구조 구현
