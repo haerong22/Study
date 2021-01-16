@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Enumeration;
 
 public class Dispatcher implements Filter {
 
@@ -50,14 +52,26 @@ public class Dispatcher implements Filter {
         for (Method method : methods) { // 메소드 갯수만큼 반복
             Annotation annotation = method.getDeclaredAnnotation(RequestMapping.class);
             RequestMapping requestMapping = (RequestMapping) annotation;
-            System.out.println(requestMapping.value());
+//            System.out.println(requestMapping.value());
 
             if(requestMapping.value().equals(endPoint)) {
                 try {
-                    String path = (String) method.invoke(userController);
+                    Parameter[] parameters = method.getParameters();
+                    String path = null;
+                    if(parameters.length != 0) {
+//                        System.out.println("parameters[0].getType() : " + parameters[0].getType());
+                        Object dtoInstance = parameters[0].getType().getConstructor().newInstance();
+//                        String username = request.getParameter("username");
+//                        String password = request.getParameter("password");
+//                        System.out.println(username + ", " + password);
+                        Enumeration<String> keys = request.getParameterNames(); // username, password
+                        // keys 값을 parameterName -> setParameterName 으로 변경
 
-                    RequestDispatcher dis = request.getRequestDispatcher(path);
-                    // 내부에서 실행하기 때문에 필터 안탐
+                        path = "/";
+                    } else {
+                        path = (String) method.invoke(userController);
+                    }
+                    RequestDispatcher dis = request.getRequestDispatcher(path); // 내부에서 실행하기 때문에 필터 안탐
                     dis.forward(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();

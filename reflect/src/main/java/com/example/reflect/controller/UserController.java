@@ -1,17 +1,19 @@
 package com.example.reflect.controller;
 
 import com.example.reflect.anno.RequestMapping;
+import com.example.reflect.controller.dto.JoinDto;
+import com.example.reflect.controller.dto.LoginDto;
 
 public class UserController {
 
-    @RequestMapping("/join")
-    public String join(){
+    @RequestMapping("/user/join")
+    public String join(JoinDto dto){
         System.out.println("join() 함수 호출");
         return "/";
     }
 
-    @RequestMapping("/login")
-    public String login(){
+    @RequestMapping("/user/login")
+    public String login(LoginDto dto){
         System.out.println("login()함수 호출");
         return "/";
     }
