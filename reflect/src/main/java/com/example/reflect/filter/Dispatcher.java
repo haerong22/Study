@@ -103,6 +103,7 @@ public class Dispatcher implements Filter {
                 if(method.getName().equals(methodKey)) {
                     try {
                         method.invoke(dtoInstance, request.getParameter(key));
+                        // request.getParameter()의 리턴값은 String 임을 주의하자
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
