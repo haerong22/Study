@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,6 +15,8 @@ import java.lang.reflect.Parameter;
 import java.util.Enumeration;
 
 public class Dispatcher implements Filter {
+
+    private boolean isMatching = false;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
@@ -55,6 +58,7 @@ public class Dispatcher implements Filter {
 //            System.out.println(requestMapping.value());
 
             if(requestMapping.value().equals(endPoint)) {
+                isMatching = true;
                 try {
                     Parameter[] parameters = method.getParameters();
                     String path = null;
@@ -64,10 +68,10 @@ public class Dispatcher implements Filter {
 //                        String username = request.getParameter("username");
 //                        String password = request.getParameter("password");
 //                        System.out.println(username + ", " + password);
-                        Enumeration<String> keys = request.getParameterNames(); // username, password
-                        // keys 값을 parameterName -> setParameterName 으로 변경
 
-                        path = "/";
+                        // keys 값을 parameterName -> setParameterName 으로 변경
+                        setData(dtoInstance, request);
+                        path = (String) method.invoke(userController, dtoInstance);
                     } else {
                         path = (String) method.invoke(userController);
                     }
@@ -80,5 +84,39 @@ public class Dispatcher implements Filter {
                 }
             }
         }
+        if(!isMatching) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("잘못된 주소 요청입니다. 404 에러");
+            out.flush();
+        }
+    }
+
+    private <T> void setData(T dtoInstance, HttpServletRequest request) {
+        Enumeration<String> keys = request.getParameterNames();
+        while(keys.hasMoreElements()) {
+            String key = (String) keys.nextElement();
+            String methodKey = keyToMethodKey(key);
+
+            Method[] methods = dtoInstance.getClass().getDeclaredMethods();
+            for (Method method : methods) {
+                if(method.getName().equals(methodKey)) {
+                    try {
+                        method.invoke(dtoInstance, request.getParameter(key));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private String keyToMethodKey(String key) {
+        String firstKey = "set";
+        String upperKey = key.substring(0,1).toUpperCase();
+        String remainKey  = key.substring(1);
+        return firstKey + upperKey + remainKey;
     }
 }

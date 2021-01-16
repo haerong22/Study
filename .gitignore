@@ -26,6 +26,10 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+# Compliled files
+/target/
+**/target
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

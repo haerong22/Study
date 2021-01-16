@@ -9,12 +9,14 @@ public class UserController {
     @RequestMapping("/user/join")
     public String join(JoinDto dto){
         System.out.println("join() 함수 호출");
+        System.out.println(dto);
         return "/";
     }
 
     @RequestMapping("/user/login")
     public String login(LoginDto dto){
         System.out.println("login()함수 호출");
+        System.out.println(dto);
         return "/";
     }
 
