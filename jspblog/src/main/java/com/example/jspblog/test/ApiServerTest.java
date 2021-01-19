@@ -15,6 +15,7 @@ public class ApiServerTest extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
+        // mime 타입 받아오기
         String mime = request.getContentType();
         System.out.println(mime);
 
