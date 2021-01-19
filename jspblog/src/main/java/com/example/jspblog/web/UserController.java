@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "user")
+@WebServlet("/user")
 public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
@@ -47,7 +47,12 @@ public class UserController extends HttpServlet {
             dto.setPassword(password);
             dto.setEmail(email);
             dto.setAddress(address);
-            userService.회원가입(dto);
+            int result = userService.회원가입(dto);
+            if (result == 1) {
+                response.sendRedirect("index.jsp");
+            } else {
+                
+            }
         }
     }
 }
