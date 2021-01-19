@@ -3,6 +3,7 @@ package com.example.jspblog.web;
 import com.example.jspblog.domain.user.dto.JoinReqDto;
 import com.example.jspblog.domain.user.dto.LoginReqDto;
 import com.example.jspblog.service.UserService;
+import com.example.jspblog.util.Script;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,7 +52,7 @@ public class UserController extends HttpServlet {
             if (result == 1) {
                 response.sendRedirect("index.jsp");
             } else {
-
+                Script.back(response, "회원가입실패");
             }
         }
     }
