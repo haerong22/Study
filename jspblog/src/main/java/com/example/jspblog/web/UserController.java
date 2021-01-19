@@ -51,7 +51,7 @@ public class UserController extends HttpServlet {
             if (result == 1) {
                 response.sendRedirect("index.jsp");
             } else {
-                
+
             }
         }
     }
