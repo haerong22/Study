@@ -1,0 +1,30 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <button onclick="getAjax()">클릭</button>
+
+<script>
+    function getAjax() {
+        $.ajax({
+            type: "GET", // 요청 메소드
+            url: "http://localhost:8080/jspblog/ajax1?username=kim&password=1234", // 전송할 url
+            // get은 data, contentType 필요 X
+            dataType: "text" // 응답의 data type
+        })
+        .done(function (result){
+
+        })
+        .fail(function (error) {
+
+        });
+    }
+</script>
+</body>
+</html>
