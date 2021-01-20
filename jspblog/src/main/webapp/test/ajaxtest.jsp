@@ -12,7 +12,6 @@
         // const xhttp = new XMLHttpRequest();
         // xhttp.onreadystatechange = function() {
         //     if (this.readyState === 4 && this.status === 200) {
-        //         // document.getElementById("demo").innerHTML = this.responseText;
         //         const box = document.querySelector("#box");
         //         if (this.responseText === 'OK'){
         //             box.innerHTML = "아이디 중복"
@@ -28,7 +27,10 @@
         //     alert(data);
         // })
 
-        fetch("http://localhost:8080/jspblog/ajax").then(v => v.text()).then(v => alert(v));
+        fetch("http://localhost:8080/jspblog/ajax").then(v => v.text()).then(v => {
+            const box = document.querySelector("#box");
+            box.innerHTML = v === 'OK' ? "아이디 중복" : "아이디 사용 가능";
+        });
     }
 </script>
 </body>

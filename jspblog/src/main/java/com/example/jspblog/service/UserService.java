@@ -1,14 +1,10 @@
 package com.example.jspblog.service;
 
-import com.example.jspblog.config.DB;
 import com.example.jspblog.domain.user.User;
 import com.example.jspblog.domain.user.UserDao;
 import com.example.jspblog.domain.user.dto.JoinReqDto;
 import com.example.jspblog.domain.user.dto.LoginReqDto;
 import com.example.jspblog.domain.user.dto.UpdateReqDto;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
 public class UserService {
     private final UserDao userDao;
@@ -18,8 +14,7 @@ public class UserService {
     }
 
     public int 회원가입(JoinReqDto dto) {
-        int result = userDao.save(dto);
-        return result;
+        return userDao.save(dto);
     }
 
     public User 로그인(LoginReqDto dto) {
@@ -30,7 +25,7 @@ public class UserService {
         return -1;
     }
 
-    public int 아이디중복체크(String username) {
-        return -1;
+    public int 유저네임중복체크(String username) {
+        return userDao.findByUsername(username);
     }
 }

@@ -5,6 +5,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DB {
 
@@ -24,6 +25,16 @@ public class DB {
 
     public static void close(Connection conn, PreparedStatement pstmt) {
         try {
+            if (pstmt != null) pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
             if (pstmt != null) pstmt.close();
             conn.close();
         } catch (Exception e) {
