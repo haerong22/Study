@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +15,40 @@
 <body>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">블로그</a>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">블로그</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/user?cmd=joinForm">회원가입</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/user?cmd=loginForm">로그인</a>
-            </li>
-        </ul>
-    </div>
+
+    <c:choose>
+        <c:when test="${sessionScope.principal != null}">
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/board?cmd=writeForm">글쓰기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user?cmd=updateForm">회원정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user?cmd=logout">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user?cmd=joinForm">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user?cmd=loginForm">로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </nav>
 <br>
 

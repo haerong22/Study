@@ -1,5 +1,6 @@
 package com.example.jspblog.web;
 
+import com.example.jspblog.domain.user.User;
 import com.example.jspblog.domain.user.dto.JoinReqDto;
 import com.example.jspblog.domain.user.dto.LoginReqDto;
 import com.example.jspblog.service.UserService;
@@ -29,42 +30,61 @@ public class UserController extends HttpServlet {
         String cmd = request.getParameter("cmd");
         UserService userService = new UserService();
 
-        if(cmd.equals("loginForm")) {
-            response.sendRedirect("user/loginForm.jsp");
-        } else if (cmd.equals("login")) {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            LoginReqDto dto = new LoginReqDto();
-            dto.setUsername(username);
-            dto.setPassword(password);
-            userService.로그인(dto);
-        } else if (cmd.equals("joinForm")) {
-            response.sendRedirect("user/joinForm.jsp");
-        } else if (cmd.equals("join")) {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
-            JoinReqDto dto = new JoinReqDto();
-            dto.setUsername(username);
-            dto.setPassword(password);
-            dto.setEmail(email);
-            dto.setAddress(address);
-            int result = userService.회원가입(dto);
-            if (result == 1) {
-                response.sendRedirect("index.jsp");
-            } else {
-                Script.back(response, "회원가입실패");
+        switch (cmd) {
+            case "loginForm":
+                response.sendRedirect("user/loginForm.jsp");
+                break;
+            case "login": {
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                LoginReqDto dto = new LoginReqDto();
+                dto.setUsername(username);
+                dto.setPassword(password);
+                User userEntity = userService.로그인(dto);
+                if (userEntity != null) {
+                    request.getSession().setAttribute("principal", userEntity);
+                    response.sendRedirect("index.jsp");
+                } else {
+                    Script.back(response, "로그인 실패");
+                }
+                break;
             }
-        } else if (cmd.equals("usernameCheck")) {
-            BufferedReader br = request.getReader();
-            String username = br.readLine();
-            int result = userService.유저네임중복체크(username);
-            PrintWriter out = response.getWriter();
-            if (result == 1) {
-                out.print("ok");
-            } else {
-                out.print("fail");
+            case "joinForm":
+                response.sendRedirect("user/joinForm.jsp");
+                break;
+            case "join": {
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String email = request.getParameter("email");
+                String address = request.getParameter("address");
+                JoinReqDto dto = new JoinReqDto();
+                dto.setUsername(username);
+                dto.setPassword(password);
+                dto.setEmail(email);
+                dto.setAddress(address);
+                int result = userService.회원가입(dto);
+                if (result == 1) {
+                    response.sendRedirect("index.jsp");
+                } else {
+                    Script.back(response, "회원가입실패");
+                }
+                break;
+            }
+            case "usernameCheck": {
+                BufferedReader br = request.getReader();
+                String username = br.readLine();
+                int result = userService.유저네임중복체크(username);
+                PrintWriter out = response.getWriter();
+                if (result == 1) {
+                    out.print("ok");
+                } else {
+                    out.print("fail");
+                }
+                break;
+            }
+            case "logout": {
+                request.getSession().invalidate();
+                response.sendRedirect("index.jsp");
             }
         }
     }

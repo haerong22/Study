@@ -2,6 +2,7 @@ package com.example.jspblog.domain.user;
 
 import com.example.jspblog.config.DB;
 import com.example.jspblog.domain.user.dto.JoinReqDto;
+import com.example.jspblog.domain.user.dto.LoginReqDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,10 +37,6 @@ public class UserDao {
 
     }
 
-    public void usernameCheck() { // 아이디 중복 체크
-
-    }
-
     public void findById() { // 회원정보보기
 
     }
@@ -65,5 +62,36 @@ public class UserDao {
             }
         }
         return -1;
+    }
+
+    public User findByUsernameAndPassword(LoginReqDto dto) {
+        String sql = "select id, username, email, address from user where username=? and password=?";
+
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, dto.getUsername());
+                pstmt.setString(2, dto.getPassword());
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return User.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .email(rs.getString("email"))
+                            .address(rs.getString("address"))
+                            .build();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt, rs);
+            }
+        }
+
+        return null;
     }
 }
