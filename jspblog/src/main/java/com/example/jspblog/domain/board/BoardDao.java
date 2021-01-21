@@ -66,4 +66,25 @@ public class BoardDao {
         }
         return null;
     }
+
+    public int count() {
+        String sql = "select count(*) from board";
+
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                rs = pstmt.executeQuery();
+                if (rs.next()) return rs.getInt(1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt, rs);
+            }
+        }
+        return -1;
+    }
 }
