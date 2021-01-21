@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +18,5 @@ public class Board {
     private String title;
     private String content;
     private int readCount;
-    private LocalDateTime createDate;
+    private Timestamp createDate;
 }

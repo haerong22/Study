@@ -1,5 +1,6 @@
 package com.example.jspblog.web;
 
+import com.example.jspblog.domain.board.Board;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 import com.example.jspblog.domain.user.User;
 import com.example.jspblog.service.BoardService;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
@@ -32,7 +34,7 @@ public class BoardController extends HttpServlet {
         switch (cmd) {
             case "writeForm": {
                 if (principal != null) {
-                    response.sendRedirect("board/writeForm.jsp");
+                    request.getRequestDispatcher("board/writeForm.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("user/loginForm.jsp");
                 }
@@ -56,6 +58,10 @@ public class BoardController extends HttpServlet {
                 }
                 break;
             }
+            case "list" :
+                List<Board> boards = boardService.글목록보기();
+                request.setAttribute("boards", boards);
+                request.getRequestDispatcher("board/list.jsp").forward(request, response);
         }
     }
 }
