@@ -118,4 +118,24 @@ public class BoardDao {
         }
         return null;
     }
+
+    public int updateReadCount(int id) {
+        String sql = "update board set readCount=readCount+1 where id =?";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                int result = pstmt.executeUpdate();
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt);
+            }
+        }
+        return -1;
+    }
 }

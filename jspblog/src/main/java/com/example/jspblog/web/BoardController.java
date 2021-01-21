@@ -73,8 +73,13 @@ public class BoardController extends HttpServlet {
             case "detail" : {
                 int id = Integer.parseInt(request.getParameter("id"));
                 DetailResDto dto = boardService.글상세보기(id);
-                request.setAttribute("detail", dto);
-                request.getRequestDispatcher("board/detail.jsp").forward(request, response);
+                if (dto == null) {
+                    Script.back(response, "상세보기에 실패하였습니다.");
+                } else {
+                    request.setAttribute("detail", dto);
+                    request.getRequestDispatcher("board/detail.jsp").forward(request, response);
+                }
+
             }
         }
     }

@@ -28,6 +28,7 @@ public class BoardService {
     }
 
     public DetailResDto 글상세보기(int id) {
-        return boardDao.findById(id);
+        int result = boardDao.updateReadCount(id);
+        return result == 1 ? boardDao.findById(id) : null;
     }
 }
