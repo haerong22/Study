@@ -34,8 +34,8 @@ public class BoardDao {
         return -1;
     }
 
-    public List<Board> findAll() {
-        String sql = "select * from board order by id desc";
+    public List<Board> findAll(int page) {
+        String sql = "select * from board order by id desc limit ?, 4";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -44,6 +44,7 @@ public class BoardDao {
         if (conn != null) {
             try {
                 pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, page * 4);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Board board = Board.builder()

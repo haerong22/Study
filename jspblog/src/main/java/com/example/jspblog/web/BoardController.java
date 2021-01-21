@@ -59,7 +59,8 @@ public class BoardController extends HttpServlet {
                 break;
             }
             case "list" :
-                List<Board> boards = boardService.글목록보기();
+                int page = Integer.parseInt(request.getParameter("page"));
+                List<Board> boards = boardService.글목록보기(page);
                 request.setAttribute("boards", boards);
                 request.getRequestDispatcher("board/list.jsp").forward(request, response);
         }
