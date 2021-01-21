@@ -20,7 +20,7 @@ public class Board {
     private int readCount;
     private Timestamp createDate;
 
-    public String getTitle() {
-        return title.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-    }
+//    public String getTitle() {
+//        return title.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+//    }
 }

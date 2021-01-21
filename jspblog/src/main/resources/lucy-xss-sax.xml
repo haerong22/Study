@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.nhncorp.com/lucy-xss"    >
+    <elementRule>
+        <element name="p"/>
+        <element name="a" />
+        <element name="abbr"/>
+        <element name="acronym"/>
+        <element name="adress"/>
+        <element name="applet"/>
+        <element name="area"/>
+        <element name="b"/>
+        <element name="base"/>
+        <element name="basefont"/>
+        <element name="bdo"/>
+        <element name="big"/>
+        <element name="blockquote"/>
+        <element name="body"/>
+        <element name="br"/>
+        <element name="button"/>
+        <element name="caption"/>
+        <element name="center"/>
+        <element name="cite"/>
+        <element name="code"/>
+        <element name="col"/>
+        <element name="colgroup"/>
+        <element name="dd"/>
+        <element name="del"/>
+        <element name="dfn"/>
+        <element name="dir"/>
+        <element name="div"/>
+        <element name="dl"/>
+        <element name="dt"/>
+        <element name="em"/>
+        <element name="embed"/>
+        <element name="fieldset"/>
+        <element name="font"/>
+        <element name="form"/>
+        <element name="frame"/>
+        <element name="frameset"/>
+        <element name="h1"/>
+        <element name="h2"/>
+        <element name="h3"/>
+        <element name="h4"/>
+        <element name="h5"/>
+        <element name="h6"/>
+        <element name="head"/>
+        <element name="hr"/>
+        <element name="html"/>
+        <element name="i"/>
+        <element name="iframe"/>
+        <element name="img"/>
+        <element name="input"/>
+        <element name="ins"/>
+        <element name="isindex"/>
+        <element name="kbd"/>
+        <element name="label"/>
+        <element name="legend"/>
+        <element name="li"/>
+        <element name="link"/>
+        <element name="map"/>
+        <element name="marquee"/>
+        <element name="menu"/>
+        <element name="meta"/>
+        <element name="nobr"/>
+        <element name="noframes"/>
+        <element name="noscript"/>
+        <element name="object"/>
+        <element name="ol"/>
+        <element name="optgroup"/>
+        <element name="option"/>
+        <element name="p"/>
+        <element name="param"/>
+        <element name="pre"/>
+        <element name="q"/>
+        <element name="rt"/>
+        <element name="ruby"/>
+        <element name="s"/>
+        <element name="samp"/>
+        <!-- <element name="script"/> -->
+        <element name="select"/>
+        <element name="small"/>
+        <element name="span"/>
+        <element name="strike"/>
+        <element name="strong"/>
+        <element name="style"/>
+        <element name="sub"/>
+        <element name="sup"/>
+        <element name="table"/>
+        <element name="tbody"/>
+        <element name="td"/>
+        <element name="textarea"/>
+        <element name="tfoot"/>
+        <element name="th"/>
+        <element name="thead"/>
+        <element name="title"/>
+        <element name="tr"/>
+        <element name="tt"/>
+        <element name="u"/>
+        <element name="ul"/>
+        <element name="var"/>
+        <element name="wbr"/>
+        <element name="xml"/>
+        <element name="xmp"/>
+
+        <!-- HTML5 added at 2012.04.10 Start-->
+        <element name="article"/>
+        <element name="aside"/>
+        <element name="audio"/>
+        <element name="bdi"/>
+        <element name="canvas"/>
+        <element name="command"/>
+        <element name="datalist"/>
+        <element name="details"/>
+        <element name="figcaption"/>
+        <element name="figure"/>
+        <element name="footer"/>
+        <element name="header"/>
+        <element name="hgroup"/>
+        <element name="keygen"/>
+        <element name="mark"/>
+        <element name="meter"/>
+        <element name="nav"/>
+        <element name="output"/>
+        <element name="progress"/>
+        <element name="rp"/>
+        <element name="section"/>
+        <element name="source"/>
+        <element name="summary"/>
+        <element name="time"/>
+        <element name="track"/>
+        <element name="video"/>
+        <!-- HTML5 added at 2012.04.10 End-->
+
+        <!-- IE핵 처리를 위해 추가-->
+        <element name="IEHackExtension" disable="ture" >
+        </element>
+    </elementRule>
+
+    <attributeRule>
+        <attribute name="src">
+            <allowedPattern><![CDATA[['"]?\s*http://.*]]></allowedPattern>
+        </attribute>
+        <attribute name="href">
+            <notAllowedPattern><![CDATA[(?i:script)]]></notAllowedPattern>
+            <notAllowedPattern><![CDATA[(?i:\.css)]]></notAllowedPattern>
+        </attribute>
+        <attribute name="style" disable="false" exceptionTagList="a"/> <!-- 2013.12.24 수정 : A 태그는 style 속성에 의한 우회 공격 이슈로 style 속성을 배제힌다. -->
+    </attributeRule>
+</config>
