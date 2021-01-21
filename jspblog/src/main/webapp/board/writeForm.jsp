@@ -3,7 +3,8 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
-    <form action="#" method="POST">
+    <form action="${pageContext.request.contextPath}/board?cmd=write" method="POST">
+        <input type="hidden" name="userId" value="${sessionScope.principal.id}">
 
         <div class="form-group">
             <label for="title">Title:</label>
@@ -11,7 +12,7 @@
         </div>
 
         <div class="form-group">
-            <label for="content">Content:</label>
+            <label for="summernote">Content:</label>
             <textarea class="form-control" rows="5" id="summernote" name="content"></textarea>
         </div>
 
