@@ -1,6 +1,7 @@
 package com.example.jspblog.web;
 
 import com.example.jspblog.domain.board.Board;
+import com.example.jspblog.domain.board.dto.DetailResDto;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 import com.example.jspblog.domain.user.User;
 import com.example.jspblog.service.BoardService;
@@ -58,16 +59,23 @@ public class BoardController extends HttpServlet {
                 }
                 break;
             }
-            case "list" :
+            case "list" : {
                 int page = Integer.parseInt(request.getParameter("page"));
                 List<Board> boards = boardService.글목록보기(page);
                 int boardCount = boardService.글개수();
                 int lastPage = (boardCount - 1) / 4;
-                double currentPosition = (double)page/lastPage*100;
+                double currentPosition = (double) page / lastPage * 100;
                 request.setAttribute("boards", boards);
                 request.setAttribute("lastPage", lastPage);
                 request.setAttribute("currentPosition", currentPosition);
                 request.getRequestDispatcher("board/list.jsp").forward(request, response);
+            }
+            case "detail" : {
+                int id = Integer.parseInt(request.getParameter("id"));
+                DetailResDto dto = boardService.글상세보기(id);
+                request.setAttribute("detail", dto);
+                request.getRequestDispatcher("board/detail.jsp").forward(request, response);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.jspblog.domain.board;
 
 import com.example.jspblog.config.DB;
+import com.example.jspblog.domain.board.dto.DetailResDto;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 
 import java.sql.Connection;
@@ -86,5 +87,35 @@ public class BoardDao {
             }
         }
         return -1;
+    }
+
+    public DetailResDto findById(int id) {
+        String sql = "select b.*, u.username from board b left outer join user u on b.userId = u.id where b.id = ?";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    DetailResDto dto = DetailResDto.builder()
+                            .id(rs.getInt("b.id"))
+                            .title(rs.getString("b.title"))
+                            .content(rs.getString("b.content"))
+                            .readCount(rs.getInt("b.readCount"))
+                            .username(rs.getString("u.username"))
+                            .build();
+                    return dto;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt, rs);
+            }
+        }
+        return null;
     }
 }

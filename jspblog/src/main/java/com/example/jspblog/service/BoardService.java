@@ -2,6 +2,7 @@ package com.example.jspblog.service;
 
 import com.example.jspblog.domain.board.Board;
 import com.example.jspblog.domain.board.BoardDao;
+import com.example.jspblog.domain.board.dto.DetailResDto;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 
 import java.util.List;
@@ -24,5 +25,9 @@ public class BoardService {
 
     public int 글개수() {
         return boardDao.count();
+    }
+
+    public DetailResDto 글상세보기(int id) {
+        return boardDao.findById(id);
     }
 }
