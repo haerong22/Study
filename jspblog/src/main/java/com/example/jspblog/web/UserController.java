@@ -32,7 +32,7 @@ public class UserController extends HttpServlet {
 
         switch (cmd) {
             case "loginForm":
-                response.sendRedirect("user/loginForm.jsp");
+                request.getRequestDispatcher("user/loginForm.jsp").forward(request, response);
                 break;
             case "login": {
                 String username = request.getParameter("username");
@@ -50,7 +50,7 @@ public class UserController extends HttpServlet {
                 break;
             }
             case "joinForm":
-                response.sendRedirect("user/joinForm.jsp");
+                request.getRequestDispatcher("user/joinForm.jsp").forward(request, response);
                 break;
             case "join": {
                 String username = request.getParameter("username");
