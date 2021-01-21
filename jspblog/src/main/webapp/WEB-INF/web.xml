@@ -25,6 +25,7 @@
         <filter-name>charConfig</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <filter-mapping>
         <filter-name>forbiddenUrlConfig</filter-name>
         <url-pattern>*.jsp</url-pattern>

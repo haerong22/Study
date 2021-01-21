@@ -19,4 +19,8 @@ public class Board {
     private String content;
     private int readCount;
     private Timestamp createDate;
+
+    public String getTitle() {
+        return title.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    }
 }
