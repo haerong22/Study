@@ -2,6 +2,7 @@ package com.example.jspblog.domain.board;
 
 import com.example.jspblog.config.DB;
 import com.example.jspblog.domain.board.dto.DetailResDto;
+import com.example.jspblog.domain.board.dto.UpdateReqDto;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 
 import java.sql.Connection;
@@ -149,6 +150,28 @@ public class BoardDao {
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1, id);
+                int result = pstmt.executeUpdate();
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt);
+            }
+        }
+        return -1;
+    }
+
+    public int update(UpdateReqDto dto) {
+        String sql = "update board set title=?, content=? where id =?";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, dto.getTitle());
+                pstmt.setString(2, dto.getContent());
+                pstmt.setInt(3, dto.getId());
                 int result = pstmt.executeUpdate();
                 return result;
             } catch (Exception e) {

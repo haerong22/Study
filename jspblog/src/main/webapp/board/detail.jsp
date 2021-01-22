@@ -4,6 +4,7 @@
 
 <div class="container">
     <c:if test="${sessionScope.principal.id == detail.userId}">
+        <a href="${pageContext.request.contextPath}/board?cmd=updateForm&id=${detail.id}" class="btn btn-warning">수정</a>
         <button onclick="deleteById(${detail.id})" class="btn btn-danger">삭제</button>
     </c:if>
 

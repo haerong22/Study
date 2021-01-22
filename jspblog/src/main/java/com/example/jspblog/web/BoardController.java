@@ -1,10 +1,7 @@
 package com.example.jspblog.web;
 
 import com.example.jspblog.domain.board.Board;
-import com.example.jspblog.domain.board.dto.DeleteReqDto;
-import com.example.jspblog.domain.board.dto.DeleteResDto;
-import com.example.jspblog.domain.board.dto.DetailResDto;
-import com.example.jspblog.domain.board.dto.WriteReqDto;
+import com.example.jspblog.domain.board.dto.*;
 import com.example.jspblog.domain.user.User;
 import com.example.jspblog.service.BoardService;
 import com.example.jspblog.service.UserService;
@@ -74,6 +71,7 @@ public class BoardController extends HttpServlet {
                 request.setAttribute("lastPage", lastPage);
                 request.setAttribute("currentPosition", currentPosition);
                 request.getRequestDispatcher("board/list.jsp").forward(request, response);
+                break;
             }
             case "detail" : {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -84,6 +82,7 @@ public class BoardController extends HttpServlet {
                     request.setAttribute("detail", dto);
                     request.getRequestDispatcher("board/detail.jsp").forward(request, response);
                 }
+                break;
             }
             case "delete" : {
                 BufferedReader br = request.getReader();
@@ -102,6 +101,32 @@ public class BoardController extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.print(resData);
                 out.flush();
+                break;
+            }
+            case "updateForm" : {
+                int id = Integer.parseInt(request.getParameter("id"));
+                DetailResDto dto = boardService.글상세보기(id);
+                request.setAttribute("detail", dto);
+                request.getRequestDispatcher("board/updateForm.jsp").forward(request, response);
+                break;
+            }
+            case "update" : {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String title = request.getParameter("title");
+                String content = request.getParameter("content");
+
+                UpdateReqDto dto = UpdateReqDto.builder()
+                        .id(id)
+                        .title(title)
+                        .content(content)
+                        .build();
+
+                int result = boardService.글수정(dto);
+                if (result == 1) {
+                    response.sendRedirect("/jspblog/board?cmd=detail&id=" + id);
+                } else {
+                    Script.back(response, "글 수정 실패");
+                }
             }
         }
     }

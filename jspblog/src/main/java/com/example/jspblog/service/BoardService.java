@@ -3,6 +3,7 @@ package com.example.jspblog.service;
 import com.example.jspblog.domain.board.Board;
 import com.example.jspblog.domain.board.BoardDao;
 import com.example.jspblog.domain.board.dto.DetailResDto;
+import com.example.jspblog.domain.board.dto.UpdateReqDto;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 
 import java.util.List;
@@ -34,5 +35,9 @@ public class BoardService {
 
     public int 글삭제(int id) {
         return boardDao.deleteById(id);
+    }
+
+    public int 글수정(UpdateReqDto dto) {
+        return boardDao.update(dto);
     }
 }
