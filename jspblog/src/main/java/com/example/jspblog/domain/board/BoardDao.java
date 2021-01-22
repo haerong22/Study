@@ -107,6 +107,7 @@ public class BoardDao {
                             .content(rs.getString("b.content"))
                             .readCount(rs.getInt("b.readCount"))
                             .username(rs.getString("u.username"))
+                            .userId(rs.getInt("b.userId"))
                             .build();
                     return dto;
                 }
@@ -121,6 +122,26 @@ public class BoardDao {
 
     public int updateReadCount(int id) {
         String sql = "update board set readCount=readCount+1 where id =?";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                int result = pstmt.executeUpdate();
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt);
+            }
+        }
+        return -1;
+    }
+
+    public int deleteById(int id) {
+        String sql = "delete from board where id=?";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
 

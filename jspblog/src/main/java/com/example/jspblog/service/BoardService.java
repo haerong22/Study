@@ -31,4 +31,8 @@ public class BoardService {
         int result = boardDao.updateReadCount(id);
         return result == 1 ? boardDao.findById(id) : null;
     }
+
+    public int 글삭제(int id) {
+        return boardDao.deleteById(id);
+    }
 }

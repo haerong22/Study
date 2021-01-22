@@ -11,6 +11,7 @@ public class DetailResDto {
     private String content;
     private int readCount;
     private String username;
+    private int userId;
 
 //    public String getContent() {
 //        return content.replaceAll("&lt;", "<").replaceAll("&gt;", ">");

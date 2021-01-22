@@ -1,12 +1,15 @@
 package com.example.jspblog.web;
 
 import com.example.jspblog.domain.board.Board;
+import com.example.jspblog.domain.board.dto.DeleteReqDto;
+import com.example.jspblog.domain.board.dto.DeleteResDto;
 import com.example.jspblog.domain.board.dto.DetailResDto;
 import com.example.jspblog.domain.board.dto.WriteReqDto;
 import com.example.jspblog.domain.user.User;
 import com.example.jspblog.service.BoardService;
 import com.example.jspblog.service.UserService;
 import com.example.jspblog.util.Script;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/board")
@@ -79,7 +84,24 @@ public class BoardController extends HttpServlet {
                     request.setAttribute("detail", dto);
                     request.getRequestDispatcher("board/detail.jsp").forward(request, response);
                 }
+            }
+            case "delete" : {
+                BufferedReader br = request.getReader();
+                String data = br.readLine();
+                Gson gson = new Gson();
+                DeleteReqDto dto = gson.fromJson(data, DeleteReqDto.class);
 
+                int result = boardService.글삭제(dto.getBoardId());
+                DeleteResDto resDto = new DeleteResDto();
+                if (result == 1) {
+                    resDto.setStatus("ok");
+                } else {
+                    resDto.setStatus("fail");
+                }
+                String resData = gson.toJson(resDto);
+                PrintWriter out = response.getWriter();
+                out.print(resData);
+                out.flush();
             }
         }
     }

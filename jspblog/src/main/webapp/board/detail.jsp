@@ -3,6 +3,10 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
+    <c:if test="${sessionScope.principal.id == detail.userId}">
+        <button onclick="deleteById(${detail.id})" class="btn btn-danger">삭제</button>
+    </c:if>
+
     <br />
     <br />
     <h6 class="m-2">
@@ -66,6 +70,27 @@
     $(document).ready(function () {
         $('#content').append(content[0].data)
     })
+</script>
+<script>
+    function deleteById(boardId) {
+        const data = {
+            boardId : boardId
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/jspblog/board?cmd=delete",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function(result){
+            if (result.status === 'ok') {
+                location.href = "index.jsp";
+            } else {
+                alert("삭제 실패");
+            }
+        });
+    }
 </script>
 </body>
 </html>
