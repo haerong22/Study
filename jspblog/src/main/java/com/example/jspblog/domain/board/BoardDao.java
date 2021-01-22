@@ -90,6 +90,28 @@ public class BoardDao {
         return -1;
     }
 
+    public int count(String keword) {
+        String sql = "select count(*) from board where title like ?";
+
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, "%" + keword + "%");
+                rs = pstmt.executeQuery();
+                if (rs.next()) return rs.getInt(1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt, rs);
+            }
+        }
+        return -1;
+    }
+
     public DetailResDto findById(int id) {
         String sql = "select b.*, u.username from board b left outer join user u on b.userId = u.id where b.id = ?";
         Connection conn = DB.getConnection();
@@ -181,5 +203,39 @@ public class BoardDao {
             }
         }
         return -1;
+    }
+
+    public List<Board> findByKeyword(String keyword, int page) {
+        String sql = "select * from board where title like ? order by id desc limit ?, 4";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Board> boards = new ArrayList<>();
+
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, "%" + keyword + "%");
+                pstmt.setInt(2, page * 4);
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    Board board = Board.builder()
+                            .id(rs.getInt("id"))
+                            .title(rs.getString("title"))
+                            .content(rs.getString("content"))
+                            .readCount(rs.getInt("readCount"))
+                            .userId(rs.getInt("userId"))
+                            .createDate(rs.getTimestamp("createDate"))
+                            .build();
+                    boards.add(board);
+                }
+                return boards;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt, rs);
+            }
+        }
+        return null;
     }
 }
