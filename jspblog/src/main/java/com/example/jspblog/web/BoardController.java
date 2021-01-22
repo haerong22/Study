@@ -2,8 +2,10 @@ package com.example.jspblog.web;
 
 import com.example.jspblog.domain.board.Board;
 import com.example.jspblog.domain.board.dto.*;
+import com.example.jspblog.domain.reply.Reply;
 import com.example.jspblog.domain.user.User;
 import com.example.jspblog.service.BoardService;
+import com.example.jspblog.service.ReplyService;
 import com.example.jspblog.service.UserService;
 import com.example.jspblog.util.Script;
 import com.google.gson.Gson;
@@ -32,6 +34,7 @@ public class BoardController extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cmd = request.getParameter("cmd");
         BoardService boardService = new BoardService();
+        ReplyService replyService = new ReplyService();
         HttpSession session = request.getSession();
         User principal = (User) session.getAttribute("principal");
         switch (cmd) {
@@ -76,10 +79,13 @@ public class BoardController extends HttpServlet {
             case "detail" : {
                 int id = Integer.parseInt(request.getParameter("id"));
                 DetailResDto dto = boardService.글상세보기(id);
+                List<Reply> replies = replyService.댓글목록보기(id);
+
                 if (dto == null) {
                     Script.back(response, "상세보기에 실패하였습니다.");
                 } else {
                     request.setAttribute("detail", dto);
+                    request.setAttribute("replies", replies);
                     request.getRequestDispatcher("board/detail.jsp").forward(request, response);
                 }
                 break;

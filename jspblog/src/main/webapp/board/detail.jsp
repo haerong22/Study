@@ -40,6 +40,17 @@
                         <!-- 댓글 리스트 시작-->
                         <ul id="reply__list" class="media-list">
                             <!-- 댓글 아이템 -->
+                            <c:forEach var="reply" items="${replies}">
+                                <li id="reply-${reply.id}" class="media">
+                                    <img src="/jspblog/images/profile.jpg" class="img-circle" style="width: 50px; height: 50px;" alt="profile-image"/>
+                                    <div class="media-body">
+                                        <strong class="text-primary">${reply.userId}</strong>
+                                        <p>${reply.content}</p></div>
+                                    <div class="m-2">
+                                        <i onClick="deleteReply(${reply.id})" class="material-icons">delete</i>
+                                    </div>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <!-- 댓글 리스트 끝-->
                     </div>

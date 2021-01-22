@@ -1,13 +1,14 @@
 package com.example.jspblog.domain.reply;
 
 import com.example.jspblog.config.DB;
-import com.example.jspblog.domain.board.dto.DetailResDto;
 import com.example.jspblog.domain.reply.dto.SaveReqDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReplyDao {
     public int save(SaveReqDto dto) {
@@ -58,6 +59,36 @@ public class ReplyDao {
                             .build();
                     return reply;
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt, rs);
+            }
+        }
+        return null;
+    }
+
+    public List<Reply> findAll(int boardId) {
+        String sql = "select * from reply where boardId= order by desc";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Reply> replies = new ArrayList<>();
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, boardId);
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    Reply reply = Reply.builder()
+                            .id(rs.getInt("id"))
+                            .userId(rs.getInt("userId"))
+                            .boardId(rs.getInt("boardId"))
+                            .content(rs.getString("content"))
+                            .build();
+                    replies.add(reply);
+                }
+                return replies;
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
