@@ -1,9 +1,12 @@
 package com.example.jspblog.web;
 
+import com.example.jspblog.domain.board.dto.CommonRespDto;
+import com.example.jspblog.domain.reply.Reply;
 import com.example.jspblog.domain.reply.dto.SaveReqDto;
 import com.example.jspblog.service.BoardService;
 import com.example.jspblog.service.ReplyService;
 import com.example.jspblog.util.Script;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/reply")
 public class ReplyController extends HttpServlet {
@@ -30,22 +35,25 @@ public class ReplyController extends HttpServlet {
 
         switch (cmd) {
             case "save": {
-                int userId = Integer.parseInt(request.getParameter("userId"));
-                int boardId = Integer.parseInt(request.getParameter("boardId"));
-                String content = request.getParameter("content");
+                BufferedReader br = request.getReader();
+                String reqData = br.readLine();
+                Gson gson = new Gson();
+                SaveReqDto dto = gson.fromJson(reqData, SaveReqDto.class);
+                System.out.println(dto);
 
-                SaveReqDto dto = SaveReqDto.builder()
-                        .userId(userId)
-                        .boardId(boardId)
-                        .content(content)
-                        .build();
-
+                CommonRespDto<Reply> commonRespDto = new CommonRespDto<>();
+                Reply reply = null;
                 int result = replyService.댓글쓰기(dto);
-                if (result == 1) {
-                    response.sendRedirect("/jspblog/board?cmd=detail&id=" + boardId);
+                if (result != -1) {
+                    reply = replyService.댓글찾기(result);
+                    commonRespDto.setStatusCode(1);
+                    commonRespDto.setData(reply);
                 } else {
-                    Script.back(response, "댓글쓰기 실패");
+                    commonRespDto.setStatusCode(-1);
                 }
+
+                String responseData = gson.toJson(commonRespDto);
+                Script.responseData(response, responseData);
                 break;
             }
         }
