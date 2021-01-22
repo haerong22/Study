@@ -89,15 +89,11 @@ public class BoardController extends HttpServlet {
                 String data = br.readLine();
                 Gson gson = new Gson();
                 DeleteReqDto dto = gson.fromJson(data, DeleteReqDto.class);
+                CommonRespDto<String> commonRespDto = new CommonRespDto<>();
 
                 int result = boardService.글삭제(dto.getBoardId());
-                DeleteResDto resDto = new DeleteResDto();
-                if (result == 1) {
-                    resDto.setStatus("ok");
-                } else {
-                    resDto.setStatus("fail");
-                }
-                String resData = gson.toJson(resDto);
+                commonRespDto.setStatusCode(result);
+                String resData = gson.toJson(commonRespDto);
                 PrintWriter out = response.getWriter();
                 out.print(resData);
                 out.flush();

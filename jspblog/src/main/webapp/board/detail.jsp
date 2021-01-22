@@ -85,7 +85,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function(result){
-            if (result.status === 'ok') {
+            if (result.statusCode === 1) {
                 location.href = "index.jsp";
             } else {
                 alert("삭제 실패");
