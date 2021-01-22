@@ -31,9 +31,13 @@
                 <div class="panel panel-info">
                     <div class="panel-heading m-2"><b>Comment</b></div>
                     <div class="panel-body">
-                        <textarea id="reply__write__form" class="form-control" placeholder="write a comment..." rows="2"></textarea>
-                        <br>
-                        <button onclick="" class="btn btn-primary pull-right">댓글쓰기</button>
+                        <form action="${pageContext.request.contextPath}/reply?cmd=save" method="post">
+                            <input type="hidden" name="userId" value="${sessionScope.principal.id}">
+                            <input type="hidden" name="boardId" value="${detail.id}">
+                            <textarea id="reply__write__form" name="content" class="form-control" placeholder="write a comment..." rows="2"></textarea>
+                            <br>
+                            <button class="btn btn-primary pull-right">댓글쓰기</button>
+                        </form>
                         <div class="clearfix"></div>
                         <hr />
 
