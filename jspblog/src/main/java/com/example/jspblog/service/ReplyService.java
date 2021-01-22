@@ -25,4 +25,8 @@ public class ReplyService {
     public List<Reply> 댓글목록보기(int boardId) {
         return replyDao.findAll(boardId);
     }
+
+    public int 댓글삭제(int id) {
+        return replyDao.deleteById(id);
+    }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ReplyDao {
     public int save(SaveReqDto dto) {
-        System.out.println(dto);
         String sql = "insert into reply(userId, boardId, content, createDate) values(?, ?, ?, now())";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
@@ -69,7 +68,7 @@ public class ReplyDao {
     }
 
     public List<Reply> findAll(int boardId) {
-        String sql = "select * from reply where boardId= order by desc";
+        String sql = "select * from reply where boardId=? order by createDate desc";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -96,5 +95,24 @@ public class ReplyDao {
             }
         }
         return null;
+    }
+
+    public int deleteById(int id) {
+        String sql = "delete from reply where id=?";
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        if (conn != null) {
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                int result = pstmt.executeUpdate();
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DB.close(conn, pstmt);
+            }
+        }
+        return -1;
     }
 }

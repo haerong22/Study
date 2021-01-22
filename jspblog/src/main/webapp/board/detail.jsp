@@ -47,7 +47,9 @@
                                         <strong class="text-primary">${reply.userId}</strong>
                                         <p>${reply.content}</p></div>
                                     <div class="m-2">
-                                        <i onClick="deleteReply(${reply.id})" class="material-icons">delete</i>
+                                        <c:if test="${sessionScope.principal.id == reply.userId}">
+                                            <i onClick="deleteReply(${reply.id})" class="material-icons">delete</i>
+                                        </c:if>
                                     </div>
                                 </li>
                             </c:forEach>

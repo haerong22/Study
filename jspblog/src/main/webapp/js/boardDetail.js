@@ -11,7 +11,15 @@ function addReply(data) {
 }
 
 function deleteReply(id) {
-    console.log(id);
+    $.ajax({
+        type: "post",
+        url: "/jspblog/reply?cmd=delete&id="+id,
+        dataType: "json"
+    }).done(function (result){
+        if (result.statusCode === 1){
+            $("#reply-"+id).remove();
+        }
+    })
 }
 
 function replySave(userId, boardId) {
@@ -31,6 +39,7 @@ function replySave(userId, boardId) {
     }).done(function (result){
         if (result.statusCode === 1){
             addReply(result.data);
+            $("#reply__write__form").val("");
         }
     })
 }
