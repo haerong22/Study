@@ -2,8 +2,7 @@ package com.example.jpashop.domain.item;
 
 import com.example.jpashop.domain.Category;
 import com.example.jpashop.exception.NotEnoughStockException;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
