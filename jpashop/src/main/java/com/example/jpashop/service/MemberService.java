@@ -1,5 +1,6 @@
 package com.example.jpashop.service;
 
+import com.example.jpashop.api.updateMemberRequest;
 import com.example.jpashop.domain.Member;
 import com.example.jpashop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,12 @@ public class MemberService {
 
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public void update(Long id, updateMemberRequest request) {
+
+        Member member = memberRepository.findOne(id);
+        member.setName(request.getName());
     }
 }
