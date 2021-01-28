@@ -3,8 +3,8 @@ package com.example.jpashop.service;
 import com.example.jpashop.api.updateMemberRequest;
 import com.example.jpashop.domain.Member;
 import com.example.jpashop.repository.MemberRepository;
+import com.example.jpashop.repository.MemberRepositoryOld;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,13 +46,13 @@ public class MemberService {
     }
 
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 
     @Transactional
     public void update(Long id, updateMemberRequest request) {
 
-        Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(request.getName());
     }
 }
