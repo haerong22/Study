@@ -1,5 +1,6 @@
 package com.example.jpablog.test;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class HttpControllerTest {
+public class RestControllerTest {
 
     @GetMapping("/http/get")
     public String getTest(Member member) {
@@ -15,8 +16,8 @@ public class HttpControllerTest {
     }
 
     @PostMapping("/http/post")
-    public String postTest() {
-        return "post 요청";
+    public ResponseEntity<Member> postTest(@RequestBody Member member) {
+        return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
     @PutMapping("/http/put")
