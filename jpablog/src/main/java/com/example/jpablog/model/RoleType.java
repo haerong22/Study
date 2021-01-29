@@ -1,5 +1,5 @@
 package com.example.jpablog.model;
 
-public enum Role {
+public enum RoleType {
     ADMIN, USER, MANAGER
 }

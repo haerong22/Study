@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//@DynamicInsert // insert 시 null 인 필드 제거하고 insert
 @Entity
 public class User {
 
@@ -29,9 +29,9 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ColumnDefault("'USER'")
+//    @ColumnDefault("'USER'")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleType role;
 
     @CreationTimestamp
     private LocalDateTime createDate;
