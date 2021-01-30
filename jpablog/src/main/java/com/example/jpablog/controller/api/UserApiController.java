@@ -15,12 +15,11 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
 public class UserApiController {
 
     private final UserService userService;
 
-    @PostMapping("/user")
+    @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
         user.setRole(RoleType.USER);
         int result = userService.회원가입(user);

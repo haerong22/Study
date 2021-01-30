@@ -3,9 +3,6 @@ let index = {
         $("#btn-save").on("click", () => {
             this.save();
         });
-        $("#btn-login").on("click", () => {
-            this.login();
-        })
     },
     save : function () {
         let data = {
@@ -15,7 +12,7 @@ let index = {
         };
         $.ajax({
             type: "post",
-            url: "/api/user",
+            url: "/auth/joinProc",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -27,23 +24,6 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
-    login : function () {
-        let data = {
-            username: $("#username").val(),
-            password: $("#pwd").val(),
-        };
-        $.ajax({
-            type: "post",
-            url: "/api/user/login",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function (resp){
-            location.href = "/";
-        }).fail(function (error){
-            alert(JSON.stringify(error));
-        });
-    }
 }
 
 index.init();
