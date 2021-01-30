@@ -21,6 +21,13 @@
                 <li class="page-item"><a class="page-link" href="?page=${boards.number -1}">Previous</a></li>
             </c:otherwise>
         </c:choose>
+        <fmt:parseNumber var="page" integerOnly="true" value="${boards.number / 3}"/>
+        <c:forEach begin="1" end="3" varStatus="status">
+            <c:set var="p" value="${3 * page + status.current}"/>
+            <c:if test="${p le boards.totalPages}">
+                <li class="page-item"><a class="page-link" href="?page=${p-1}">${p}</a></li>
+            </c:if>
+        </c:forEach>
         <c:choose>
             <c:when test="${boards.last}">
                 <li class="page-item disabled"><a class="page-link" href="?page=${boards.number + 1}">Next</a></li>
@@ -30,13 +37,12 @@
             </c:otherwise>
         </c:choose>
 
-        <%--<li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-
     </ul>
 </div>
-
+<script>
+    let page = "${boards.pageable.offset}"
+    console.log(page);
+</script>
 
 
 <%@include file="layout/footer.jsp"%>
