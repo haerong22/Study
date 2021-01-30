@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable() // csrf 토큰 비활성화
             .authorizeRequests() // 요청에 대한 인증
-                .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/images/**").permitAll() // 해당 주소로 들어오면 모두 허가
+                .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/images/**", "/dummy/**").permitAll() // 해당 주소로 들어오면 모두 허가
                 .anyRequest().authenticated() // 나머지 요청은 모두 인증을 거쳐야 함
             .and()
                 .formLogin().loginPage("/auth/loginForm") // 로그인 폼 지정
