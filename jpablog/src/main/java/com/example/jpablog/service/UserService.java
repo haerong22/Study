@@ -1,8 +1,10 @@
 package com.example.jpablog.service;
 
+import com.example.jpablog.model.RoleType;
 import com.example.jpablog.model.User;
 import com.example.jpablog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +16,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     @Transactional
     public int 회원가입(User user) {
+        String encPassword = encoder.encode(user.getPassword());
+        user.setPassword(encPassword);
+        user.setRole(RoleType.USER);
         userRepository.save(user);
         return 1;
     }
