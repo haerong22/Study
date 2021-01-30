@@ -21,5 +21,5 @@
     </form>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/user.js"></script>
+<script src="/js/user.js"></script>
 <%@include file="../layout/footer.jsp"%>
