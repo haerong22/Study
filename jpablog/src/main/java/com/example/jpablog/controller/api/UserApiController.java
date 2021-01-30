@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 public class UserApiController {
 
     private final UserService userService;
-    private final HttpSession session;
 
     @PostMapping("/user")
     public ResponseDto<Integer> save(@RequestBody User user) {
@@ -28,12 +27,13 @@ public class UserApiController {
         return new ResponseDto<>(result, HttpStatus.OK.value());
     }
 
+    /*// 기본 로그인
     @PostMapping("/user/login")
-    public ResponseDto<Integer> login(@RequestBody User user) {
+    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
         User principal = userService.로그인(user);
         if (principal != null) {
             session.setAttribute("principal", principal);
         }
         return new ResponseDto<>(1, HttpStatus.OK.value());
-    }
+    }*/
 }
