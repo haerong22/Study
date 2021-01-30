@@ -6,19 +6,17 @@ let index = {
     },
     save : function () {
         let data = {
-            username: $("#username").val(),
-            password: $("#password").val(),
-            email: $("#email").val(),
+            title: $("#title").val(),
+            content: $("#content").val(),
         };
         $.ajax({
             type: "post",
-            url: "/auth/joinProc",
+            url: "/api/board",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp){
-            console.log(resp);
-            alert("회원가입이 완료되었습니다.");
+            alert("글쓰기 완료!");
             location.href = "/";
         }).fail(function (error){
             alert(JSON.stringify(error));

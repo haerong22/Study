@@ -1,7 +1,5 @@
 package com.example.jpablog.controller;
 
-import com.example.jpablog.config.auth.PrincipalDetail;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,5 +10,10 @@ public class BoardController {
     @GetMapping("/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping("/board/saveForm")
+    public String save() {
+        return "board/saveForm";
     }
 }

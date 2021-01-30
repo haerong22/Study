@@ -1,12 +1,14 @@
 package com.example.jpablog.config.auth;
 
 import com.example.jpablog.model.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
 
+@Getter
 public class PrincipalDetail implements UserDetails {
     private final User user;
 
