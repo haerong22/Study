@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +24,9 @@ public class BoardService {
         board.setUser(user);
         board.setCount(0);
         boardRepository.save(board);
+    }
+
+    public List<Board> 글목록() {
+        return boardRepository.findAll();
     }
 }
