@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JpablogApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(JpablogApplication.class, args);
     }
 

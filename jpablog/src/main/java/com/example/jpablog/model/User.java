@@ -31,6 +31,8 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
+    private String oauth;
+
 //    @ColumnDefault("'USER'")
     @Enumerated(EnumType.STRING)
     private RoleType role;

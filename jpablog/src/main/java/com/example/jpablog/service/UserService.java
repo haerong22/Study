@@ -29,9 +29,16 @@ public class UserService {
     public void 회원수정(Long id, User user) {
         User persistence = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("회원 찾기 실패"));
-        String encPassword = encoder.encode(user.getPassword());
-        persistence.setPassword(encPassword);
-        persistence.setEmail(user.getEmail());
+
+        if (persistence.getOauth() == null || persistence.getOauth().equals("")) {
+            String encPassword = encoder.encode(user.getPassword());
+            persistence.setPassword(encPassword);
+            persistence.setEmail(user.getEmail());
+        }
+    }
+
+    public User 회원찾기(String username) {
+        return userRepository.findByUsername(username).orElseGet(User::new);
     }
 
     /*// 기본 로그인

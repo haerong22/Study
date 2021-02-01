@@ -6,20 +6,16 @@ import com.example.jpablog.model.OAuthToken;
 import com.example.jpablog.model.User;
 import com.example.jpablog.service.KakaoLogin;
 import com.example.jpablog.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,16 +43,6 @@ public class UserApiController {
         return new ResponseDto<>(-1, HttpStatus.BAD_REQUEST.value());
     }
 
-    @GetMapping("/auth/kakao/callback")
-    public String kakaoCallback(String code) {
-        // Retrofit2, OkHttp, RestTemplate, HttpsURLConnection 등이 있음
-        KakaoLogin kakaoLogin = new KakaoLogin();
-
-        OAuthToken token = kakaoLogin.getCode(code);
-        KakaoProfile kakaoProfile = kakaoLogin.getKakaoProfile(token);
-        System.out.println(kakaoProfile);
-        return "ㅎㅇ";
-    }
     /*// 기본 로그인
     @PostMapping("/user/login")
     public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
