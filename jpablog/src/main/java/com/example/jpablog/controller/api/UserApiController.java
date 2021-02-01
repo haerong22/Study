@@ -1,15 +1,18 @@
 package com.example.jpablog.controller.api;
 
+import com.example.jpablog.config.auth.PrincipalDetail;
+import com.example.jpablog.config.auth.PrincipalDetailService;
 import com.example.jpablog.dto.ResponseDto;
-import com.example.jpablog.model.RoleType;
 import com.example.jpablog.model.User;
 import com.example.jpablog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @RestController
@@ -17,6 +20,7 @@ import java.security.Principal;
 public class UserApiController {
 
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
@@ -28,6 +32,10 @@ public class UserApiController {
     public ResponseDto<Integer> update(@PathVariable Long id, @RequestBody User user, Principal principal) {
         if (principal.getName().equals(user.getUsername())) {
             userService.회원수정(id, user);
+            Authentication authentication =
+                    authenticationManager.authenticate(
+                            new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             return new ResponseDto<>(1, HttpStatus.OK.value());
         }
         return new ResponseDto<>(-1, HttpStatus.BAD_REQUEST.value());
