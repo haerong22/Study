@@ -27,6 +27,15 @@ public class UserService {
         return 1;
     }
 
+    @Transactional
+    public void 회원수정(Long id, User user) {
+        User persistence = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("회원 찾기 실패"));
+        String encPassword = encoder.encode(user.getPassword());
+        persistence.setPassword(encPassword);
+        persistence.setEmail(user.getEmail());
+    }
+
     /*// 기본 로그인
     public User 로그인(User user) {
         return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
