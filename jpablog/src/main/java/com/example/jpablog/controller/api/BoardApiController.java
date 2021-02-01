@@ -9,9 +9,7 @@ import com.example.jpablog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -25,6 +23,12 @@ public class BoardApiController {
     public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal, Principal p) {
         System.out.println(p.getName());
         boardService.글쓰기(board, principal.getUser());
+        return new ResponseDto<>(1, HttpStatus.OK.value());
+    }
+
+    @DeleteMapping("/api/board/{id}")
+    public ResponseDto<Integer> deleteById(@PathVariable Long id) {
+        boardService.글삭제하기(id);
         return new ResponseDto<>(1, HttpStatus.OK.value());
     }
 
