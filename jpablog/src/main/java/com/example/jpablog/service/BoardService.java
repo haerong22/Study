@@ -38,7 +38,26 @@ public class BoardService {
     }
 
     @Transactional
-    public void 글삭제하기(Long id) {
-        boardRepository.deleteById(id);
+    public int 글삭제하기(Long id, String name) {
+        String writer = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("아이디 없음"))
+                .getUser().getUsername();
+        if (writer.equals(name)) {
+            boardRepository.deleteById(id);
+            return 1;
+        }
+        return -1;
+    }
+
+    @Transactional
+    public int 글수정하기(Long id, Board requestBoard, String name) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("아이디 없음"));
+        if (board.getUser().getUsername().equals(name)) {
+            board.setTitle(requestBoard.getTitle());
+            board.setContent(requestBoard.getContent());
+            return 1;
+        }
+        return -1;
     }
 }

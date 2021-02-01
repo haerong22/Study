@@ -6,6 +6,9 @@ let index = {
         $("#btn-delete").on("click", () => {
             this.deleteById();
         })
+        $("#btn-update").on("click", () => {
+            this.update();
+        })
     },
     save : function () {
         let data = {
@@ -32,8 +35,31 @@ let index = {
             url: "/api/board/" + id,
             dataType: "json"
         }).done(function (resp){
-            alert("삭제 완료!");
-            location.href = "/";
+            if (resp.data === 1) {
+                alert("삭제 완료!");
+                location.href = "/";
+            }
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        });
+    },
+    update : function () {
+        let id = $("#id").val();
+        let data = {
+            title: $("#title").val(),
+            content: $("#content").val(),
+        };
+        $.ajax({
+            type: "patch",
+            url: "/api/board/"+id,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp){
+            if (resp.data === 1) {
+                alert("글수정 완료!");
+                history.back();
+            }
         }).fail(function (error){
             alert(JSON.stringify(error));
         });

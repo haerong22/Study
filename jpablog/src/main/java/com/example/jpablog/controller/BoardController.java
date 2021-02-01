@@ -31,6 +31,12 @@ public class BoardController {
         return "board/detail";
     }
 
+    @GetMapping("/board/{id}/updateForm")
+    public String updateForm(@PathVariable Long id, Model model){
+        model.addAttribute("board", boardService.글상세보기(id));
+        return "board/updateForm";
+    }
+
     @GetMapping("/board/saveForm")
     public String save() {
         return "board/saveForm";

@@ -20,16 +20,21 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal, Principal p) {
-        System.out.println(p.getName());
+    public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
         boardService.글쓰기(board, principal.getUser());
         return new ResponseDto<>(1, HttpStatus.OK.value());
     }
 
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> deleteById(@PathVariable Long id) {
-        boardService.글삭제하기(id);
-        return new ResponseDto<>(1, HttpStatus.OK.value());
+    public ResponseDto<Integer> deleteById(@PathVariable Long id, Principal principal) {
+        int result = boardService.글삭제하기(id, principal.getName());
+        return new ResponseDto<>(result, HttpStatus.OK.value());
+    }
+
+    @PatchMapping("/api/board/{id}")
+    public ResponseDto<Integer> update(@PathVariable Long id, @RequestBody Board board, Principal principal) {
+        int result = boardService.글수정하기(id,board, principal.getName());
+        return new ResponseDto<>(result, HttpStatus.OK.value());
     }
 
     /*// 기본 로그인
