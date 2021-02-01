@@ -1,8 +1,13 @@
 package com.example.jpablog.controller.api;
 
 import com.example.jpablog.dto.ResponseDto;
+import com.example.jpablog.model.KakaoProfile;
+import com.example.jpablog.model.OAuthToken;
 import com.example.jpablog.model.User;
+import com.example.jpablog.service.KakaoLogin;
 import com.example.jpablog.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,27 +50,12 @@ public class UserApiController {
     @GetMapping("/auth/kakao/callback")
     public String kakaoCallback(String code) {
         // Retrofit2, OkHttp, RestTemplate, HttpsURLConnection 등이 있음
-        RestTemplate rt = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
+        KakaoLogin kakaoLogin = new KakaoLogin();
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", "authorization_code");
-        params.add("client_id", "e40b81f26358aa250b10a59dc8f3aa62");
-        params.add("redirect_uri", "http://localhost:8080/auth/kakao/callback");
-        params.add("code", code);
-
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
-                new HttpEntity<>(params, headers);
-
-        ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-
-        return "카카오 토큰 요청 완료" + response;
+        OAuthToken token = kakaoLogin.getCode(code);
+        KakaoProfile kakaoProfile = kakaoLogin.getKakaoProfile(token);
+        System.out.println(kakaoProfile);
+        return "ㅎㅇ";
     }
     /*// 기본 로그인
     @PostMapping("/user/login")
