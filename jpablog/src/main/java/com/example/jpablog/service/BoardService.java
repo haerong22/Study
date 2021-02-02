@@ -2,7 +2,6 @@ package com.example.jpablog.service;
 
 import com.example.jpablog.dto.ReplySaveRequestDto;
 import com.example.jpablog.model.Board;
-import com.example.jpablog.model.Reply;
 import com.example.jpablog.model.User;
 import com.example.jpablog.repository.BoardRepository;
 import com.example.jpablog.repository.ReplyRepository;
@@ -64,15 +63,15 @@ public class BoardService {
 
     @Transactional
     public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
-        User user = userRepository.findById(replySaveRequestDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
-        Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
-                .orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
-        Reply reply = Reply.builder()
-                .user(user)
-                .board(board)
-                .content(replySaveRequestDto.getContent())
-                .build();
-        replyRepository.save(reply);
+//        User user = userRepository.findById(replySaveRequestDto.getUserId())
+//                .orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
+//        Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
+//                .orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
+//        Reply reply = Reply.builder()
+//                .user(user)
+//                .board(board)
+//                .content(replySaveRequestDto.getContent())
+//                .build();
+        replyRepository.replySave(replySaveRequestDto);
     }
 }
