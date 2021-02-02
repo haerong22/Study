@@ -1,20 +1,17 @@
 package com.example.jpablog.service;
 
-import com.example.jpablog.config.auth.PrincipalDetail;
+import com.example.jpablog.dto.ReplySaveRequestDto;
 import com.example.jpablog.model.Board;
 import com.example.jpablog.model.Reply;
 import com.example.jpablog.model.User;
 import com.example.jpablog.repository.BoardRepository;
 import com.example.jpablog.repository.ReplyRepository;
+import com.example.jpablog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.security.Principal;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +20,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final ReplyRepository replyRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public void 글쓰기(Board board, User user) {
@@ -65,10 +63,16 @@ public class BoardService {
     }
 
     @Transactional
-    public void 댓글쓰기(User user, Long boardId, Reply requestReply) {
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
-        requestReply.setUser(user);
-        requestReply.setBoard(board);
-        replyRepository.save(requestReply);
+    public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+        User user = userRepository.findById(replySaveRequestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
+        Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
+                .orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
+        Reply reply = Reply.builder()
+                .user(user)
+                .board(board)
+                .content(replySaveRequestDto.getContent())
+                .build();
+        replyRepository.save(reply);
     }
 }

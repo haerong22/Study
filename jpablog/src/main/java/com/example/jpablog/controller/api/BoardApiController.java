@@ -1,6 +1,7 @@
 package com.example.jpablog.controller.api;
 
 import com.example.jpablog.config.auth.PrincipalDetail;
+import com.example.jpablog.dto.ReplySaveRequestDto;
 import com.example.jpablog.dto.ResponseDto;
 import com.example.jpablog.model.Board;
 import com.example.jpablog.model.Reply;
@@ -39,12 +40,8 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(
-            @PathVariable Long boardId,
-            @RequestBody Reply reply,
-            @AuthenticationPrincipal PrincipalDetail principal) {
-
-        boardService.댓글쓰기(principal.getUser(), boardId, reply);
+    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto dto) {
+        boardService.댓글쓰기(dto);
         return new ResponseDto<>(1, HttpStatus.OK.value());
     }
 

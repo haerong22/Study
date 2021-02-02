@@ -1,5 +1,6 @@
 package com.example.jpablog.model;
 
+import com.example.jpablog.dto.ReplySaveRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
