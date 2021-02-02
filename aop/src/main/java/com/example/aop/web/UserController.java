@@ -4,9 +4,13 @@ import com.example.aop.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,11 +38,17 @@ public class UserController {
     // CORS 정책 무시 @CrossOrigin
     @CrossOrigin
     @PostMapping("/user")
-    public ResponseEntity<CommonDto<String>> save(@RequestBody JoinReqDto dto) {
+    public CommonDto<?> save(@RequestBody @Valid JoinReqDto dto, BindingResult bindingResult) {
         System.out.println("save()");
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            });
+            return new CommonDto<>(errorMap, HttpStatus.BAD_REQUEST.value());
+        }
         userRepository.save(dto);
-        return new ResponseEntity<>(
-                new CommonDto<>("ok", HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new CommonDto<>("ok", HttpStatus.CREATED.value());
     }
 
     // http://localhost:8080/user/{id}
@@ -51,8 +61,15 @@ public class UserController {
 
     // http://localhost:8080/user/{id}
     @PutMapping("/user/{id}")
-    public CommonDto<String> update(@PathVariable int id, @RequestBody UpdateReqDto dto){
+    public CommonDto<?> update(@PathVariable int id, @Valid @RequestBody UpdateReqDto dto, BindingResult bindingResult){
         System.out.println("update()");
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            });
+            return new CommonDto<>(errorMap, HttpStatus.BAD_REQUEST.value());
+        }
         userRepository.update(id, dto);
         return new CommonDto<>(HttpStatus.OK.value());
     }
