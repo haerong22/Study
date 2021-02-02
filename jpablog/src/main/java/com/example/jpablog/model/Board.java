@@ -1,5 +1,6 @@
 package com.example.jpablog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +35,8 @@ public class Board {
     private User user;
 
     @OneToMany(mappedBy = "board")
-    private List<Reply> reply = new ArrayList<>();
+    @JsonIgnoreProperties({"board"})
+    private List<Reply> replies = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createDate;
