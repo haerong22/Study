@@ -9,6 +9,9 @@ let index = {
         $("#btn-update").on("click", () => {
             this.update();
         })
+        $("#btn-reply-save").on("click", () => {
+            this.replySave();
+        })
     },
     save : function () {
         let data = {
@@ -60,6 +63,24 @@ let index = {
                 alert("글수정 완료!");
                 history.back();
             }
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        });
+    },
+    replySave : function () {
+        let data = {
+            boardId: $("#boardId").val(),
+            content: $("#reply-content").val(),
+        };
+        $.ajax({
+            type: "post",
+            url: `/api/board/${data.boardId}/reply`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp){
+            alert("댓글 작성 완료!");
+            location.href = `/board/${data.boardId}`;
         }).fail(function (error){
             alert(JSON.stringify(error));
         });

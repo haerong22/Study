@@ -2,8 +2,10 @@ package com.example.jpablog.service;
 
 import com.example.jpablog.config.auth.PrincipalDetail;
 import com.example.jpablog.model.Board;
+import com.example.jpablog.model.Reply;
 import com.example.jpablog.model.User;
 import com.example.jpablog.repository.BoardRepository;
+import com.example.jpablog.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     @Transactional
     public void 글쓰기(Board board, User user) {
@@ -59,5 +62,13 @@ public class BoardService {
             return 1;
         }
         return -1;
+    }
+
+    @Transactional
+    public void 댓글쓰기(User user, Long boardId, Reply requestReply) {
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글쓰기 실패"));
+        requestReply.setUser(user);
+        requestReply.setBoard(board);
+        replyRepository.save(requestReply);
     }
 }

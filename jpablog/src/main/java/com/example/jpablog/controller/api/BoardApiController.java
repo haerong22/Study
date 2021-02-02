@@ -3,6 +3,7 @@ package com.example.jpablog.controller.api;
 import com.example.jpablog.config.auth.PrincipalDetail;
 import com.example.jpablog.dto.ResponseDto;
 import com.example.jpablog.model.Board;
+import com.example.jpablog.model.Reply;
 import com.example.jpablog.model.User;
 import com.example.jpablog.service.BoardService;
 import com.example.jpablog.service.UserService;
@@ -35,6 +36,16 @@ public class BoardApiController {
     public ResponseDto<Integer> update(@PathVariable Long id, @RequestBody Board board, Principal principal) {
         int result = boardService.글수정하기(id,board, principal.getName());
         return new ResponseDto<>(result, HttpStatus.OK.value());
+    }
+
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> replySave(
+            @PathVariable Long boardId,
+            @RequestBody Reply reply,
+            @AuthenticationPrincipal PrincipalDetail principal) {
+
+        boardService.댓글쓰기(principal.getUser(), boardId, reply);
+        return new ResponseDto<>(1, HttpStatus.OK.value());
     }
 
     /*// 기본 로그인

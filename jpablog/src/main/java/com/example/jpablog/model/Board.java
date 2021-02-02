@@ -36,6 +36,7 @@ public class Board {
 
     @OneToMany(mappedBy = "board")
     @JsonIgnoreProperties({"board"})
+    @OrderBy("id desc")
     private List<Reply> replies = new ArrayList<>();
 
     @CreationTimestamp
