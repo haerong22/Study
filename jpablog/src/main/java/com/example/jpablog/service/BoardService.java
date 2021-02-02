@@ -74,4 +74,9 @@ public class BoardService {
 //                .build();
         replyRepository.replySave(replySaveRequestDto);
     }
+
+    @Transactional
+    public void 댓글삭제(Long replyId) {
+        replyRepository.deleteById(replyId);
+    }
 }

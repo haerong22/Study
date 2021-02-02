@@ -40,11 +40,16 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto dto) {
+    public ResponseDto<Integer> SaveReply(@RequestBody ReplySaveRequestDto dto) {
         boardService.댓글쓰기(dto);
         return new ResponseDto<>(1, HttpStatus.OK.value());
     }
 
+    @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+    public ResponseDto<Integer> deleteReply(@PathVariable Long replyId) {
+        boardService.댓글삭제(replyId);
+        return new ResponseDto<>(1, HttpStatus.OK.value());
+    }
     /*// 기본 로그인
     @PostMapping("/user/login")
     public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
