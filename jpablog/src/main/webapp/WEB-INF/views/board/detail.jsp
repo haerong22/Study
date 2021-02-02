@@ -40,7 +40,9 @@
                     <div>${reply.content}</div>
                     <div class="d-flex">
                         <div class="font-italic">작성자 : ${reply.user.username} &nbsp;</div>
-                        <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
+                        <c:if test="${reply.user.username == principal.user.username}">
+                            <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
+                        </c:if>
                     </div>
                 </li>
             </c:forEach>
