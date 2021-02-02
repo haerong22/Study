@@ -1,6 +1,8 @@
 package com.example.aop.config;
 
 import com.example.aop.domain.CommonDto;
+import io.sentry.Sentry;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
@@ -9,7 +11,6 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -21,7 +22,10 @@ import java.util.Map;
 // @Configuration -> @Controller , @Service, @Repository -> @Component
 @Component
 @Aspect
+@Slf4j
 public class BindingAdvice {
+
+//    private static final Logger log = LoggerFactory.getLogger(BindingAdvice.class);
 
     @Before("execution(* com.example.aop.web..*Controller.*(..))")
     public void before() {
@@ -60,7 +64,12 @@ public class BindingAdvice {
                 .filter(v -> v instanceof BindingResult)
                 .filter(v -> ((BindingResult) v).hasErrors())
                 .forEach(v -> ((BindingResult) v).getFieldErrors()
-                        .forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage())));
+                        .forEach(error -> {
+                            errorMap.put(error.getField(), error.getDefaultMessage());
+                            String msg = type + "." + method + "() => 필드 : " + error.getField() + ", 메시지 : " + error.getDefaultMessage();
+                            log.warn(msg);
+                            Sentry.captureMessage(msg);
+                        }));
 
         return errorMap.isEmpty() ? proceedingJoinPoint.proceed() : new CommonDto<>(errorMap, HttpStatus.BAD_REQUEST.value());
     }

@@ -1,0 +1,6 @@
+[2021-02-03 02:15:40:12333][http-nio-8080-exec-1] WARN  c.example.aop.config.BindingAdvice - com.example.aop.web.UserController.save() => 필드 : username, 메시지 : 유저네임을 입력하세요.
+[2021-02-03 02:22:00:7788][http-nio-8080-exec-1] WARN  c.example.aop.config.BindingAdvice - com.example.aop.web.UserController.save() => 필드 : username, 메시지 : 유저네임을 입력하세요.
+[2021-02-03 02:22:58:7566][http-nio-8080-exec-3] WARN  c.example.aop.config.BindingAdvice - com.example.aop.web.UserController.save() => 필드 : username, 메시지 : 유저네임을 입력하세요.
+[2021-02-03 02:27:20:17752][http-nio-8080-exec-1] WARN  c.example.aop.config.BindingAdvice - com.example.aop.web.UserController.save() => 필드 : username, 메시지 : 유저네임을 입력하세요.
+[2021-02-03 02:43:31:15646][http-nio-8080-exec-1] WARN  c.example.aop.config.BindingAdvice - com.example.aop.web.UserController.save() => 필드 : username, 메시지 : 유저네임을 입력하세요.
+[2021-02-03 02:43:46:30108][http-nio-8080-exec-2] WARN  c.example.aop.config.BindingAdvice - com.example.aop.web.UserController.update() => 필드 : username, 메시지 : 패스워드를 입력하세요

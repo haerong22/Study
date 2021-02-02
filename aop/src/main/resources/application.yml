@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: INFO
+    com.example.aop: WARN
+
+  file:
+    path: logs
+
+sentry:
+  dsn: https://f9bcef6bf8cc45fdb998f145c1ccb763@o515324.ingest.sentry.io/5619969
