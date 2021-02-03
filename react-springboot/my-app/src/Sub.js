@@ -1,5 +1,7 @@
 import React from 'react';
 
+let num = 10;
+
 const Sub = () => {
   console.log('sub');
   return (
@@ -9,4 +11,5 @@ const Sub = () => {
   );
 };
 
+export { num };
 export default Sub;

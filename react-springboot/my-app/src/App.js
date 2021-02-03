@@ -1,32 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  let sample = [
-    { id: 1, name: '홍길동' },
-    { id: 2, name: '임꺽정' },
-    { id: 3, name: '장보고' },
-    { id: 4, name: '세종대왕' },
-  ];
-  const [users, setUsers] = useState(sample);
-  const [num, setNum] = useState(5);
+  const [data, setData] = useState(0);
+  const [search, setSearch] = useState(0);
 
   const download = () => {
-    setUsers([...sample, { id: num, name: '조자룡' }]);
-    setNum(num + 1);
+    let downloaddata = 5;
+    setData(downloaddata);
   };
+  // 실행 시점 :
+  // (1) App() 함수 최초 실행 될때 (마운트 될 때)
+  // (2) state 변경 시
+  // (3) 의존리스트 관리 가능
+  useEffect(() => {
+    console.log('useEffect 실행');
+    download();
+  }, [search]);
 
-  console.log('rendering');
   return (
     <>
-      <div>
-        {users.map((u) => (
-          <h1>
-            {u.id}, {u.name}
-          </h1>
-        ))}
-      </div>
-      <button onClick={download}>다운로드</button>
+      <h1>검색</h1>
+      <button onClick={() => setSearch(2)}>검색하기</button>
+      <h1>데이터 : {data} </h1>
+      <button
+        onClick={() => {
+          setData(data + 1);
+        }}
+      >
+        더하기
+      </button>
     </>
   );
 }
