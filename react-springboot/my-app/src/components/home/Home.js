@@ -5,13 +5,18 @@ const StyledDeleteButton = styled.button`
   color: ${(props) => (props.user.username === 'kim' ? 'blue' : 'red')};
 `;
 
+const StyleAddButton = styled(StyledDeleteButton)`
+  background-color: green;
+`;
+
 const Home = (props) => {
   // 구조분할 할당
   const { board, setBoard, user } = props;
 
   return (
     <div>
-      <h1>홈 : </h1>
+      <h1>홈</h1>
+      <StyleAddButton user={user}>더하기</StyleAddButton>
       <StyledDeleteButton user={user} onClick={() => setBoard([])}>
         전체삭제
       </StyledDeleteButton>
