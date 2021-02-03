@@ -1,41 +1,27 @@
-import { useMemo, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [list, setList] = useState([1, 2, 3, 4]);
-  const [str, setStr] = useState('합계');
+  // useRef (디자인)
+  // dom 을 변경할 때 사용
+  const ref = useRef(null);
 
-  const getAddResult = () => {
-    let sum = 0;
-    list.forEach((i) => (sum += i));
-    console.log(sum);
-    return sum;
-  };
-  const addResult = useMemo(() => getAddResult(), [list]);
+  const [list, setList] = useState([
+    { id: 1, name: 'kim' },
+    { id: 2, name: 'hong' },
+  ]);
+
+  const refs = Array.from({ length: list.length }).map(() => createRef());
+
   return (
     <>
-      <button
-        onClick={() => {
-          setStr('안녕');
-        }}
-      >
-        문자변경
+      <button onClick={() => (refs[0].current.style.backgroundColor = 'red')}>
+        색변경
       </button>
-      <button
-        onClick={() => {
-          setList([...list, 10]);
-        }}
-      >
-        리스트 값 추가
-      </button>
-      <div>
-        {list.map((i) => (
-          <h1>{i}</h1>
-        ))}
-      </div>
-      <div>
-        {str} : {addResult}
-      </div>
+      <div ref={ref}>박스</div>
+      {list.map((user, index) => (
+        <h1 ref={refs[index]}>{user.name}</h1>
+      ))}
     </>
   );
 }
