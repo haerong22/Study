@@ -1,16 +1,13 @@
-import { Route } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import ListPage from './pages/ListPage';
-import WritePage from './pages/WritePage';
+import './App.css';
+import Top from './components/Top';
+import Bottom from './components/Bottom';
 
 function App() {
   return (
-    <div>
-      <Navigation />
-      <ListPage />
-
-      {/* <Route path="/" exact={true} component={ListPage}></Route>
-      <Route path="/write" exact={true} component={WritePage}></Route> */}
+    <div className="container">
+      <h1>최상단 화면</h1>
+      <Top />
+      <Bottom />
     </div>
   );
 }
