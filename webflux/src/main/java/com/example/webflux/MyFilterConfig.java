@@ -16,7 +16,7 @@ public class MyFilterConfig {
     @Bean
     public FilterRegistrationBean<Filter> addFilter() {
         FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>(new MyFilter(eventNotify));
-        bean.addUrlPatterns("/*");
+        bean.addUrlPatterns("/sse");
         return bean;
     }
     @Bean
