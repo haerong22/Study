@@ -1,8 +1,11 @@
 package com.example.book.web;
 
 import com.example.book.domain.Book;
+import com.example.book.domain.BookRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,7 +16,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,6 +45,17 @@ public class BookControllerIntegrationTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @BeforeEach
+    public void init() {
+        entityManager.createNativeQuery("alter table book alter column id restart with 1").executeUpdate();
+    }
+
     // BDDMockito 패턴 given, when, then
     @Test
     public void save_테스트() throws Exception {
@@ -56,5 +75,28 @@ public class BookControllerIntegrationTests {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value("스프링"))
                 .andDo(print());
+    }
+
+    @Test
+    public void findAll_테스트() throws Exception {
+        // given
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(null, "스프링", "kim"));
+        books.add(new Book(null, "리액트", "kim"));
+        books.add(new Book(null, "JUnit", "kim"));
+
+        bookRepository.saveAll(books);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/book")
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(3)))
+                .andExpect(jsonPath("$.[0].title").value("스프링"))
+                .andDo(print());
+
     }
 }
