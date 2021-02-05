@@ -33,7 +33,8 @@ public class BookService {
     public Book 수정하기(Long id, Book book){
         Book bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id를 확인해 주세요"));
-        bookEntity.setTitle(book.getTitle())
+        bookEntity
+                .setTitle(book.getTitle())
                 .setAuthor(book.getAuthor());
         return bookEntity;
     } // 함수 종료 => 트랜잭션 종료 => 영속화 되어있는 데이터를 DB로 갱신(flush) => commit : 더티체킹
