@@ -1,5 +1,7 @@
 package com.example.book.domain;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -16,4 +18,16 @@ class BookRepositoryUnitTest {
     @Autowired
     private BookRepository bookRepository;
 
+    @Test
+    public void save_테스트() throws Exception {
+        // given
+        Book book = new Book(null, "제목", "저자");
+
+        // when
+        Book bookEntity = bookRepository.save(book);
+
+        // then
+        Assertions.assertEquals(1L, bookEntity.getId());
+        Assertions.assertEquals("제목", bookEntity.getTitle());
+    }
 }

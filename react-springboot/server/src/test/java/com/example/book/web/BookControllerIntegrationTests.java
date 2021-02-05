@@ -5,6 +5,7 @@ import com.example.book.domain.BookRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -98,5 +98,82 @@ public class BookControllerIntegrationTests {
                 .andExpect(jsonPath("$.[0].title").value("스프링"))
                 .andDo(print());
 
+    }
+
+    @Test
+    public void findById_테스트() throws Exception {
+        // given
+        Long id = 2L;
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(null, "스프링", "kim"));
+        books.add(new Book(null, "리액트", "kim"));
+        books.add(new Book(null, "JUnit", "kim"));
+
+        bookRepository.saveAll(books);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/book/{id}", id)
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("리액트"))
+                .andDo(print());
+    }
+
+    @Test
+    public void update_테스트() throws Exception {
+        // given
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(null, "스프링", "kim"));
+        books.add(new Book(null, "리액트", "kim"));
+        books.add(new Book(null, "JUnit", "kim"));
+
+        bookRepository.saveAll(books);
+
+        Long id = 2L;
+        Book book = new Book(null, "SQL", "kim");
+        String content = new ObjectMapper().writeValueAsString(book);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(put("/book/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content)
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(2L))
+                .andExpect(jsonPath("$.title").value("SQL"))
+                .andDo(print());
+    }
+
+    @Test
+    public void delete_테스트() throws Exception {
+        // given
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(null, "스프링", "kim"));
+        books.add(new Book(null, "리액트", "kim"));
+        books.add(new Book(null, "JUnit", "kim"));
+
+        bookRepository.saveAll(books);
+
+        Long id = 1L;
+
+        // when
+        ResultActions resultActions = mockMvc.perform(delete("/book/{id}", id)
+                .accept(MediaType.TEXT_PLAIN));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        String result = resultActions.andReturn()
+                .getResponse().getContentAsString();
+
+        Assertions.assertEquals("ok", result);
     }
 }

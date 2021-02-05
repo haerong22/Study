@@ -5,12 +5,14 @@ import com.example.book.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -18,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -93,5 +94,47 @@ class BookControllerUnitTest {
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.title").value("자바"))
                .andDo(print());
+   }
+
+   @Test
+   public void update_테스트() throws Exception {
+       // given
+       Long id = 1L;
+       Book book = new Book(null, "SQL", "kim");
+       String content = new ObjectMapper().writeValueAsString(book);
+       when(bookService.수정하기(id, book)).thenReturn(new Book(1L, "SQL", "kim"));
+
+       // when
+       ResultActions resultActions = mockMvc.perform(put("/book/{id}", id)
+               .contentType(MediaType.APPLICATION_JSON_UTF8)
+               .content(content)
+               .accept(MediaType.APPLICATION_JSON_UTF8));
+
+       // then
+       resultActions
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.title").value("SQL"))
+               .andDo(print());
+   }
+
+   @Test
+   public void delete_테스트() throws Exception {
+       // given
+       Long id = 1L;
+       when(bookService.삭제하기(id)).thenReturn("ok");
+
+       // when
+       ResultActions resultActions = mockMvc.perform(delete("/book/{id}", id)
+               .accept(MediaType.TEXT_PLAIN));
+
+       // then
+       resultActions
+               .andExpect(status().isOk())
+               .andDo(print());
+
+       String result = resultActions.andReturn()
+               .getResponse().getContentAsString();
+
+       Assertions.assertEquals("ok", result);
    }
 }

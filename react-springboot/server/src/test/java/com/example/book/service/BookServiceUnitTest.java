@@ -1,9 +1,13 @@
 package com.example.book.service;
 
+import com.example.book.domain.Book;
 import com.example.book.domain.BookRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
@@ -20,4 +24,20 @@ class BookServiceUnitTest {
 
     @Mock
     private BookRepository bookRepository;
+
+    @Test
+    public void 저장하기_테스트() throws Exception {
+        // BODMockito 방식
+        // given
+        Book book = new Book();
+        book.setTitle("제목");
+        book.setAuthor("저자");
+        Mockito.when(bookRepository.save(book)).thenReturn(book);
+
+        // when
+        Book bookEntity = bookService.저장하기(book);
+
+        // then
+        Assertions.assertEquals(bookEntity, book);
+    }
 }
