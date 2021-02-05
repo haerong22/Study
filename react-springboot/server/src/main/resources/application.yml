@@ -15,3 +15,4 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: create
+    show-sql: true

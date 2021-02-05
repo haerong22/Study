@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @AutoConfigureTestDatabase(replace = Replace.ANY) // Replace.ANY 가짜 DB로 테스트, Replace.NONE 실제 DB로 테스트
-@DataJpaTest // Repository 들을 spring container 에 등록해줌
+@DataJpaTest() // Repository 들을 spring container 에 등록해줌
 class BookRepositoryUnitTest {
 
     @Autowired
