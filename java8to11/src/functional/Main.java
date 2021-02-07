@@ -9,14 +9,14 @@ public class Main {
     public static void main(String[] args) {
 
         String[] names = {"kim", "lee", "park"};
-        Arrays.sort(names, String::compareToIgnoreCase);
+        Arrays.sort(names, String::compareToIgnoreCase); // 임의 객체의 인스턴스 참조
         System.out.println(Arrays.toString(names));
 
         // Method References
         // 참조하고 있을 뿐 실행한 것이 아니다.
 
         // 두 레퍼런스만 놓고 보면 같지만 사용하는 생성자는 다르다.
-//        Function<String, Greeting> newGreeting2 = Greeting::new;
+//        Function<String, Greeting> newGreeting2 = Greeting::new; // 생성자 참조
 //        Supplier<Greeting> newGreeting = Greeting::new;
 //        Greeting kim = newGreeting2.apply("kim");
 //        System.out.println(kim.getName());
@@ -24,8 +24,8 @@ public class Main {
 //        Greeting greeting = new Greeting();
 //
 //        UnaryOperator<String> hi = (s) -> "hi " + s;
-//        UnaryOperator<String> staticMethod = Greeting::hi;
-//        UnaryOperator<String> instanceMethod = greeting::hello;
+//        UnaryOperator<String> staticMethod = Greeting::hi; // 스태틱 메소드 참조
+//        UnaryOperator<String> instanceMethod = greeting::hello; // 특정 객체의 인스턴스 메소드 참조
 
         /**
          * Function<T, R> : T 타입 입력, R 타입 출력
