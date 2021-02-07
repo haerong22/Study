@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         /**
          * Function<T, R> : T 타입 입력, R 타입 출력
          * BiFunction<T, U, R> : T, U 타입 입력, R 타입 출력
