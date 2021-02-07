@@ -1,11 +1,31 @@
 package functional;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
+        String[] names = {"kim", "lee", "park"};
+        Arrays.sort(names, String::compareToIgnoreCase);
+        System.out.println(Arrays.toString(names));
+
+        // Method References
+        // 참조하고 있을 뿐 실행한 것이 아니다.
+
+        // 두 레퍼런스만 놓고 보면 같지만 사용하는 생성자는 다르다.
+//        Function<String, Greeting> newGreeting2 = Greeting::new;
+//        Supplier<Greeting> newGreeting = Greeting::new;
+//        Greeting kim = newGreeting2.apply("kim");
+//        System.out.println(kim.getName());
+//
+//        Greeting greeting = new Greeting();
+//
+//        UnaryOperator<String> hi = (s) -> "hi " + s;
+//        UnaryOperator<String> staticMethod = Greeting::hi;
+//        UnaryOperator<String> instanceMethod = greeting::hello;
 
         /**
          * Function<T, R> : T 타입 입력, R 타입 출력
@@ -17,8 +37,8 @@ public class Main {
          * BinaryOperator<T> : T 타입 2개 입력, T 타입 리턴
          */
 
-        BinaryOperator<Integer> aPlusB = (i, j) -> i + j;
-        System.out.println(aPlusB.apply(1, 2));
+//        BinaryOperator<Integer> aPlusB = (i, j) -> i + j;
+//        System.out.println(aPlusB.apply(1, 2));
 
 //        UnaryOperator<Integer> plus100 = (i) -> i+100;
 //        System.out.println(plus100.apply(1));
