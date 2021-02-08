@@ -28,10 +28,16 @@ const Detail = (props) => {
       });
   };
 
+  const updateBook = () => {
+    props.history.push('/updateForm/' + id);
+  };
+
   return (
     <div>
       <h1>책 상세보기</h1>
-      <Button variant="warning">수정</Button>{' '}
+      <Button variant="warning" onClick={updateBook}>
+        수정
+      </Button>{' '}
       <Button variant="danger" onClick={deleteBook}>
         삭제
       </Button>
