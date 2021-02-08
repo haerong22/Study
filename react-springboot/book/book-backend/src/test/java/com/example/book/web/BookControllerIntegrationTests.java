@@ -54,6 +54,7 @@ public class BookControllerIntegrationTests {
     @BeforeEach
     public void init() {
         entityManager.createNativeQuery("alter table book alter column id restart with 1").executeUpdate();
+//        entityManager.createNativeQuery("alter table book auto_increment=1").executeUpdate();
     }
 
     // BDDMockito 패턴 given, when, then
