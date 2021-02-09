@@ -23,7 +23,7 @@ public class App {
         names.add("park");
         names.add("choi");
 
-        
+
 
 //        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
 //        names.sort(compareToIgnoreCase.reversed());
