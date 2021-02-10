@@ -1,6 +1,6 @@
 #io-10k-test1
 config:
-  target: "http://34.80.231.65/"
+  target: "http://34.64.250.124/"
   phases:
     - duration: 60
       arrivalRate: 3
