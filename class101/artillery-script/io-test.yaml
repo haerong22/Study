@@ -9,11 +9,11 @@ config:
       arrivalRate: 3
       rampTo: 50
       name: Ramp up load
-    - duration: 600
+    - duration: 9000
       arrivalRate: 50
       name: Sustained load
   payload:
-    path: "ratings_test_10k.csv"
+    path: "ratings_test_50k.csv"
     fields:
       - "content"
 scenarios:
