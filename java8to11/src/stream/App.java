@@ -2,6 +2,7 @@ package stream;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 스트림은 데이터를 담고 있는 저장소(컬렉션)이 아니다.
@@ -18,13 +19,18 @@ public class App {
         names.add("park");
         names.add("choi");
 
-        // 중계형 오퍼레이터는 Lazy -> 종료형 오퍼레이터가 오기 전까지 실행 X
-        names.stream().map((s) -> {
-            System.out.println(s);
+        // 쉬운 병렬처리
+        List<String> collect = names.parallelStream().map(s -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
             return s.toUpperCase();
-        });
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
 
-        System.out.println("======================");
+//        // 중계형 오퍼레이터는 Lazy -> 종료형 오퍼레이터가 오기 전까지 실행 X
+//        names.stream().map((s) -> {
+//            System.out.println(s);
+//            return s.toUpperCase();
+//        });
 
     }
 }
