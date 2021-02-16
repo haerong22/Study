@@ -13,39 +13,120 @@ public class App {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
         /**
+         * CompletableFuture
+         */
+
+        // ThreadPool 을 직접 생성하여 작업
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Hello: " + Thread.currentThread().getName());
+            return "world";
+        }, executorService).thenAcceptAsync(s -> {
+            System.out.println(Thread.currentThread().getName());
+            System.out.println(s.toUpperCase());
+        }, executorService);
+
+        future.get();
+        executorService.shutdown();
+
+
+//        // Callback - 리턴 값을 받아서 수행 만
+//        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "world";
+//        }).thenRun(() -> {
+//            System.out.println(Thread.currentThread().getName());
+//        });
+//
+//        future.get();
+
+
+//        // Callback - 리턴 값을 받아서 수행 후 리턴 타입 X
+//        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "world";
+//        }).thenAccept(s -> {
+//            System.out.println(Thread.currentThread().getName());
+//            System.out.println(s.toUpperCase());
+//        });
+//
+//        future.get();
+
+
+//        // Callback - 리턴 값을 받아서 수행 후 리턴 타입 O
+//        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "world";
+//        }).thenApply(s -> {
+//            System.out.println(Thread.currentThread().getName());
+//            return s.toUpperCase();
+//        });
+//
+//        System.out.println(future.get());
+
+
+//        CompletableFuture<String> future = new CompletableFuture<>();
+//        future.complete("hello");
+//        System.out.println(future.get());
+//
+//        System.out.println("===========================================");
+//
+//        CompletableFuture<String> future1 = CompletableFuture.completedFuture("world");
+//        System.out.println(future1.get());
+//
+//        System.out.println("===========================================");
+//
+//        // 리턴 타입 X
+//        CompletableFuture<Void> future2 = CompletableFuture.runAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//        });
+//        future2.get();
+//
+//        System.out.println("===========================================");
+//
+//        // 리턴 타입 O
+//        CompletableFuture<String> future3 = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "world";
+//        });
+//        System.out.println(future3.get());
+
+
+
+        /**
          * Callable, Future
          */
 
-        // invokeAll, invokeAny
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
-
-        Callable<String> hello = () -> {
-            Thread.sleep(2000L);
-            return "Hello";
-        };
-
-        Callable<String> world = () -> {
-            Thread.sleep(3000L);
-            return "world";
-        };
-
-        Callable<String> java = () -> {
-            Thread.sleep(1000L);
-            return "java";
-        };
-
-        // invokeAny
-        String future = executorService.invokeAny(Arrays.asList(hello, world, java)); // 가장 먼저 도착한 값
-        System.out.println(future);
-
-        // invokeAll
-        List<Future<String>> futures = executorService.invokeAll(Arrays.asList(hello, world, java)); // 다 끝날때 까지 대기
-        for (Future<String> f : futures) {
-            System.out.println(f.get());
-        }
-
-        executorService.shutdown();
+//        // invokeAll, invokeAny
+////        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        ExecutorService executorService = Executors.newFixedThreadPool(3);
+//
+//        Callable<String> hello = () -> {
+//            Thread.sleep(2000L);
+//            return "Hello";
+//        };
+//
+//        Callable<String> world = () -> {
+//            Thread.sleep(3000L);
+//            return "world";
+//        };
+//
+//        Callable<String> java = () -> {
+//            Thread.sleep(1000L);
+//            return "java";
+//        };
+//
+//        // invokeAny
+//        String future = executorService.invokeAny(Arrays.asList(hello, world, java)); // 가장 먼저 도착한 값
+//        System.out.println(future);
+//
+//        // invokeAll
+//        List<Future<String>> futures = executorService.invokeAll(Arrays.asList(hello, world, java)); // 다 끝날때 까지 대기
+//        for (Future<String> f : futures) {
+//            System.out.println(f.get());
+//        }
+//
+//        executorService.shutdown();
 
 
 //      // Callable - get, cancel
