@@ -3,11 +3,19 @@ package completableFuture;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 public class App {
 
     private static Runnable getRunnable(String message) {
         return () -> System.out.println(message + ": " + Thread.currentThread().getName());
+    }
+
+    private static CompletableFuture<String> getWorld(String message) {
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println("World: " + Thread.currentThread().getName());
+            return message + " World";
+        });
     }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -16,18 +24,98 @@ public class App {
          * CompletableFuture
          */
 
-        // ThreadPool 을 직접 생성하여 작업
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
-        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
-            System.out.println("Hello: " + Thread.currentThread().getName());
-            return "world";
-        }, executorService).thenAcceptAsync(s -> {
-            System.out.println(Thread.currentThread().getName());
-            System.out.println(s.toUpperCase());
-        }, executorService);
+        // exception
+        boolean throwError = true;
 
-        future.get();
-        executorService.shutdown();
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            if (throwError) {
+                throw new IllegalArgumentException();
+            }
+            System.out.println("Hello: " + Thread.currentThread().getName());
+            return "Hello";
+        }).handle((result, error) -> {
+            if (error != null) {
+                System.out.println(error);
+                return "Error!";
+            }
+            return result;
+        });
+
+        System.out.println(hello.get());
+
+//        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+//            if (throwError) {
+//                throw new IllegalArgumentException();
+//            }
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "Hello";
+//        }).exceptionally(ex -> {
+//            System.out.println(ex);
+//            return "Error!";
+//        });
+//
+//        System.out.println(hello.get());
+
+
+
+//        // Compose - 연관관계가 없을 때
+//        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "Hello";
+//        });
+//
+//        CompletableFuture<String> world = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("World: " + Thread.currentThread().getName());
+//            return "World";
+//        });
+//
+//        CompletableFuture<String> future = hello.thenCombine(world, (h, w) -> {
+//            return h + " " + world;
+//        });
+//
+//        System.out.println(future.get());
+//
+//        // allOf : 2개 이상일 때 모든 결과를 받아서 처리
+//        List<CompletableFuture<String>> futures = Arrays.asList(hello, world);
+//        CompletableFuture<Void> futureArray = CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
+//
+//        CompletableFuture<List<String>> results = CompletableFuture.allOf(futureArray)
+//                .thenApply(v -> {
+//                    return futures.stream()
+//                            .map(CompletableFuture::join)
+//                            .collect(Collectors.toList());
+//                });
+//
+//        results.get().forEach(System.out::println);
+//
+//        // anyOf : 결과 하나
+//        CompletableFuture<Void> anyFuture = CompletableFuture.anyOf(hello, world).thenAccept(System.out::println);
+//        future.get();
+
+
+//        // Compose - 연관관계가 있을 때
+//        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "Hello";
+//        });
+//
+//        CompletableFuture<String> future = hello.thenCompose(App::getWorld);
+//
+//        System.out.println(future.get());
+
+
+//        // ThreadPool 을 직접 생성하여 작업
+//        ExecutorService executorService = Executors.newFixedThreadPool(4);
+//        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello: " + Thread.currentThread().getName());
+//            return "world";
+//        }, executorService).thenAcceptAsync(s -> {
+//            System.out.println(Thread.currentThread().getName());
+//            System.out.println(s.toUpperCase());
+//        }, executorService);
+//
+//        future.get();
+//        executorService.shutdown();
 
 
 //        // Callback - 리턴 값을 받아서 수행 만
