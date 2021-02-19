@@ -1,7 +1,10 @@
 package org.example;
 
+
+@MyAnnotation(name = "lee", number = 20)
 public class Book {
 
+    @MyAnnotation
     private static String B = "BOOK";
 
     private static final String C = "BOOK";

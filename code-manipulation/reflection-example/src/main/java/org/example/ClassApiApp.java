@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-public class App {
+public class ClassApiApp {
     public static void main( String[] args ) throws ClassNotFoundException {
 
 
