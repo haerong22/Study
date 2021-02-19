@@ -9,7 +9,7 @@ config:
       arrivalRate: 3
       rampTo: 50
       name: Ramp up load
-    - duration: 9000
+    - duration: 9600
       arrivalRate: 50
       name: Sustained load
   payload:
@@ -23,9 +23,9 @@ scenarios:
           url: "/post"
           json:
             content: "{{ content }}"
-      - think: 1
-      - get:
-          url: "/posts"
+      # - think: 1
+      # - get:
+      #     url: "/posts"
 # io-10k-test1
 # config:
 #   target: "http://34.80.231.65/"
