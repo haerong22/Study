@@ -1,8 +1,8 @@
-package org.example;
+package org.example.annotation;
 
 import java.util.Arrays;
 
-public class AnnotationApp {
+public class App {
 
     public static void main(String[] args) {
 

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.annotation;
 
 
 @MyAnnotation(name = "lee", number = 20)

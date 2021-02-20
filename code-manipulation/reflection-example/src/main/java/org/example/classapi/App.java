@@ -1,10 +1,9 @@
-package org.example;
+package org.example.classapi;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-public class ClassApiApp {
+public class App {
     public static void main( String[] args ) throws ClassNotFoundException {
 
 
@@ -100,7 +99,7 @@ public class ClassApiApp {
 //        System.out.println("============================");
 //
 //        // 문자열로 접근
-//        Class<?> bookClass2 = Class.forName("org.example.Book");
+//        Class<?> bookClass2 = Class.forName("org.example.annotation.Book");
 //        System.out.println(bookClass2.getName());
     }
 }
