@@ -1,16 +1,19 @@
 package org.example;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.Name;
-import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.*;
 import javax.tools.Diagnostic;
+import java.io.IOException;
 import java.util.Set;
 
 @AutoService(Processor.class)
@@ -44,6 +47,36 @@ public class MagicMojaProcessor extends AbstractProcessor {
             } else {
                 processingEnv.getMessager()
                         .printMessage(Diagnostic.Kind.NOTE, "Processing " + elementName);
+            }
+
+            // element 의 className ( FQCN )
+            TypeElement typeElement = (TypeElement) element;
+            ClassName className = ClassName.get(typeElement);
+
+            // pullOut 메소드 생성
+            MethodSpec pullOut = MethodSpec.methodBuilder("pullOut")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(String.class)
+                    .addStatement("return $S", "Rabbit!")
+                    .build();
+
+            // magicMoja 클래스 생성
+            TypeSpec magicMoja = TypeSpec.classBuilder("MagicMoja")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addSuperinterface(className)
+                    .addMethod(pullOut)
+                    .build();
+
+            // 위에 정의한 소스코드로 실제 파일 생성
+            Filer filer = processingEnv.getFiler();
+
+            try {
+                JavaFile.builder(className.packageName(), magicMoja)
+                        .build()
+                        .writeTo(filer);
+            } catch (IOException e) {
+                processingEnv.getMessager()
+                        .printMessage(Diagnostic.Kind.ERROR, "FATAL ERROR: " + e);
             }
         }
         return true;
