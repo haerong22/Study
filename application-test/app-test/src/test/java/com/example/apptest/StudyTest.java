@@ -10,23 +10,39 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
-    @Test
-    @DisplayName("tag test")
-    @Tag("fast")
-    void test_14() {
+    @FastTest
+    @DisplayName("custom tag test")
+    void test_16() {
         System.out.println("fast");
         Study study = new Study(10);
         assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
     }
 
-    @Test
-    @DisplayName("tag test")
-    @Tag("slow")
-    void test_13() {
+    @SlowTest
+    @DisplayName("custom tag test")
+    void test_15() {
         System.out.println("slow");
         Study study = new Study(10);
         assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
     }
+
+//    @Test
+//    @DisplayName("tag test")
+//    @Tag("fast")
+//    void test_14() {
+//        System.out.println("fast");
+//        Study study = new Study(10);
+//        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+//    }
+//
+//    @Test
+//    @DisplayName("tag test")
+//    @Tag("slow")
+//    void test_13() {
+//        System.out.println("slow");
+//        Study study = new Study(10);
+//        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+//    }
 
 //    @Test
 //    @DisplayName("DisabledIfEnvironmentVariable test")
