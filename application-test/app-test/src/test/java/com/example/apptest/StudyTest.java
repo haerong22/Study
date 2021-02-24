@@ -11,22 +11,40 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudyTest {
 
     @Test
-    @DisplayName("DisabledIfEnvironmentVariable test")
-    @DisabledIfEnvironmentVariable(named = "TEST_ENV", matches = "KIM")
-    void test_12() {
-        System.out.println("테스트");
+    @DisplayName("tag test")
+    @Tag("fast")
+    void test_14() {
+        System.out.println("fast");
         Study study = new Study(10);
         assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
     }
 
     @Test
-    @DisplayName("EnabledIfEnvironmentVariable test")
-    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "KIM")
-    void test_11() {
-        System.out.println("테스트");
+    @DisplayName("tag test")
+    @Tag("slow")
+    void test_13() {
+        System.out.println("slow");
         Study study = new Study(10);
         assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
     }
+
+//    @Test
+//    @DisplayName("DisabledIfEnvironmentVariable test")
+//    @DisabledIfEnvironmentVariable(named = "TEST_ENV", matches = "KIM")
+//    void test_12() {
+//        System.out.println("테스트");
+//        Study study = new Study(10);
+//        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+//    }
+//
+//    @Test
+//    @DisplayName("EnabledIfEnvironmentVariable test")
+//    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "KIM")
+//    void test_11() {
+//        System.out.println("테스트");
+//        Study study = new Study(10);
+//        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+//    }
 
 //    @Test
 //    @DisplayName("EnabledOnJre test")
