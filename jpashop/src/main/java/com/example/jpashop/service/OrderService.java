@@ -31,7 +31,7 @@ public class OrderService {
         Member member = memberRepository.findById(memberId).get();
         Item item = itemRepository.findOne(itemId);
 
-        // 배송정보 생성성
+        // 배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
 
