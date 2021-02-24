@@ -2,6 +2,16 @@ package com.example.apptest;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
+import org.junit.jupiter.params.converter.ArgumentConversionException;
+import org.junit.jupiter.params.converter.ConvertWith;
+import org.junit.jupiter.params.converter.SimpleArgumentConverter;
+import org.junit.jupiter.params.provider.*;
 
 import java.time.Duration;
 
@@ -10,21 +20,107 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
-    @FastTest
-    @DisplayName("custom tag test")
-    void test_16() {
-        System.out.println("fast");
-        Study study = new Study(10);
-        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+    @DisplayName("ParameterizedTest test")
+    @ParameterizedTest
+    @CsvSource({"10, '자바'", "20, 스프링"})
+    void test_25(@AggregateWith(StudyAggregator.class) Study study) {
+        System.out.println(study);
     }
 
-    @SlowTest
-    @DisplayName("custom tag test")
-    void test_15() {
-        System.out.println("slow");
-        Study study = new Study(10);
-        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+    static class StudyAggregator implements ArgumentsAggregator {
+        @Override
+        public Object aggregateArguments(ArgumentsAccessor a, ParameterContext parameterContext)
+                throws ArgumentsAggregationException {
+            return new Study(a.getInteger(0), a.getString(1));
+        }
     }
+
+    @DisplayName("ParameterizedTest test")
+    @ParameterizedTest
+    @CsvSource({"10, '자바'", "20, 스프링"})
+    void test_24(ArgumentsAccessor a) {
+        Study study = new Study(a.getInteger(0), a.getString(1));
+        System.out.println(study);
+    }
+
+    @DisplayName("ParameterizedTest test")
+    @ParameterizedTest
+    @CsvSource({"10, '자바'", "20, 스프링"})
+    void test_23(Integer limit, String name) {
+        Study study = new Study(limit, name);
+        System.out.println(study);
+    }
+
+    @DisplayName("ParameterizedTest test")
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+    @ValueSource(ints = {10, 20, 30})
+    void test_22(@ConvertWith(StudyConverter.class) Study study) {
+        System.out.println(study.getLimit());
+    }
+
+    static class StudyConverter extends SimpleArgumentConverter {
+        @Override
+        protected Object convert(Object source, Class<?> targetType) throws ArgumentConversionException {
+            assertEquals(Study.class, targetType, "Can only convert to Study");
+            return new Study(Integer.parseInt(source.toString()));
+        }
+    }
+
+    @DisplayName("ParameterizedTest test")
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+    @ValueSource(strings = {"반복", "테스트", "데이터"})
+    @NullAndEmptySource
+    void test_21(String message) {
+        System.out.println("message : " + message);
+    }
+
+    @DisplayName("ParameterizedTest test")
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+    @ValueSource(strings = {"반복", "테스트", "데이터"})
+    void test_20(String message) {
+        System.out.println(message);
+    }
+
+    @RepeatedTest(value = 5, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+    @DisplayName("repeated test")
+    void test_19(RepetitionInfo repetitionInfo) {
+
+        System.out.println(
+                "test" + repetitionInfo.getCurrentRepetition() +
+                        "/" + repetitionInfo.getTotalRepetitions());
+    }
+
+    @RepeatedTest(5)
+    @DisplayName("repeated test")
+    void test_18(RepetitionInfo repetitionInfo) {
+
+        System.out.println(
+                "test" + repetitionInfo.getCurrentRepetition() +
+                "/" + repetitionInfo.getTotalRepetitions());
+    }
+
+    @RepeatedTest(5)
+    @DisplayName("repeated test")
+    void test_17() {
+        System.out.println("test");
+    }
+
+
+//    @FastTest
+//    @DisplayName("custom tag test")
+//    void test_16() {
+//        System.out.println("fast");
+//        Study study = new Study(10);
+//        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+//    }
+//
+//    @SlowTest
+//    @DisplayName("custom tag test")
+//    void test_15() {
+//        System.out.println("slow");
+//        Study study = new Study(10);
+//        assertTrue(study.getLimit() > 0, () -> "limit 는 0보다 커야한다.");
+//    }
 
 //    @Test
 //    @DisplayName("tag test")
