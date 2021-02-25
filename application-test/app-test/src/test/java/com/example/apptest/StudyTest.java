@@ -18,24 +18,41 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
-    int value = 0;
-
+    @Order(2)
     @Test
-    @DisplayName("instance")
-    void test_27() {
+    @DisplayName("order test2")
+    void test_29() {
         System.out.println(this);
-        System.out.println("value: " + value++);
+        System.out.println("테스트 2");
     }
 
+    @Order(1)
     @Test
-    @DisplayName("instance")
-    void test_26() {
+    @DisplayName("order test1")
+    void test_28() {
         System.out.println(this);
-        System.out.println("value: " + value++);
+        System.out.println("테스트 1");
     }
+
+//    int value = 0;
+//
+//    @Test
+//    @DisplayName("instance test2")
+//    void test_27() {
+//        System.out.println(this);
+//        System.out.println("value: " + value++);
+//    }
+//
+//    @Test
+//    @DisplayName("instance test1")
+//    void test_26() {
+//        System.out.println(this);
+//        System.out.println("value: " + value++);
+//    }
 
 
 //    @DisplayName("ParameterizedTest test")
