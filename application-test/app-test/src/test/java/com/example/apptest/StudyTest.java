@@ -18,92 +18,110 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class StudyTest {
 
-    @DisplayName("ParameterizedTest test")
-    @ParameterizedTest
-    @CsvSource({"10, '자바'", "20, 스프링"})
-    void test_25(@AggregateWith(StudyAggregator.class) Study study) {
-        System.out.println(study);
+    int value = 0;
+
+    @Test
+    @DisplayName("instance")
+    void test_27() {
+        System.out.println(this);
+        System.out.println("value: " + value++);
     }
 
-    static class StudyAggregator implements ArgumentsAggregator {
-        @Override
-        public Object aggregateArguments(ArgumentsAccessor a, ParameterContext parameterContext)
-                throws ArgumentsAggregationException {
-            return new Study(a.getInteger(0), a.getString(1));
-        }
+    @Test
+    @DisplayName("instance")
+    void test_26() {
+        System.out.println(this);
+        System.out.println("value: " + value++);
     }
 
-    @DisplayName("ParameterizedTest test")
-    @ParameterizedTest
-    @CsvSource({"10, '자바'", "20, 스프링"})
-    void test_24(ArgumentsAccessor a) {
-        Study study = new Study(a.getInteger(0), a.getString(1));
-        System.out.println(study);
-    }
 
-    @DisplayName("ParameterizedTest test")
-    @ParameterizedTest
-    @CsvSource({"10, '자바'", "20, 스프링"})
-    void test_23(Integer limit, String name) {
-        Study study = new Study(limit, name);
-        System.out.println(study);
-    }
+//    @DisplayName("ParameterizedTest test")
+//    @ParameterizedTest
+//    @CsvSource({"10, '자바'", "20, 스프링"})
+//    void test_25(@AggregateWith(StudyAggregator.class) Study study) {
+//        System.out.println(study);
+//    }
+//
+//    static class StudyAggregator implements ArgumentsAggregator {
+//        @Override
+//        public Object aggregateArguments(ArgumentsAccessor a, ParameterContext parameterContext)
+//                throws ArgumentsAggregationException {
+//            return new Study(a.getInteger(0), a.getString(1));
+//        }
+//    }
 
-    @DisplayName("ParameterizedTest test")
-    @ParameterizedTest(name = "{index} {displayName} message={0}")
-    @ValueSource(ints = {10, 20, 30})
-    void test_22(@ConvertWith(StudyConverter.class) Study study) {
-        System.out.println(study.getLimit());
-    }
-
-    static class StudyConverter extends SimpleArgumentConverter {
-        @Override
-        protected Object convert(Object source, Class<?> targetType) throws ArgumentConversionException {
-            assertEquals(Study.class, targetType, "Can only convert to Study");
-            return new Study(Integer.parseInt(source.toString()));
-        }
-    }
-
-    @DisplayName("ParameterizedTest test")
-    @ParameterizedTest(name = "{index} {displayName} message={0}")
-    @ValueSource(strings = {"반복", "테스트", "데이터"})
-    @NullAndEmptySource
-    void test_21(String message) {
-        System.out.println("message : " + message);
-    }
-
-    @DisplayName("ParameterizedTest test")
-    @ParameterizedTest(name = "{index} {displayName} message={0}")
-    @ValueSource(strings = {"반복", "테스트", "데이터"})
-    void test_20(String message) {
-        System.out.println(message);
-    }
-
-    @RepeatedTest(value = 5, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
-    @DisplayName("repeated test")
-    void test_19(RepetitionInfo repetitionInfo) {
-
-        System.out.println(
-                "test" + repetitionInfo.getCurrentRepetition() +
-                        "/" + repetitionInfo.getTotalRepetitions());
-    }
-
-    @RepeatedTest(5)
-    @DisplayName("repeated test")
-    void test_18(RepetitionInfo repetitionInfo) {
-
-        System.out.println(
-                "test" + repetitionInfo.getCurrentRepetition() +
-                "/" + repetitionInfo.getTotalRepetitions());
-    }
-
-    @RepeatedTest(5)
-    @DisplayName("repeated test")
-    void test_17() {
-        System.out.println("test");
-    }
+//    @DisplayName("ParameterizedTest test")
+//    @ParameterizedTest
+//    @CsvSource({"10, '자바'", "20, 스프링"})
+//    void test_24(ArgumentsAccessor a) {
+//        Study study = new Study(a.getInteger(0), a.getString(1));
+//        System.out.println(study);
+//    }
+//
+//    @DisplayName("ParameterizedTest test")
+//    @ParameterizedTest
+//    @CsvSource({"10, '자바'", "20, 스프링"})
+//    void test_23(Integer limit, String name) {
+//        Study study = new Study(limit, name);
+//        System.out.println(study);
+//    }
+//
+//    @DisplayName("ParameterizedTest test")
+//    @ParameterizedTest(name = "{index} {displayName} message={0}")
+//    @ValueSource(ints = {10, 20, 30})
+//    void test_22(@ConvertWith(StudyConverter.class) Study study) {
+//        System.out.println(study.getLimit());
+//    }
+//
+//    static class StudyConverter extends SimpleArgumentConverter {
+//        @Override
+//        protected Object convert(Object source, Class<?> targetType) throws ArgumentConversionException {
+//            assertEquals(Study.class, targetType, "Can only convert to Study");
+//            return new Study(Integer.parseInt(source.toString()));
+//        }
+//    }
+//
+//    @DisplayName("ParameterizedTest test")
+//    @ParameterizedTest(name = "{index} {displayName} message={0}")
+//    @ValueSource(strings = {"반복", "테스트", "데이터"})
+//    @NullAndEmptySource
+//    void test_21(String message) {
+//        System.out.println("message : " + message);
+//    }
+//
+//    @DisplayName("ParameterizedTest test")
+//    @ParameterizedTest(name = "{index} {displayName} message={0}")
+//    @ValueSource(strings = {"반복", "테스트", "데이터"})
+//    void test_20(String message) {
+//        System.out.println(message);
+//    }
+//
+//    @RepeatedTest(value = 5, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+//    @DisplayName("repeated test")
+//    void test_19(RepetitionInfo repetitionInfo) {
+//
+//        System.out.println(
+//                "test" + repetitionInfo.getCurrentRepetition() +
+//                        "/" + repetitionInfo.getTotalRepetitions());
+//    }
+//
+//    @RepeatedTest(5)
+//    @DisplayName("repeated test")
+//    void test_18(RepetitionInfo repetitionInfo) {
+//
+//        System.out.println(
+//                "test" + repetitionInfo.getCurrentRepetition() +
+//                "/" + repetitionInfo.getTotalRepetitions());
+//    }
+//
+//    @RepeatedTest(5)
+//    @DisplayName("repeated test")
+//    void test_17() {
+//        System.out.println("test");
+//    }
 
 
 //    @FastTest
