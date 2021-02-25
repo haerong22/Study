@@ -3,7 +3,7 @@ server:
 
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
 
 spring:
   messages:
@@ -24,7 +24,6 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
-
 
 management:
   endpoints:
