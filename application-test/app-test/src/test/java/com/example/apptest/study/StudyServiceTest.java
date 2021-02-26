@@ -1,5 +1,7 @@
 package com.example.apptest.study;
 
+import com.example.apptest.domain.Member;
+import com.example.apptest.domain.Study;
 import com.example.apptest.member.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,10 +10,122 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class StudyServiceTest {
+
+    @Test
+    @DisplayName("stubbing test")
+    void test_45(@Mock MemberService memberService,
+                 @Mock StudyRepository studyRepository) {
+
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Study study = new Study(10, "테스트");
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("email@email.com");
+
+        Mockito.when(memberService.findById(1L))
+                .thenReturn(Optional.of(member));
+        Mockito.when(studyRepository.save(study)).thenReturn(study);
+
+        studyService.createNewStudy(1L, study);
+
+        assertNotNull(study.getOwnerId());
+        assertEquals(member.getId(), study.getOwnerId());
+
+        System.out.println("테스트 완료!!");
+    }
+
+    @Test
+    @DisplayName("Stubbing test")
+    void test_44(@Mock MemberService memberService,
+                 @Mock StudyRepository studyRepository) {
+
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        // 리턴할 객체 생성
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("email@email.com");
+
+        // 첫번째 호출 Optional.of(member) 리턴
+        // 두번째 호출 new RuntimeException() 리턴
+        // 세번째 호출 이후 Optional.empty() 리턴
+        Mockito.when(memberService.findById(any()))
+                .thenReturn(Optional.of(member))
+                .thenThrow(new RuntimeException())
+                .thenReturn(Optional.empty());
+
+        // 첫번째 호출
+        Optional<Member> findMember = memberService.findById(1L);
+        assertEquals("email@email.com", findMember.get().getEmail());
+
+        // 두번째 호출
+        assertThrows(RuntimeException.class, () -> memberService.findById(1L));
+
+        // 세번째 호출
+        assertEquals(Optional.empty(), memberService.findById(1L));
+
+        // 네번째 호출
+        assertEquals(Optional.empty(), memberService.findById(1L));
+
+        System.out.println("테스트 완료!");
+    }
+
+    @Test
+    @DisplayName("Stubbing test")
+    void test_43(@Mock MemberService memberService,
+                 @Mock StudyRepository studyRepository) {
+
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        // 리턴할 객체 생성
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("email@email.com");
+
+        // 예외 테스트 -> memberService.validate(1L) 이 호출되면 IllegalArgumentException 발생
+        Mockito.doThrow(new IllegalArgumentException()).when(memberService).validate(1L);
+
+        // 예외 체크
+        assertThrows(IllegalArgumentException.class, () -> memberService.validate(1L));
+
+        memberService.validate(2L);
+
+        System.out.println("테스트 완료!");
+    }
+
+    @Test
+    @DisplayName("Stubbing test")
+    void test_42(@Mock MemberService memberService,
+                 @Mock StudyRepository studyRepository) {
+
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        // 리턴할 객체 생성
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("email@email.com");
+
+        // when( 실행할 구문 ) thenReturn( 리턴 값 )
+        // memberService.findById( 아무값 ) 이 호출되면 Optional.of(member) 리턴
+        Mockito.when(memberService.findById(any())).thenReturn(Optional.of(member));
+
+        assertEquals("email@email.com", memberService.findById(1L).get().getEmail());
+        assertEquals("email@email.com", memberService.findById(2L).get().getEmail());
+
+        System.out.println("테스트 완료!");
+    }
 
     @Test
     @DisplayName("@Mock test")
