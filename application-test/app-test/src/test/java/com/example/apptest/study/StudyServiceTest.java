@@ -6,6 +6,7 @@ import com.example.apptest.member.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,10 +16,43 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StudyServiceTest {
+
+    @Test
+    @DisplayName("BDD style test")
+    void test_49(@Mock MemberService memberService,
+                 @Mock StudyRepository studyRepository) {
+
+        // Given : 주어진 상황
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Study study = new Study(10, "테스트");
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("email@email.com");
+
+        // when -> given ( BDDMockito )
+        given(memberService.findById(1L)).willReturn(Optional.of(member));
+        given(studyRepository.save(study)).willReturn(study);
+
+        // When : 어떤 행동을 했을 때
+        Study newStudy = studyService.createNewStudy(1L, study);
+
+        // Then : 그 결과
+        assertEquals(member.getId(), newStudy.getOwnerId());
+
+        // verify -> then
+        then(memberService).should(times(1)).notify(newStudy);
+        then(memberService).should(times(1)).notify(member);
+        then(memberService).shouldHaveNoMoreInteractions();
+
+        System.out.println("테스트 완료!!");
+    }
 
     @Test
     @DisplayName("stubbing test")
