@@ -20,7 +20,7 @@ public class Study {
 
     private StudyStatus status = StudyStatus.DRAFT;
 
-    private int limit;
+    private int limitCount;
 
     private String name;
 
@@ -29,7 +29,7 @@ public class Study {
     private Long ownerId;
 
     public Study(int limit, String name) {
-        this.limit = limit;
+        this.limitCount = limit;
         this.name = name;
     }
 
@@ -37,7 +37,7 @@ public class Study {
         if (limit <= 0) {
             throw new IllegalArgumentException("limit은 0보다 커야 한다.");
         }
-        this.limit = limit;
+        this.limitCount = limit;
     }
 
     public void open() {
