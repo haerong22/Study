@@ -1,9 +1,6 @@
 package com.example.apptest.study;
 
-import com.example.apptest.domain.Member;
-import com.example.apptest.domain.Study;
 import com.example.apptest.member.MemberService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -14,33 +11,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.DockerComposeContainer;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 @Testcontainers
 //@Slf4j
-@ContextConfiguration(initializers = StudyServiceSpringBootTest.ContainerPropertyInitializer.class)
-public class StudyServiceSpringBootTest {
+@ContextConfiguration(initializers = TestContainersTest.ContainerPropertyInitializer.class)
+public class TestContainersTest {
 
     @Mock MemberService memberService;
     @Autowired StudyRepository studyRepository;
