@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: chaos-monkey
+
   datasource:
     url: jdbc:postgresql://localhost:5432/study
     username: study
@@ -6,10 +9,24 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     generate-ddl: true
 
     properties:
       format_sql: true
       hibernate:
         show-sql: true
+
+management:
+  endpoint:
+    chaosmonkey:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,chaosmonkey
+
+chaos:
+  monkey:
+    watcher:
+      repository: true
