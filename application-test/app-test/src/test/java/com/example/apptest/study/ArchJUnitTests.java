@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 // App.class 가 있는 패키지 선택
 @AnalyzeClasses(packagesOf = App.class)
-public class ArchJUnitTest {
+public class ArchJUnitTests {
 
     // 룰 정의 후 테스트
     @ArchTest
@@ -26,11 +26,13 @@ public class ArchJUnitTest {
                     .should().accessClassesThat().resideInAPackage("..study..");
 
     @ArchTest
-    ClassesShouldConjunction memberPackageRule = ArchRuleDefinition.noClasses().that().resideInAPackage("..domain..")
+    ClassesShouldConjunction memberPackageRule =
+            ArchRuleDefinition.noClasses().that().resideInAPackage("..domain..")
             .should().accessClassesThat().resideInAnyPackage("..member..");
 
     @ArchTest
-    ClassesShouldConjunction domainPackageRule = ArchRuleDefinition.classes().that().resideInAPackage("..domain..")
+    ClassesShouldConjunction domainPackageRule =
+            ArchRuleDefinition.classes().that().resideInAPackage("..domain..")
             .should().onlyBeAccessed().byClassesThat().resideInAnyPackage("..study..", "..member..", "..domain..");
 
 }

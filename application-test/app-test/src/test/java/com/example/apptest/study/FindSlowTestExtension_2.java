@@ -1,4 +1,4 @@
-package com.example.apptest;
+package com.example.apptest.study;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -6,13 +6,9 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.lang.reflect.Method;
 
-public class FindSlowTestExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public class FindSlowTestExtension_2 implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    private final long THRESHOLD;
-
-    public FindSlowTestExtension(long THRESHOLD) {
-        this.THRESHOLD = THRESHOLD;
-    }
+    private static final long THRESHOLD = 1000L;
 
     // 테스트 실행 전에 실행하는 메소드
     @Override
