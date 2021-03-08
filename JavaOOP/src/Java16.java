@@ -1,0 +1,2 @@
+public class Java16 {
+}
