@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
 
-import Lotto from "./Lotto";
+import TicTacToe from "./TicTacToe";
 
-ReactDom.render(<Lotto />, document.querySelector("#root"));
+ReactDom.render(<TicTacToe />, document.querySelector("#root"));
