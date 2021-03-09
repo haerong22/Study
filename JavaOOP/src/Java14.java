@@ -1,4 +1,4 @@
-import object.MemberVO;
+import myObject.MemberVO;
 
 public class Java14 {
 

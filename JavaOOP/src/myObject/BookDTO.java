@@ -1,15 +1,15 @@
-package object;
+package myObject;
 
-public class BookVO {
+public class BookDTO {
     public String title;
     public int price;
     public String company;
     public int page;
 
-    public BookVO() {
+    public BookDTO() {
     }
 
-    public BookVO(String title, int price, String company, int page) {
+    public BookDTO(String title, int price, String company, int page) {
         this.title = title;
         this.price = price;
         this.company = company;

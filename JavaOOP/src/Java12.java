@@ -1,4 +1,4 @@
-import object.PrivateConstructor;
+import myObject.PrivateConstructor;
 
 public class Java12 {
 

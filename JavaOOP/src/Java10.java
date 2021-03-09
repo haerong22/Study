@@ -1,4 +1,4 @@
-import object.BookVO;
+import myObject.BookVO;
 
 public class Java10 {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package object;
+package myObject;
 
 public class OverLoad {
     // 동작(method)으로만 이루어진 객체

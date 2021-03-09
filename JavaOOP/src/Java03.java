@@ -1,5 +1,5 @@
-import object.Book;
-import object.Person;
+import myObject.Book;
+import myObject.Person;
 
 public class Java03 {
 

@@ -1,6 +1,6 @@
 import com.google.gson.Gson;
-import object.BookVO;
-import object.MyUtil;
+import myObject.BookVO;
+import myObject.MyUtil;
 
 public class Java17 {
     public static void main(String[] args) {

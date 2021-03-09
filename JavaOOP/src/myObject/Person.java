@@ -1,4 +1,4 @@
-package object;
+package myObject;
 
 public class Person {
     public String name;
