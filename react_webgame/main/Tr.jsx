@@ -1,23 +1,20 @@
-import React from "react";
+import React, {memo, useMemo} from "react";
 import Td from "./Td";
 
-const Tr = ({ rowData, rowIndex, dispatch }) => {
+const Tr = memo(({ rowData, rowIndex, dispatch }) => {
+  console.log("tr rendered")
   return (
     <tr>
       {Array(rowData.length)
         .fill()
         .map((td, i) => (
-          <Td
-            rowIndex={rowIndex}
-            cellIndex={i}
-            dispatch={dispatch}
-            cellData={rowData[i]}
-          >
-            {""}
-          </Td>
+          useMemo( 
+            () => <Td rowIndex={rowIndex} cellIndex={i} dispatch={dispatch} cellData={rowData[i]} >{""}</Td>,
+            [rowData[i]],
+          )
         ))}
     </tr>
   );
-};
+});
 
 export default Tr;
