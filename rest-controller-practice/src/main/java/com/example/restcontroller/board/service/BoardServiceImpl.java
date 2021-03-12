@@ -238,4 +238,9 @@ public class BoardServiceImpl implements BoardService {
         boardReportRepository.save(boardReport);
         return ServiceResult.success();
     }
+
+    @Override
+    public List<BoardReport> boardReportList() {
+        return boardReportRepository.findAll();
+    }
 }

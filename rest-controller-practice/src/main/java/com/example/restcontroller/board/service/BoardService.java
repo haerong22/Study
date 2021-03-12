@@ -1,5 +1,6 @@
 package com.example.restcontroller.board.service;
 
+import com.example.restcontroller.board.entity.BoardReport;
 import com.example.restcontroller.board.entity.BoardType;
 import com.example.restcontroller.board.model.*;
 
@@ -30,4 +31,6 @@ public interface BoardService {
     ServiceResult setBoardUnLike(Long id, String email);
 
     ServiceResult addReport(Long id, String email, BoardReportInput boardReportInput);
+
+    List<BoardReport> boardReportList();
 }
