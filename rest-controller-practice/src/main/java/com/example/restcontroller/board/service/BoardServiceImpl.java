@@ -26,6 +26,7 @@ public class BoardServiceImpl implements BoardService {
     private final UserRepository userRepository;
     private final BoardLikeRepository boardLikeRepository;
     private final BoardReportRepository boardReportRepository;
+    private final BoardScrapRepository boardScrapRepository;
 
     @Transactional
     @Override
@@ -208,6 +209,7 @@ public class BoardServiceImpl implements BoardService {
         return ServiceResult.success();
     }
 
+    @Transactional
     @Override
     public ServiceResult addReport(Long id, String email, BoardReportInput boardReportInput) {
         Optional<Board> board = boardRepository.findById(id);
@@ -242,5 +244,35 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardReport> boardReportList() {
         return boardReportRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public ServiceResult scrapBoard(Long id, String email) {
+        Optional<Board> board = boardRepository.findById(id);
+        if (!board.isPresent()) {
+            return ServiceResult.fail("게시글이 존재하지 않습니다");
+        }
+        Board boardEntity = board.get();
+
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (!optionalUser.isPresent()) {
+            return ServiceResult.fail("회원 정보가 존재하지 않습니다");
+        }
+        User userEntity = optionalUser.get();
+
+        BoardScrap boardScrap = BoardScrap.builder()
+                .user(userEntity)
+                .boardId(boardEntity.getId())
+                .boardTypeId(boardEntity.getBoardType().getId())
+                .boardTitle(boardEntity.getTitle())
+                .boardContents(boardEntity.getContent())
+                .boardRegDate(boardEntity.getRegDate())
+                .regDate(LocalDateTime.now())
+                .build();
+
+        boardScrapRepository.save(boardScrap);
+
+        return ServiceResult.success();
     }
 }

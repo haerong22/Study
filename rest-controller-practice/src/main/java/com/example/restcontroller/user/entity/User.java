@@ -1,9 +1,6 @@
 package com.example.restcontroller.user.entity;
 
-import com.example.restcontroller.board.entity.Board;
-import com.example.restcontroller.board.entity.BoardHits;
-import com.example.restcontroller.board.entity.BoardLike;
-import com.example.restcontroller.board.entity.BoardType;
+import com.example.restcontroller.board.entity.*;
 import com.example.restcontroller.notice.entity.Notice;
 import com.example.restcontroller.notice.entity.NoticeLike;
 import com.example.restcontroller.user.model.UserInput;
@@ -66,6 +63,10 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     List<BoardLike> boardLikeList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    List<BoardScrap> boardScrapList = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
