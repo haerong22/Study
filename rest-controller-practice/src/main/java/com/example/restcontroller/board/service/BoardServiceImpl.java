@@ -23,10 +23,11 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final BoardTypeCustomRepository boardTypeCustomRepository;
     private final BoardHitsRepository boardHitsRepository;
-    private final UserRepository userRepository;
     private final BoardLikeRepository boardLikeRepository;
     private final BoardReportRepository boardReportRepository;
     private final BoardScrapRepository boardScrapRepository;
+    private final BoardBookmarkRepository boardBookmarkRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     @Override
@@ -296,6 +297,61 @@ public class BoardServiceImpl implements BoardService {
         }
 
         boardScrapRepository.delete(boardScrapEntity);
+        return ServiceResult.success();
+    }
+
+    private String getBoardUrl(Long boardId) {
+        return String.format("/api/board/%d", boardId);
+    }
+
+    @Transactional
+    @Override
+    public ServiceResult addBookmark(Long id, String email) {
+        Optional<Board> board = boardRepository.findById(id);
+        if (!board.isPresent()) {
+            return ServiceResult.fail("게시글이 존재하지 않습니다");
+        }
+        Board boardEntity = board.get();
+
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (!optionalUser.isPresent()) {
+            return ServiceResult.fail("회원 정보가 존재하지 않습니다");
+        }
+        User userEntity = optionalUser.get();
+
+        BoardBookmark boardBookmark = BoardBookmark.builder()
+                .user(userEntity)
+                .boardId(boardEntity.getId())
+                .boardTypeId(boardEntity.getBoardType().getId())
+                .boardTitle(boardEntity.getTitle())
+                .boardUrl(getBoardUrl(boardEntity.getId()))
+                .regDate(LocalDateTime.now())
+                .build();
+
+        boardBookmarkRepository.save(boardBookmark);
+        return ServiceResult.success();
+    }
+
+    @Transactional
+    @Override
+    public ServiceResult deleteBookmark(Long id, String email) {
+        Optional<BoardBookmark> optionalBoardBookmark = boardBookmarkRepository.findById(id);
+        if (!optionalBoardBookmark.isPresent()) {
+            return ServiceResult.fail("삭제할 북마크가 없습니다");
+        }
+        BoardBookmark boardBookmarkEntity = optionalBoardBookmark.get();
+
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (!optionalUser.isPresent()) {
+            return ServiceResult.fail("회원 정보가 존재하지 않습니다");
+        }
+        User userEntity = optionalUser.get();
+
+        if (boardBookmarkEntity.getUser().getId() != userEntity.getId()) {
+            return ServiceResult.fail("본인의 스크랩만 삭제할 수 있습니다");
+        }
+
+        boardBookmarkRepository.delete(boardBookmarkEntity);
         return ServiceResult.success();
     }
 }

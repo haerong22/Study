@@ -68,6 +68,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<BoardScrap> boardScrapList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    List<BoardBookmark> boardBookmarkList = new ArrayList<>();
+
     @PrePersist
     public void prePersist() {
         status = status == null ? UserStatus.USING : status;
