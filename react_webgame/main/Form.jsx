@@ -14,6 +14,9 @@ const Form = () => {
   const onChangeMine = useCallback((e) => {
     setMine(e.target.value);
   }, []);
+  const onClickBtn = useCallback((e) => {
+    setMine(e.target.value);
+  }, []);
 
   return (
     <div>

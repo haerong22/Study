@@ -1,17 +1,7 @@
-import React, {memo} from "react";
-import Tr from "./Tr";
+import React from "react";
 
-const Table = memo(({ tableData, dispatch }) => {
-  console.log("table rendered");
-  return (
-    <table>
-      {Array(tableData.length)
-        .fill()
-        .map((tr, i) => (
-          <Tr rowIndex={i} rowData={tableData[i]} dispatch={dispatch} />
-        ))}
-    </table>
-  );
-});
+const Table = () => {
+  return <div></div>;
+};
 
 export default Table;
