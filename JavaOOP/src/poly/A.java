@@ -1,4 +1,4 @@
-package myObject;
+package poly;
 
 public class A{
 
