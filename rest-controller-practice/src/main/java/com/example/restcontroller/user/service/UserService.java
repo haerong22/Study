@@ -1,5 +1,6 @@
 package com.example.restcontroller.user.service;
 
+import com.example.restcontroller.board.model.ServiceResult;
 import com.example.restcontroller.user.model.UserNoticeCount;
 import com.example.restcontroller.user.model.UserLogCount;
 import com.example.restcontroller.user.model.UserResponse;
@@ -18,4 +19,6 @@ public interface UserService {
     List<UserLogCount> getUserLogCount();
 
     List<UserLogCount> getUserLikeBest();
+
+    ServiceResult addInterestUser(Long id, String email);
 }
