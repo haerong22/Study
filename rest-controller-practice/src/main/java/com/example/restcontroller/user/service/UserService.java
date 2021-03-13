@@ -21,4 +21,6 @@ public interface UserService {
     List<UserLogCount> getUserLikeBest();
 
     ServiceResult addInterestUser(Long id, String email);
+
+    ServiceResult deleteInterestUser(Long id, String email);
 }

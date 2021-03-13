@@ -101,4 +101,34 @@ public class UserServiceImpl implements UserService {
 
         return ServiceResult.success();
     }
+
+    @Transactional
+    @Override
+    public ServiceResult deleteInterestUser(Long id, String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (!optionalUser.isPresent()) {
+            return ServiceResult.fail("회원 정보가 없습니다.");
+        }
+        User userEntity = optionalUser.get();
+
+        Optional<User> optionalInterestUser = userRepository.findById(id);
+        if (!optionalInterestUser.isPresent()) {
+            return ServiceResult.fail("관심 사용자에 추가할 회원 정보가 없습니다.");
+        }
+        User interestUserEntity = optionalInterestUser.get();
+
+        Optional<UserInterest> optionalUserInterest = userInterestRepository.findByUserAndInterestUser(userEntity, interestUserEntity);
+
+        if (!optionalUserInterest.isPresent()) {
+            return ServiceResult.fail("삭제할 정보가 없습니다.");
+        }
+        UserInterest userInterestEntity = optionalUserInterest.get();
+
+        if (userInterestEntity.getUser().getId() != userEntity.getId()) {
+            return ServiceResult.fail("자신의 관심자 정보만 삭제 할 수 있습니다.");
+        }
+
+        userInterestRepository.delete(userInterestEntity);
+        return ServiceResult.success();
+    }
 }
