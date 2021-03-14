@@ -4,6 +4,7 @@ import com.example.restcontroller.board.entity.*;
 import com.example.restcontroller.board.exception.BoardTypeNotFoundException;
 import com.example.restcontroller.board.model.*;
 import com.example.restcontroller.board.repository.*;
+import com.example.restcontroller.common.exception.BizException;
 import com.example.restcontroller.user.entity.User;
 import com.example.restcontroller.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -353,5 +354,13 @@ public class BoardServiceImpl implements BoardService {
 
         boardBookmarkRepository.delete(boardBookmarkEntity);
         return ServiceResult.success();
+    }
+
+    @Override
+    public List<Board> postList(String email) {
+        User userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BizException("회원 정보가 존재하지 않습니다."));
+
+        return boardRepository.findByUser(userEntity);
     }
 }

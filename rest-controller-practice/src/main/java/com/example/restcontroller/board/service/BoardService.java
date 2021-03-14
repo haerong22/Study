@@ -1,5 +1,6 @@
 package com.example.restcontroller.board.service;
 
+import com.example.restcontroller.board.entity.Board;
 import com.example.restcontroller.board.entity.BoardReport;
 import com.example.restcontroller.board.entity.BoardType;
 import com.example.restcontroller.board.model.*;
@@ -41,4 +42,6 @@ public interface BoardService {
     ServiceResult addBookmark(Long id, String email);
 
     ServiceResult deleteBookmark(Long id, String email);
+
+    List<Board> postList(String email);
 }

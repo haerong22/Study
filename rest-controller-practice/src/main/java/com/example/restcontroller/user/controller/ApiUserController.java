@@ -2,7 +2,11 @@ package com.example.restcontroller.user.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.example.restcontroller.board.entity.Board;
+import com.example.restcontroller.board.service.BoardService;
+import com.example.restcontroller.common.model.ResponseResult;
 import com.example.restcontroller.notice.entity.Notice;
 import com.example.restcontroller.notice.entity.NoticeLike;
 import com.example.restcontroller.notice.exception.NoticeNotFoundException;
@@ -41,6 +45,8 @@ public class ApiUserController {
     private final UserRepository userRepository;
     private final NoticeRepository noticeRepository;
     private final NoticeLikeRepository noticeLikeRepository;
+
+    private final BoardService boardService;
 
     @PostMapping("/api/user")
     public ResponseEntity<?> chapter2_1(@RequestBody @Valid UserInput userInput, BindingResult bindingResult) {
@@ -351,5 +357,18 @@ public class ApiUserController {
         // ...
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/api/user/board/post")
+    public ResponseEntity<?> chapter3_20(@RequestHeader("TOKEN") String token) {
+        String email = "";
+        try {
+            email = JWTUtils.getIssuer(token);
+        } catch (JWTVerificationException e) {
+            return ResponseResult.fail("토큰 정보가 정확하지 않습니다.");
+        }
+
+        List<Board> list = boardService.postList(email);
+        return ResponseResult.success(list);
     }
 }
