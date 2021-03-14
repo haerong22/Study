@@ -80,6 +80,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<UserInterest> userList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    List<UserPoint> userPointList = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "interestUser")

@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.example.restcontroller.board.entity.Board;
 import com.example.restcontroller.board.entity.BoardComment;
+import com.example.restcontroller.board.model.ServiceResult;
 import com.example.restcontroller.board.service.BoardService;
 import com.example.restcontroller.common.model.ResponseResult;
 import com.example.restcontroller.notice.entity.Notice;
@@ -21,6 +22,7 @@ import com.example.restcontroller.user.exception.PasswordNotMatchException;
 import com.example.restcontroller.user.exception.UserNotFoundException;
 import com.example.restcontroller.user.model.*;
 import com.example.restcontroller.user.repository.UserRepository;
+import com.example.restcontroller.user.service.UserPointService;
 import com.example.restcontroller.util.JWTUtils;
 import com.example.restcontroller.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,7 @@ public class ApiUserController {
     private final NoticeLikeRepository noticeLikeRepository;
 
     private final BoardService boardService;
+    private final UserPointService userPointService;
 
     @PostMapping("/api/user")
     public ResponseEntity<?> chapter2_1(@RequestBody @Valid UserInput userInput, BindingResult bindingResult) {
@@ -385,5 +388,19 @@ public class ApiUserController {
         List<BoardComment> list = boardService.commentList(email);
 
         return ResponseResult.success(list);
+    }
+
+    @PostMapping("/api/user/point")
+    public ResponseEntity<?> chapter3_22(@RequestHeader("TOKEN") String token,
+                                         @RequestBody UserPointInput userPointInput) {
+        String email = "";
+        try {
+            email = JWTUtils.getIssuer(token);
+        } catch (JWTVerificationException e) {
+            return ResponseResult.fail("토큰 정보가 정확하지 않습니다.");
+        }
+        ServiceResult result = userPointService.addPoint(email, userPointInput);
+
+        return ResponseResult.result(result);
     }
 }
