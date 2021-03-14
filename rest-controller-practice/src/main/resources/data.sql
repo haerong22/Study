@@ -49,3 +49,10 @@ values
        (2, 2, '게시글5', '게시글 내용5', now(), 0),
        (3, 1, '게시글6', '게시글 내용6', now(), 0),
        (3, 3, '게시글7', '게시글 내용7', now(), 0);
+
+insert into board_comment (comments, reg_date, board_id, user_id)
+values
+    ('게시글 1의 댓글1', now(), 1, 1),
+    ('게시글 1의 댓글2', now(), 1, 2),
+    ('게시글 2의 댓글1', now(), 2, 1),
+    ('게시글 2의 댓글2', now(), 2, 3);

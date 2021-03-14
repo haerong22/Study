@@ -39,6 +39,10 @@ public class Board {
     @OneToMany(mappedBy = "board")
     List<BoardLike> boardLikeList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "board")
+    List<BoardComment> boardCommentList  = new ArrayList<>();
+
     private String title;
 
     private String content;

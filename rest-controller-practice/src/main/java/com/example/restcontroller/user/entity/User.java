@@ -74,7 +74,12 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
+    List<BoardComment> boardCommentList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
     List<UserInterest> userList = new ArrayList<>();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "interestUser")

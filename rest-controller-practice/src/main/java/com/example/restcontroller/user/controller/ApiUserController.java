@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.example.restcontroller.board.entity.Board;
+import com.example.restcontroller.board.entity.BoardComment;
 import com.example.restcontroller.board.service.BoardService;
 import com.example.restcontroller.common.model.ResponseResult;
 import com.example.restcontroller.notice.entity.Notice;
@@ -369,6 +370,20 @@ public class ApiUserController {
         }
 
         List<Board> list = boardService.postList(email);
+        return ResponseResult.success(list);
+    }
+
+    @GetMapping("/api/user/board/comment")
+    public ResponseEntity<?> chapter3_21(@RequestHeader("TOKEN") String token) {
+        String email = "";
+        try {
+            email = JWTUtils.getIssuer(token);
+        } catch (JWTVerificationException e) {
+            return ResponseResult.fail("토큰 정보가 정확하지 않습니다.");
+        }
+
+        List<BoardComment> list = boardService.commentList(email);
+
         return ResponseResult.success(list);
     }
 }

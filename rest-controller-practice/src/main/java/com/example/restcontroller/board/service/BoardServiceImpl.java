@@ -28,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardReportRepository boardReportRepository;
     private final BoardScrapRepository boardScrapRepository;
     private final BoardBookmarkRepository boardBookmarkRepository;
+    private final BoardCommentRepository boardCommentRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -362,5 +363,13 @@ public class BoardServiceImpl implements BoardService {
                 .orElseThrow(() -> new BizException("회원 정보가 존재하지 않습니다."));
 
         return boardRepository.findByUser(userEntity);
+    }
+
+    @Override
+    public List<BoardComment> commentList(String email) {
+        User userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BizException("회원 정보가 존재하지 않습니다."));
+
+        return boardCommentRepository.findByUser(userEntity);
     }
 }
