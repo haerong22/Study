@@ -1,6 +1,8 @@
 package com.example.restcontroller;
 
 import com.example.restcontroller.board.exception.BoardTypeNotFoundException;
+import com.example.restcontroller.common.exception.BizException;
+import com.example.restcontroller.common.model.ResponseResult;
 import com.example.restcontroller.notice.exception.AlreadyDeletedException;
 import com.example.restcontroller.notice.exception.DuplicateNoticeException;
 import com.example.restcontroller.notice.exception.NoticeNotFoundException;
@@ -22,9 +24,10 @@ public class GlobalExceptionHandler {
                         UserNotFoundException.class,
                         ExistsEmailException.class,
                         PasswordNotMatchException.class,
-                        BoardTypeNotFoundException.class })
+                        BoardTypeNotFoundException.class,
+                        BizException.class })
     public ResponseEntity<?> badRequest(RuntimeException e) {
-        return new ResponseEntity<>(ResponseMessage.fail(e.getMessage()), HttpStatus.BAD_REQUEST);
+        return ResponseResult.fail(e.getMessage());
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -39,6 +42,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> exception(Exception e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        return ResponseResult.fail(e.getMessage());
     }
 }

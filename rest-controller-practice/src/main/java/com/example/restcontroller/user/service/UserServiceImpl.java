@@ -2,16 +2,15 @@ package com.example.restcontroller.user.service;
 
 
 import com.example.restcontroller.board.model.ServiceResult;
+import com.example.restcontroller.common.exception.BizException;
 import com.example.restcontroller.user.entity.User;
 import com.example.restcontroller.user.entity.UserInterest;
 import com.example.restcontroller.user.entity.UserStatus;
-import com.example.restcontroller.user.model.UserNoticeCount;
-import com.example.restcontroller.user.model.UserLogCount;
-import com.example.restcontroller.user.model.UserResponse;
-import com.example.restcontroller.user.model.UserSummary;
+import com.example.restcontroller.user.model.*;
 import com.example.restcontroller.user.repository.UserCustomRepository;
 import com.example.restcontroller.user.repository.UserInterestRepository;
 import com.example.restcontroller.user.repository.UserRepository;
+import com.example.restcontroller.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,5 +129,18 @@ public class UserServiceImpl implements UserService {
 
         userInterestRepository.delete(userInterestEntity);
         return ServiceResult.success();
+    }
+
+    @Override
+    public User login(UserLogin userLogin) {
+
+        User userEntity = userRepository.findByEmail(userLogin.getEmail())
+                .orElseThrow(() -> new BizException("회원 정보가 존재하지 않습니다."));
+
+        if (!PasswordUtils.equalPassword(userLogin.getPassword(), userEntity.getPassword())) {
+            throw new BizException("일치하는 정보가 없습니다.");
+        }
+
+        return userEntity;
     }
 }

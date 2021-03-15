@@ -1,17 +1,18 @@
 package com.example.restcontroller.common.model;
 
-import com.example.restcontroller.board.entity.BoardReport;
 import com.example.restcontroller.board.model.ServiceResult;
 import com.example.restcontroller.user.model.ResponseMessage;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public class ResponseResult {
 
 
     public static ResponseEntity<?> fail(String message) {
-        return ResponseEntity.badRequest().body(ResponseMessage.fail(message));
+        return fail(message, null);
+    }
+
+    public static <T> ResponseEntity<?> fail(String message, T data) {
+        return ResponseEntity.badRequest().body(ResponseMessage.fail(message, data));
     }
 
     public static ResponseEntity<?> success() {

@@ -1,10 +1,8 @@
 package com.example.restcontroller.user.service;
 
 import com.example.restcontroller.board.model.ServiceResult;
-import com.example.restcontroller.user.model.UserNoticeCount;
-import com.example.restcontroller.user.model.UserLogCount;
-import com.example.restcontroller.user.model.UserResponse;
-import com.example.restcontroller.user.model.UserSummary;
+import com.example.restcontroller.user.entity.User;
+import com.example.restcontroller.user.model.*;
 
 import java.util.List;
 
@@ -23,4 +21,6 @@ public interface UserService {
     ServiceResult addInterestUser(Long id, String email);
 
     ServiceResult deleteInterestUser(Long id, String email);
+
+    User login(UserLogin userLogin);
 }
