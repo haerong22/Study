@@ -28,7 +28,6 @@ public class ApiLoginController {
         if (bindingResult.hasFieldErrors()) {
             return ResponseResult.fail("입력값이 정확하지 않습니다.", ResponseError.of(bindingResult.getFieldErrors()));
         }
-
         User user = userService.login(userLogin);
 
         UserLoginToken userLoginToken = JWTUtils.createToken(user)

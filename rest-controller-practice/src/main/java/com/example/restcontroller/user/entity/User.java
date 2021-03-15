@@ -112,4 +112,18 @@ public class User {
         return status.toString();
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +
+                ", lockYn=" + lockYn +
+                ", regDate=" + regDate +
+                ", updateDate=" + updateDate +
+                '}';
+    }
 }

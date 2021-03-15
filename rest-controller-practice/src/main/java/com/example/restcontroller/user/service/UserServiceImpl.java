@@ -3,6 +3,7 @@ package com.example.restcontroller.user.service;
 
 import com.example.restcontroller.board.model.ServiceResult;
 import com.example.restcontroller.common.exception.BizException;
+import com.example.restcontroller.logs.service.LogService;
 import com.example.restcontroller.user.entity.User;
 import com.example.restcontroller.user.entity.UserInterest;
 import com.example.restcontroller.user.entity.UserStatus;

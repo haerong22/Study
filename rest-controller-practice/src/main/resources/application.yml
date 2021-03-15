@@ -23,7 +23,7 @@ spring:
 
   jackson:
     serialization:
-      fail-on-empty-beans: false
+      fail-on-empty-beans: true
 
   mvc:
     hiddenmethod:
