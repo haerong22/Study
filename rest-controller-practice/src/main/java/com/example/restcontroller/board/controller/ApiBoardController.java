@@ -1,9 +1,11 @@
 package com.example.restcontroller.board.controller;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.restcontroller.board.entity.Board;
 import com.example.restcontroller.board.entity.BoardType;
 import com.example.restcontroller.board.model.*;
 import com.example.restcontroller.board.service.BoardService;
+import com.example.restcontroller.common.exception.BizException;
 import com.example.restcontroller.common.model.ResponseResult;
 import com.example.restcontroller.notice.model.ResponseError;
 import com.example.restcontroller.user.model.ResponseMessage;
@@ -177,6 +179,18 @@ public class ApiBoardController {
         ServiceResult result = boardService.addReport(id, email, boardReportInput);
 
         return ResponseResult.result(result);
+    }
+
+    @GetMapping("/api/board/{id}")
+    public ResponseEntity<?> chapter4_3(@PathVariable Long id) {
+
+        Board board = null;
+        try {
+            board = boardService.detail(id);
+        } catch (BizException e) {
+            return ResponseResult.fail(e.getMessage());
+        }
+        return ResponseResult.success(board);
     }
 }
 

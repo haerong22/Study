@@ -54,4 +54,18 @@ public class Board {
     private LocalDate publishStartDate;
     private LocalDate publishEndDate;
 
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", user=" + user +
+                ", boardType=" + boardType +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", topYn=" + topYn +
+                ", regDate=" + regDate +
+                ", publishStartDate=" + publishStartDate +
+                ", publishEndDate=" + publishEndDate +
+                '}';
+    }
 }

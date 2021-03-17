@@ -32,4 +32,15 @@ public class BoardType {
     @JsonIgnore
     @OneToMany(mappedBy = "boardType")
     List<Board> boardList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "BoardType{" +
+                "id=" + id +
+                ", boardName='" + boardName + '\'' +
+                ", regDate=" + regDate +
+                ", updateDate=" + updateDate +
+                ", usingYn=" + usingYn +
+                '}';
+    }
 }
