@@ -25,6 +25,8 @@ public class OpenApiResultResponseBodyItemsItem {
     private String dutyTime5s;
     private Integer dutyTime6c;
     private String dutyTime6s;
+    private Integer dutyTime7c;
+    private String dutyTime7s;
     private String hpid;
     private Integer postCdn1;
     private String postCdn2;
