@@ -1,6 +1,7 @@
 package com.example.restcontroller.extra.controller;
 
 import com.example.restcontroller.common.model.ResponseResult;
+import com.example.restcontroller.extra.model.AirInput;
 import com.example.restcontroller.extra.model.OpenApiResult;
 import com.example.restcontroller.extra.model.PharmacySearch;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -115,5 +116,28 @@ public class ApiExtraController {
         }
 
         return ResponseResult.success(jsonResult);
+    }
+
+    @GetMapping("/api/extra/air")
+    public String chapter4_7(@RequestBody AirInput airInput) {
+
+        String apiKey = "Jer4jLO%2Bcisqdh2c0sMb5cSD31Q8oJTFY4a2bo5oW3w%2B2O7Iijh%2Fm%2BFyHQyTbk1c8ybTTqTsP%2BY%2BkID1sdyjbA%3D%3D";
+        String url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=%s&pageNo=1&numOfRows=10&sidoName=%s";
+
+        String apiResult = "";
+
+        try {
+            URI uri = new URI(String.format(url, apiKey, URLEncoder.encode(airInput.getSearchSido(), "utf-8")));
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+            String result = restTemplate.getForObject(uri, String.class);
+
+            apiResult = result;
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return apiResult;
     }
 }
