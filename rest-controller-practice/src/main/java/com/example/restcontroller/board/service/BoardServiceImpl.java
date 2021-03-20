@@ -383,4 +383,26 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> list() {
         return boardRepository.findAll();
     }
+
+    @Transactional
+    @Override
+    public ServiceResult add(String email, BoardInput boardInput) {
+        User userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BizException("회원 정보가 존재하지 않습니다."));
+
+        BoardType boardTypeEntity = boardTypeRepository.findById(boardInput.getBoardType())
+                .orElseThrow(() -> new BoardTypeNotFoundException("게시판 타입이 없습니다."));
+
+        Board board = Board.builder()
+                .user(userEntity)
+                .boardType(boardTypeEntity)
+                .title(boardInput.getTitle())
+                .content(boardInput.getContents())
+                .regDate(LocalDateTime.now())
+                .build();
+
+        boardRepository.save(board);
+
+        return ServiceResult.success();
+    }
 }

@@ -1,5 +1,9 @@
 package com.example.restcontroller.common.interceptor;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.restcontroller.common.exception.AuthFailException;
+import com.example.restcontroller.common.model.ResponseResult;
+import com.example.restcontroller.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -15,8 +19,25 @@ public class CommonInterceptor implements HandlerInterceptor {
         log.info("#########################################");
         log.info("[interceptor] - preHandler start");
         log.info("#########################################");
-        log.info(request.getMethod());
-        log.info(request.getRequestURI());
+        log.info(request.getMethod() + " " + request.getRequestURI());
+
+        if (!validJWT(request)) {
+            throw new AuthFailException("인증정보가 정확하지 않습니다");
+        }
+        return true;
+    }
+
+    private boolean validJWT(HttpServletRequest request) {
+
+        String token = request.getHeader("TOKEN");
+
+        String email = "";
+        try {
+            email = JWTUtils.getIssuer(token);
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+        request.setAttribute("email", email);
 
         return true;
     }

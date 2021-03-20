@@ -51,4 +51,6 @@ public interface BoardService {
     Board detail(Long id);
 
     List<Board> list();
+
+    ServiceResult add(String email, BoardInput boardInput);
 }
