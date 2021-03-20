@@ -49,4 +49,6 @@ public interface BoardService {
     List<BoardComment> commentList(String email);
 
     Board detail(Long id);
+
+    List<Board> list();
 }

@@ -186,6 +186,7 @@ public class ApiNoticeController {
     public void chapter1_21(@PathVariable Long id) {
         noticeRepository.deleteById(id);
     }
+
     @DeleteMapping("/api/notice2/{id}")
     public void chapter1_22(@PathVariable Long id) {
         Notice noticeEntity = noticeRepository.findById(id)

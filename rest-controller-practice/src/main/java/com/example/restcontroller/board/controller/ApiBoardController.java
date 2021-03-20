@@ -192,24 +192,12 @@ public class ApiBoardController {
         }
         return ResponseResult.success(board);
     }
+
+    @GetMapping("/api/board")
+    public ResponseEntity<?> chapter4_10() {
+
+        List<Board> list = boardService.list();
+
+        return ResponseResult.success(list);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -378,4 +378,9 @@ public class BoardServiceImpl implements BoardService {
         return boardRepository.findById(id)
                 .orElseThrow(() -> new BizException("게시글이 존재하지 않습니다."));
     }
+
+    @Override
+    public List<Board> list() {
+        return boardRepository.findAll();
+    }
 }
