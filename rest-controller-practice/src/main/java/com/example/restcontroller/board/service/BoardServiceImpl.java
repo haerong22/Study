@@ -1,6 +1,7 @@
 package com.example.restcontroller.board.service;
 
 import com.example.restcontroller.board.entity.*;
+import com.example.restcontroller.board.exception.BoardNotFoundException;
 import com.example.restcontroller.board.exception.BoardTypeNotFoundException;
 import com.example.restcontroller.board.model.*;
 import com.example.restcontroller.board.repository.*;
@@ -420,6 +421,31 @@ public class BoardServiceImpl implements BoardService {
                     .replaceAll("\\{BOARD_CONTENTS\\}", board.getContent());
 
             mailComponent.send(fromEmail, fromUserName, userEntity.getEmail(), userEntity.getUserName(), title, contents);
+        });
+
+        return ServiceResult.success();
+    }
+
+    @Transactional
+    @Override
+    public ServiceResult replyBoard(Long id, BoardReplyInput boardReplyInput) {
+        Board boardEntity = boardRepository.findById(id).
+                orElseThrow(() -> new BoardNotFoundException("게시글이 존재하지 않습니다."));
+
+        boardEntity.setReplyContents(boardReplyInput.getReplyContents());
+
+        // 메일전송
+        Optional<MailTemplate> optionalMailTemplate = mailTemplateRepository.findByTemplateId("BOARD_REPLY");
+        optionalMailTemplate.ifPresent((e) -> {
+            String fromEmail = e.getSendEmail();
+            String fromUserName = e.getSendUserName();
+            String title = e.getTitle().replaceAll("\\{USER_NAME\\}", boardEntity.getUser().getUserName());
+            String contents = e.getContents().replaceAll("\\{BOARD_TITLE\\}", boardEntity.getTitle())
+                    .replaceAll("\\{BOARD_CONTENTS\\}", boardEntity.getContent())
+                    .replaceAll("\\{BOARD_REPLY_CONTENTS\\}", boardEntity.getReplyContents());
+
+            mailComponent.send(fromEmail, fromUserName,
+                    boardEntity.getUser().getEmail(), boardEntity.getUser().getUserName(), title, contents);
         });
 
         return ServiceResult.success();

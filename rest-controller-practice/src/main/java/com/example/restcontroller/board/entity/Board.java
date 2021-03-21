@@ -23,6 +23,21 @@ public class Board {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
+    @Lob
+    private String content;
+
+    private boolean topYn;
+
+    @Lob
+    private String replyContents;
+
+    private LocalDateTime regDate;
+
+    private LocalDate publishStartDate;
+    private LocalDate publishEndDate;
+
     @ManyToOne
     @JoinColumn
     private User user;
@@ -42,17 +57,6 @@ public class Board {
     @JsonIgnore
     @OneToMany(mappedBy = "board")
     List<BoardComment> boardCommentList  = new ArrayList<>();
-
-    private String title;
-
-    private String content;
-
-    private boolean topYn;
-
-    private LocalDateTime regDate;
-
-    private LocalDate publishStartDate;
-    private LocalDate publishEndDate;
 
     @Override
     public String toString() {

@@ -30,12 +30,14 @@ public class CommonInterceptor implements HandlerInterceptor {
 
     private boolean validJWT(HttpServletRequest request) {
 
-        String token = request.getHeader("TOKEN");
-
         String email = "";
         try {
+            String token = request.getHeader("TOKEN");
             email = JWTUtils.getIssuer(token);
         } catch (JWTVerificationException e) {
+            return false;
+        } catch (Exception e) {
+            log.info(e.getMessage());
             return false;
         }
         request.setAttribute("email", email);

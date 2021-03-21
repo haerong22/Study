@@ -1,5 +1,6 @@
 package com.example.restcontroller.common;
 
+import com.example.restcontroller.board.exception.BoardNotFoundException;
 import com.example.restcontroller.board.exception.BoardTypeNotFoundException;
 import com.example.restcontroller.common.exception.AuthFailException;
 import com.example.restcontroller.common.exception.BizException;
@@ -29,7 +30,8 @@ public class GlobalExceptionHandler {
                         PasswordNotMatchException.class,
                         BoardTypeNotFoundException.class,
                         BizException.class,
-                        AuthFailException.class})
+                        AuthFailException.class,
+                        BoardNotFoundException.class })
     public ResponseEntity<?> badRequest(RuntimeException e) {
         log.info(e.getClass().getName() + e.getMessage());
         return ResponseResult.fail(e.getMessage());
