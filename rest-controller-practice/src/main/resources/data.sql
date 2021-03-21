@@ -56,3 +56,14 @@ values
     ('게시글 1의 댓글2', now(), 1, 2),
     ('게시글 2의 댓글1', now(), 2, 1),
     ('게시글 2의 댓글2', now(), 2, 3);
+
+INSERT INTO MAIL_TEMPLATE(TEMPLATE_ID, TITLE, CONTENTS, SEND_EMAIL, SEND_USER_NAME, REG_DATE)
+VALUES
+       ('USER_RESET_PASSWORD',
+        '{USER_NAME}님의 비밀번호 초기화 요청입니다.',
+        '<div><p>{USER_NAME}님 안녕하세요.</p><p>아래 링크를 클릭하여, 비밀번호를 초기화해 주세요.</p><p><a href="{SERVER_URL}/reset?key={RESET_PASSWORD_KEY}">초기화</a></p></div>',
+        'test.email.12588@gmail.com', '관리자', now()),
+       ('BOARD_ADD',
+        '{USER_NAME}님이 글을 게시하였습니다.',
+        '<div><p>제목: {BOARD_TITLE}</p><p>내용</p><div>{BOARD_CONTENTS}</div></div>',
+        'test.email.12588@gmail.com', '관리자', now());

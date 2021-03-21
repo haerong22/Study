@@ -210,4 +210,14 @@ public class ApiBoardController {
         ServiceResult result = boardService.add(email, boardInput);
         return ResponseResult.result(result);
     }
+
+    @PostMapping("/api/board/email")
+    public ResponseEntity<?> chapter5_4(@RequestBody BoardInput boardInput,
+                                        @RequestHeader("TOKEN") String token) {
+
+        String email = JWTUtils.getIssuer(token);
+
+        ServiceResult result = boardService.add(email, boardInput);
+        return ResponseResult.result(result);
+    }
 }

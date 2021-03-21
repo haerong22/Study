@@ -1,6 +1,7 @@
 package com.example.restcontroller.common.interceptor;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.example.restcontroller.common.exception.AuthFailException;
 import com.example.restcontroller.common.model.ResponseResult;
 import com.example.restcontroller.util.JWTUtils;

@@ -6,7 +6,6 @@ spring:
 
   datasource:
     url: jdbc:h2:mem:testDb
-    #url: jdbc:h2:file:/Users/parkkyutae/Documents/sources/github/fastcampus-demo-01/record-example/sample1/backofficeDb
     driver-class-name: org.h2.Driver
     username: sa
     password:

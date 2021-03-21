@@ -4,7 +4,10 @@ import com.example.restcontroller.board.entity.*;
 import com.example.restcontroller.board.exception.BoardTypeNotFoundException;
 import com.example.restcontroller.board.model.*;
 import com.example.restcontroller.board.repository.*;
+import com.example.restcontroller.common.MailComponent;
 import com.example.restcontroller.common.exception.BizException;
+import com.example.restcontroller.mail.entity.MailTemplate;
+import com.example.restcontroller.mail.repository.MailTemplateRepository;
 import com.example.restcontroller.user.entity.User;
 import com.example.restcontroller.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +32,11 @@ public class BoardServiceImpl implements BoardService {
     private final BoardScrapRepository boardScrapRepository;
     private final BoardBookmarkRepository boardBookmarkRepository;
     private final BoardCommentRepository boardCommentRepository;
+
     private final UserRepository userRepository;
+
+    private final MailTemplateRepository mailTemplateRepository;
+    private final MailComponent mailComponent;
 
     @Transactional
     @Override
@@ -402,6 +409,18 @@ public class BoardServiceImpl implements BoardService {
                 .build();
 
         boardRepository.save(board);
+
+        // 이메일 전송
+        Optional<MailTemplate> optionalMailTemplate = mailTemplateRepository.findByTemplateId("BOARD_ADD");
+        optionalMailTemplate.ifPresent((e) -> {
+            String fromEmail = e.getSendEmail();
+            String fromUserName = e.getSendUserName();
+            String title = e.getTitle().replaceAll("\\{USER_NAME\\}", userEntity.getUserName());
+            String contents = e.getContents().replaceAll("\\{BOARD_TITLE\\}", board.getTitle())
+                    .replaceAll("\\{BOARD_CONTENTS\\}", board.getContent());
+
+            mailComponent.send(fromEmail, fromUserName, userEntity.getEmail(), userEntity.getUserName(), title, contents);
+        });
 
         return ServiceResult.success();
     }
