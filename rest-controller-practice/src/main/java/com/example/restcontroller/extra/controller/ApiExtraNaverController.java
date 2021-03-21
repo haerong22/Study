@@ -1,6 +1,7 @@
 package com.example.restcontroller.extra.controller;
 
 import com.example.restcontroller.common.model.ResponseResult;
+import com.example.restcontroller.common.properties.NaverAppProperties;
 import com.example.restcontroller.extra.model.KakaoTranslateResponse;
 import com.example.restcontroller.extra.model.NaverTranslateInput;
 import com.example.restcontroller.extra.model.NaverTranslateResponse;
@@ -22,6 +23,8 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class ApiExtraNaverController {
 
+    private final NaverAppProperties naverAppProperties;
+
     @GetMapping("/api/extra/naver/translate")
     public ResponseEntity<?> chapter4_9(@RequestBody NaverTranslateInput naverTranslateInput) {
 //        curl "https://openapi.naver.com/v1/papago/n2mt" \
@@ -32,6 +35,31 @@ public class ApiExtraNaverController {
 
         String clientId = "goQZ03tXlaISGqa0Lgau";
         String clientSecret = "WPVuMeYLHS";
+        String url = "https://openapi.naver.com/v1/papago/n2mt";
+
+        RestTemplate restTemplate = new RestTemplate();
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("source", "ko");
+        parameters.add("target", "en");
+        parameters.add("text", naverTranslateInput.getText());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("X-Naver-Client-Id", clientId);
+        headers.add("X-Naver-Client-Secret", clientSecret);
+
+        HttpEntity<?> formEntity = new HttpEntity<>(parameters, headers);
+
+        NaverTranslateResponse naverTranslateResponse = restTemplate.postForObject(url, formEntity, NaverTranslateResponse.class);
+
+        return ResponseResult.success(naverTranslateResponse);
+    }
+
+    @GetMapping("/api/extra/naver/translate/property")
+    public ResponseEntity<?> chapter5_1(@RequestBody NaverTranslateInput naverTranslateInput) {
+
+        String clientId = naverAppProperties.getClientId();
+        String clientSecret = naverAppProperties.getClientSecret();
         String url = "https://openapi.naver.com/v1/papago/n2mt";
 
         RestTemplate restTemplate = new RestTemplate();

@@ -21,7 +21,7 @@ public class CommonInterceptor implements HandlerInterceptor {
         log.info("#########################################");
         log.info(request.getMethod() + " " + request.getRequestURI());
 
-        if (!validJWT(request)) {
+        if (!request.getRequestURI().equals("/api/login") && !validJWT(request)) {
             throw new AuthFailException("인증정보가 정확하지 않습니다");
         }
         return true;

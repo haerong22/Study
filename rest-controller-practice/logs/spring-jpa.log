@@ -2687,3 +2687,1534 @@ Using generated security password: 3e8af8f0-4b0e-4d69-8d32-b2851792fc0b
 2021-03-21 00:16:17.360  INFO 11676 --- [http-nio-8080-exec-3] c.e.r.c.interceptor.CommonInterceptor    : #########################################
 2021-03-21 00:16:17.360  INFO 11676 --- [http-nio-8080-exec-3] c.e.r.c.interceptor.CommonInterceptor    : POST /api/board
 2021-03-21 00:16:17.366  INFO 11676 --- [http-nio-8080-exec-3] c.e.r.GlobalExceptionHandler             : com.example.restcontroller.common.exception.AuthFailException인증정보가 정확하지 않습니다
+2021-03-21 16:41:40.667  INFO 23152 --- [main] c.e.r.RestControllerApplication          : Starting RestControllerApplication using Java 11.0.8 on DESKTOP-8F3AB8V with PID 23152 (C:\Users\Woojin\Desktop\study\Study\rest-controller-practice\build\classes\java\main started by 김우진 in C:\Users\Woojin\Desktop\study\Study\rest-controller-practice)
+2021-03-21 16:41:40.672  INFO 23152 --- [main] c.e.r.RestControllerApplication          : No active profile set, falling back to default profiles: default
+2021-03-21 16:41:42.583  INFO 23152 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-21 16:41:42.941  INFO 23152 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 342 ms. Found 15 JPA repository interfaces.
+2021-03-21 16:41:44.183  INFO 23152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-03-21 16:41:44.203  INFO 23152 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-21 16:41:44.203  INFO 23152 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-03-21 16:41:44.483  INFO 23152 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-21 16:41:44.483  INFO 23152 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3678 ms
+2021-03-21 16:41:44.580  INFO 23152 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-21 16:41:44.818  INFO 23152 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-21 16:41:44.831  INFO 23152 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testDb'
+2021-03-21 16:41:45.139  INFO 23152 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-21 16:41:45.253  INFO 23152 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-03-21 16:41:45.537  INFO 23152 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-21 16:41:45.596 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@eaf8427
+2021-03-21 16:41:45.597 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@eaf8427
+2021-03-21 16:41:45.597 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@eaf8427
+2021-03-21 16:41:45.598 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@13e00016
+2021-03-21 16:41:45.599 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.TrueFalseType@4e4395c
+2021-03-21 16:41:45.600 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.YesNoType@72b2c5ed
+2021-03-21 16:41:45.603 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@664db2ca
+2021-03-21 16:41:45.603 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@664db2ca
+2021-03-21 16:41:45.604 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@664db2ca
+2021-03-21 16:41:45.606 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.CharacterType@401317a0
+2021-03-21 16:41:45.607 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.CharacterType@401317a0
+2021-03-21 16:41:45.608 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@401317a0
+2021-03-21 16:41:45.611 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@22048bd6
+2021-03-21 16:41:45.612 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@22048bd6
+2021-03-21 16:41:45.612 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.ShortType@22048bd6
+2021-03-21 16:41:45.614 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.IntegerType@43c39321
+2021-03-21 16:41:45.614 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.IntegerType@43c39321
+2021-03-21 16:41:45.614 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@43c39321
+2021-03-21 16:41:45.617 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@6bcdd6e4
+2021-03-21 16:41:45.617 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@6bcdd6e4
+2021-03-21 16:41:45.617 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.LongType@6bcdd6e4
+2021-03-21 16:41:45.618 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@ddffa6c
+2021-03-21 16:41:45.618 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@ddffa6c
+2021-03-21 16:41:45.618 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.FloatType@ddffa6c
+2021-03-21 16:41:45.619 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@5abf6a99
+2021-03-21 16:41:45.620 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@5abf6a99
+2021-03-21 16:41:45.620 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@5abf6a99
+2021-03-21 16:41:45.621 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@7a814310
+2021-03-21 16:41:45.621 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@7a814310
+2021-03-21 16:41:45.623 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BigIntegerType@4b4a2fa8
+2021-03-21 16:41:45.623 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@4b4a2fa8
+2021-03-21 16:41:45.625 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.StringType@65036e8d
+2021-03-21 16:41:45.627 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.StringType@65036e8d
+2021-03-21 16:41:45.628 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.StringNVarcharType@16d41725
+2021-03-21 16:41:45.630 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@100bba26
+2021-03-21 16:41:45.632 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.UrlType@56c0a61e
+2021-03-21 16:41:45.632 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.UrlType@56c0a61e
+2021-03-21 16:41:45.633 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.DurationType@781dac73
+2021-03-21 16:41:45.633 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.DurationType@781dac73
+2021-03-21 16:41:45.636 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -> org.hibernate.type.InstantType@33de7f3d
+2021-03-21 16:41:45.636 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.InstantType@33de7f3d
+2021-03-21 16:41:45.639 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@11e17893
+2021-03-21 16:41:45.639 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@11e17893
+2021-03-21 16:41:45.642 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.LocalDateType@23648d2d
+2021-03-21 16:41:45.642 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@23648d2d
+2021-03-21 16:41:45.644 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@1544ded3
+2021-03-21 16:41:45.644 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@1544ded3
+2021-03-21 16:41:45.646 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@3a38e4dc
+2021-03-21 16:41:45.646 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@3a38e4dc
+2021-03-21 16:41:45.648 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@448cdb47
+2021-03-21 16:41:45.648 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@448cdb47
+2021-03-21 16:41:45.651 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@4cae66a8
+2021-03-21 16:41:45.651 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@4cae66a8
+2021-03-21 16:41:45.656 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.DateType@71369e1a
+2021-03-21 16:41:45.656 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.DateType@71369e1a
+2021-03-21 16:41:45.658 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.TimeType@39f42d0e
+2021-03-21 16:41:45.658 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.TimeType@39f42d0e
+2021-03-21 16:41:45.662 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.TimestampType@660b1a9d
+2021-03-21 16:41:45.663 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@660b1a9d
+2021-03-21 16:41:45.663 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.TimestampType@660b1a9d
+2021-03-21 16:41:45.664 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@112c2930
+2021-03-21 16:41:45.667 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.CalendarType@7523d5a1
+2021-03-21 16:41:45.667 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@7523d5a1
+2021-03-21 16:41:45.667 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@7523d5a1
+2021-03-21 16:41:45.667 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@44641d6c
+2021-03-21 16:41:45.668 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.CalendarTimeType@26874f2c
+2021-03-21 16:41:45.669 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.LocaleType@5323999f
+2021-03-21 16:41:45.670 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@5323999f
+2021-03-21 16:41:45.671 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.CurrencyType@7f51f588
+2021-03-21 16:41:45.671 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@7f51f588
+2021-03-21 16:41:45.673 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.TimeZoneType@372954e1
+2021-03-21 16:41:45.673 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@372954e1
+2021-03-21 16:41:45.674 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.ClassType@53cddaf8
+2021-03-21 16:41:45.676 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.ClassType@53cddaf8
+2021-03-21 16:41:45.678 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@1e721583
+2021-03-21 16:41:45.678 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@1e721583
+2021-03-21 16:41:45.678 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@8b41ad
+2021-03-21 16:41:45.680 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BinaryType@77fc19cf
+2021-03-21 16:41:45.681 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BinaryType@77fc19cf
+2021-03-21 16:41:45.681 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BinaryType@77fc19cf
+2021-03-21 16:41:45.683 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@bb8ead8
+2021-03-21 16:41:45.683 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@bb8ead8
+2021-03-21 16:41:45.683 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@bb8ead8
+2021-03-21 16:41:45.685 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.RowVersionType@677cb96e
+2021-03-21 16:41:45.685 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.ImageType@51fe7f15
+2021-03-21 16:41:45.687 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.CharArrayType@7bede4ea
+2021-03-21 16:41:45.688 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.CharArrayType@7bede4ea
+2021-03-21 16:41:45.688 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.CharArrayType@7bede4ea
+2021-03-21 16:41:45.689 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@5a3cf878
+2021-03-21 16:41:45.690 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@5a3cf878
+2021-03-21 16:41:45.690 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@5a3cf878
+2021-03-21 16:41:45.690 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.TextType@5c53c235
+2021-03-21 16:41:45.692 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.NTextType@5940b14e
+2021-03-21 16:41:45.697 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BlobType@52f9e8bb
+2021-03-21 16:41:45.697 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@52f9e8bb
+2021-03-21 16:41:45.698 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@539316bb
+2021-03-21 16:41:45.699 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.ClobType@1c7cd434
+2021-03-21 16:41:45.699 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@1c7cd434
+2021-03-21 16:41:45.700 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.NClobType@64440065
+2021-03-21 16:41:45.700 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@64440065
+2021-03-21 16:41:45.701 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@2c99c8d
+2021-03-21 16:41:45.701 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@69bc9584
+2021-03-21 16:41:45.703 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.SerializableType@5d601832
+2021-03-21 16:41:45.708 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.ObjectType@1de5cc88
+2021-03-21 16:41:45.709 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@1de5cc88
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@3ef3f661
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@baa9ce4
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@5b332439
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@59262a90
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@78479f2b
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@2755617b
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@65859b44
+2021-03-21 16:41:45.711 DEBUG 23152 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@d9f5fce
+2021-03-21 16:41:45.831  INFO 23152 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-03-21 16:41:45.961 DEBUG 23152 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@2037f12b] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@687a0e40]
+2021-03-21 16:41:46.315 DEBUG 23152 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.model.UserPointType
+2021-03-21 16:41:46.317 DEBUG 23152 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.entity.UserStatus
+2021-03-21 16:41:46.584 DEBUG 23152 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@2037f12b] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@55d99dc3]
+2021-03-21 16:41:47.422 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board CASCADE 
+2021-03-21 16:41:47.428 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_bookmark CASCADE 
+2021-03-21 16:41:47.428 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_comment CASCADE 
+2021-03-21 16:41:47.428 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_hits CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_like CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_report CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_scrap CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_type CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists logs CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice CASCADE 
+2021-03-21 16:41:47.429 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice_like CASCADE 
+2021-03-21 16:41:47.430 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user CASCADE 
+2021-03-21 16:41:47.430 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_interest CASCADE 
+2021-03-21 16:41:47.430 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_login_history CASCADE 
+2021-03-21 16:41:47.430 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_point CASCADE 
+2021-03-21 16:41:47.433 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board (
+       id bigint generated by default as identity,
+        content varchar(255),
+        publish_end_date date,
+        publish_start_date date,
+        reg_date timestamp,
+        title varchar(255),
+        top_yn boolean not null,
+        board_type_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.452 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_bookmark (
+       id bigint generated by default as identity,
+        board_id bigint,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_url varchar(255),
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.454 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_comment (
+       id bigint generated by default as identity,
+        comments varchar(255),
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.455 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_hits (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.456 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_like (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.462 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_report (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_user_id bigint,
+        comments varchar(255),
+        reg_date timestamp,
+        user_email varchar(255),
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-21 16:41:47.468 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_scrap (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_user_id bigint,
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.470 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_type (
+       id bigint generated by default as identity,
+        board_name varchar(255),
+        reg_date timestamp,
+        update_date timestamp,
+        using_yn boolean not null,
+        primary key (id)
+    )
+2021-03-21 16:41:47.472 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table logs (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        text clob,
+        primary key (id)
+    )
+2021-03-21 16:41:47.474 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice (
+       id bigint generated by default as identity,
+        contents varchar(255),
+        delete_date timestamp,
+        deleted boolean default false not null,
+        hits integer default 0,
+        likes integer default 0,
+        reg_date timestamp,
+        title varchar(255),
+        update_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.476 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice_like (
+       id bigint generated by default as identity,
+        notice_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.479 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table user (
+       id bigint generated by default as identity,
+        email varchar(255) not null,
+        lock_yn boolean,
+        password varchar(255) not null,
+        phone varchar(255) not null,
+        reg_date timestamp,
+        status varchar(255),
+        update_date timestamp,
+        user_name varchar(255) not null,
+        primary key (id)
+    )
+2021-03-21 16:41:47.485 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_interest (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        interest_user_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.488 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_login_history (
+       id bigint generated by default as identity,
+        email varchar(255),
+        ip_addr varchar(255),
+        login_date timestamp,
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-21 16:41:47.489 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_point (
+       id bigint generated by default as identity,
+        point integer not null,
+        reg_date timestamp,
+        user_point_type varchar(255),
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:41:47.493 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user 
+       add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email)
+2021-03-21 16:41:47.500 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FK59iw5qt320s9l10vbxey9as5p 
+       foreign key (board_type_id) 
+       references board_type
+2021-03-21 16:41:47.524 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FKfyf1fchnby6hndhlfaidier1r 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.529 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_bookmark 
+       add constraint FK_BOARD_BOOKMARK_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.533 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_BOARD_ID 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:41:47.536 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.537 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FK8ptvjkodqmonm762uo9v8ocha 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:41:47.539 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FKjkkt5o4uyvoo26g31v71pww4w 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.543 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKk7rxm8vl1ptqqhwdj2sjmlpvq 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:41:47.550 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKpf406vodal6lejcg4fkwcjr2o 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.553 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_scrap 
+       add constraint FK_BOARD_SCRAP_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.555 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice 
+       add constraint FKcvf4mh5se36inrxn7xlh2brfv 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.558 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKm2krt4h5dcpydbb4tlvxyr27 
+       foreign key (notice_id) 
+       references notice
+2021-03-21 16:41:47.563 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKnplmervi6gx6dqj4vpnq7jn6g 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.567 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_INTEREST_USER_ID 
+       foreign key (interest_user_id) 
+       references user
+2021-03-21 16:41:47.570 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.573 DEBUG 23152 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_point 
+       add constraint FK_USER_POINT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:41:47.586  INFO 23152 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-21 16:41:47.605 TRACE 23152 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@55d99dc3] for TypeConfiguration
+2021-03-21 16:41:47.611  INFO 23152 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-21 16:41:49.206  WARN 23152 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-21 16:41:49.604  INFO 23152 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e6fcb5f8-e30f-4900-8d04-b2327d233945
+
+2021-03-21 16:41:49.738  INFO 23152 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1002f859, org.springframework.security.web.context.SecurityContextPersistenceFilter@1d6dc2b8, org.springframework.security.web.header.HeaderWriterFilter@35217e0, org.springframework.security.web.authentication.logout.LogoutFilter@21251e43, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@55cf5626, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6bfc5296, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@67cd193d, org.springframework.security.web.session.SessionManagementFilter@96448ee, org.springframework.security.web.access.ExceptionTranslationFilter@1828ab51, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3f04fb07]
+2021-03-21 16:41:49.979  INFO 23152 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-21 16:41:50.370  INFO 23152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-21 16:41:50.385  INFO 23152 --- [main] c.e.r.RestControllerApplication          : Started RestControllerApplication in 10.731 seconds (JVM running for 13.428)
+2021-03-21 16:42:16.631  INFO 23152 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-21 16:42:16.631  INFO 23152 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-21 16:42:16.633  INFO 23152 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-03-21 16:42:16.663  INFO 23152 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:42:16.663  INFO 23152 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:42:16.663  INFO 23152 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:42:16.663  INFO 23152 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate
+2021-03-21 16:42:16.678  INFO 23152 --- [http-nio-8080-exec-1] c.e.r.common.GlobalExceptionHandler      : null
+2021-03-21 16:42:23.560  INFO 23152 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:42:23.560  INFO 23152 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:42:23.560  INFO 23152 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:42:23.561  INFO 23152 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate
+2021-03-21 16:42:23.561  INFO 23152 --- [http-nio-8080-exec-2] c.e.r.common.GlobalExceptionHandler      : null
+2021-03-21 16:42:42.644  INFO 23152 --- [http-nio-8080-exec-3] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:42:42.645  INFO 23152 --- [http-nio-8080-exec-3] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:42:42.645  INFO 23152 --- [http-nio-8080-exec-3] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:42:42.645  INFO 23152 --- [http-nio-8080-exec-3] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate
+2021-03-21 16:42:42.646  INFO 23152 --- [http-nio-8080-exec-3] c.e.r.common.GlobalExceptionHandler      : null
+2021-03-21 16:43:52.633  INFO 23152 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:43:52.634  INFO 23152 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:43:52.634  INFO 23152 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:43:52.634  INFO 23152 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : POST /api/login
+2021-03-21 16:43:52.634  INFO 23152 --- [http-nio-8080-exec-4] c.e.r.common.GlobalExceptionHandler      : null
+2021-03-21 16:45:20.944  INFO 8012 --- [main] c.e.r.RestControllerApplication          : Starting RestControllerApplication using Java 11.0.8 on DESKTOP-8F3AB8V with PID 8012 (C:\Users\Woojin\Desktop\study\Study\rest-controller-practice\build\classes\java\main started by 김우진 in C:\Users\Woojin\Desktop\study\Study\rest-controller-practice)
+2021-03-21 16:45:20.948  INFO 8012 --- [main] c.e.r.RestControllerApplication          : No active profile set, falling back to default profiles: default
+2021-03-21 16:45:22.048  INFO 8012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-21 16:45:22.259  INFO 8012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 201 ms. Found 15 JPA repository interfaces.
+2021-03-21 16:45:22.992  INFO 8012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-03-21 16:45:23.003  INFO 8012 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-21 16:45:23.004  INFO 8012 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-03-21 16:45:23.174  INFO 8012 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-21 16:45:23.174  INFO 8012 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2161 ms
+2021-03-21 16:45:23.229  INFO 8012 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-21 16:45:23.368  INFO 8012 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-21 16:45:23.374  INFO 8012 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testDb'
+2021-03-21 16:45:23.544  INFO 8012 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-21 16:45:23.618  INFO 8012 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-03-21 16:45:23.787  INFO 8012 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-21 16:45:23.815 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@63124022
+2021-03-21 16:45:23.816 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@63124022
+2021-03-21 16:45:23.816 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@63124022
+2021-03-21 16:45:23.817 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@24a04257
+2021-03-21 16:45:23.817 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.TrueFalseType@6d6039df
+2021-03-21 16:45:23.818 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.YesNoType@177ede17
+2021-03-21 16:45:23.819 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@1600a8a2
+2021-03-21 16:45:23.819 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@1600a8a2
+2021-03-21 16:45:23.819 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@1600a8a2
+2021-03-21 16:45:23.820 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.CharacterType@1491cd6c
+2021-03-21 16:45:23.820 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.CharacterType@1491cd6c
+2021-03-21 16:45:23.821 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@1491cd6c
+2021-03-21 16:45:23.821 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@3f866f50
+2021-03-21 16:45:23.822 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@3f866f50
+2021-03-21 16:45:23.822 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.ShortType@3f866f50
+2021-03-21 16:45:23.823 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.IntegerType@566c1e71
+2021-03-21 16:45:23.823 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.IntegerType@566c1e71
+2021-03-21 16:45:23.823 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@566c1e71
+2021-03-21 16:45:23.824 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@52aa7742
+2021-03-21 16:45:23.824 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@52aa7742
+2021-03-21 16:45:23.824 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.LongType@52aa7742
+2021-03-21 16:45:23.825 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@1192c925
+2021-03-21 16:45:23.825 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@1192c925
+2021-03-21 16:45:23.825 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.FloatType@1192c925
+2021-03-21 16:45:23.826 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@42c54bad
+2021-03-21 16:45:23.826 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@42c54bad
+2021-03-21 16:45:23.826 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@42c54bad
+2021-03-21 16:45:23.827 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@dc59ec2
+2021-03-21 16:45:23.827 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@dc59ec2
+2021-03-21 16:45:23.828 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BigIntegerType@4bbf38b8
+2021-03-21 16:45:23.828 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@4bbf38b8
+2021-03-21 16:45:23.829 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.StringType@5da6b13d
+2021-03-21 16:45:23.829 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.StringType@5da6b13d
+2021-03-21 16:45:23.829 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.StringNVarcharType@197ce367
+2021-03-21 16:45:23.830 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@36551e97
+2021-03-21 16:45:23.830 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.UrlType@4ae280da
+2021-03-21 16:45:23.831 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.UrlType@4ae280da
+2021-03-21 16:45:23.831 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.DurationType@421ead7e
+2021-03-21 16:45:23.831 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.DurationType@421ead7e
+2021-03-21 16:45:23.832 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -> org.hibernate.type.InstantType@3a4e524
+2021-03-21 16:45:23.832 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.InstantType@3a4e524
+2021-03-21 16:45:23.833 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@30159886
+2021-03-21 16:45:23.833 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@30159886
+2021-03-21 16:45:23.834 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.LocalDateType@19eea77c
+2021-03-21 16:45:23.834 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@19eea77c
+2021-03-21 16:45:23.835 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@69feb4d9
+2021-03-21 16:45:23.835 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@69feb4d9
+2021-03-21 16:45:23.836 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@3ccb12d
+2021-03-21 16:45:23.836 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@3ccb12d
+2021-03-21 16:45:23.838 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@41fc0084
+2021-03-21 16:45:23.838 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@41fc0084
+2021-03-21 16:45:23.839 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@439f2d87
+2021-03-21 16:45:23.839 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@439f2d87
+2021-03-21 16:45:23.840 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.DateType@3181d4de
+2021-03-21 16:45:23.841 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.DateType@3181d4de
+2021-03-21 16:45:23.842 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.TimeType@987a0bb
+2021-03-21 16:45:23.842 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.TimeType@987a0bb
+2021-03-21 16:45:23.843 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.TimestampType@34aa8b61
+2021-03-21 16:45:23.843 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@34aa8b61
+2021-03-21 16:45:23.843 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.TimestampType@34aa8b61
+2021-03-21 16:45:23.844 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@6d31f106
+2021-03-21 16:45:23.845 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.CalendarType@1f758e4f
+2021-03-21 16:45:23.845 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@1f758e4f
+2021-03-21 16:45:23.845 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@1f758e4f
+2021-03-21 16:45:23.846 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@2bfc2f8b
+2021-03-21 16:45:23.847 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.CalendarTimeType@1ae924f1
+2021-03-21 16:45:23.847 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.LocaleType@5f3b84bd
+2021-03-21 16:45:23.847 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@5f3b84bd
+2021-03-21 16:45:23.848 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.CurrencyType@f18b738
+2021-03-21 16:45:23.848 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@f18b738
+2021-03-21 16:45:23.850 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.TimeZoneType@6fb22ae3
+2021-03-21 16:45:23.850 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@6fb22ae3
+2021-03-21 16:45:23.850 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.ClassType@5fd8dd66
+2021-03-21 16:45:23.850 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.ClassType@5fd8dd66
+2021-03-21 16:45:23.851 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@55c50f52
+2021-03-21 16:45:23.851 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@55c50f52
+2021-03-21 16:45:23.851 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@216f01
+2021-03-21 16:45:23.852 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BinaryType@120350eb
+2021-03-21 16:45:23.852 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BinaryType@120350eb
+2021-03-21 16:45:23.852 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BinaryType@120350eb
+2021-03-21 16:45:23.853 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@643ecfef
+2021-03-21 16:45:23.853 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@643ecfef
+2021-03-21 16:45:23.853 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@643ecfef
+2021-03-21 16:45:23.854 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.RowVersionType@5b44318
+2021-03-21 16:45:23.855 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.ImageType@730bea0
+2021-03-21 16:45:23.855 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.CharArrayType@5873f3f0
+2021-03-21 16:45:23.855 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.CharArrayType@5873f3f0
+2021-03-21 16:45:23.855 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.CharArrayType@5873f3f0
+2021-03-21 16:45:23.856 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@713999c2
+2021-03-21 16:45:23.856 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@713999c2
+2021-03-21 16:45:23.856 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@713999c2
+2021-03-21 16:45:23.857 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.TextType@1af677f8
+2021-03-21 16:45:23.857 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.NTextType@34cd65ac
+2021-03-21 16:45:23.859 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BlobType@3a45afd4
+2021-03-21 16:45:23.859 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@3a45afd4
+2021-03-21 16:45:23.859 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@1883871b
+2021-03-21 16:45:23.860 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.ClobType@394fb736
+2021-03-21 16:45:23.860 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@394fb736
+2021-03-21 16:45:23.861 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.NClobType@1f7e52d1
+2021-03-21 16:45:23.861 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@1f7e52d1
+2021-03-21 16:45:23.861 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@314b7945
+2021-03-21 16:45:23.862 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@2049e582
+2021-03-21 16:45:23.863 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.SerializableType@641ed324
+2021-03-21 16:45:23.865 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.ObjectType@14d1737a
+2021-03-21 16:45:23.865 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@14d1737a
+2021-03-21 16:45:23.866 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@1e120628
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@4e4894d
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@1de5cc88
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@23e2c1ca
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@2d4fb0d8
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@dc1fadd
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@3ef3f661
+2021-03-21 16:45:23.867 DEBUG 8012 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@baa9ce4
+2021-03-21 16:45:23.922  INFO 8012 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-03-21 16:45:23.984 DEBUG 8012 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@62cd562d] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@3d1c52f5]
+2021-03-21 16:45:24.206 DEBUG 8012 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.model.UserPointType
+2021-03-21 16:45:24.208 DEBUG 8012 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.entity.UserStatus
+2021-03-21 16:45:24.369 DEBUG 8012 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@62cd562d] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@5fb44964]
+2021-03-21 16:45:24.872 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board CASCADE 
+2021-03-21 16:45:24.874 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_bookmark CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_comment CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_hits CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_like CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_report CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_scrap CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_type CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists logs CASCADE 
+2021-03-21 16:45:24.875 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice CASCADE 
+2021-03-21 16:45:24.876 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice_like CASCADE 
+2021-03-21 16:45:24.876 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user CASCADE 
+2021-03-21 16:45:24.876 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_interest CASCADE 
+2021-03-21 16:45:24.876 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_login_history CASCADE 
+2021-03-21 16:45:24.876 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_point CASCADE 
+2021-03-21 16:45:24.878 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board (
+       id bigint generated by default as identity,
+        content varchar(255),
+        publish_end_date date,
+        publish_start_date date,
+        reg_date timestamp,
+        title varchar(255),
+        top_yn boolean not null,
+        board_type_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.889 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_bookmark (
+       id bigint generated by default as identity,
+        board_id bigint,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_url varchar(255),
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.890 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_comment (
+       id bigint generated by default as identity,
+        comments varchar(255),
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.891 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_hits (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.892 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_like (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.893 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_report (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_user_id bigint,
+        comments varchar(255),
+        reg_date timestamp,
+        user_email varchar(255),
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-21 16:45:24.894 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_scrap (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_user_id bigint,
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.895 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_type (
+       id bigint generated by default as identity,
+        board_name varchar(255),
+        reg_date timestamp,
+        update_date timestamp,
+        using_yn boolean not null,
+        primary key (id)
+    )
+2021-03-21 16:45:24.896 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table logs (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        text clob,
+        primary key (id)
+    )
+2021-03-21 16:45:24.897 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice (
+       id bigint generated by default as identity,
+        contents varchar(255),
+        delete_date timestamp,
+        deleted boolean default false not null,
+        hits integer default 0,
+        likes integer default 0,
+        reg_date timestamp,
+        title varchar(255),
+        update_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.898 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice_like (
+       id bigint generated by default as identity,
+        notice_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.900 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table user (
+       id bigint generated by default as identity,
+        email varchar(255) not null,
+        lock_yn boolean,
+        password varchar(255) not null,
+        phone varchar(255) not null,
+        reg_date timestamp,
+        status varchar(255),
+        update_date timestamp,
+        user_name varchar(255) not null,
+        primary key (id)
+    )
+2021-03-21 16:45:24.902 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_interest (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        interest_user_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.902 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_login_history (
+       id bigint generated by default as identity,
+        email varchar(255),
+        ip_addr varchar(255),
+        login_date timestamp,
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-21 16:45:24.903 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_point (
+       id bigint generated by default as identity,
+        point integer not null,
+        reg_date timestamp,
+        user_point_type varchar(255),
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:45:24.904 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user 
+       add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email)
+2021-03-21 16:45:24.908 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FK59iw5qt320s9l10vbxey9as5p 
+       foreign key (board_type_id) 
+       references board_type
+2021-03-21 16:45:24.916 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FKfyf1fchnby6hndhlfaidier1r 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.918 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_bookmark 
+       add constraint FK_BOARD_BOOKMARK_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.919 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_BOARD_ID 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:45:24.920 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.921 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FK8ptvjkodqmonm762uo9v8ocha 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:45:24.922 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FKjkkt5o4uyvoo26g31v71pww4w 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.924 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKk7rxm8vl1ptqqhwdj2sjmlpvq 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:45:24.925 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKpf406vodal6lejcg4fkwcjr2o 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.926 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_scrap 
+       add constraint FK_BOARD_SCRAP_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.927 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice 
+       add constraint FKcvf4mh5se36inrxn7xlh2brfv 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.929 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKm2krt4h5dcpydbb4tlvxyr27 
+       foreign key (notice_id) 
+       references notice
+2021-03-21 16:45:24.930 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKnplmervi6gx6dqj4vpnq7jn6g 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.931 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_INTEREST_USER_ID 
+       foreign key (interest_user_id) 
+       references user
+2021-03-21 16:45:24.932 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.933 DEBUG 8012 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_point 
+       add constraint FK_USER_POINT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:45:24.938  INFO 8012 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-21 16:45:24.945 TRACE 8012 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@5fb44964] for TypeConfiguration
+2021-03-21 16:45:24.947  INFO 8012 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-21 16:45:25.997  WARN 8012 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-21 16:45:26.292  INFO 8012 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 04fac318-1ba4-46a8-84fd-0f4d41329e4a
+
+2021-03-21 16:45:26.394  INFO 8012 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@598ff2b3, org.springframework.security.web.context.SecurityContextPersistenceFilter@59509393, org.springframework.security.web.header.HeaderWriterFilter@28c75c93, org.springframework.security.web.authentication.logout.LogoutFilter@48d14ea0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ec75228, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1718de70, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1002f859, org.springframework.security.web.session.SessionManagementFilter@345af277, org.springframework.security.web.access.ExceptionTranslationFilter@42fdf45e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2318651f]
+2021-03-21 16:45:26.587  INFO 8012 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-21 16:45:26.888  INFO 8012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-21 16:45:26.899  INFO 8012 --- [main] c.e.r.RestControllerApplication          : Started RestControllerApplication in 6.574 seconds (JVM running for 8.247)
+2021-03-21 16:45:50.466  INFO 8012 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-21 16:45:50.468  INFO 8012 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-21 16:45:50.470  INFO 8012 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-03-21 16:45:50.502  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:45:50.502  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:45:50.502  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:45:50.502  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : POST /api/login
+2021-03-21 16:45:50.663  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:45:50.664  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 전!
+2021-03-21 16:45:50.664  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:45:50.678  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.678  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 전!
+2021-03-21 16:45:50.678  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.716 DEBUG 8012 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        user0_.id as id1_11_,
+        user0_.email as email2_11_,
+        user0_.lock_yn as lock_yn3_11_,
+        user0_.password as password4_11_,
+        user0_.phone as phone5_11_,
+        user0_.reg_date as reg_date6_11_,
+        user0_.status as status7_11_,
+        user0_.update_date as update_d8_11_,
+        user0_.user_name as user_nam9_11_ 
+    from
+        user user0_ 
+    where
+        user0_.email=?
+2021-03-21 16:45:50.720 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [test11@naver.com]
+2021-03-21 16:45:50.725 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_11_] : [BIGINT]) - [1]
+2021-03-21 16:45:50.729 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_11_] : [VARCHAR]) - [test11@naver.com]
+2021-03-21 16:45:50.729 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_11_] : [BOOLEAN]) - [false]
+2021-03-21 16:45:50.729 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_11_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-21 16:45:50.729 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_11_] : [VARCHAR]) - [010-1234-1234]
+2021-03-21 16:45:50.731 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_11_] : [TIMESTAMP]) - [2021-02-20T00:50:11]
+2021-03-21 16:45:50.731 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_11_] : [VARCHAR]) - [USING]
+2021-03-21 16:45:50.731 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_11_] : [TIMESTAMP]) - [null]
+2021-03-21 16:45:50.731 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_11_] : [VARCHAR]) - [kim]
+2021-03-21 16:45:50.740 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#1]
+2021-03-21 16:45:50.741 TRACE 8012 --- [http-nio-8080-exec-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#1]
+2021-03-21 16:45:50.833  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.833  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 전!
+2021-03-21 16:45:50.833  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.858 DEBUG 8012 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    insert 
+    into
+        logs
+        (id, reg_date, text) 
+    values
+        (null, ?, ?)
+2021-03-21 16:45:50.858 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2021-03-21T16:45:50.836236400]
+2021-03-21 16:45:50.858 TRACE 8012 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [CLOB] - [
+함수명 : class com.example.restcontroller.user.service.UserServiceImpl.login
+매개변수 : UserLogin(email=test11@naver.com, password=1234)
+리턴값 : User{id=1, email='test11@naver.com', userName='kim', password='$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', phone='010-1234-1234', status=USING, lockYn=false, regDate=2021-02-20T00:50:11, updateDate=null}]
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 후!
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : 
+함수명 : class com.example.restcontroller.user.service.UserServiceImpl.login
+매개변수 : UserLogin(email=test11@naver.com, password=1234)
+리턴값 : User{id=1, email='test11@naver.com', userName='kim', password='$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', phone='010-1234-1234', status=USING, lockYn=false, regDate=2021-02-20T00:50:11, updateDate=null}
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 후!
+2021-03-21 16:45:50.866  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-21 16:45:50.942  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:45:50.942  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 후!
+2021-03-21 16:45:50.942  INFO 8012 --- [http-nio-8080-exec-1] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:46:43.426  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:46:43.427  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:46:43.427  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:46:43.427  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate/property
+2021-03-21 16:46:43.455  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:46:43.455  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 전!
+2021-03-21 16:46:43.455  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:46:43.908  INFO 8012 --- [http-nio-8080-exec-2] c.e.r.common.GlobalExceptionHandler      : 401 Unauthorized: [no body]
+2021-03-21 16:47:07.177  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:47:07.177  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:47:07.178  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:47:07.178  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate/property
+2021-03-21 16:47:07.179  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:47:07.179  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 전!
+2021-03-21 16:47:07.179  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:47:07.235  INFO 8012 --- [http-nio-8080-exec-4] c.e.r.common.GlobalExceptionHandler      : 401 Unauthorized: [no body]
+2021-03-21 16:47:49.782  INFO 3492 --- [main] c.e.r.RestControllerApplication          : Starting RestControllerApplication using Java 11.0.8 on DESKTOP-8F3AB8V with PID 3492 (C:\Users\Woojin\Desktop\study\Study\rest-controller-practice\build\classes\java\main started by 김우진 in C:\Users\Woojin\Desktop\study\Study\rest-controller-practice)
+2021-03-21 16:47:49.787  INFO 3492 --- [main] c.e.r.RestControllerApplication          : No active profile set, falling back to default profiles: default
+2021-03-21 16:47:51.255  INFO 3492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-21 16:47:51.530  INFO 3492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 262 ms. Found 15 JPA repository interfaces.
+2021-03-21 16:47:52.449  INFO 3492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-03-21 16:47:52.462  INFO 3492 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-21 16:47:52.463  INFO 3492 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-03-21 16:47:52.662  INFO 3492 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-21 16:47:52.663  INFO 3492 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2796 ms
+2021-03-21 16:47:52.730  INFO 3492 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-21 16:47:52.916  INFO 3492 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-21 16:47:52.923  INFO 3492 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testDb'
+2021-03-21 16:47:53.167  INFO 3492 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-21 16:47:53.259  INFO 3492 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-03-21 16:47:53.504  INFO 3492 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-21 16:47:53.548 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@29170a47
+2021-03-21 16:47:53.549 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@29170a47
+2021-03-21 16:47:53.549 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@29170a47
+2021-03-21 16:47:53.550 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@23b1aa9
+2021-03-21 16:47:53.550 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.TrueFalseType@7c4b5ceb
+2021-03-21 16:47:53.552 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.YesNoType@712cd5d3
+2021-03-21 16:47:53.554 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@6eda012b
+2021-03-21 16:47:53.554 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@6eda012b
+2021-03-21 16:47:53.554 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@6eda012b
+2021-03-21 16:47:53.556 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.CharacterType@7661e474
+2021-03-21 16:47:53.556 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.CharacterType@7661e474
+2021-03-21 16:47:53.556 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@7661e474
+2021-03-21 16:47:53.559 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@7772d266
+2021-03-21 16:47:53.559 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@7772d266
+2021-03-21 16:47:53.559 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.ShortType@7772d266
+2021-03-21 16:47:53.561 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.IntegerType@6cdbe5ec
+2021-03-21 16:47:53.561 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.IntegerType@6cdbe5ec
+2021-03-21 16:47:53.562 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@6cdbe5ec
+2021-03-21 16:47:53.563 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@150d6eaf
+2021-03-21 16:47:53.563 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@150d6eaf
+2021-03-21 16:47:53.563 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.LongType@150d6eaf
+2021-03-21 16:47:53.565 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@eaf8427
+2021-03-21 16:47:53.565 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@eaf8427
+2021-03-21 16:47:53.565 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.FloatType@eaf8427
+2021-03-21 16:47:53.566 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@17176b18
+2021-03-21 16:47:53.567 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@17176b18
+2021-03-21 16:47:53.567 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@17176b18
+2021-03-21 16:47:53.569 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@6c9a3661
+2021-03-21 16:47:53.569 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@6c9a3661
+2021-03-21 16:47:53.570 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BigIntegerType@3f0ce0d1
+2021-03-21 16:47:53.571 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@3f0ce0d1
+2021-03-21 16:47:53.572 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.StringType@350ff014
+2021-03-21 16:47:53.572 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.StringType@350ff014
+2021-03-21 16:47:53.574 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.StringNVarcharType@1201769d
+2021-03-21 16:47:53.577 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@22048bd6
+2021-03-21 16:47:53.578 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.UrlType@43c39321
+2021-03-21 16:47:53.579 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.UrlType@43c39321
+2021-03-21 16:47:53.580 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.DurationType@6bcdd6e4
+2021-03-21 16:47:53.580 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.DurationType@6bcdd6e4
+2021-03-21 16:47:53.581 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -> org.hibernate.type.InstantType@ddffa6c
+2021-03-21 16:47:53.583 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.InstantType@ddffa6c
+2021-03-21 16:47:53.584 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@5abf6a99
+2021-03-21 16:47:53.584 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@5abf6a99
+2021-03-21 16:47:53.584 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.LocalDateType@7a814310
+2021-03-21 16:47:53.586 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@7a814310
+2021-03-21 16:47:53.587 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@4b4a2fa8
+2021-03-21 16:47:53.587 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@4b4a2fa8
+2021-03-21 16:47:53.588 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@65036e8d
+2021-03-21 16:47:53.588 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@65036e8d
+2021-03-21 16:47:53.592 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@26d0ece6
+2021-03-21 16:47:53.592 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@26d0ece6
+2021-03-21 16:47:53.595 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@781dac73
+2021-03-21 16:47:53.595 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@781dac73
+2021-03-21 16:47:53.598 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.DateType@64a1116a
+2021-03-21 16:47:53.598 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.DateType@64a1116a
+2021-03-21 16:47:53.600 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.TimeType@37c1cfa
+2021-03-21 16:47:53.600 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.TimeType@37c1cfa
+2021-03-21 16:47:53.602 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.TimestampType@773eca84
+2021-03-21 16:47:53.602 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@773eca84
+2021-03-21 16:47:53.602 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.TimestampType@773eca84
+2021-03-21 16:47:53.605 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@401788d5
+2021-03-21 16:47:53.609 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.CalendarType@701c223a
+2021-03-21 16:47:53.609 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@701c223a
+2021-03-21 16:47:53.610 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@701c223a
+2021-03-21 16:47:53.612 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@44dd0d38
+2021-03-21 16:47:53.613 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.CalendarTimeType@2bdab835
+2021-03-21 16:47:53.615 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.LocaleType@1815577b
+2021-03-21 16:47:53.615 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@1815577b
+2021-03-21 16:47:53.616 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.CurrencyType@1f949ab9
+2021-03-21 16:47:53.616 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@1f949ab9
+2021-03-21 16:47:53.617 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.TimeZoneType@3a209918
+2021-03-21 16:47:53.618 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@3a209918
+2021-03-21 16:47:53.619 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.ClassType@587f4f63
+2021-03-21 16:47:53.619 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.ClassType@587f4f63
+2021-03-21 16:47:53.620 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@28e7bb31
+2021-03-21 16:47:53.620 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@28e7bb31
+2021-03-21 16:47:53.621 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@661e279d
+2021-03-21 16:47:53.623 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BinaryType@5be4be74
+2021-03-21 16:47:53.626 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BinaryType@5be4be74
+2021-03-21 16:47:53.627 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BinaryType@5be4be74
+2021-03-21 16:47:53.629 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@64dc86c6
+2021-03-21 16:47:53.630 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@64dc86c6
+2021-03-21 16:47:53.630 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@64dc86c6
+2021-03-21 16:47:53.632 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.RowVersionType@5e68be2
+2021-03-21 16:47:53.633 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.ImageType@aca3c85
+2021-03-21 16:47:53.635 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.CharArrayType@69a373fd
+2021-03-21 16:47:53.635 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.CharArrayType@69a373fd
+2021-03-21 16:47:53.635 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.CharArrayType@69a373fd
+2021-03-21 16:47:53.636 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@6df11e91
+2021-03-21 16:47:53.637 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@6df11e91
+2021-03-21 16:47:53.637 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@6df11e91
+2021-03-21 16:47:53.637 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.TextType@53cddaf8
+2021-03-21 16:47:53.638 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.NTextType@7de35070
+2021-03-21 16:47:53.640 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BlobType@48dff674
+2021-03-21 16:47:53.640 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@48dff674
+2021-03-21 16:47:53.641 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@4a9b3956
+2021-03-21 16:47:53.643 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.ClobType@bb8ead8
+2021-03-21 16:47:53.644 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@bb8ead8
+2021-03-21 16:47:53.645 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.NClobType@53cb0bcb
+2021-03-21 16:47:53.645 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@53cb0bcb
+2021-03-21 16:47:53.646 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@63dda940
+2021-03-21 16:47:53.647 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@7bede4ea
+2021-03-21 16:47:53.650 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.SerializableType@2dcd0e41
+2021-03-21 16:47:53.660 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.ObjectType@4e3283f6
+2021-03-21 16:47:53.661 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@4e3283f6
+2021-03-21 16:47:53.661 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@72224107
+2021-03-21 16:47:53.661 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@394fb736
+2021-03-21 16:47:53.661 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@3070f3e6
+2021-03-21 16:47:53.661 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@3271ec2a
+2021-03-21 16:47:53.662 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@52bba91a
+2021-03-21 16:47:53.662 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@1689527c
+2021-03-21 16:47:53.662 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@21516c88
+2021-03-21 16:47:53.662 DEBUG 3492 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@1c7cd434
+2021-03-21 16:47:53.865  INFO 3492 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-03-21 16:47:53.980 DEBUG 3492 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@3df77dfa] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@721fc2e3]
+2021-03-21 16:47:54.295 DEBUG 3492 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.model.UserPointType
+2021-03-21 16:47:54.297 DEBUG 3492 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.entity.UserStatus
+2021-03-21 16:47:54.529 DEBUG 3492 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@3df77dfa] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@4a105556]
+2021-03-21 16:47:55.305 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board CASCADE 
+2021-03-21 16:47:55.309 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_bookmark CASCADE 
+2021-03-21 16:47:55.309 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_comment CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_hits CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_like CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_report CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_scrap CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_type CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists logs CASCADE 
+2021-03-21 16:47:55.310 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice CASCADE 
+2021-03-21 16:47:55.311 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice_like CASCADE 
+2021-03-21 16:47:55.311 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user CASCADE 
+2021-03-21 16:47:55.311 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_interest CASCADE 
+2021-03-21 16:47:55.311 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_login_history CASCADE 
+2021-03-21 16:47:55.311 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_point CASCADE 
+2021-03-21 16:47:55.315 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board (
+       id bigint generated by default as identity,
+        content varchar(255),
+        publish_end_date date,
+        publish_start_date date,
+        reg_date timestamp,
+        title varchar(255),
+        top_yn boolean not null,
+        board_type_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.333 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_bookmark (
+       id bigint generated by default as identity,
+        board_id bigint,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_url varchar(255),
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.335 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_comment (
+       id bigint generated by default as identity,
+        comments varchar(255),
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.336 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_hits (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.337 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_like (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.338 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_report (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_user_id bigint,
+        comments varchar(255),
+        reg_date timestamp,
+        user_email varchar(255),
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-21 16:47:55.342 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_scrap (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_user_id bigint,
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.344 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_type (
+       id bigint generated by default as identity,
+        board_name varchar(255),
+        reg_date timestamp,
+        update_date timestamp,
+        using_yn boolean not null,
+        primary key (id)
+    )
+2021-03-21 16:47:55.345 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table logs (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        text clob,
+        primary key (id)
+    )
+2021-03-21 16:47:55.346 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice (
+       id bigint generated by default as identity,
+        contents varchar(255),
+        delete_date timestamp,
+        deleted boolean default false not null,
+        hits integer default 0,
+        likes integer default 0,
+        reg_date timestamp,
+        title varchar(255),
+        update_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.347 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice_like (
+       id bigint generated by default as identity,
+        notice_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.350 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table user (
+       id bigint generated by default as identity,
+        email varchar(255) not null,
+        lock_yn boolean,
+        password varchar(255) not null,
+        phone varchar(255) not null,
+        reg_date timestamp,
+        status varchar(255),
+        update_date timestamp,
+        user_name varchar(255) not null,
+        primary key (id)
+    )
+2021-03-21 16:47:55.352 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_interest (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        interest_user_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.354 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_login_history (
+       id bigint generated by default as identity,
+        email varchar(255),
+        ip_addr varchar(255),
+        login_date timestamp,
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-21 16:47:55.354 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_point (
+       id bigint generated by default as identity,
+        point integer not null,
+        reg_date timestamp,
+        user_point_type varchar(255),
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-21 16:47:55.356 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user 
+       add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email)
+2021-03-21 16:47:55.361 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FK59iw5qt320s9l10vbxey9as5p 
+       foreign key (board_type_id) 
+       references board_type
+2021-03-21 16:47:55.373 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FKfyf1fchnby6hndhlfaidier1r 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.377 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_bookmark 
+       add constraint FK_BOARD_BOOKMARK_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.379 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_BOARD_ID 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:47:55.380 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.382 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FK8ptvjkodqmonm762uo9v8ocha 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:47:55.383 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FKjkkt5o4uyvoo26g31v71pww4w 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.385 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKk7rxm8vl1ptqqhwdj2sjmlpvq 
+       foreign key (board_id) 
+       references board
+2021-03-21 16:47:55.387 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKpf406vodal6lejcg4fkwcjr2o 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.388 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_scrap 
+       add constraint FK_BOARD_SCRAP_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.391 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice 
+       add constraint FKcvf4mh5se36inrxn7xlh2brfv 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.393 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKm2krt4h5dcpydbb4tlvxyr27 
+       foreign key (notice_id) 
+       references notice
+2021-03-21 16:47:55.395 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKnplmervi6gx6dqj4vpnq7jn6g 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.396 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_INTEREST_USER_ID 
+       foreign key (interest_user_id) 
+       references user
+2021-03-21 16:47:55.398 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.400 DEBUG 3492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_point 
+       add constraint FK_USER_POINT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-21 16:47:55.406  INFO 3492 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-21 16:47:55.418 TRACE 3492 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@4a105556] for TypeConfiguration
+2021-03-21 16:47:55.422  INFO 3492 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-21 16:47:56.889  WARN 3492 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-21 16:47:57.330  INFO 3492 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 65594739-5ead-44f6-bf22-fba435a2d572
+
+2021-03-21 16:47:57.481  INFO 3492 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3cc548f6, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f465ae, org.springframework.security.web.header.HeaderWriterFilter@5478597, org.springframework.security.web.authentication.logout.LogoutFilter@507fecf3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@308d4981, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2eb73a42, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3fed0c04, org.springframework.security.web.session.SessionManagementFilter@7fa86ddd, org.springframework.security.web.access.ExceptionTranslationFilter@7d6a9d5e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@613ba54e]
+2021-03-21 16:47:57.818  INFO 3492 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-21 16:47:58.298  INFO 3492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-21 16:47:58.314  INFO 3492 --- [main] c.e.r.RestControllerApplication          : Started RestControllerApplication in 9.392 seconds (JVM running for 11.649)
+2021-03-21 16:48:04.951  INFO 3492 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-21 16:48:04.952  INFO 3492 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-21 16:48:04.953  INFO 3492 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-03-21 16:48:05.000  INFO 3492 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:05.001  INFO 3492 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:48:05.001  INFO 3492 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:05.001  INFO 3492 --- [http-nio-8080-exec-1] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate
+2021-03-21 16:48:05.030  INFO 3492 --- [http-nio-8080-exec-1] c.e.r.common.GlobalExceptionHandler      : com.example.restcontroller.common.exception.AuthFailException인증정보가 정확하지 않습니다
+2021-03-21 16:48:24.613  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:24.615  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:48:24.615  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:24.615  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate
+2021-03-21 16:48:24.794  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:24.795  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 전!
+2021-03-21 16:48:24.795  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:25.667  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:25.667  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 후!
+2021-03-21 16:48:25.667  INFO 3492 --- [http-nio-8080-exec-2] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:34.421  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:34.421  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:48:34.421  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:34.421  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate/property
+2021-03-21 16:48:34.427  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:34.428  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 전!
+2021-03-21 16:48:34.428  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:34.567  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:34.567  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 후!
+2021-03-21 16:48:34.568  INFO 3492 --- [http-nio-8080-exec-4] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:40.401  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:40.402  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.c.interceptor.CommonInterceptor    : [interceptor] - preHandler start
+2021-03-21 16:48:40.402  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.c.interceptor.CommonInterceptor    : #########################################
+2021-03-21 16:48:40.402  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.c.interceptor.CommonInterceptor    : GET /api/extra/naver/translate/property
+2021-03-21 16:48:40.403  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:40.403  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 전!
+2021-03-21 16:48:40.404  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:40.533  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.common.aop.BoardLogger             : ############################################################
+2021-03-21 16:48:40.533  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.common.aop.BoardLogger             : 컨트롤러 호출 후!
+2021-03-21 16:48:40.533  INFO 3492 --- [http-nio-8080-exec-5] c.e.r.common.aop.BoardLogger             : ############################################################
