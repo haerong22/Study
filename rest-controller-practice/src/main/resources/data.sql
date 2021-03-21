@@ -74,4 +74,10 @@ VALUES
          '<div><p>제목: {BOARD_TITLE}</p><p>내용</p><div>{BOARD_CONTENTS}</div><p>답변</p><div>{BOARD_REPLY_CONTENTS}</div></div>',
          'test.email.12588@gmail.com', '관리자', now());
 
-
+insert into logs (text, reg_date)
+values
+        ('로그1', now()),
+        ('로그2', now()),
+        ('로그3', now()),
+        ('로그4', now()),
+        ('로그5', now());
