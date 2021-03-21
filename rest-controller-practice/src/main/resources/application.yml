@@ -33,6 +33,18 @@ spring:
   mustache:
     suffix: .html
 
+  mail:
+    username: test.email.12588
+    password: jqvozceuwvacbxwa
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 logging:
   level:
     org.hibernate.SQL: trace

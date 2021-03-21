@@ -23,4 +23,6 @@ public interface UserService {
     ServiceResult deleteInterestUser(Long id, String email);
 
     User login(UserLogin userLogin);
+
+    ServiceResult addUser(UserInput userInput);
 }

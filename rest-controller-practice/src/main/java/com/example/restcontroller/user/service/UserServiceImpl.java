@@ -2,8 +2,8 @@ package com.example.restcontroller.user.service;
 
 
 import com.example.restcontroller.board.model.ServiceResult;
+import com.example.restcontroller.common.MailComponent;
 import com.example.restcontroller.common.exception.BizException;
-import com.example.restcontroller.logs.service.LogService;
 import com.example.restcontroller.user.entity.User;
 import com.example.restcontroller.user.entity.UserInterest;
 import com.example.restcontroller.user.entity.UserStatus;
@@ -31,6 +31,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
     private final UserInterestRepository userInterestRepository;
+
+    private final MailComponent mailComponent;
 
     @Override
     public UserSummary getUserStatusCount() {
@@ -143,5 +145,39 @@ public class UserServiceImpl implements UserService {
         }
 
         return userEntity;
+    }
+
+    @Transactional
+    @Override
+    public ServiceResult addUser(UserInput userInput) {
+        Optional<User> optionalUserEntity = userRepository.findByEmail(userInput.getEmail());
+        if (optionalUserEntity.isPresent()) {
+            throw new BizException("이미 가입된 이메일 입니다");
+        }
+
+        String encryptPassword = PasswordUtils.encryptedPassword(userInput.getPassword());
+
+        User user = User.builder()
+                .email(userInput.getEmail())
+                .userName(userInput.getUserName())
+                .regDate(LocalDateTime.now())
+                .password(encryptPassword)
+                .phone(userInput.getPhone())
+                .status(UserStatus.USING)
+                .build();
+
+        userRepository.save(user);
+
+        // 이메일 전송
+        String fromEmail = "test.email.12588";
+        String fromName = "관리자";
+        String toEmail = userInput.getEmail();
+        String toName = userInput.getUserName();
+        String title = "회원가입을 축하드립니다.";
+        String contents = "회원가입을 축하드립니다.";
+
+        mailComponent.send(fromEmail, fromName, toEmail, toName, title, contents);
+
+        return ServiceResult.success();
     }
 }

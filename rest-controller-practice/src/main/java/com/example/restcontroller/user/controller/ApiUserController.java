@@ -23,6 +23,7 @@ import com.example.restcontroller.user.exception.UserNotFoundException;
 import com.example.restcontroller.user.model.*;
 import com.example.restcontroller.user.repository.UserRepository;
 import com.example.restcontroller.user.service.UserPointService;
+import com.example.restcontroller.user.service.UserService;
 import com.example.restcontroller.util.JWTUtils;
 import com.example.restcontroller.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +52,7 @@ public class ApiUserController {
 
     private final BoardService boardService;
     private final UserPointService userPointService;
+    private final UserService userService;
 
     @PostMapping("/api/user")
     public ResponseEntity<?> chapter2_1(@RequestBody @Valid UserInput userInput, BindingResult bindingResult) {
@@ -401,6 +403,13 @@ public class ApiUserController {
         }
         ServiceResult result = userPointService.addPoint(email, userPointInput);
 
+        return ResponseResult.result(result);
+    }
+
+    @PostMapping("/api/public/user")
+    public ResponseEntity<?> chapter5_2(@RequestBody UserInput userInput) {
+
+        ServiceResult result = userService.addUser(userInput);
         return ResponseResult.result(result);
     }
 }
