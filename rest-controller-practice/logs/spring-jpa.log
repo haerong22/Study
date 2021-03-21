@@ -1063,3 +1063,736 @@ Using generated security password: 07b8af22-cf57-496f-a329-0200f8038bd5
 2021-03-22 01:07:57.218  INFO 21192 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
 2021-03-22 01:07:57.218  INFO 21192 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 후!
 2021-03-22 01:07:57.219  INFO 21192 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:07:13.858  INFO 25300 --- [main] c.e.r.RestControllerApplication          : Starting RestControllerApplication using Java 11.0.8 on DESKTOP-8F3AB8V with PID 25300 (C:\Users\Woojin\Desktop\study\Study\rest-controller-practice\build\classes\java\main started by 김우진 in C:\Users\Woojin\Desktop\study\Study\rest-controller-practice)
+2021-03-22 02:07:13.867  INFO 25300 --- [main] c.e.r.RestControllerApplication          : No active profile set, falling back to default profiles: default
+2021-03-22 02:07:15.892  INFO 25300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-22 02:07:16.237  INFO 25300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 327 ms. Found 16 JPA repository interfaces.
+2021-03-22 02:07:17.468  INFO 25300 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-03-22 02:07:17.483  INFO 25300 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-22 02:07:17.484  INFO 25300 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-03-22 02:07:17.742  INFO 25300 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-22 02:07:17.743  INFO 25300 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3758 ms
+2021-03-22 02:07:17.840  INFO 25300 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-22 02:07:18.083  INFO 25300 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-22 02:07:18.095  INFO 25300 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testDb'
+2021-03-22 02:07:18.421  INFO 25300 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-22 02:07:18.527  INFO 25300 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-03-22 02:07:18.838  INFO 25300 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-22 02:07:18.892 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@51424203
+2021-03-22 02:07:18.893 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@51424203
+2021-03-22 02:07:18.893 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@51424203
+2021-03-22 02:07:18.896 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@161d95c6
+2021-03-22 02:07:18.897 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.TrueFalseType@852ef8d
+2021-03-22 02:07:18.899 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.YesNoType@4cae66a8
+2021-03-22 02:07:18.900 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@270d5060
+2021-03-22 02:07:18.900 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@270d5060
+2021-03-22 02:07:18.901 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@270d5060
+2021-03-22 02:07:18.902 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.CharacterType@987a0bb
+2021-03-22 02:07:18.904 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.CharacterType@987a0bb
+2021-03-22 02:07:18.904 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@987a0bb
+2021-03-22 02:07:18.905 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@47a3d56a
+2021-03-22 02:07:18.905 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@47a3d56a
+2021-03-22 02:07:18.905 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.ShortType@47a3d56a
+2021-03-22 02:07:18.908 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.IntegerType@6d31f106
+2021-03-22 02:07:18.908 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.IntegerType@6d31f106
+2021-03-22 02:07:18.908 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@6d31f106
+2021-03-22 02:07:18.912 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@7f426ddd
+2021-03-22 02:07:18.912 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@7f426ddd
+2021-03-22 02:07:18.913 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.LongType@7f426ddd
+2021-03-22 02:07:18.916 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@38de5daf
+2021-03-22 02:07:18.916 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@38de5daf
+2021-03-22 02:07:18.916 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.FloatType@38de5daf
+2021-03-22 02:07:18.917 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@13ca16bf
+2021-03-22 02:07:18.917 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@13ca16bf
+2021-03-22 02:07:18.917 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@13ca16bf
+2021-03-22 02:07:18.919 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@104a287c
+2021-03-22 02:07:18.919 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@104a287c
+2021-03-22 02:07:18.920 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BigIntegerType@166b11e
+2021-03-22 02:07:18.920 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@166b11e
+2021-03-22 02:07:18.921 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.StringType@f017dd0
+2021-03-22 02:07:18.922 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.StringType@f017dd0
+2021-03-22 02:07:18.923 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.StringNVarcharType@6bd92538
+2021-03-22 02:07:18.923 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@4567fb2b
+2021-03-22 02:07:18.925 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.UrlType@36ad5f2a
+2021-03-22 02:07:18.925 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.UrlType@36ad5f2a
+2021-03-22 02:07:18.927 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.DurationType@7c901203
+2021-03-22 02:07:18.928 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.DurationType@7c901203
+2021-03-22 02:07:18.931 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -> org.hibernate.type.InstantType@1a497286
+2021-03-22 02:07:18.932 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.InstantType@1a497286
+2021-03-22 02:07:18.933 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@aa752bb
+2021-03-22 02:07:18.934 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@aa752bb
+2021-03-22 02:07:18.935 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.LocalDateType@389a5022
+2021-03-22 02:07:18.935 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@389a5022
+2021-03-22 02:07:18.936 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@41a16eb3
+2021-03-22 02:07:18.936 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@41a16eb3
+2021-03-22 02:07:18.938 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@684372d0
+2021-03-22 02:07:18.938 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@684372d0
+2021-03-22 02:07:18.941 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@6060146b
+2021-03-22 02:07:18.941 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@6060146b
+2021-03-22 02:07:18.955 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@795f6681
+2021-03-22 02:07:18.955 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@795f6681
+2021-03-22 02:07:18.959 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.DateType@5d1a859c
+2021-03-22 02:07:18.959 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.DateType@5d1a859c
+2021-03-22 02:07:18.961 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.TimeType@13004dd8
+2021-03-22 02:07:18.961 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.TimeType@13004dd8
+2021-03-22 02:07:18.963 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.TimestampType@4aa22cc2
+2021-03-22 02:07:18.964 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@4aa22cc2
+2021-03-22 02:07:18.964 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.TimestampType@4aa22cc2
+2021-03-22 02:07:18.966 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@59d6642a
+2021-03-22 02:07:18.970 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.CalendarType@45984654
+2021-03-22 02:07:18.970 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@45984654
+2021-03-22 02:07:18.970 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@45984654
+2021-03-22 02:07:18.971 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@640c216b
+2021-03-22 02:07:18.972 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.CalendarTimeType@3d40498a
+2021-03-22 02:07:18.973 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.LocaleType@1de5cc88
+2021-03-22 02:07:18.973 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@1de5cc88
+2021-03-22 02:07:18.974 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.CurrencyType@59262a90
+2021-03-22 02:07:18.974 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@59262a90
+2021-03-22 02:07:18.975 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.TimeZoneType@c212536
+2021-03-22 02:07:18.976 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@c212536
+2021-03-22 02:07:18.978 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.ClassType@60928a61
+2021-03-22 02:07:18.978 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.ClassType@60928a61
+2021-03-22 02:07:18.980 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@7e18ced7
+2021-03-22 02:07:18.981 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@7e18ced7
+2021-03-22 02:07:18.981 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@3a0896b3
+2021-03-22 02:07:18.983 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BinaryType@6e00837f
+2021-03-22 02:07:18.984 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BinaryType@6e00837f
+2021-03-22 02:07:18.984 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BinaryType@6e00837f
+2021-03-22 02:07:18.985 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@1e6bd263
+2021-03-22 02:07:18.985 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@1e6bd263
+2021-03-22 02:07:18.985 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@1e6bd263
+2021-03-22 02:07:18.987 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.RowVersionType@58601e7a
+2021-03-22 02:07:18.988 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.ImageType@163e8949
+2021-03-22 02:07:18.989 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.CharArrayType@610fbe1c
+2021-03-22 02:07:18.990 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.CharArrayType@610fbe1c
+2021-03-22 02:07:18.990 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.CharArrayType@610fbe1c
+2021-03-22 02:07:18.991 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@7871d261
+2021-03-22 02:07:18.991 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@7871d261
+2021-03-22 02:07:18.991 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@7871d261
+2021-03-22 02:07:18.992 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.TextType@1c6e3ff9
+2021-03-22 02:07:18.992 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.NTextType@4f26425b
+2021-03-22 02:07:18.995 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BlobType@1c68d0db
+2021-03-22 02:07:18.995 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@1c68d0db
+2021-03-22 02:07:18.996 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@18c7f6b5
+2021-03-22 02:07:18.998 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.ClobType@2eebce87
+2021-03-22 02:07:18.998 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@2eebce87
+2021-03-22 02:07:19.000 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.NClobType@6704df84
+2021-03-22 02:07:19.001 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@6704df84
+2021-03-22 02:07:19.002 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@15994b0b
+2021-03-22 02:07:19.002 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@13aed42b
+2021-03-22 02:07:19.005 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.SerializableType@3b3056a6
+2021-03-22 02:07:19.014 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.ObjectType@647fb583
+2021-03-22 02:07:19.015 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@647fb583
+2021-03-22 02:07:19.015 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@7ead1d80
+2021-03-22 02:07:19.015 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@1d1bf7bf
+2021-03-22 02:07:19.015 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@1182413a
+2021-03-22 02:07:19.016 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@4d43a1b7
+2021-03-22 02:07:19.016 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@5b14f482
+2021-03-22 02:07:19.016 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@19705650
+2021-03-22 02:07:19.016 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@1a785fd5
+2021-03-22 02:07:19.016 DEBUG 25300 --- [main] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@4a660b34
+2021-03-22 02:07:19.153  INFO 25300 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-03-22 02:07:19.281 DEBUG 25300 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@d49e8c6] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@2712e8f4]
+2021-03-22 02:07:19.599 DEBUG 25300 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.model.UserPointType
+2021-03-22 02:07:19.601 DEBUG 25300 --- [main] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum com.example.restcontroller.user.entity.UserStatus
+2021-03-22 02:07:19.870 DEBUG 25300 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@d49e8c6] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@2166c48a]
+2021-03-22 02:07:20.767 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board CASCADE 
+2021-03-22 02:07:20.770 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_bookmark CASCADE 
+2021-03-22 02:07:20.770 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_comment CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_hits CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_like CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_report CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_scrap CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists board_type CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists logs CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists mail_template CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice CASCADE 
+2021-03-22 02:07:20.771 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists notice_like CASCADE 
+2021-03-22 02:07:20.772 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user CASCADE 
+2021-03-22 02:07:20.772 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_interest CASCADE 
+2021-03-22 02:07:20.772 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_login_history CASCADE 
+2021-03-22 02:07:20.772 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    drop table if exists user_point CASCADE 
+2021-03-22 02:07:20.775 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board (
+       id bigint generated by default as identity,
+        content clob,
+        publish_end_date date,
+        publish_start_date date,
+        reg_date timestamp,
+        reply_contents clob,
+        title varchar(255),
+        top_yn boolean not null,
+        board_type_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.799 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_bookmark (
+       id bigint generated by default as identity,
+        board_id bigint,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_url varchar(255),
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.800 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_comment (
+       id bigint generated by default as identity,
+        comments varchar(255),
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.801 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_hits (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.802 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_like (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        board_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.803 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_report (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_user_id bigint,
+        comments varchar(255),
+        reg_date timestamp,
+        user_email varchar(255),
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-22 02:07:20.804 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_scrap (
+       id bigint generated by default as identity,
+        board_contents varchar(255),
+        board_id bigint,
+        board_reg_date timestamp,
+        board_title varchar(255),
+        board_type_id bigint,
+        board_user_id bigint,
+        reg_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.806 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table board_type (
+       id bigint generated by default as identity,
+        board_name varchar(255),
+        reg_date timestamp,
+        update_date timestamp,
+        using_yn boolean not null,
+        primary key (id)
+    )
+2021-03-22 02:07:20.807 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table logs (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        text clob,
+        primary key (id)
+    )
+2021-03-22 02:07:20.808 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table mail_template (
+       id bigint generated by default as identity,
+        contents varchar(255),
+        reg_date timestamp,
+        send_email varchar(255),
+        send_user_name varchar(255),
+        template_id varchar(255),
+        title varchar(255),
+        primary key (id)
+    )
+2021-03-22 02:07:20.813 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice (
+       id bigint generated by default as identity,
+        contents varchar(255),
+        delete_date timestamp,
+        deleted boolean default false not null,
+        hits integer default 0,
+        likes integer default 0,
+        reg_date timestamp,
+        title varchar(255),
+        update_date timestamp,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.815 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table notice_like (
+       id bigint generated by default as identity,
+        notice_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.820 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table user (
+       id bigint generated by default as identity,
+        email varchar(255) not null,
+        lock_yn boolean,
+        password varchar(255) not null,
+        phone varchar(255) not null,
+        reg_date timestamp,
+        status varchar(255),
+        update_date timestamp,
+        user_name varchar(255) not null,
+        primary key (id)
+    )
+2021-03-22 02:07:20.822 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_interest (
+       id bigint generated by default as identity,
+        reg_date timestamp,
+        interest_user_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.823 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_login_history (
+       id bigint generated by default as identity,
+        email varchar(255),
+        ip_addr varchar(255),
+        login_date timestamp,
+        user_id bigint,
+        user_name varchar(255),
+        primary key (id)
+    )
+2021-03-22 02:07:20.824 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    create table user_point (
+       id bigint generated by default as identity,
+        point integer not null,
+        reg_date timestamp,
+        user_point_type varchar(255),
+        user_id bigint,
+        primary key (id)
+    )
+2021-03-22 02:07:20.826 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user 
+       add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email)
+2021-03-22 02:07:20.833 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FK59iw5qt320s9l10vbxey9as5p 
+       foreign key (board_type_id) 
+       references board_type
+2021-03-22 02:07:20.851 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board 
+       add constraint FKfyf1fchnby6hndhlfaidier1r 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.853 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_bookmark 
+       add constraint FK_BOARD_BOOKMARK_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.855 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_BOARD_ID 
+       foreign key (board_id) 
+       references board
+2021-03-22 02:07:20.857 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_comment 
+       add constraint FK_BOARD_COMMENT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.859 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FK8ptvjkodqmonm762uo9v8ocha 
+       foreign key (board_id) 
+       references board
+2021-03-22 02:07:20.864 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_hits 
+       add constraint FKjkkt5o4uyvoo26g31v71pww4w 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.867 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKk7rxm8vl1ptqqhwdj2sjmlpvq 
+       foreign key (board_id) 
+       references board
+2021-03-22 02:07:20.869 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_like 
+       add constraint FKpf406vodal6lejcg4fkwcjr2o 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.872 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table board_scrap 
+       add constraint FK_BOARD_SCRAP_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.873 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice 
+       add constraint FKcvf4mh5se36inrxn7xlh2brfv 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.876 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKm2krt4h5dcpydbb4tlvxyr27 
+       foreign key (notice_id) 
+       references notice
+2021-03-22 02:07:20.880 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table notice_like 
+       add constraint FKnplmervi6gx6dqj4vpnq7jn6g 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.882 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_INTEREST_USER_ID 
+       foreign key (interest_user_id) 
+       references user
+2021-03-22 02:07:20.884 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_interest 
+       add constraint FK_USER_INTEREST_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.886 DEBUG 25300 --- [main] org.hibernate.SQL                        : 
+    
+    alter table user_point 
+       add constraint FK_USER_POINT_USER_ID 
+       foreign key (user_id) 
+       references user
+2021-03-22 02:07:20.892  INFO 25300 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-22 02:07:20.905 TRACE 25300 --- [main] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@2166c48a] for TypeConfiguration
+2021-03-22 02:07:20.908  INFO 25300 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-22 02:07:22.898  WARN 25300 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-22 02:07:23.300  INFO 25300 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 51e235f6-f83d-437f-9c97-2fdcc1f33d32
+
+2021-03-22 02:07:23.458  INFO 25300 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@cf0bc92, org.springframework.security.web.context.SecurityContextPersistenceFilter@4cddc3d9, org.springframework.security.web.header.HeaderWriterFilter@4ee1c29a, org.springframework.security.web.authentication.logout.LogoutFilter@22942eff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3dcf6026, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3338d29d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3f8a44a4, org.springframework.security.web.session.SessionManagementFilter@4fae4c3b, org.springframework.security.web.access.ExceptionTranslationFilter@58ebfbcb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1a1dd8eb]
+2021-03-22 02:07:23.749  INFO 25300 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-22 02:07:24.167  INFO 25300 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-03-22 02:07:24.251  INFO 25300 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-22 02:07:24.263  INFO 25300 --- [scheduling-1] c.e.r.common.schedule.Scheduler          : ################################
+2021-03-22 02:07:24.265  INFO 25300 --- [scheduling-1] c.e.r.common.schedule.Scheduler          : 스케줄 실행!!!!
+2021-03-22 02:07:24.265  INFO 25300 --- [scheduling-1] c.e.r.common.schedule.Scheduler          : ################################
+2021-03-22 02:07:24.271  INFO 25300 --- [main] c.e.r.RestControllerApplication          : Started RestControllerApplication in 11.998 seconds (JVM running for 15.967)
+2021-03-22 02:07:24.282  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:07:24.283  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 전!
+2021-03-22 02:07:24.283  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:07:24.355 DEBUG 25300 --- [scheduling-1] org.hibernate.SQL                        : 
+    select
+        mailtempla0_.id as id1_9_,
+        mailtempla0_.contents as contents2_9_,
+        mailtempla0_.reg_date as reg_date3_9_,
+        mailtempla0_.send_email as send_ema4_9_,
+        mailtempla0_.send_user_name as send_use5_9_,
+        mailtempla0_.template_id as template6_9_,
+        mailtempla0_.title as title7_9_ 
+    from
+        mail_template mailtempla0_ 
+    where
+        mailtempla0_.template_id=?
+2021-03-22 02:07:24.366 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [USER_SERVICE_NOTICE]
+2021-03-22 02:07:24.373 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_9_] : [BIGINT]) - [4]
+2021-03-22 02:07:24.383 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([contents2_9_] : [VARCHAR]) - [<div><p>개인정보 이용내역 안내</p><p>서비스 이용중</p></div>]
+2021-03-22 02:07:24.385 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date3_9_] : [TIMESTAMP]) - [2021-03-22T02:07:21.053097]
+2021-03-22 02:07:24.386 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([send_ema4_9_] : [VARCHAR]) - [test.email.12588@gmail.com]
+2021-03-22 02:07:24.386 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([send_use5_9_] : [VARCHAR]) - [관리자]
+2021-03-22 02:07:24.386 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([template6_9_] : [VARCHAR]) - [USER_SERVICE_NOTICE]
+2021-03-22 02:07:24.386 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([title7_9_] : [VARCHAR]) - [{USER_NAME}님 안녕하세요.]
+2021-03-22 02:07:24.435 DEBUG 25300 --- [scheduling-1] org.hibernate.SQL                        : 
+    select
+        user0_.id as id1_12_,
+        user0_.email as email2_12_,
+        user0_.lock_yn as lock_yn3_12_,
+        user0_.password as password4_12_,
+        user0_.phone as phone5_12_,
+        user0_.reg_date as reg_date6_12_,
+        user0_.status as status7_12_,
+        user0_.update_date as update_d8_12_,
+        user0_.user_name as user_nam9_12_ 
+    from
+        user user0_
+2021-03-22 02:07:24.437 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [1]
+2021-03-22 02:07:24.437 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [haerong22@gmail.com]
+2021-03-22 02:07:24.438 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:07:24.438 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:07:24.438 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-1234-1234]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-02-20T00:50:11]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [USING]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [kim]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [2]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [test22@test.com]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:07:24.440 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-4321-1111]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-02-25T12:33:16]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [USING]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [lee]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [3]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [test33@test.com]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:07:24.441 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-5555-3333]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-03-22T02:07:21.023210]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [USING]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [hong]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [4]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [test44@test.com]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-4343-2546]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-03-22T02:07:21.023210]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [STOP]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:07:24.442 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [park]
+2021-03-22 02:07:24.468 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#1]
+2021-03-22 02:07:24.469 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#1]
+2021-03-22 02:07:24.469 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#1]
+2021-03-22 02:07:24.469 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#1]
+2021-03-22 02:07:24.469 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#1]
+2021-03-22 02:07:24.469 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#1]
+2021-03-22 02:07:24.470 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#1]
+2021-03-22 02:07:24.470 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#1]
+2021-03-22 02:07:24.470 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#1]
+2021-03-22 02:07:24.470 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#1]
+2021-03-22 02:07:24.471 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#1]
+2021-03-22 02:07:24.471 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#2]
+2021-03-22 02:07:24.472 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#2]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#2]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#3]
+2021-03-22 02:07:24.473 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#3]
+2021-03-22 02:07:24.475 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#3]
+2021-03-22 02:07:24.475 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#3]
+2021-03-22 02:07:24.475 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#3]
+2021-03-22 02:07:24.475 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#4]
+2021-03-22 02:07:24.476 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#4]
+2021-03-22 02:07:24.476 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#4]
+2021-03-22 02:07:24.476 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#4]
+2021-03-22 02:07:24.476 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#4]
+2021-03-22 02:07:24.476 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#4]
+2021-03-22 02:07:24.476 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#4]
+2021-03-22 02:07:24.477 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#4]
+2021-03-22 02:07:24.477 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#4]
+2021-03-22 02:07:24.477 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#4]
+2021-03-22 02:07:24.477 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#4]
+2021-03-22 02:07:24.481  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : haerong22@gmail.com
+2021-03-22 02:07:29.092  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : test22@test.com
+2021-03-22 02:07:32.132  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : test33@test.com
+2021-03-22 02:07:35.612  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : test44@test.com
+2021-03-22 02:07:38.497  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:07:38.497  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 후!
+2021-03-22 02:07:38.498  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:07:57.629  INFO 25300 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-22 02:07:57.630  INFO 25300 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-22 02:07:57.631  INFO 25300 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-03-22 02:08:38.503  INFO 25300 --- [scheduling-1] c.e.r.common.schedule.Scheduler          : ################################
+2021-03-22 02:08:38.503  INFO 25300 --- [scheduling-1] c.e.r.common.schedule.Scheduler          : 스케줄 실행!!!!
+2021-03-22 02:08:38.503  INFO 25300 --- [scheduling-1] c.e.r.common.schedule.Scheduler          : ################################
+2021-03-22 02:08:38.504  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:08:38.504  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 전!
+2021-03-22 02:08:38.504  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:08:38.505 DEBUG 25300 --- [scheduling-1] org.hibernate.SQL                        : 
+    select
+        mailtempla0_.id as id1_9_,
+        mailtempla0_.contents as contents2_9_,
+        mailtempla0_.reg_date as reg_date3_9_,
+        mailtempla0_.send_email as send_ema4_9_,
+        mailtempla0_.send_user_name as send_use5_9_,
+        mailtempla0_.template_id as template6_9_,
+        mailtempla0_.title as title7_9_ 
+    from
+        mail_template mailtempla0_ 
+    where
+        mailtempla0_.template_id=?
+2021-03-22 02:08:38.505 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [USER_SERVICE_NOTICE]
+2021-03-22 02:08:38.506 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_9_] : [BIGINT]) - [4]
+2021-03-22 02:08:38.506 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([contents2_9_] : [VARCHAR]) - [<div><p>개인정보 이용내역 안내</p><p>서비스 이용중</p></div>]
+2021-03-22 02:08:38.506 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date3_9_] : [TIMESTAMP]) - [2021-03-22T02:07:21.053097]
+2021-03-22 02:08:38.506 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([send_ema4_9_] : [VARCHAR]) - [test.email.12588@gmail.com]
+2021-03-22 02:08:38.506 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([send_use5_9_] : [VARCHAR]) - [관리자]
+2021-03-22 02:08:38.506 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([template6_9_] : [VARCHAR]) - [USER_SERVICE_NOTICE]
+2021-03-22 02:08:38.507 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([title7_9_] : [VARCHAR]) - [{USER_NAME}님 안녕하세요.]
+2021-03-22 02:08:38.508 DEBUG 25300 --- [scheduling-1] org.hibernate.SQL                        : 
+    select
+        user0_.id as id1_12_,
+        user0_.email as email2_12_,
+        user0_.lock_yn as lock_yn3_12_,
+        user0_.password as password4_12_,
+        user0_.phone as phone5_12_,
+        user0_.reg_date as reg_date6_12_,
+        user0_.status as status7_12_,
+        user0_.update_date as update_d8_12_,
+        user0_.user_name as user_nam9_12_ 
+    from
+        user user0_
+2021-03-22 02:08:38.508 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [1]
+2021-03-22 02:08:38.508 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [haerong22@gmail.com]
+2021-03-22 02:08:38.508 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:08:38.509 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:08:38.509 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-1234-1234]
+2021-03-22 02:08:38.509 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-02-20T00:50:11]
+2021-03-22 02:08:38.509 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [USING]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [kim]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [2]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [test22@test.com]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:08:38.510 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-4321-1111]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-02-25T12:33:16]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [USING]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [lee]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [3]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [test33@test.com]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-5555-3333]
+2021-03-22 02:08:38.511 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-03-22T02:07:21.023210]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [USING]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [hong]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_12_] : [BIGINT]) - [4]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email2_12_] : [VARCHAR]) - [test44@test.com]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([lock_yn3_12_] : [BOOLEAN]) - [false]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password4_12_] : [VARCHAR]) - [$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6]
+2021-03-22 02:08:38.512 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([phone5_12_] : [VARCHAR]) - [010-4343-2546]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([reg_date6_12_] : [TIMESTAMP]) - [2021-03-22T02:07:21.023210]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_12_] : [VARCHAR]) - [STOP]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([update_d8_12_] : [TIMESTAMP]) - [null]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([user_nam9_12_] : [VARCHAR]) - [park]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#1]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#1]
+2021-03-22 02:08:38.513 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#1]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#2]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#2]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#2]
+2021-03-22 02:08:38.514 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#2]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#3]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#3]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#3]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#3]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#3]
+2021-03-22 02:08:38.515 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#3]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#3]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#3]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#3]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#3]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#3]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardBookmarkList#4]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardCommentList#4]
+2021-03-22 02:08:38.516 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardHitsList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardLikeList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.boardScrapList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeLikeList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.noticeList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userInterestList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userList#4]
+2021-03-22 02:08:38.517 TRACE 25300 --- [scheduling-1] org.hibernate.type.CollectionType        : Created collection wrapper: [com.example.restcontroller.user.entity.User.userPointList#4]
+2021-03-22 02:08:38.517  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : haerong22@gmail.com
+2021-03-22 02:08:42.005  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : test22@test.com
+2021-03-22 02:08:45.331  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : test33@test.com
+2021-03-22 02:08:48.160  INFO 25300 --- [scheduling-1] c.e.r.user.service.UserServiceImpl       : test44@test.com
+2021-03-22 02:08:51.613  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################
+2021-03-22 02:08:51.614  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : 서비스 호출 후!
+2021-03-22 02:08:51.614  INFO 25300 --- [scheduling-1] c.e.r.common.aop.LoginLogger             : ############################################################

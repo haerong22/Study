@@ -4,6 +4,8 @@ package com.example.restcontroller.user.service;
 import com.example.restcontroller.board.model.ServiceResult;
 import com.example.restcontroller.common.MailComponent;
 import com.example.restcontroller.common.exception.BizException;
+import com.example.restcontroller.mail.entity.MailTemplate;
+import com.example.restcontroller.mail.repository.MailTemplateRepository;
 import com.example.restcontroller.user.entity.User;
 import com.example.restcontroller.user.entity.UserInterest;
 import com.example.restcontroller.user.entity.UserStatus;
@@ -13,6 +15,7 @@ import com.example.restcontroller.user.repository.UserInterestRepository;
 import com.example.restcontroller.user.repository.UserRepository;
 import com.example.restcontroller.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -33,6 +37,7 @@ public class UserServiceImpl implements UserService {
     private final UserInterestRepository userInterestRepository;
 
     private final MailComponent mailComponent;
+    private final MailTemplateRepository mailTemplateRepository;
 
     @Override
     public UserSummary getUserStatusCount() {
@@ -179,5 +184,22 @@ public class UserServiceImpl implements UserService {
         mailComponent.send(fromEmail, fromName, toEmail, toName, title, contents);
 
         return ServiceResult.success();
+    }
+
+    @Override
+    public void sendServiceNotice() {
+        Optional<MailTemplate> optionalMailTemplate = mailTemplateRepository.findByTemplateId("USER_SERVICE_NOTICE");
+        optionalMailTemplate.ifPresent(e -> {
+            String fromEmail = e.getSendEmail();
+            String fromUserName = e.getSendUserName();
+            String contents = e.getContents();
+
+            userRepository.findAll().forEach(u -> {
+                String title = e.getTitle().replaceAll("\\{USER_NAME\\}", u.getUserName());
+                log.info(u.getEmail());
+                mailComponent.send(fromEmail, fromUserName, u.getEmail(), u.getUserName(), title, contents);
+            });
+
+        });
     }
 }

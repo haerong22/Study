@@ -2,9 +2,9 @@
 insert into user(email, password, phone, reg_date, user_name, status, lock_yn)
 values
    ('haerong22@gmail.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-1234-1234', '2021-02-20 00:50:11.000000', 'kim', 'USING', 0),
-   ('test22@gmail.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4321-1111', '2021-02-25 12:33:16.000000', 'lee', 'USING', 0),
-   ('test33@naver.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-5555-3333', now(), 'hong', 'USING', 0),
-   ('test44@gmail.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4343-2546', now(), 'park', 'STOP', 0);
+   ('test22@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4321-1111', '2021-02-25 12:33:16.000000', 'lee', 'USING', 0),
+   ('test33@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-5555-3333', now(), 'hong', 'USING', 0),
+   ('test44@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4343-2546', now(), 'park', 'STOP', 0);
 
 
 insert into notice(contents, reg_date, title, user_id)
@@ -72,6 +72,10 @@ VALUES
         ('BOARD_REPLY',
          '{USER_NAME}님이 글에 답변이 작성되었습니다.',
          '<div><p>제목: {BOARD_TITLE}</p><p>내용</p><div>{BOARD_CONTENTS}</div><p>답변</p><div>{BOARD_REPLY_CONTENTS}</div></div>',
+         'test.email.12588@gmail.com', '관리자', now()),
+        ('USER_SERVICE_NOTICE',
+         '{USER_NAME}님 안녕하세요.',
+         '<div><p>개인정보 이용내역 안내</p><p>서비스 이용중</p></div>',
          'test.email.12588@gmail.com', '관리자', now());
 
 insert into logs (text, reg_date)

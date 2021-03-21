@@ -25,4 +25,6 @@ public interface UserService {
     User login(UserLogin userLogin);
 
     ServiceResult addUser(UserInput userInput);
+
+    void sendServiceNotice();
 }
