@@ -27,6 +27,46 @@ const initialState = {
   result: "",
 };
 
+// 지뢰 심는 함수
+const plantMine = (row, cell, mine) => {
+  console.log(row, cell, mine);
+  const candidate = Array(row * cell)
+    .fill()
+    .map((arr, i) => {
+      // 0 ~ 가로*세로 만큼 숫자 배열 생성
+      return i;
+    });
+  const shuffle = [];
+  // 지뢰 갯수 만큼 지뢰 생성
+  while (candidate.length > row * cell - mine) {
+    const chosen = candidate.splice(
+      Math.floor(Math.random() * candidate.length),
+      1
+    )[0];
+    shuffle.push(chosen);
+  }
+
+  // 가로 * 세로 만큼의 2차원 배열 생성
+  const data = [];
+  for (let i = 0; i < row; i++) {
+    const rowData = [];
+    data.push(rowData);
+    for (let j = 0; j < cell; j++) {
+      rowData.push(CODE.NORMAL);
+    }
+  }
+
+  // 지뢰 심기
+  for (let k = 0; k < shuffle.length; k++) {
+    const ver = Math.floor(shuffle[k] / cell);
+    const hor = shuffle[k] % cell;
+    data[ver][hor] = CODE.MINE;
+  }
+
+  console.log(data);
+  return data;
+};
+
 // action 명
 export const START_GAME = "START_GAME";
 
@@ -36,7 +76,7 @@ const reducer = (state, action) => {
     case START_GAME:
       return {
         ...state,
-        tableDate: plantMine(action.row, action.cell, action.mine),
+        tableData: plantMine(action.row, action.cell, action.mine),
       };
     default:
       return state;
@@ -46,16 +86,16 @@ const reducer = (state, action) => {
 const MineSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const value = useMemo(() => {
-    tableData: state.tableData, dispatch;
-  }, [state.tableData]);
+  const value = useMemo(() => ({ tableData: state.tableData, dispatch }), [
+    state.tableData,
+  ]);
 
   return (
     <TableContext.Provider value={value}>
       <Form />
-      <div>{timer}</div>
+      <div>{state.timer}</div>
       <Table />
-      <div>{result}</div>
+      <div>{state.result}</div>
     </TableContext.Provider>
   );
 };
