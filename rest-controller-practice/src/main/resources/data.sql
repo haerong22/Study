@@ -1,10 +1,10 @@
 
-insert into user(email, password, phone, reg_date, user_name, status, lock_yn)
+insert into user(email, password, phone, reg_date, user_name, status, lock_yn, password_reset_yn)
 values
-   ('haerong22@gmail.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-1234-1234', '2021-02-20 00:50:11.000000', 'kim', 'USING', 0),
-   ('test22@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4321-1111', '2021-02-25 12:33:16.000000', 'lee', 'USING', 0),
-   ('test33@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-5555-3333', now(), 'hong', 'USING', 0),
-   ('test44@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4343-2546', now(), 'park', 'STOP', 0);
+   ('haerong22@gmail.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-1234-1234', '2021-02-20 00:50:11.000000', 'kim', 'USING', 0, 0),
+   ('test22@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4321-1111', '2021-02-25 12:33:16.000000', 'lee', 'USING', 0, 0),
+   ('test33@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-5555-3333', now(), 'hong', 'USING', 0, 0),
+   ('test44@test.com', '$2a$10$2ElPbt2mwiAc9IYH3rgJz.YZInXlUd363utdyU0TWfne6Y3vKh8h6', '010-4343-2546', now(), 'park', 'STOP', 0, 0);
 
 
 insert into notice(contents, reg_date, title, user_id)

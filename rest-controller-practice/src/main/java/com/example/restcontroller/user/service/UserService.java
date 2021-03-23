@@ -27,4 +27,6 @@ public interface UserService {
     ServiceResult addUser(UserInput userInput);
 
     void sendServiceNotice();
+
+    ServiceResult resetPassword(UserPasswordResetInput userPasswordResetInput);
 }

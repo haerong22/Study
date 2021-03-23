@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -201,5 +202,33 @@ public class UserServiceImpl implements UserService {
             });
 
         });
+    }
+
+    @Transactional
+    @Override
+    public ServiceResult resetPassword(UserPasswordResetInput userPasswordResetInput) {
+        User userEntity = userRepository.findByEmailAndUserName(userPasswordResetInput.getEmail(), userPasswordResetInput.getUserName())
+                .orElseThrow(() -> new BizException("회원 정보가 존재하지 않습니다."));
+
+        String passwordResetKey = UUID.randomUUID().toString();
+        userEntity.setPasswordResetYn(true);
+        userEntity.setPasswordResetKey(passwordResetKey);
+
+        MailTemplate mailTemplate = mailTemplateRepository.findByTemplateId("USER_RESET_PASSWORD")
+                .orElseThrow(() -> new BizException("템플릿이 존재하지 않습니다."));
+
+        String serverUrl = "http://localhost:8080";
+        String title = mailTemplate.getTitle().replaceAll("\\{USER_NAME}", userEntity.getUserName());
+        String contents = mailTemplate.getContents()
+                .replaceAll("\\{USER_NAME}", userEntity.getUserName())
+                .replaceAll("\\{SERVER_URL}", serverUrl
+                .replaceAll("\\{RESET_PASSWORD_KEY}", passwordResetKey));
+
+        String fromEmail = mailTemplate.getSendEmail();
+        String fromUserName = mailTemplate.getSendUserName();
+
+        mailComponent.send(fromEmail, fromUserName, userEntity.getEmail(), userEntity.getUserName(), title, contents);
+
+        return ServiceResult.success();
     }
 }

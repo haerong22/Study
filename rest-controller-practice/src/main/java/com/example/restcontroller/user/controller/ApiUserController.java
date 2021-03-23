@@ -412,4 +412,15 @@ public class ApiUserController {
         ServiceResult result = userService.addUser(userInput);
         return ResponseResult.result(result);
     }
+
+    @PostMapping("/api/public/user/password/reset")
+    public ResponseEntity<?> chapter5_3(@RequestBody @Valid UserPasswordResetInput userPasswordResetInput,
+                                        BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return ResponseResult.fail("입력값이 정확하지 않습니다.", ResponseError.of(bindingResult.getFieldErrors()));
+        }
+
+        ServiceResult result = userService.resetPassword(userPasswordResetInput);
+        return ResponseResult.result(result);
+    }
 }

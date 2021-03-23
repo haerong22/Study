@@ -41,6 +41,10 @@ public class User {
     @Column
     private boolean lockYn;
 
+    private boolean passwordResetYn;
+
+    private String passwordResetKey;
+
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
 

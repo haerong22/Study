@@ -31,6 +31,4 @@ public class MailTemplate {
     private String sendUserName;
 
     private LocalDateTime regDate;
-
-
 }
