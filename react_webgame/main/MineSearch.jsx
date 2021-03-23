@@ -17,6 +17,7 @@ export const CODE = {
 // context api
 export const TableContext = createContext({
   tableData: [],
+  halted: true,
   dispatch: () => {},
 });
 
@@ -25,6 +26,7 @@ const initialState = {
   tableData: [],
   timer: 0,
   result: "",
+  halted: true,
 };
 
 // 지뢰 심는 함수
@@ -69,15 +71,85 @@ const plantMine = (row, cell, mine) => {
 
 // action 명
 export const START_GAME = "START_GAME";
+export const OPEN_CELL = "OPEN_CELL";
+export const CLICKED_MINE = "CLICKED_MINE";
+export const FLAG_CELL = "FLAG_CELL";
+export const QUESTION_CELL = "QUESTION_CELL";
+export const NORMALIZED_CELL = "NORMALIZED_CELL";
 
 // action 동작 정의
 const reducer = (state, action) => {
   switch (action.type) {
+    // 게임 시작
     case START_GAME:
       return {
         ...state,
         tableData: plantMine(action.row, action.cell, action.mine),
+        halted: false,
       };
+    // 지뢰 없는 칸 클릭
+    case OPEN_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.OPENED;
+      return {
+        ...state,
+        tableData,
+      };
+    }
+    // 지뢰 클릭
+    case CLICKED_MINE: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.CLICKED_MINE;
+      return {
+        ...state,
+        tableData,
+        halted: true,
+      };
+    }
+    // 기본 칸 우클릭 시 깃발 칸
+    case FLAG_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      if (tableData[action.row][action.cell] === CODE.MINE) {
+        tableData[action.row][action.cell] = CODE.FLAG_MINE;
+      } else {
+        tableData[action.row][action.cell] = CODE.FLAG;
+      }
+      return {
+        ...state,
+        tableData,
+      };
+    }
+    // 깃발 칸 우클릭 시 물음표 칸
+    case QUESTION_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      if (tableData[action.row][action.cell] === CODE.FLAG_MINE) {
+        tableData[action.row][action.cell] = CODE.QUESTION_MINE;
+      } else {
+        tableData[action.row][action.cell] = CODE.QUESTION;
+      }
+      return {
+        ...state,
+        tableData,
+      };
+    }
+    // 물음표 칸 우클릭 시 기본 칸
+    case NORMALIZED_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      if (tableData[action.row][action.cell] === CODE.QUESTION_MINE) {
+        tableData[action.row][action.cell] = CODE.MINE;
+      } else {
+        tableData[action.row][action.cell] = CODE.NORMAL;
+      }
+      return {
+        ...state,
+        tableData,
+      };
+    }
     default:
       return state;
   }
@@ -85,17 +157,19 @@ const reducer = (state, action) => {
 
 const MineSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { tableData, halted, timer, result } = state;
 
-  const value = useMemo(() => ({ tableData: state.tableData, dispatch }), [
-    state.tableData,
-  ]);
+  const value = useMemo(
+    () => ({ tableData: tableData, halted: halted, dispatch }),
+    [tableData, halted]
+  );
 
   return (
     <TableContext.Provider value={value}>
       <Form />
-      <div>{state.timer}</div>
+      <div>{timer}</div>
       <Table />
-      <div>{state.result}</div>
+      <div>{result}</div>
     </TableContext.Provider>
   );
 };
