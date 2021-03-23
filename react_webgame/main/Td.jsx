@@ -55,7 +55,7 @@ const getTdText = (code) => {
     case CODE.QUESTION:
       return "?";
     default:
-      return "";
+      return code || "";
   }
 };
 
@@ -111,7 +111,7 @@ const Td = ({ rowIndex, cellIndex }) => {
           return;
       }
     },
-    [tableData[rowIndex][cellIndex]]
+    [tableData[rowIndex][cellIndex], halted]
   );
 
   return (

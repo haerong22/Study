@@ -92,6 +92,33 @@ const reducer = (state, action) => {
       const tableData = [...state.tableData];
       tableData[action.row] = [...state.tableData[action.row]];
       tableData[action.row][action.cell] = CODE.OPENED;
+      let around = []; // 주변 칸의 값을 담을 배열
+      if (tableData[action.row - 1]) {
+        // 클릭한 칸의 윗줄이 있을 경우
+        around = around.concat(
+          tableData[action.row - 1][action.cell - 1],
+          tableData[action.row - 1][action.cell],
+          tableData[action.row - 1][action.cell + 1]
+        );
+      }
+      around = around.concat(
+        // 클릭한 칸의 좌, 우
+        tableData[action.row][action.cell - 1],
+        tableData[action.row][action.cell + 1]
+      );
+      if (tableData[action.row + 1]) {
+        // 클릭한 칸의 아랫줄이 있을 경우
+        around = around.concat(
+          tableData[action.row + 1][action.cell - 1],
+          tableData[action.row + 1][action.cell],
+          tableData[action.row + 1][action.cell + 1]
+        );
+      }
+      // 선택한 칸의 주변 칸의 갯수
+      const count = around.filter((v) =>
+        [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v)
+      ).length;
+      tableData[action.row][action.cell] = count;
       return {
         ...state,
         tableData,
