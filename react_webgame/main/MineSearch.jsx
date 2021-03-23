@@ -90,35 +90,89 @@ const reducer = (state, action) => {
     // 지뢰 없는 칸 클릭
     case OPEN_CELL: {
       const tableData = [...state.tableData];
-      tableData[action.row] = [...state.tableData[action.row]];
-      tableData[action.row][action.cell] = CODE.OPENED;
-      let around = []; // 주변 칸의 값을 담을 배열
-      if (tableData[action.row - 1]) {
-        // 클릭한 칸의 윗줄이 있을 경우
-        around = around.concat(
-          tableData[action.row - 1][action.cell - 1],
-          tableData[action.row - 1][action.cell],
-          tableData[action.row - 1][action.cell + 1]
-        );
-      }
-      around = around.concat(
-        // 클릭한 칸의 좌, 우
-        tableData[action.row][action.cell - 1],
-        tableData[action.row][action.cell + 1]
-      );
-      if (tableData[action.row + 1]) {
-        // 클릭한 칸의 아랫줄이 있을 경우
-        around = around.concat(
-          tableData[action.row + 1][action.cell - 1],
-          tableData[action.row + 1][action.cell],
-          tableData[action.row + 1][action.cell + 1]
-        );
-      }
-      // 선택한 칸의 주변 칸의 갯수
-      const count = around.filter((v) =>
-        [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v)
-      ).length;
-      tableData[action.row][action.cell] = count;
+      tableData.forEach((row, i) => {
+        tableData[i] = [...row];
+      });
+      const checked = [];
+      const checkAround = (row, cell) => {
+        // 닫힌 칸만 열기
+        if (
+          [
+            CODE.OPENED,
+            CODE.FLAG_MINE,
+            CODE.FLAG,
+            CODE.QUESTION_MINE,
+            CODE.QUESTION,
+          ].includes(tableData[row][cell])
+        ) {
+          return;
+        }
+        // 상하 좌우 칸이 없는 경우 필터링
+        if (
+          row < 0 ||
+          row >= tableData.length ||
+          cell < 0 ||
+          cell >= tableData[0].length
+        ) {
+          return;
+        }
+        // 이미 검사한 칸이면
+        if (checked.includes(row + "," + cell)) {
+          return;
+        } else {
+          checked.push(row + "," + cell);
+        }
+
+        // 주변 칸의 값을 담을 배열
+        let around = [
+          tableData[row][cell - 1],
+          tableData[row][cell + 1], // 클릭한 칸의 좌, 우
+        ];
+        if (tableData[row - 1]) {
+          // 클릭한 칸의 윗줄이 있을 경우
+          around = around.concat(
+            tableData[row - 1][cell - 1],
+            tableData[row - 1][cell],
+            tableData[row - 1][cell + 1]
+          );
+        }
+        if (tableData[row + 1]) {
+          // 클릭한 칸의 아랫줄이 있을 경우
+          around = around.concat(
+            tableData[row + 1][cell - 1],
+            tableData[row + 1][cell],
+            tableData[row + 1][cell + 1]
+          );
+        }
+        // 선택한 칸의 주변 칸의 지뢰 갯수
+        const count = around.filter((v) =>
+          [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v)
+        ).length;
+        tableData[row][cell] = count;
+
+        // 주변 칸 모두 빈칸 일 경우
+        if (count === 0) {
+          const near = [];
+          if (row - 1 > -1) {
+            near.push([row - 1, cell - 1]);
+            near.push([row - 1, cell]);
+            near.push([row - 1, cell + 1]);
+          }
+          near.push([row, cell - 1]);
+          near.push([row, cell + 1]);
+          if (row + 1 < tableData.length) {
+            near.push([row + 1, cell - 1]);
+            near.push([row + 1, cell]);
+            near.push([row + 1, cell + 1]);
+          }
+          near.forEach((n) => {
+            if (tableData[n[0]][n[1]] !== CODE.OPENED) {
+              checkAround(n[0], n[1]);
+            }
+          });
+        }
+      };
+      checkAround(action.row, action.cell);
       return {
         ...state,
         tableData,
