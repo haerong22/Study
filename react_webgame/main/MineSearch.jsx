@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useMemo } from "react";
+import React, { createContext, useReducer, useMemo, useEffect } from "react";
 import Form from "./Form";
 import Table from "./Table";
 
@@ -24,9 +24,15 @@ export const TableContext = createContext({
 // state 초기값
 const initialState = {
   tableData: [],
+  data: {
+    row: 0,
+    cell: 0,
+    mine: 0,
+  },
   timer: 0,
   result: "",
   halted: true,
+  openedCount: 0,
 };
 
 // 지뢰 심는 함수
@@ -76,6 +82,7 @@ export const CLICKED_MINE = "CLICKED_MINE";
 export const FLAG_CELL = "FLAG_CELL";
 export const QUESTION_CELL = "QUESTION_CELL";
 export const NORMALIZED_CELL = "NORMALIZED_CELL";
+export const INCREMENT_TIMER = "INCREMENT_TIMER";
 
 // action 동작 정의
 const reducer = (state, action) => {
@@ -84,8 +91,12 @@ const reducer = (state, action) => {
     case START_GAME:
       return {
         ...state,
+        data: { row: action.row, cell: action.cell, mine: action.mine },
         tableData: plantMine(action.row, action.cell, action.mine),
         halted: false,
+        openedCount: 0,
+        result: "",
+        timer: 0,
       };
     // 지뢰 없는 칸 클릭
     case OPEN_CELL: {
@@ -94,6 +105,7 @@ const reducer = (state, action) => {
         tableData[i] = [...row];
       });
       const checked = [];
+      let openedCount = 0;
       const checkAround = (row, cell) => {
         // 닫힌 칸만 열기
         if (
@@ -121,6 +133,9 @@ const reducer = (state, action) => {
           return;
         } else {
           checked.push(row + "," + cell);
+        }
+        if (tableData[row][cell] === CODE.NORMAL) {
+          openedCount += 1;
         }
 
         // 주변 칸의 값을 담을 배열
@@ -173,9 +188,26 @@ const reducer = (state, action) => {
         }
       };
       checkAround(action.row, action.cell);
+      let halted = false;
+      let result = "";
+      // 승리 체크
+      console.log(
+        state.data.row * state.data.cell - state.data.mine,
+        state.openedCount + openedCount
+      );
+      if (
+        state.data.row * state.data.cell - state.data.mine ===
+        state.openedCount + openedCount
+      ) {
+        halted = true;
+        result = `${state.timer}초 만에 승리하셨습니다.`;
+      }
       return {
         ...state,
         tableData,
+        openedCount: state.openedCount + openedCount,
+        halted,
+        result,
       };
     }
     // 지뢰 클릭
@@ -231,6 +263,7 @@ const reducer = (state, action) => {
         tableData,
       };
     }
+
     default:
       return state;
   }
