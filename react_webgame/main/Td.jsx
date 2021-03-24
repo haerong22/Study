@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { memo, useCallback, useContext, useMemo } from "react";
 import {
   CODE,
   TableContext,
@@ -41,11 +41,12 @@ const getTdStyle = (code) => {
 
 // 칸 상태에 따라 출력 값
 const getTdText = (code) => {
+  console.log("td rendering");
   switch (code) {
     case CODE.NORMAL:
       return "";
     case CODE.MINE:
-      return "X";
+      return "";
     case CODE.CLICKED_MINE:
       return "펑";
     case CODE.FLAG_MINE:
@@ -59,7 +60,7 @@ const getTdText = (code) => {
   }
 };
 
-const Td = ({ rowIndex, cellIndex }) => {
+const Td = memo(({ rowIndex, cellIndex }) => {
   const { tableData, dispatch, halted } = useContext(TableContext);
 
   // 클릭시 상태에 따라 dispatch 수행
@@ -115,14 +116,37 @@ const Td = ({ rowIndex, cellIndex }) => {
   );
 
   return (
+    <RealTd
+      onClickTd={onClickTd}
+      onRightClickTd={onRightClickTd}
+      data={tableData[rowIndex][cellIndex]}
+    />
+  );
+  // return useMemo(
+  //   () => (
+  //     <td
+  //       style={getTdStyle(tableData[rowIndex][cellIndex])}
+  //       onClick={onClickTd}
+  //       onContextMenu={onRightClickTd}
+  //     >
+  //       {getTdText(tableData[rowIndex][cellIndex])}
+  //     </td>
+  //   ),
+  //   [tableData[rowIndex][cellIndex]]
+  // );
+});
+
+const RealTd = memo(({ onClickTd, onRightClickTd, data }) => {
+  console.log("realTd rendering");
+  return (
     <td
-      style={getTdStyle(tableData[rowIndex][cellIndex])}
+      style={getTdStyle(data)}
       onClick={onClickTd}
       onContextMenu={onRightClickTd}
     >
-      {getTdText(tableData[rowIndex][cellIndex])}
+      {getTdText(data)}
     </td>
   );
-};
+});
 
 export default Td;
