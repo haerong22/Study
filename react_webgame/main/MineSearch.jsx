@@ -263,7 +263,12 @@ const reducer = (state, action) => {
         tableData,
       };
     }
-
+    case INCREMENT_TIMER: {
+      return {
+        ...state,
+        timer: state.timer + 1,
+      };
+    }
     default:
       return state;
   }
@@ -277,6 +282,18 @@ const MineSearch = () => {
     () => ({ tableData: tableData, halted: halted, dispatch }),
     [tableData, halted]
   );
+
+  useEffect(() => {
+    let timer;
+    if (!halted) {
+      timer = setInterval(() => {
+        dispatch({ type: INCREMENT_TIMER });
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [halted]);
 
   return (
     <TableContext.Provider value={value}>
