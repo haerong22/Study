@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDom from "react-dom";
-import MineSearch from "./MineSearch";
+import Games from "./Games";
 
-ReactDom.render(<MineSearch />, document.querySelector("#root"));
+ReactDom.render(<Games />, document.querySelector("#root"));
