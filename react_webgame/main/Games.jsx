@@ -1,13 +1,10 @@
 import React from "react";
-import { BrowserRouter, HashRouter, Link, Route } from "react-router-dom";
-import NumberBaseBall from "./games/NumberBaseball";
-import RSP from "./games/RSP";
-import Lotto from "./games/Lotto";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import GameMatcher from "./GameMatcher";
 
 const Games = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div>
         <Link to="/game/number-baseball?hello=world&query=10">숫자야구</Link>
         &nbsp;
@@ -16,9 +13,12 @@ const Games = () => {
         <Link to="/game/index">GameMatcher</Link>
       </div>
       <div>
-        <Route path="/game/:name" component={GameMatcher} />
+        <Switch>
+          <Route exact path="/game" component={GameMatcher} />
+          <Route path="/game/:name" component={GameMatcher} />
+        </Switch>
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 

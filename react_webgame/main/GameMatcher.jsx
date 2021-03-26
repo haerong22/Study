@@ -19,7 +19,11 @@ class GameMatcher extends Component {
     } else if (this.props.match.params.name === "lotto-generator") {
       return <Lotto />;
     }
-    return <>게임이 없습니다.</>;
+    return (
+      <>
+        <div>게임이 없습니다.</div>
+      </>
+    );
   }
 }
 
