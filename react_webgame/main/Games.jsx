@@ -3,21 +3,21 @@ import { BrowserRouter, HashRouter, Link, Route } from "react-router-dom";
 import NumberBaseBall from "./games/NumberBaseball";
 import RSP from "./games/RSP";
 import Lotto from "./games/Lotto";
+import GameMatcher from "./GameMatcher";
 
 const Games = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div>
-        <Link to="/number-baseball">숫자야구</Link>&nbsp;
-        <Link to="/rock-scissors-paper">가위바위보</Link>&nbsp;
-        <Link to="/lotto-generator">로또추첨기</Link>
+        <Link to="/game/number-baseball">숫자야구</Link>&nbsp;
+        <Link to="/game/rock-scissors-paper">가위바위보</Link>&nbsp;
+        <Link to="/game/lotto-generator">로또추첨기</Link>&nbsp;
+        <Link to="/game/index">GameMatcher</Link>
       </div>
       <div>
-        <Route path="/number-baseball" component={NumberBaseBall} />
-        <Route path="/rock-scissors-paper" component={RSP} />
-        <Route path="/lotto-generator" component={Lotto} />
+        <Route path="/game/:name" component={GameMatcher} />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
