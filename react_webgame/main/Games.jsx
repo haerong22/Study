@@ -9,7 +9,8 @@ const Games = () => {
   return (
     <HashRouter>
       <div>
-        <Link to="/game/number-baseball">숫자야구</Link>&nbsp;
+        <Link to="/game/number-baseball?hello=world&query=10">숫자야구</Link>
+        &nbsp;
         <Link to="/game/rock-scissors-paper">가위바위보</Link>&nbsp;
         <Link to="/game/lotto-generator">로또추첨기</Link>&nbsp;
         <Link to="/game/index">GameMatcher</Link>

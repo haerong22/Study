@@ -6,6 +6,12 @@ import RSP from "./games/RSP";
 
 class GameMatcher extends Component {
   render() {
+    console.log(this.props);
+    const urlSearchParams = new URLSearchParams(
+      this.props.location.search.slice(1)
+    );
+    console.log(urlSearchParams);
+    console.log(urlSearchParams.get("hello"));
     if (this.props.match.params.name === "number-baseball") {
       return <NumberBaseball />;
     } else if (this.props.match.params.name === "rock-scissors-paper") {
