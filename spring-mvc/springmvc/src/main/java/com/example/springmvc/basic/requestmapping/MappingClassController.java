@@ -3,7 +3,7 @@ package com.example.springmvc.basic.requestmapping;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/mapping/users")
+@RequestMapping("/users")
 public class MappingClassController {
     /**
      * GET /mapping/users
