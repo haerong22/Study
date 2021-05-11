@@ -1,4 +1,4 @@
-package com.example.springbatch.repository;
+package com.example.springbatch.domain.repository;
 
 import com.example.springbatch.domain.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;

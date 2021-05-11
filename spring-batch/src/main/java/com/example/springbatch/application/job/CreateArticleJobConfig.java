@@ -3,8 +3,7 @@ package com.example.springbatch.application.job;
 import com.example.springbatch.application.job.param.CreateArticleJobParam;
 import com.example.springbatch.application.model.ArticleModel;
 import com.example.springbatch.domain.entity.Article;
-import com.example.springbatch.repository.ArticleRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.springbatch.domain.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -17,32 +16,53 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
+import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Configuration
 @Slf4j
-@RequiredArgsConstructor
 public class CreateArticleJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final ArticleRepository articleRepository;
     private final CreateArticleJobParam createArticleJobParam;
-    private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate demoJdbcTemplate;
+    private final EntityManagerFactory demoEntityManagerFactory;
+    private final DataSource demoDataSource;
+
+    public CreateArticleJobConfig(JobBuilderFactory jobBuilderFactory,
+                                  StepBuilderFactory stepBuilderFactory,
+                                  ArticleRepository articleRepository,
+                                  CreateArticleJobParam createArticleJobParam,
+                                  @Qualifier("demoJdbcTemplate") JdbcTemplate demoJdbcTemplate,
+                                  @Qualifier("demoEntityManagerFactory") EntityManagerFactory demoEntityManagerFactory,
+                                  DataSource demoDataSource) {
+        this.jobBuilderFactory = jobBuilderFactory;
+        this.stepBuilderFactory = stepBuilderFactory;
+        this.articleRepository = articleRepository;
+        this.createArticleJobParam = createArticleJobParam;
+        this.demoJdbcTemplate = demoJdbcTemplate;
+        this.demoEntityManagerFactory = demoEntityManagerFactory;
+        this.demoDataSource = demoDataSource;
+    }
 
     @Bean
     public Job createArticleJob() {
         return jobBuilderFactory.get("createArticleJob")
-//                .incrementer(new RunIdIncrementer())
+                .incrementer(new RunIdIncrementer())
                 .start(createArticleStep())
                 .build();
     }
@@ -85,7 +105,7 @@ public class CreateArticleJobConfig {
     // JDBC
     @Bean
     public ItemWriter<Article> createArticleWriterJDBC() {
-        return articles -> jdbcTemplate.batchUpdate("insert into Article (title, content, createdAt) values (?, ?, ?)",
+        return articles -> demoJdbcTemplate.batchUpdate("insert into Article (title, content, createdAt) values (?, ?, ?)",
                 articles,
                 1000,
                 (ps, article) -> {
@@ -103,4 +123,21 @@ public class CreateArticleJobConfig {
                 .build();
     }
 
+    // ======================
+
+//    // JDBC
+//    @Bean
+//    public ItemWriter<Article> writerJDBC() {
+//        return new JdbcBatchItemWriterBuilder<Article>()
+//                .dataSource(demoDataSource)
+//                .build();
+//    }
+
+    // JPA
+    @Bean
+    public ItemWriter<Article> writerJPA() {
+        return new JpaItemWriterBuilder<Article>()
+                .entityManagerFactory(this.demoEntityManagerFactory)
+                .build();
+    }
 }

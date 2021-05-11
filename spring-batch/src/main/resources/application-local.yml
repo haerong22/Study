@@ -1,13 +1,25 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/batch?rewriteBatchedStatements=true
-    username: batch
-    password: 1234
+    # 데이터베이스 분리 방법 (2)
+    hikari:
+      batch:
+        jdbc-url: jdbc:mysql://localhost:3306/batch
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: batch
+        password: 1234
+      demo:
+        jdbc-url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: batch
+        password: 1234
+
   batch:
     initialize-schema: always
     job:
       names: ${job.name:createArticleJob}
-
+#    # 데이터베이스 분리 방법 (1)
+#    schema: schema-mysql.sql
+#    table-prefix: batch.BATCH_
   jpa:
     generate-ddl: true
     hibernate:
