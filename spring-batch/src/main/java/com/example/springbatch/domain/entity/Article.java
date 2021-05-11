@@ -24,6 +24,5 @@ public class Article {
     private String title;
     private String content;
 
-    @CreationTimestamp
     private LocalDateTime createdAt;
 }

@@ -11,16 +11,19 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
-import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Configuration
 @Slf4j
@@ -30,6 +33,7 @@ public class CreateArticleJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final ArticleRepository articleRepository;
+    private final JdbcTemplate jdbcTemplate;
 
     @Bean
     public Job createArticleJob() {
@@ -42,10 +46,10 @@ public class CreateArticleJobConfig {
     @Bean
     public Step createArticleStep() {
         return stepBuilderFactory.get("createArticleStep")
-                .<ArticleModel, Article>chunk(10)
+                .<ArticleModel, Article>chunk(1000)
                 .reader(createArticleReader())
                 .processor(createArticleProcessor())
-                .writer(createArticleWriter())
+                .writer(createArticleWriterJDBC())
                 .build();
     }
 
@@ -63,14 +67,30 @@ public class CreateArticleJobConfig {
 
     @Bean
     public ItemProcessor<ArticleModel, Article> createArticleProcessor() {
+        LocalDateTime now = LocalDateTime.now();
         return articleModel -> Article.builder()
                 .title(articleModel.getTitle())
                 .content(articleModel.getContent())
+                .createdAt(now)
                 .build();
     }
 
+    // JDBC
     @Bean
-    public RepositoryItemWriter<Article> createArticleWriter() {
+    public ItemWriter<Article> createArticleWriterJDBC() {
+        return articles -> jdbcTemplate.batchUpdate("insert into Article (title, content, createdAt) values (?, ?, ?)",
+                articles,
+                1000,
+                (ps, article) -> {
+                    ps.setObject(1, article.getTitle());
+                    ps.setObject(2, article.getContent());
+                    ps.setObject(3, article.getCreatedAt());
+                });
+    }
+
+    // JPA
+    @Bean
+    public RepositoryItemWriter<Article> createArticleWriterJPA() {
         return new RepositoryItemWriterBuilder<Article>()
                 .repository(articleRepository)
                 .build();
