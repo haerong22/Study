@@ -38,7 +38,7 @@ public class CreateArticleJobConfig {
     @Bean
     public Job createArticleJob() {
         return jobBuilderFactory.get("createArticleJob")
-                .incrementer(new RunIdIncrementer())
+//                .incrementer(new RunIdIncrementer())
                 .start(createArticleStep())
                 .build();
     }
@@ -49,7 +49,7 @@ public class CreateArticleJobConfig {
                 .<ArticleModel, Article>chunk(1000)
                 .reader(createArticleReader())
                 .processor(createArticleProcessor())
-                .writer(createArticleWriterJDBC())
+                .writer(createArticleWriterJPA())
                 .build();
     }
 
