@@ -1,5 +1,6 @@
 package com.example.springbatch.application.job;
 
+import com.example.springbatch.application.job.param.CreateArticleJobParam;
 import com.example.springbatch.application.model.ArticleModel;
 import com.example.springbatch.domain.entity.Article;
 import com.example.springbatch.repository.ArticleRepository;
@@ -8,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
@@ -33,6 +36,7 @@ public class CreateArticleJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final ArticleRepository articleRepository;
+    private final CreateArticleJobParam createArticleJobParam;
     private final JdbcTemplate jdbcTemplate;
 
     @Bean
@@ -44,6 +48,7 @@ public class CreateArticleJobConfig {
     }
 
     @Bean
+    @JobScope
     public Step createArticleStep() {
         return stepBuilderFactory.get("createArticleStep")
                 .<ArticleModel, Article>chunk(1000)
@@ -54,7 +59,9 @@ public class CreateArticleJobConfig {
     }
 
     @Bean
+    @StepScope
     public FlatFileItemReader<ArticleModel> createArticleReader() {
+        log.info("PARAM!!!!!! {}", createArticleJobParam.getName());
         return new FlatFileItemReaderBuilder<ArticleModel>()
                 .name("createArticleReader")
                 .resource(new ClassPathResource("Articles.csv"))
