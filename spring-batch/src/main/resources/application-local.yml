@@ -16,7 +16,7 @@ spring:
   batch:
     initialize-schema: always
     job:
-      names: ${job.name:createArticleJob}
+      names: ${job.name:NONE}
 #    # 데이터베이스 분리 방법 (1)
 #    schema: schema-mysql.sql
 #    table-prefix: batch.BATCH_
