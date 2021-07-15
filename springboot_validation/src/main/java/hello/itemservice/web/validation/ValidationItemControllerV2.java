@@ -144,6 +144,10 @@ public class ValidationItemControllerV2 {
     @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
+        if (bindingResult.hasErrors()) {
+            return "validation/v2/addForm";
+        }
+
         // 검증 로직
         ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required");
 //        if (!StringUtils.hasText(item.getItemName())) {
