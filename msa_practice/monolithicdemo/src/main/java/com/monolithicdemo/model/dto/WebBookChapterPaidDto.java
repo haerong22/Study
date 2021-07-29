@@ -10,17 +10,19 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebBookChapterDto {
+public class WebBookChapterPaidDto {
     private Long webBookChapterId;
     private String name;
+    private String detail;
     private LocalDateTime createdAt;
     private Integer price;
     private Boolean isPaid;
 
-    public static WebBookChapterDto from(WebBookChapter webBookChapter) {
-        return WebBookChapterDto.builder()
+    public static WebBookChapterPaidDto from(WebBookChapter webBookChapter) {
+        return WebBookChapterPaidDto.builder()
                 .webBookChapterId(webBookChapter.getWebBookChapterId())
                 .name(webBookChapter.getName())
+                .detail(webBookChapter.getDetail())
                 .createdAt(webBookChapter.getCreatedAt())
                 .price(webBookChapter.getPrice())
                 .build();

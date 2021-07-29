@@ -8,4 +8,5 @@ import lombok.Setter;
 public class WebBookChapterPaymentForm {
 
     private Long webBookChapterId;
+    private Integer price;
 }

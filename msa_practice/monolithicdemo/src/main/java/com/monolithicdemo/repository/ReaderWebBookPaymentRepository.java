@@ -10,4 +10,6 @@ import java.util.List;
 public interface ReaderWebBookPaymentRepository extends JpaRepository<ReaderWebBookPayment, Long> {
 
     List<ReaderWebBookPayment> findAllByReaderId(Long readerId);
+
+    ReaderWebBookPayment findByReaderIdAndWebBookChapterId(Long readerId, Long webBookChapterId);
 }
