@@ -1,5 +1,6 @@
 package com.monolithicdemo.controller;
 
+import com.monolithicdemo.model.form.RegisterWebBookChapterForm;
 import com.monolithicdemo.model.form.RegisterWebBookForm;
 import com.monolithicdemo.model.form.RegisterWriterForm;
 import com.monolithicdemo.service.WriterService;
@@ -26,5 +27,13 @@ public class WriterController {
             @PathVariable(value = "writerId") Long writerId,
             @RequestBody RegisterWebBookForm registerWebBookForm) {
         return ResponseEntity.ok(writerWebBookService.registerWebBook(writerId, registerWebBookForm));
+    }
+
+    @PostMapping("/{writerId}/webBook/{webBookId}")
+    public ResponseEntity<Long> registerWebBookChapter(
+            @PathVariable(value = "writerId") Long writerId,
+            @PathVariable(value = "webBookId") Long webBookId,
+            @RequestBody RegisterWebBookChapterForm registerWebBookChapterForm) {
+        return ResponseEntity.ok(writerWebBookService.registerWebBookChapter(writerId, webBookId, registerWebBookChapterForm));
     }
 }
