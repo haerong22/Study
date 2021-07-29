@@ -5,19 +5,22 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
 @Setter
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
 @Entity
-public class Writer {
-
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long writerId;
-
+public class WebBook {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long webBookId;
+    //제목
     private String name;
+    //설명
+    private String description;
 
     private LocalDateTime createdAt;
+
 }

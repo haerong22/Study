@@ -23,6 +23,6 @@ public class WriterService {
                 Writer.builder()
                         .name(registerWriterForm.getName())
                         .createdAt(LocalDateTime.now()).build()
-        ).getId();
+        ).getWriterId();
     }
 }
