@@ -1,5 +1,6 @@
 package com.monolithicdemo.controller;
 
+import com.monolithicdemo.model.dto.WebBookChapterDto;
 import com.monolithicdemo.model.dto.WebBookDto;
 import com.monolithicdemo.model.form.RegisterReaderForm;
 import com.monolithicdemo.service.ReaderService;
@@ -26,5 +27,12 @@ public class ReaderController {
     @GetMapping("/webBook")
     public ResponseEntity<List<WebBookDto>> getWebBookList() {
         return ResponseEntity.ok().body(webBookService.getWebBookList());
+    }
+
+    @GetMapping("/{readerId}/webBook/{webBookId}/chapter")
+    public ResponseEntity<List<WebBookChapterDto>> getWebBookChapterList(
+            @PathVariable(value = "readerId") Long readerId,
+            @PathVariable(value = "webBookId") Long webBookId) {
+        return ResponseEntity.ok().body(webBookService.getWebBookChapterList(readerId, webBookId));
     }
 }

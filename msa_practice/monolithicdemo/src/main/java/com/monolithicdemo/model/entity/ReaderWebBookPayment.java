@@ -20,6 +20,8 @@ public class ReaderWebBookPayment {
 
     private Long webBookChapterId;
 
+    private Long readerId;
+
     private Integer paymentAmount;
 
     private LocalDateTime createdAt;
