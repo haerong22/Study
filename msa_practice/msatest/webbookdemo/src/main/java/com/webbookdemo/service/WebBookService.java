@@ -1,5 +1,6 @@
 package com.webbookdemo.service;
 
+import com.webbookdemo.model.dto.WebBookChapterDetailDto;
 import com.webbookdemo.model.dto.WebBookChapterDto;
 import com.webbookdemo.model.dto.WebBookDto;
 import com.webbookdemo.model.entity.WebBook;
@@ -60,5 +61,10 @@ public class WebBookService {
         return webBookChapterRepository.findAllByWebBookId(webBookId).stream()
                 .map(WebBookChapterDto::from)
                 .collect(Collectors.toList());
+    }
+
+    public WebBookChapterDetailDto getWebBookChapterDetail(Long webBookChapterId){
+        return WebBookChapterDetailDto.from(
+                webBookChapterRepository.findById(webBookChapterId).get());
     }
 }

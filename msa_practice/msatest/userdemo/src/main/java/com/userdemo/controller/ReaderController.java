@@ -1,8 +1,10 @@
 package com.userdemo.controller;
 
 import com.userdemo.model.dto.ReaderWebBookChapterDto;
+import com.userdemo.model.dto.WebBookChapterDto;
 import com.userdemo.model.dto.WebBookDto;
 import com.userdemo.model.form.RegisterReaderForm;
+import com.userdemo.model.form.WebBookChapterPaymentForm;
 import com.userdemo.service.ReaderService;
 import com.userdemo.service.ReaderWebBookService;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +37,11 @@ public class ReaderController {
             @PathVariable(value = "webBookId") Long webBookId) {
         return ResponseEntity.ok().body(readerWebBookService.getWebBookChapterList(readerId, webBookId));
     }
-//
-//    @PostMapping("/{readerId}/payment")
-//    public ResponseEntity<WebBookChapterPaidDto> paymentWebBookChapter(
-//            @PathVariable(value = "readerId") Long readerId,
-//            @RequestBody WebBookChapterPaymentForm webBookChapterPaymentForm) {
-//        return ResponseEntity.ok().body(webBookPaymentService.payment(readerId, webBookChapterPaymentForm));
-//    }
+
+    @PostMapping("/{readerId}/payment")
+    public ResponseEntity<WebBookChapterDto> paymentWebBookChapter(
+            @PathVariable(value = "readerId") Long readerId,
+            @RequestBody WebBookChapterPaymentForm webBookChapterPaymentForm) {
+        return ResponseEntity.ok().body(readerWebBookService.paymentWebBookChapter(readerId, webBookChapterPaymentForm));
+    }
 }
