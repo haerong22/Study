@@ -1,5 +1,6 @@
 package com.webbookdemo.controller;
 
+import com.webbookdemo.model.form.WebBookChapterRegisterForm;
 import com.webbookdemo.model.form.WebBookRegisterForm;
 import com.webbookdemo.service.WebBookService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,11 @@ public class WebBookController {
     @PostMapping
     public ResponseEntity<Long> addWebBook(@RequestBody WebBookRegisterForm webBookRegisterForm) {
         return ResponseEntity.ok().body(webBookService.addWebBook(webBookRegisterForm));
+    }
+
+    @PostMapping("/chapter")
+    public ResponseEntity<Long> addWebBookChapter(@RequestBody WebBookChapterRegisterForm webBookChapterRegisterForm) {
+        return ResponseEntity.ok().body(webBookService.addWebBookChapter(webBookChapterRegisterForm));
     }
 
 }

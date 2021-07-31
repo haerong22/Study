@@ -1,5 +1,6 @@
 package com.userdemo.controller;
 
+import com.userdemo.model.form.RegisterWebBookChapterForm;
 import com.userdemo.model.form.RegisterWebBookForm;
 import com.userdemo.model.form.RegisterWriterForm;
 import com.userdemo.service.WriterService;
@@ -28,11 +29,11 @@ public class WriterController {
         return ResponseEntity.ok(writerWebBookService.registerWebBook(writerId, registerWebBookForm));
     }
 
-//    @PostMapping("/{writerId}/webBook/{webBookId}")
-//    public ResponseEntity<Long> registerWebBookChapter(
-//            @PathVariable(value = "writerId") Long writerId,
-//            @PathVariable(value = "webBookId") Long webBookId,
-//            @RequestBody RegisterWebBookChapterForm registerWebBookChapterForm) {
-//        return ResponseEntity.ok(writerWebBookService.registerWebBookChapter(writerId, webBookId, registerWebBookChapterForm));
-//    }
+    @PostMapping("/{writerId}/webBook/{webBookId}")
+    public ResponseEntity<Long> registerWebBookChapter(
+            @PathVariable(value = "writerId") Long writerId,
+            @PathVariable(value = "webBookId") Long webBookId,
+            @RequestBody RegisterWebBookChapterForm registerWebBookChapterForm) {
+        return ResponseEntity.ok(writerWebBookService.registerWebBookChapter(writerId, webBookId, registerWebBookChapterForm));
+    }
 }
