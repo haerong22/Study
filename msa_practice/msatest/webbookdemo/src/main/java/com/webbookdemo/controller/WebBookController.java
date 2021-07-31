@@ -1,5 +1,6 @@
 package com.webbookdemo.controller;
 
+import com.webbookdemo.model.dto.WebBookChapterDto;
 import com.webbookdemo.model.dto.WebBookDto;
 import com.webbookdemo.model.form.WebBookChapterRegisterForm;
 import com.webbookdemo.model.form.WebBookRegisterForm;
@@ -30,5 +31,10 @@ public class WebBookController {
     @GetMapping("")
     public ResponseEntity<List<WebBookDto>> getWebBookList() {
         return ResponseEntity.ok().body(webBookService.getWebBookList());
+    }
+
+    @GetMapping("/chapter")
+    public ResponseEntity<List<WebBookChapterDto>> getWebBookChapterList(Long webBookId) {
+        return ResponseEntity.ok().body(webBookService.getWebBookChapterList(webBookId));
     }
 }

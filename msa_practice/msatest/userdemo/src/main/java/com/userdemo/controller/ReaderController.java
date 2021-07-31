@@ -1,5 +1,6 @@
 package com.userdemo.controller;
 
+import com.userdemo.model.dto.ReaderWebBookChapterDto;
 import com.userdemo.model.dto.WebBookDto;
 import com.userdemo.model.form.RegisterReaderForm;
 import com.userdemo.service.ReaderService;
@@ -27,13 +28,13 @@ public class ReaderController {
     public ResponseEntity<List<WebBookDto>> getWebBookList() {
         return ResponseEntity.ok().body(readerWebBookService.getWebBookList());
     }
-//
-//    @GetMapping("/{readerId}/webBook/{webBookId}/chapter")
-//    public ResponseEntity<List<WebBookChapterDto>> getWebBookChapterList(
-//            @PathVariable(value = "readerId") Long readerId,
-//            @PathVariable(value = "webBookId") Long webBookId) {
-//        return ResponseEntity.ok().body(webBookService.getWebBookChapterList(readerId, webBookId));
-//    }
+
+    @GetMapping("/{readerId}/webBook/{webBookId}/chapter")
+    public ResponseEntity<List<ReaderWebBookChapterDto>> getWebBookChapterList(
+            @PathVariable(value = "readerId") Long readerId,
+            @PathVariable(value = "webBookId") Long webBookId) {
+        return ResponseEntity.ok().body(readerWebBookService.getWebBookChapterList(readerId, webBookId));
+    }
 //
 //    @PostMapping("/{readerId}/payment")
 //    public ResponseEntity<WebBookChapterPaidDto> paymentWebBookChapter(
