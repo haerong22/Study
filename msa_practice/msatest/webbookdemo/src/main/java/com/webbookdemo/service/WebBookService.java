@@ -1,5 +1,6 @@
 package com.webbookdemo.service;
 
+import com.webbookdemo.model.dto.WebBookDto;
 import com.webbookdemo.model.entity.WebBook;
 import com.webbookdemo.model.entity.WebBookChapter;
 import com.webbookdemo.model.entity.repository.WebBookChapterRepository;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +47,11 @@ public class WebBookService {
         } else {
             return null;
         }
+    }
+
+    public List<WebBookDto> getWebBookList() {
+        return webBookRepository.findAll().stream()
+                .map(WebBookDto::from)
+                .collect(Collectors.toList());
     }
 }

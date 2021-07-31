@@ -1,14 +1,14 @@
 package com.webbookdemo.controller;
 
+import com.webbookdemo.model.dto.WebBookDto;
 import com.webbookdemo.model.form.WebBookChapterRegisterForm;
 import com.webbookdemo.model.form.WebBookRegisterForm;
 import com.webbookdemo.service.WebBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("")
@@ -17,7 +17,7 @@ public class WebBookController {
 
     private final WebBookService webBookService;
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<Long> addWebBook(@RequestBody WebBookRegisterForm webBookRegisterForm) {
         return ResponseEntity.ok().body(webBookService.addWebBook(webBookRegisterForm));
     }
@@ -27,4 +27,8 @@ public class WebBookController {
         return ResponseEntity.ok().body(webBookService.addWebBookChapter(webBookChapterRegisterForm));
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<WebBookDto>> getWebBookList() {
+        return ResponseEntity.ok().body(webBookService.getWebBookList());
+    }
 }
