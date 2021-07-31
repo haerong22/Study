@@ -1,0 +1,5 @@
+rootProject.name = 'msatest'
+include 'userdemo'
+include 'paymentdemo'
+include 'webbookdemo'
+

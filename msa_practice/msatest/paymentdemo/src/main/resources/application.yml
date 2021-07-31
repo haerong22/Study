@@ -1,0 +1,11 @@
+server:
+  port: 8090
+
+
+external-api:
+#  payment:
+#    url: http://localhost:8090
+  user:
+    url: http://localhost:8091
+  webbook:
+    url: http://localhost:8092
