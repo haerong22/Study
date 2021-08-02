@@ -28,6 +28,21 @@ public class ReaderWebBookService {
         return webBookClient.getWebBookChapterList(webBookId);
     }
 
+    public WebBookChapterDto getWebBookChapter(Long readerId, Long webBookChapterId) {
+        if (readerWebBookChapterRepository.findByReaderIdAndWebBookChapterId(readerId, webBookChapterId) != null) {
+            WebBookChapterDetailDto detail = webBookClient.getWebBookChapterDetail(webBookChapterId);
+
+            return WebBookChapterDto.builder()
+                    .webBookChapterId(webBookChapterId)
+                    .name(detail.getName())
+                    .detail(detail.getDetail())
+                    .createdAt(detail.getCreatedAt())
+                    .build();
+        } else {
+            return null;
+        }
+    }
+
     public WebBookChapterDto paymentWebBookChapter(Long readerId, WebBookChapterPaymentForm webBookChapterPaymentForm) {
 
         // 결제는 paymentClient

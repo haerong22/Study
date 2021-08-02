@@ -38,6 +38,13 @@ public class ReaderController {
         return ResponseEntity.ok().body(readerWebBookService.getWebBookChapterList(readerId, webBookId));
     }
 
+    @GetMapping("/{readerId}/chapter/{chapterId}")
+    public ResponseEntity<WebBookChapterDto> getWebBookChapter(
+            @PathVariable(value = "readerId") Long readerId,
+            @PathVariable(value = "chapterId") Long webBookChapterId) {
+        return ResponseEntity.ok().body(readerWebBookService.getWebBookChapter(readerId, webBookChapterId));
+    }
+
     @PostMapping("/{readerId}/payment")
     public ResponseEntity<WebBookChapterDto> paymentWebBookChapter(
             @PathVariable(value = "readerId") Long readerId,
