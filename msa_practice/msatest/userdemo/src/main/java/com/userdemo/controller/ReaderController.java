@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reader")
+@RequestMapping("/user/reader")
 @RequiredArgsConstructor
 public class ReaderController {
 
     private final ReaderService ReaderService;
     private final ReaderWebBookService readerWebBookService;
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> getHello() {
+        return ResponseEntity.ok().body("Hello");
+    }
 
     @PostMapping("/")
     public ResponseEntity<Long> registerReader(@RequestBody RegisterReaderForm registerReaderForm){
