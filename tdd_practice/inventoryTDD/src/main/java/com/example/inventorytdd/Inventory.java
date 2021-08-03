@@ -13,8 +13,4 @@ public class Inventory {
     private InventoryTypeEnum type;
     private int capacity;
     private int current;
-
-    public int getUsableCapa() {
-        return this.capacity - this.current;
-    }
 }

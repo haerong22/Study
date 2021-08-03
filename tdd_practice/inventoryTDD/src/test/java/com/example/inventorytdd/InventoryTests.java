@@ -42,13 +42,4 @@ public class InventoryTests {
 
         assertEquals(5, inventory.getCurrent());
     }
-
-    @Test
-    void inventory_usableCapa_test() {
-        Inventory inventory = new Inventory();
-        inventory.setCapacity(10);
-        inventory.setCurrent(5);
-
-        assertEquals(5, inventory.getUsableCapa());
-    }
 }

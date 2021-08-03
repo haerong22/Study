@@ -5,5 +5,10 @@
 [v] 현재 저장된 수량을 알 수 있어야 한다.
 [v] Inventory 의 타입을 Enum 값으로 만든다.
 [v] 앞으로 저장 가능한 수량을 알 수 있어야 한다.
-[] InventoryHelper 클래스 생성
-[] Capacity 이상으로 입고 되는 것을 방지한다.
+[v] InventoryHelper 클래스 생성
+[v] InventoryHelper 클래스에서 사용 가능한 용량을 알아낸다.
+[v] InventoryHelper -> 입고 가능 여부를 확인한다.
+[v] InventoryHelper -> Capacity 이상으로 입고 되는 것을 방지한다.
+[v] InventoryHelper -> 입고를 시킨다.
+[v] InventoryHelper -> Inventory 를 생성한다.
+
