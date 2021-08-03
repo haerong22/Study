@@ -8,6 +8,7 @@ SKU
 주문 -> 피킹리스트 -> 피커 -> 피킹완료
 
 ------- TO-DO -------
-[] ORDER 검증
+[] Order.state => enum 변경
 
+[v] ORDER 검증
 [v] ORDER 생성
