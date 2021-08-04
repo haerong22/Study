@@ -39,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean changeOrderState(Order order, OrderStateEnum state) {
-        return false;
+        order.setState(state);
+        return true;
     }
 }

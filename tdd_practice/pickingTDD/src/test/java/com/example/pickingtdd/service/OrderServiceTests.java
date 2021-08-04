@@ -78,4 +78,11 @@ public class OrderServiceTests {
 
         assertEquals("order validation fail", e.getMessage());
     }
+
+    @Test
+    void changeOrderState() {
+        orderService.changeOrderState(orderSuccess, OrderStateEnum.LISTED);
+
+        assertEquals(OrderStateEnum.LISTED, orderSuccess.getState());
+    }
 }

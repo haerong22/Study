@@ -4,18 +4,26 @@ import com.example.pickingtdd.entity.*;
 import org.assertj.core.util.Maps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class PickingListServiceTests {
 
-    @Autowired
-    PickingListService pickingListService;
+    @InjectMocks
+    PickingListService pickingListService = new PickingListServiceImpl();
+
+    @Mock
+    OrderService orderService;
 
     Order order;
 
@@ -36,6 +44,10 @@ public class PickingListServiceTests {
 
     @Test
     void createPickingList() {
+        // mock
+        Mockito.when(orderService.changeOrderState(Mockito.any(), Mockito.any()))
+                .thenReturn(true);
+
         PickingList assertPickingList = new PickingList();
         assertPickingList.setOrderId(1L);
         assertPickingList.setSkuAmountMap(
