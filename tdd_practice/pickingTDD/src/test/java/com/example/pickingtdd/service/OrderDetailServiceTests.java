@@ -1,9 +1,7 @@
 package com.example.pickingtdd.service;
 
 import com.example.pickingtdd.entity.OrderDetail;
-import com.example.pickingtdd.entity.OrderStateEnum;
 import com.example.pickingtdd.entity.Sku;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
