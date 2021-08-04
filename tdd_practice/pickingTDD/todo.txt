@@ -9,8 +9,8 @@ SKU
 
 ------- TO-DO -------
 [] Order validation 에 OrderDetail 검증 추가
-[] OrderDetail validation 추가
 
+[v] OrderDetail validation 추가
 [v] OrderDetail 생성
 [v] Order.state => enum 변경
 [v] ORDER 검증
