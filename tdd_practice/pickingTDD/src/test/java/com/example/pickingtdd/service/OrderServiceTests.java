@@ -1,6 +1,7 @@
 package com.example.pickingtdd.service;
 
 import com.example.pickingtdd.entity.Order;
+import com.example.pickingtdd.entity.OrderStateEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,11 @@ public class OrderServiceTests {
     void init() {
         orderSuccess = new Order();
         orderSuccess.setOrderId(1L);
-        orderSuccess.setState("Ordered");
+        orderSuccess.setState(OrderStateEnum.ORDERED);
 
         orderFail = new Order();
         orderFail.setOrderId(null);
-        orderFail.setState("");
+        orderFail.setState(null);
     }
 
     @Test
@@ -39,7 +40,7 @@ public class OrderServiceTests {
         }
 
         assertEquals(1L, order.getOrderId());
-        assertEquals("Ordered", order.getState());
+        assertEquals(OrderStateEnum.ORDERED, order.getState());
     }
 
     @Test
@@ -52,7 +53,7 @@ public class OrderServiceTests {
         }
 
         assertEquals(1L, order.getOrderId());
-        assertEquals("Ordered", order.getState());
+        assertEquals(OrderStateEnum.ORDERED, order.getState());
     }
 
     @Test
