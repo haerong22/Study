@@ -2,6 +2,7 @@ package com.example.pickingtdd.service;
 
 import com.example.pickingtdd.entity.Order;
 import com.example.pickingtdd.entity.OrderDetail;
+import com.example.pickingtdd.entity.OrderStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,10 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean changeOrderState(Order order, OrderStateEnum state) {
+        return false;
     }
 }
