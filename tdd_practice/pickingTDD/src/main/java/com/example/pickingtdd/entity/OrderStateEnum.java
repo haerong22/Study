@@ -1,5 +1,5 @@
 package com.example.pickingtdd.entity;
 
 public enum OrderStateEnum {
-    ORDERED, LISTED, PENDING, PICKING, DONE
+    ORDERED, LISTED, ASSIGNED, PENDING, PICKING, DONE
 }

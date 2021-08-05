@@ -49,7 +49,7 @@ public class PickingListServiceTests {
                 .thenReturn(true);
 
         PickingList assertPickingList = new PickingList();
-        assertPickingList.setOrderId(1L);
+        assertPickingList.setOrder(order);
         assertPickingList.setSkuAmountMap(
                 Maps.newHashMap(
                         order.getOrderDetailList().get(0).getSku(),
@@ -59,10 +59,22 @@ public class PickingListServiceTests {
 
         PickingList pickingList = pickingListService.createPickingList(order);
 
-        assertEquals(assertPickingList.getOrderId(), pickingList.getOrderId());
-        assertEquals(PickingStateEnum.NOTASSIGNED, pickingList.getState());
+        assertEquals(assertPickingList.getOrder(), pickingList.getOrder());
+        assertEquals(assertPickingList.getState(), pickingList.getState());
         assertEquals(
                 assertPickingList.getSkuAmountMap().get(order.getOrderDetailList().get(0).getSku()),
                 pickingList.getSkuAmountMap().get(order.getOrderDetailList().get(0).getSku()));
+    }
+
+    @Test
+    void assignPicker() {
+         PickingList pickingList = pickingListService.createPickingList(order);
+
+         Picker picker = new Picker();
+
+         PickingList assignedPickingList = pickingListService.assignPicker(pickingList, picker);
+
+         assertEquals(picker, assignedPickingList.getPicker());
+         assertEquals(PickingStateEnum.ASSIGNED, assignedPickingList.getState());
     }
 }

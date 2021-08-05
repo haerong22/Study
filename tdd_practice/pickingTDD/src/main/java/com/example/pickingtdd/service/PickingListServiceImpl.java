@@ -16,7 +16,7 @@ public class PickingListServiceImpl implements PickingListService {
     @Override
     public PickingList createPickingList(Order order) {
         PickingList pickingList = new PickingList();
-        pickingList.setOrderId(order.getOrderId());
+        pickingList.setOrder(order);
         pickingList.setState(PickingStateEnum.NOTASSIGNED);
 
         Map<Sku, Integer> skuAmountMap = new HashMap<>();
@@ -28,6 +28,15 @@ public class PickingListServiceImpl implements PickingListService {
 
         // Order State Change
         orderService.changeOrderState(order, OrderStateEnum.LISTED);
+        return pickingList;
+    }
+
+    @Override
+    public PickingList assignPicker(PickingList pickingList, Picker picker) {
+        pickingList.setPicker(picker);
+        pickingList.setState(PickingStateEnum.ASSIGNED);
+
+        orderService.changeOrderState(pickingList.getOrder(), OrderStateEnum.ASSIGNED);
         return pickingList;
     }
 }

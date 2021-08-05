@@ -9,7 +9,7 @@ import java.util.Map;
 @Setter
 public class PickingList {
     private Long id;
-    private Long orderId;
+    private Order order;
     private Map<Sku, Integer> skuAmountMap;
     private PickingStateEnum state;
     private Picker picker;
