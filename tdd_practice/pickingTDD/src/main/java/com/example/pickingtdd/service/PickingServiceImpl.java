@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 public class PickingServiceImpl implements PickingService {
     @Override
     public void pick(PickingList pickingList, Sku sku) throws Exception{
-        setStatus(pickingList, null);
-
         if (!pickingList.getSkuAmountMap().containsKey(sku)) {
             throw new Exception("wrong sku");
         } else {
@@ -20,6 +18,8 @@ public class PickingServiceImpl implements PickingService {
             }
             pickingList.getPickedMap().put(sku, pickingList.getPickedMap().get(sku) + 1);
         }
+
+        setStatus(pickingList, null);
     }
 
     private void setStatus(PickingList pickingList, PickingStateEnum status) {

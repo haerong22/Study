@@ -73,4 +73,37 @@ public class PickingServiceTests {
         assertEquals(PickerStateEnum.PROCESS, picker.getState());
         assertEquals(1, pickingList.getPickedMap().get(orderDetail.getSku()));
     }
+
+    @Test
+    void pick_DONE_success() {
+        try {
+            for (int i = 0; i < 10; i++) {
+                pickingService.pick(pickingList, orderDetail.getSku());
+                pickingService.pick(pickingList, orderDetail2.getSku());
+            }
+        } catch (Exception e) {
+            fail("should not exception");
+        }
+
+        assertEquals(PickingStateEnum.DONE, pickingList.getState());
+        assertEquals(PickerStateEnum.DONE, pickingList.getPicker().getState());
+    }
+
+    @Test
+    void pick_wrongSku() {
+        try {
+            pickingService.pick(pickingList, new Sku());
+        } catch (Exception e) {
+            assertEquals("wrong sku", e.getMessage());
+        }
+    }
+
+    @Test
+    void pick_toMuch() {
+        try {
+            pickingService.pick(pickingList, orderDetail.getSku());
+        } catch (Exception e) {
+            assertEquals("to much sku", e.getMessage());
+        }
+    }
 }
