@@ -13,6 +13,9 @@ public class PickingListServiceImpl implements PickingListService {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    PickerService pickerService;
+
     @Override
     public PickingList createPickingList(Order order) {
         PickingList pickingList = new PickingList();
@@ -37,6 +40,10 @@ public class PickingListServiceImpl implements PickingListService {
         pickingList.setState(PickingStateEnum.ASSIGNED);
 
         orderService.changeOrderState(pickingList.getOrder(), OrderStateEnum.ASSIGNED);
+
+        if (picker.getAssignedPickingList() == null || !picker.getAssignedPickingList().equals(pickingList)) {
+            pickerService.assignPickingList(picker, pickingList);
+        }
         return pickingList;
     }
 }

@@ -8,12 +8,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -24,6 +26,9 @@ public class PickingListServiceTests {
 
     @Mock
     OrderService orderService;
+
+    @Spy
+    PickerService pickerService = new PickerServiceImpl();
 
     Order order;
 
@@ -76,5 +81,6 @@ public class PickingListServiceTests {
 
          assertEquals(picker, assignedPickingList.getPicker());
          assertEquals(PickingStateEnum.ASSIGNED, assignedPickingList.getState());
+         assertNotNull(assignedPickingList.getPicker().getAssignedPickingList());
     }
 }
