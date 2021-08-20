@@ -1,0 +1,57 @@
+buildscript {
+    ext {
+        springBootVersion = '2.5.3'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group 'org.example'
+    version '1.0-SNAPSHOT'
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    compileJava.options.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        implementation group: 'org.redisson', name: 'redisson', version: '3.16.1'
+
+        annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':web') {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+    }
+}
+
+project(':redis-server') {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+    }
+}
