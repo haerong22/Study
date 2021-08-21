@@ -1,6 +1,5 @@
-package com.example.redisserver;
+package com.example.remoteinterface.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -9,11 +8,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Slf4j
-@Configuration
 @EnableCaching
+@Configuration
 public class RedisConfig {
-
     @Value("${spring.redis.host}")
     String REDIS_HOST;
 
@@ -33,4 +30,5 @@ public class RedisConfig {
                 .setConnectionPoolSize(5);
         return Redisson.create(redisConfig);
     }
+
 }

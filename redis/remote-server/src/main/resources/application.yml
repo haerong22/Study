@@ -3,6 +3,6 @@ server:
 
 spring:
   redis:
-    host: redis://127.0.0.1
+    host: redis://localhost
     port: 6379
     password: 1234

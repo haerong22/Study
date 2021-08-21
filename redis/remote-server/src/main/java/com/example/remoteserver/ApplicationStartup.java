@@ -1,11 +1,11 @@
-package com.example.redisserver;
+package com.example.remoteserver;
 
+import com.example.remoteserver.service.RemoteService;
+import com.example.remoteinterface.service.RemoteServiceInterface;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RAtomicLong;
 import org.redisson.api.RRemoteService;
 import org.redisson.api.RedissonClient;
-import org.redisson.api.RemoteInvocationOptions;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -33,5 +33,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
         RemoteService remote = new RemoteService();
         remoteService.register(RemoteServiceInterface.class, remote);
+        log.info("Remote service is registered!!");
     }
 }

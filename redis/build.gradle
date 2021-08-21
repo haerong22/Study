@@ -30,7 +30,9 @@ subprojects {
 
     dependencies {
         compileOnly 'org.projectlombok:lombok'
-        implementation group: 'org.redisson', name: 'redisson', version: '3.16.1'
+        implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.16.1'
+        compileOnly "io.netty:netty-resolver-dns-native-macos:4.1.59.Final:osx-x86_64"
+
 
         annotationProcessor 'org.projectlombok:lombok'
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
@@ -44,14 +46,24 @@ subprojects {
     }
 }
 
+project(':remote-interface') {
+    bootJar.enabled = false
+    jar.enabled = true
+
+    dependencies {
+    }
+}
+
 project(':web') {
     dependencies {
+        compileOnly project(':remote-interface')
         implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }
 
-project(':redis-server') {
+project(':remote-server') {
     dependencies {
+        compileOnly project(':remote-interface')
         implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }

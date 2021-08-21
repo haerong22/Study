@@ -1,4 +1,5 @@
 rootProject.name = 'redis'
 include 'web'
-include 'redis-server'
+include 'remote-server'
+include 'remote-interface'
 
