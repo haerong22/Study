@@ -1,4 +1,4 @@
-package com.example.remoteserver.service;
+package com.example.remoteworker.service;
 
 import com.example.remoteinterface.service.RemoteServiceInterface;
 import lombok.extern.slf4j.Slf4j;

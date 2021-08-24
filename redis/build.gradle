@@ -61,7 +61,7 @@ project(':web') {
     }
 }
 
-project(':remote-server') {
+project(':remote-worker') {
     dependencies {
         compileOnly project(':remote-interface')
     }
