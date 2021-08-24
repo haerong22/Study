@@ -64,6 +64,5 @@ project(':web') {
 project(':remote-server') {
     dependencies {
         compileOnly project(':remote-interface')
-        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }

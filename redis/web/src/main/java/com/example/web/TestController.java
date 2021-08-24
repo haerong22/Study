@@ -19,7 +19,6 @@ public class TestController {
         RemoteInvocationOptions remoteOptions = RemoteInvocationOptions.defaults().expectAckWithin(5000);
         RRemoteService remoteService = redissonClient.getRemoteService();
         RemoteServiceInterface service = remoteService.get(RemoteServiceInterface.class, remoteOptions);
-
         return service.sayHello("kim");
     }
 }
