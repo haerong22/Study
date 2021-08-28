@@ -1,6 +1,7 @@
 package com.example.exceldownload.controller;
 
 import com.example.exceldownload.service.ExcelService;
+import com.example.exceldownload.util.ExcelXlsView;
 import com.example.exceldownload.util.ExcelXlsxView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,6 @@ public class ExcelController {
     @GetMapping("/excel/download")
     public ModelAndView excelDownload(HttpServletRequest request) {
         Map<String, Object> excelData = excelService.excelDownload(request);
-        return new ModelAndView(new ExcelXlsxView(), excelData);
+        return new ModelAndView(new ExcelXlsView(), excelData);
     }
 }
