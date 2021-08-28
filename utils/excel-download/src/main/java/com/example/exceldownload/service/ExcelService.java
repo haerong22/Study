@@ -18,16 +18,6 @@ public class ExcelService {
         BackgroundMusic[] result = restTemplate.getForObject(uri, BackgroundMusic[].class);
         List<BackgroundMusic> backgroundMusics = Arrays.asList(result);
 
-        // 엑셀 데이터 생성
-        String filename = ExcelWriter.createFileName(BackgroundMusic.class);
-        List<List<String>> bodyData = ExcelWriter.createBodyData(backgroundMusics);
-        List<String> headData = ExcelWriter.createHeaderName(BackgroundMusic.class);
-
-        Map<String, Object> excelData = new HashMap<>();
-        excelData.put("filename", filename);
-        excelData.put("head", headData);
-        excelData.put("body", bodyData);
-
-        return excelData;
+        return ExcelWriter.createExcelData(backgroundMusics, BackgroundMusic.class);
     }
 }

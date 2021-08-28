@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,15 @@ public class ExcelWriter {
         }
     }
 
-    public static List<String> createHeaderName(Class<?> header) {
+    public static Map<String, Object> createExcelData(List<? extends ExcelDto> data, Class<?> target) {
+        Map<String, Object> excelData = new HashMap<>();
+        excelData.put("filename", createFileName(target));
+        excelData.put("head", createHeaderName(target));
+        excelData.put("body", createBodyData(data));
+        return excelData;
+    }
+
+    private static List<String> createHeaderName(Class<?> header) {
         List<String> headData = new ArrayList<>();
         for (Field field : header.getDeclaredFields()) {
             field.setAccessible(true);
@@ -107,7 +116,7 @@ public class ExcelWriter {
         return headData;
     }
 
-    public static String createFileName(Class<?> file) {
+    private static String createFileName(Class<?> file) {
         if (file.isAnnotationPresent(ExcelFileName.class)) {
             String filename = file.getAnnotation(ExcelFileName.class).filename();
             return filename.equals("") ? file.getSimpleName() : filename;
@@ -115,7 +124,7 @@ public class ExcelWriter {
         throw new RuntimeException("excel filename not exist");
     }
 
-    public static List<List<String>> createBodyData(List<? extends ExcelDto> dataList) {
+    private static List<List<String>> createBodyData(List<? extends ExcelDto> dataList) {
         List<List<String>> bodyData = new ArrayList<>();
         dataList.forEach(v -> bodyData.add(v.mapToList()));
         return bodyData;
