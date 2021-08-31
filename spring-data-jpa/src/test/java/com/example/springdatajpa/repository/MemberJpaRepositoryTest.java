@@ -74,7 +74,7 @@ class MemberJpaRepositoryTest {
     }
 
     @Test
-    public void testNamedQuery() {
+    void testNamedQuery() {
         Member m1 = new Member("aaa", 10);
         Member m2 = new Member("bbb", 20);
         memberJpaRepository.save(m1);
@@ -83,5 +83,27 @@ class MemberJpaRepositoryTest {
         List<Member> result = memberJpaRepository.findByUsername("aaa");
 
         assertEquals(m1, result.get(0));
+    }
+
+    @Test
+    void paging() {
+        // given
+        memberJpaRepository.save(new Member("member1", 10));
+        memberJpaRepository.save(new Member("member2", 10));
+        memberJpaRepository.save(new Member("member3", 10));
+        memberJpaRepository.save(new Member("member4", 10));
+        memberJpaRepository.save(new Member("member5", 10));
+
+        int age = 10;
+        int offset = 0;
+        int limit = 3;
+
+        // when
+        List<Member> members = memberJpaRepository.findByPage(age, offset, limit);
+        long totalCount = memberJpaRepository.totalCount(age);
+
+        // then
+        assertEquals(3, members.size());
+        assertEquals(5, totalCount);
     }
 }
