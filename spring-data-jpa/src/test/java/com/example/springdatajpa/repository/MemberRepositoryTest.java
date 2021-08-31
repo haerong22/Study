@@ -6,20 +6,25 @@ import com.example.springdatajpa.entity.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
 @Rollback(value = false)
 public class MemberRepositoryTest {
 
-    @Autowired MemberRepository memberRepository;
-    @Autowired TeamRepository teamRepository;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     @Test
     void testMember() {
@@ -130,4 +135,48 @@ public class MemberRepositoryTest {
         assertEquals("aaa", result.get(0).getUsername());
         assertEquals("teamA", result.get(0).getTeamName());
     }
+
+    @Test
+    public void findByNames() {
+        Member m1 = new Member("aaa", 10);
+        Member m2 = new Member("bbb", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> result = memberRepository.findByNames(Arrays.asList("aaa", "bbb"));
+
+        for (Member member : result) {
+            System.out.println("member = " + member);
+        }
+    }
+
+    @Test
+    public void returnType() {
+        Member m1 = new Member("aaa", 10);
+        Member m2 = new Member("bbb", 20);
+        Member m3 = new Member("ddd", 20);
+        Member m4 = new Member("ddd", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+        memberRepository.save(m3);
+        memberRepository.save(m4);
+
+        List<Member> memberList = memberRepository.findListByUsername("aaa");
+        Member member = memberRepository.findMemberByUsername("aaa");
+        Optional<Member> optionalMember = memberRepository.findOptionalByUsername("ccc");
+
+        assertEquals(1, memberList.size());
+        assertEquals(m1, member);
+        assertTrue(optionalMember.isEmpty());
+
+        List<Member> resultList = memberRepository.findListByUsername("ccc");
+        Member result = memberRepository.findMemberByUsername("ccc");
+
+        assertEquals(0, resultList.size()); // 조회 데이터가 없을 경우 빈 리스트 리턴
+        assertNull(result); // 조회 데이터가 없을 경우 exception 발생 X -> spring data jpa 가 예외처리 하여 null 리턴
+
+        assertThrows(IncorrectResultSizeDataAccessException.class,
+                () -> memberRepository.findOptionalByUsername("ddd")); // 반환 타입은 단건 인데 여러 건이 조회 되었을 경우 예외 발생
+    }
 }
+
