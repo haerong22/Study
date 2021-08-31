@@ -72,4 +72,16 @@ class MemberJpaRepositoryTest {
         assertEquals(20, result.get(0).getAge());
         assertEquals(1, result.size());
     }
+
+    @Test
+    public void testNamedQuery() {
+        Member m1 = new Member("aaa", 10);
+        Member m2 = new Member("bbb", 20);
+        memberJpaRepository.save(m1);
+        memberJpaRepository.save(m2);
+
+        List<Member> result = memberJpaRepository.findByUsername("aaa");
+
+        assertEquals(m1, result.get(0));
+    }
 }
