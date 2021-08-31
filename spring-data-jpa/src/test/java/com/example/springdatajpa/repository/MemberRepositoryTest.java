@@ -1,6 +1,8 @@
 package com.example.springdatajpa.repository;
 
+import com.example.springdatajpa.dto.MemberDto;
 import com.example.springdatajpa.entity.Member;
+import com.example.springdatajpa.entity.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
+    @Autowired TeamRepository teamRepository;
 
     @Test
     void testMember() {
@@ -83,5 +86,48 @@ public class MemberRepositoryTest {
         List<Member> result = memberRepository.findByUsername("aaa");
 
         assertEquals(m1, result.get(0));
+    }
+
+    @Test
+    public void testQuery() {
+        Member m1 = new Member("aaa", 10);
+        Member m2 = new Member("bbb", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> result = memberRepository.findMember("aaa", 10);
+
+        assertEquals(m1, result.get(0));
+    }
+
+    @Test
+    public void findUsernameList() {
+        Member m1 = new Member("aaa", 10);
+        Member m2 = new Member("bbb", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<String> result = memberRepository.findUsernameList();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void findMemberDto() {
+        Team team = new Team("teamA");
+        teamRepository.save(team);
+
+        Member m1 = new Member("aaa", 10);
+        m1.setTeam(team);
+        memberRepository.save(m1);
+
+        List<MemberDto> result = memberRepository.findMemberDto();
+
+        assertEquals("aaa", result.get(0).getUsername());
+        assertEquals("teamA", result.get(0).getTeamName());
     }
 }
