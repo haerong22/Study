@@ -14,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,8 @@ public class MemberRepositoryTest {
     MemberRepository memberRepository;
     @Autowired
     TeamRepository teamRepository;
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     void testMember() {
@@ -215,6 +219,29 @@ public class MemberRepositoryTest {
         assertEquals(0, slice.getNumber());
         assertTrue(slice.isFirst());
         assertTrue(slice.hasNext());
+    }
+
+    @Test
+    void bulkUpdate() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+        memberRepository.save(new Member("member3", 21));
+        memberRepository.save(new Member("member4", 33));
+        memberRepository.save(new Member("member5", 40));
+
+        // when
+        int resultCount = memberRepository.bulkAgePlus(20); // 벌크 연산에서는 영속성 컨텍스트에 관계없이 DB에 저장된다.
+        Member member5 = memberRepository.findMemberByUsername("member5");
+        assertEquals(40, member5.getAge()); // age 가 41이 아닌 40 이다. 영속성 컨텍스트에 아직 member5의 데이터가 남아있기 때문
+
+        em.flush(); // 커밋
+        em.clear(); // 영속성 컨텍스트를 직접 삭제 하거나 @Modifying(clearAutomatically = true) 옵션을 준다.
+        member5 = memberRepository.findMemberByUsername("member5");
+        assertEquals(41, member5.getAge()); // 영속성 컨텍스트에 캐시가 남아있지 않으므로 DB에서 가져온다.
+
+        // then
+        assertEquals(3, resultCount);
     }
 }
 
