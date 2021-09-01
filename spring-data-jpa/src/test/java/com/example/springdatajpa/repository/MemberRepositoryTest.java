@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -177,6 +181,40 @@ public class MemberRepositoryTest {
 
         assertThrows(IncorrectResultSizeDataAccessException.class,
                 () -> memberRepository.findOptionalByUsername("ddd")); // 반환 타입은 단건 인데 여러 건이 조회 되었을 경우 예외 발생
+    }
+
+    @Test
+    void paging() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
+
+        int age = 10;
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
+        // when
+        Page<Member> page = memberRepository.findPageByAge(age, pageRequest);
+        Page<MemberDto> toMap = page.map(member -> new MemberDto(member.getId(), member.getUsername(), null));
+
+        // then
+        List<Member> members = page.getContent();
+
+        assertEquals(3, members.size());
+        assertEquals(5, page.getTotalElements());
+        assertEquals(0, page.getNumber());
+        assertEquals(2, page.getTotalPages());
+        assertTrue(page.isFirst());
+        assertTrue(page.hasNext());
+
+        Slice<Member> slice = memberRepository.findSliceByAge(age, pageRequest);
+        List<Member> content = page.getContent();
+
+        assertEquals(3, content.size());
+        assertEquals(0, slice.getNumber());
+        assertTrue(slice.isFirst());
+        assertTrue(slice.hasNext());
     }
 }
 
