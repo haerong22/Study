@@ -243,5 +243,41 @@ public class MemberRepositoryTest {
         // then
         assertEquals(3, resultCount);
     }
+
+    @Test
+    void findMemberLazy() {
+        // given
+        // member1 -> teamA
+        // member2 -> teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 10, teamB);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> members = memberRepository.findAll();
+        members.forEach(member -> {
+            System.out.println("member.getUsername() = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass()); // Lazy 로딩 이므로 프록시 객체
+            System.out.println("member.getTeam().getName() = " + member.getTeam().getName()); // 이때 실제로 team 데이터 조회 ( N + 1 문제 발생 )
+        });
+
+        // fetch join 으로 해결 -> 한 번에 team 데이터도 모두 조회
+        // @EntityGraph(attributePaths = {"team"}) 사용 가능
+        List<Member> memberFetchJoin = memberRepository.findMemberFetchJoin();
+        memberFetchJoin.forEach(member -> {
+            System.out.println("member.getUsername() = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass());
+            System.out.println("member.getTeam().getName() = " + member.getTeam().getName()); // fetch join
+        });
+    }
 }
 
