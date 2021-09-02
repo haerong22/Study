@@ -7,9 +7,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +31,8 @@ public class MemberRepositoryTest {
     MemberRepository memberRepository;
     @Autowired
     TeamRepository teamRepository;
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     void testMember() {
@@ -177,6 +185,126 @@ public class MemberRepositoryTest {
 
         assertThrows(IncorrectResultSizeDataAccessException.class,
                 () -> memberRepository.findOptionalByUsername("ddd")); // 반환 타입은 단건 인데 여러 건이 조회 되었을 경우 예외 발생
+    }
+
+    @Test
+    void paging() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
+
+        int age = 10;
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
+        // when
+        Page<Member> page = memberRepository.findPageByAge(age, pageRequest);
+        Page<MemberDto> toMap = page.map(member -> new MemberDto(member.getId(), member.getUsername(), null));
+
+        // then
+        List<Member> members = page.getContent();
+
+        assertEquals(3, members.size());
+        assertEquals(5, page.getTotalElements());
+        assertEquals(0, page.getNumber());
+        assertEquals(2, page.getTotalPages());
+        assertTrue(page.isFirst());
+        assertTrue(page.hasNext());
+
+        Slice<Member> slice = memberRepository.findSliceByAge(age, pageRequest);
+        List<Member> content = page.getContent();
+
+        assertEquals(3, content.size());
+        assertEquals(0, slice.getNumber());
+        assertTrue(slice.isFirst());
+        assertTrue(slice.hasNext());
+    }
+
+    @Test
+    void bulkUpdate() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+        memberRepository.save(new Member("member3", 21));
+        memberRepository.save(new Member("member4", 33));
+        memberRepository.save(new Member("member5", 40));
+
+        // when
+        int resultCount = memberRepository.bulkAgePlus(20); // 벌크 연산에서는 영속성 컨텍스트에 관계없이 DB에 저장된다.
+        Member member5 = memberRepository.findMemberByUsername("member5");
+        assertEquals(40, member5.getAge()); // age 가 41이 아닌 40 이다. 영속성 컨텍스트에 아직 member5의 데이터가 남아있기 때문
+
+        em.flush(); // 커밋
+        em.clear(); // 영속성 컨텍스트를 직접 삭제 하거나 @Modifying(clearAutomatically = true) 옵션을 준다.
+        member5 = memberRepository.findMemberByUsername("member5");
+        assertEquals(41, member5.getAge()); // 영속성 컨텍스트에 캐시가 남아있지 않으므로 DB에서 가져온다.
+
+        // then
+        assertEquals(3, resultCount);
+    }
+
+    @Test
+    void findMemberLazy() {
+        // given
+        // member1 -> teamA
+        // member2 -> teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 10, teamB);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> members = memberRepository.findAll();
+        members.forEach(member -> {
+            System.out.println("member.getUsername() = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass()); // Lazy 로딩 이므로 프록시 객체
+            System.out.println("member.getTeam().getName() = " + member.getTeam().getName()); // 이때 실제로 team 데이터 조회 ( N + 1 문제 발생 )
+        });
+
+        // fetch join 으로 해결 -> 한 번에 team 데이터도 모두 조회
+        // @EntityGraph(attributePaths = {"team"}) 사용 가능
+        List<Member> memberFetchJoin = memberRepository.findMemberFetchJoin();
+        memberFetchJoin.forEach(member -> {
+            System.out.println("member.getUsername() = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass());
+            System.out.println("member.getTeam().getName() = " + member.getTeam().getName()); // fetch join
+        });
+    }
+
+    @Test
+    void queryHint() {
+        // given
+        Member member1 = new Member("member1", 10);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2");// read only 옵션으로 변경 감지 X
+        em.flush();
+    }
+
+    @Test
+    void lock() {
+        // given
+        Member member1 = new Member("member1", 10);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findLockByUsername("member1");
+
     }
 }
 
