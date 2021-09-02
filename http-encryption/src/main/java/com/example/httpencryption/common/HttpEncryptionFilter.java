@@ -19,7 +19,10 @@ public class HttpEncryptionFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
         RequestDecryptWrapper requestDecryptWrapper = new RequestDecryptWrapper(httpServletRequest);
+        ResponseEncryptWrapper responseEncryptWrapper = new ResponseEncryptWrapper(httpServletResponse);
 
-        chain.doFilter(requestDecryptWrapper, response);
+        chain.doFilter(requestDecryptWrapper, responseEncryptWrapper);
+
+        httpServletResponse.getOutputStream().write(responseEncryptWrapper.encryptResponse());
     }
 }

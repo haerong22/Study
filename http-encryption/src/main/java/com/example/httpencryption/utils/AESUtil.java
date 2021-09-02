@@ -27,7 +27,6 @@ public class AESUtil {
             byte[] result = new byte[iv.length + encryptData.length];
             System.arraycopy(iv, 0, result, 0, iv.length);
             System.arraycopy(encryptData, 0, result, iv.length, encryptData.length);
-
             return Base64Utils.encodeToString(result);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
             throw new RuntimeException("encrypt fail : " + e.getMessage());

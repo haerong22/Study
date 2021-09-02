@@ -1,7 +1,9 @@
 package com.example.httpencryption.controller;
 
+import com.example.httpencryption.dto.TestDto;
 import org.apache.commons.io.IOUtils;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletInputStream;
@@ -12,13 +14,14 @@ import java.nio.charset.StandardCharsets;
 @RestController
 public class TestController {
 
-    @GetMapping("/")
-    public String hello(HttpServletRequest request) throws IOException {
+    @PostMapping("/")
+    public TestDto hello(HttpServletRequest request, @RequestBody TestDto dto) throws IOException {
 
         ServletInputStream inputStream = request.getInputStream();
         byte[] bytes = IOUtils.toByteArray(inputStream);
         String s = new String(bytes, StandardCharsets.UTF_8);
+        System.out.println("s = " + s);
 
-        return s;
+        return dto;
     }
 }
