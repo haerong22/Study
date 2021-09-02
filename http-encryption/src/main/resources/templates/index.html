@@ -5,6 +5,36 @@
     <title>Title</title>
 </head>
 <body>
-
+    <form id="form">
+        <input name="username" type="text"/>
+        <input name="age" type="text"/>
+        <button type="button" onclick="btn()">버튼</button>
+    </form>
 </body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+    const btn = () => {
+        let form = document.querySelector('#form');
+        let formData = new FormData(form);
+        let obj = {};
+        for (let key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        let key = "example";
+        let sha256 = CryptoJS.SHA256(key);
+        let iv = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+        console.log(iv.length)
+        let string = CryptoJS.AES.encrypt(
+            JSON.stringify(obj),
+            sha256,
+            {
+                iv: CryptoJS.enc.Utf8.parse(iv),
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+            },
+        ).toString();
+        console.log(iv)
+        console.log(iv + string, (iv+string).length);
+    }
+</script>
 </html>

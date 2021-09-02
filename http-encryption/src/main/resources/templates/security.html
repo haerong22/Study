@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .json-viewer {
+      color: #000;
+      padding-left: 20px;
+    }
+    .json-viewer ul {
+      list-style-type: none;
+      margin: 0;
+      margin: 0 0 0 1px;
+      border-left: 1px dotted #ccc;
+      padding-left: 2em;
+    }
+    .json-viewer .hide {
+      display: none;
+    }
+    .json-viewer .type-string {
+      color: #0B7500;
+    }
+    .json-viewer .type-date {
+      color: #CB7500;
+    }
+    .json-viewer .type-boolean {
+      color: #1A01CC;
+      font-weight: bold;
+    }
+    .json-viewer .type-number {
+      color: #1A01CC;
+    }
+    .json-viewer .type-null, .json-viewer .type-undefined {
+      color: #90a;
+    }
+    .json-viewer a.list-link {
+      color: #000;
+      text-decoration: none;
+      position: relative;
+    }
+    .json-viewer a.list-link:before {
+      color: #aaa;
+      content: "\25BC";
+      position: absolute;
+      display: inline-block;
+      width: 1em;
+      left: -1em;
+    }
+    .json-viewer a.list-link.collapsed:before {
+      content: "\25B6";
+    }
+    .json-viewer a.list-link.empty:before {
+      content: "";
+    }
+    .json-viewer .items-ph {
+      color: #aaa;
+      padding: 0 1em;
+    }
+    .json-viewer .items-ph:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <div>
+    <label>key</label>
+  </div>
+  <input id="key"/>
+</div>
+<div>
+  <div>
+    <label>iv</label>
+  </div>
+  <input id="iv"/>
+</div>
+<div style="display: flex; margin-top: 10px">
+  <div style="flex: 1; margin-right: 10px;">
+      <textarea id='encrypt_data' style="width: 100%; height: 400px;">
+      </textarea>
+    <div>
+      <input type="button" id="btn_encrypt" onclick="encrypt();" value="암호화" />
+    </div>
+
+    <div id='encrypt_result'></div>
+  </div>
+  <div style="flex: 1; ">
+      <textarea id='decrypt_data' style="width: 100%; height: 400px;">
+      </textarea>
+    <div>
+      <input type="button" id="btn_decrypt" onclick="decrypt();" value="복호화" />
+    </div>
+    <div id="json"></div>
+    <div id='decrypt_result'></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  /**
+   * JSONViewer - by Roman Makudera 2016 (c) MIT licence.
+   */
+  var JSONViewer = (function(document) {
+    var Object_prototype_toString = ({}).toString;
+    var DatePrototypeAsString = Object_prototype_toString.call(new Date);
+
+    /** @constructor */
+    function JSONViewer() {
+      this._dom_container = document.createElement("pre");
+      this._dom_container.classList.add("json-viewer");
+    };
+    /**
+     * Visualise JSON object.
+     *
+     * @param {Object|Array} json Input value
+     * @param {Number} [inputMaxLvl] Process only to max level, where 0..n, -1 unlimited
+     * @param {Number} [inputColAt] Collapse at level, where 0..n, -1 unlimited
+     */
+    JSONViewer.prototype.showJSON = function(jsonValue, inputMaxLvl, inputColAt) {
+      // Process only to maxLvl, where 0..n, -1 unlimited
+      var maxLvl = typeof inputMaxLvl === "number" ? inputMaxLvl : -1; // max level
+      // Collapse at level colAt, where 0..n, -1 unlimited
+      var colAt = typeof inputColAt === "number" ? inputColAt : -1; // collapse at
+
+      this._dom_container.innerHTML = "";
+      walkJSONTree(this._dom_container, jsonValue, maxLvl, colAt, 0);
+    };
+    /**
+     * Get container with pre object - this container is used for visualise JSON data.
+     *
+     * @return {Element}
+     */
+    JSONViewer.prototype.getContainer = function() {
+      return this._dom_container;
+    };
+    /**
+     * Recursive walk for input value.
+     *
+     * @param {Element} outputParent is the Element that will contain the new DOM
+     * @param {Object|Array} value Input value
+     * @param {Number} maxLvl Process only to max level, where 0..n, -1 unlimited
+     * @param {Number} colAt Collapse at level, where 0..n, -1 unlimited
+     * @param {Number} lvl Current level
+     */
+    function walkJSONTree(outputParent, value, maxLvl, colAt, lvl) {
+      var isDate = Object_prototype_toString.call(value) === DatePrototypeAsString;
+      var realValue = !isDate && typeof value === "object" && value !== null && "toJSON" in value ? value.toJSON() : value;
+      if (typeof realValue === "object" && realValue !== null && !isDate) {
+        var isMaxLvl = maxLvl >= 0 && lvl >= maxLvl;
+        var isCollapse = colAt >= 0 && lvl >= colAt;
+
+        var isArray = Array.isArray(realValue);
+        var items = isArray ? realValue : Object.keys(realValue);
+        if (lvl === 0) {
+          // root level
+          var rootCount = _createItemsCount(items.length);
+          // hide/show
+          var rootLink = _createLink(isArray ? "[" : "{");
+          if (items.length) {
+            rootLink.addEventListener("click", function() {
+              if (isMaxLvl) return;
+              rootLink.classList.toggle("collapsed");
+              rootCount.classList.toggle("hide");
+              // main list
+              outputParent.querySelector("ul").classList.toggle("hide");
+            });
+            if (isCollapse) {
+              rootLink.classList.add("collapsed");
+              rootCount.classList.remove("hide");
+            }
+          }
+          else {
+            rootLink.classList.add("empty");
+          }
+          rootLink.appendChild(rootCount);
+          outputParent.appendChild(rootLink); // output the rootLink
+        }
+        if (items.length && !isMaxLvl) {
+          var len = items.length - 1;
+          var ulList = document.createElement("ul");
+          ulList.setAttribute("data-level", lvl);
+          ulList.classList.add("type-" + (isArray ? "array" : "object"));
+          items.forEach(function(key, ind) {
+            var item = isArray ? key : value[key];
+            var li = document.createElement("li");
+            if (typeof item === "object") {
+              // null && date
+              if (!item || item instanceof Date) {
+                li.appendChild(document.createTextNode(isArray ? "" : key + ": "));
+                li.appendChild(createSimpleViewOf(item ? item : null, true));
+              }
+              // array & object
+              else {
+                var itemIsArray = Array.isArray(item);
+                var itemLen = itemIsArray ? item.length : Object.keys(item).length;
+                // empty
+                if (!itemLen) {
+                  li.appendChild(document.createTextNode(key + ": " + (itemIsArray ? "[]" : "{}")));
+                }
+                else {
+                  // 1+ items
+                  var itemTitle = (typeof key === "string" ? key + ": " : "") + (itemIsArray ? "[" : "{");
+                  var itemLink = _createLink(itemTitle);
+                  var itemsCount = _createItemsCount(itemLen);
+                  // maxLvl - only text, no link
+                  if (maxLvl >= 0 && lvl + 1 >= maxLvl) {
+                    li.appendChild(document.createTextNode(itemTitle));
+                  }
+                  else {
+                    itemLink.appendChild(itemsCount);
+                    li.appendChild(itemLink);
+                  }
+                  walkJSONTree(li, item, maxLvl, colAt, lvl + 1);
+                  li.appendChild(document.createTextNode(itemIsArray ? "]" : "}"));
+
+                  var list = li.querySelector("ul");
+                  var itemLinkCb = function() {
+                    itemLink.classList.toggle("collapsed");
+                    itemsCount.classList.toggle("hide");
+                    list.classList.toggle("hide");
+                  };
+                  // hide/show
+                  itemLink.addEventListener("click", itemLinkCb);
+                  // collapse lower level
+                  if (colAt >= 0 && lvl + 1 >= colAt) {
+                    itemLinkCb();
+                  }
+                }
+              }
+            }
+            // simple values
+            else {
+              // object keys with key:
+              if (!isArray) {
+                li.appendChild(document.createTextNode(key + ": "));
+              }
+              // recursive
+              walkJSONTree(li, item, maxLvl, colAt, lvl + 1);
+            }
+            // add comma to the end
+            if (ind < len) {
+              li.appendChild(document.createTextNode(","));
+            }
+            ulList.appendChild(li);
+          }, this);
+          outputParent.appendChild(ulList); // output ulList
+        }
+        else if (items.length && isMaxLvl) {
+          var itemsCount = _createItemsCount(items.length);
+          itemsCount.classList.remove("hide");
+          outputParent.appendChild(itemsCount); // output itemsCount
+        }
+        if (lvl === 0) {
+          // empty root
+          if (!items.length) {
+            var itemsCount = _createItemsCount(0);
+            itemsCount.classList.remove("hide");
+            outputParent.appendChild(itemsCount); // output itemsCount
+          }
+          // root cover
+          outputParent.appendChild(document.createTextNode(isArray ? "]" : "}"));
+          // collapse
+          if (isCollapse) {
+            outputParent.querySelector("ul").classList.add("hide");
+          }
+        }
+      } else {
+        // simple values
+        outputParent.appendChild( createSimpleViewOf(value, isDate) );
+      }
+    };
+    /**
+     * Create simple value (no object|array).
+     *
+     * @param  {Number|String|null|undefined|Date} value Input value
+     * @return {Element}
+     */
+    function createSimpleViewOf(value, isDate) {
+      var spanEl = document.createElement("span");
+      var type = typeof value;
+      var asText = "" + value;
+      if (type === "string") {
+        asText = '"' + value + '"';
+      } else if (value === null) {
+        type = "null";
+        //asText = "null";
+      } else if (isDate) {
+        type = "date";
+        asText = value.toLocaleString();
+      }
+      spanEl.className = "type-" + type;
+      spanEl.textContent = asText;
+      return spanEl;
+    };
+    /**
+     * Create items count element.
+     *
+     * @param  {Number} count Items count
+     * @return {Element}
+     */
+    function _createItemsCount(count) {
+      var itemsCount = document.createElement("span");
+      itemsCount.className = "items-ph hide";
+      itemsCount.innerHTML = _getItemsTitle(count);
+      return itemsCount;
+    };
+    /**
+     * Create clickable link.
+     *
+     * @param  {String} title Link title
+     * @return {Element}
+     */
+    function _createLink(title) {
+      var linkEl = document.createElement("a");
+      linkEl.classList.add("list-link");
+      linkEl.href = "javascript:void(0)";
+      linkEl.innerHTML = title || "";
+      return linkEl;
+    };
+    /**
+     * Get correct item|s title for count.
+     *
+     * @param  {Number} count Items count
+     * @return {String}
+     */
+    function _getItemsTitle(count) {
+      var itemsTxt = count > 1 || count === 0 ? "items" : "item";
+      return (count + " " + itemsTxt);
+    };
+    return JSONViewer;
+  })(document);
+</script>
+<script>
+  window.onload = function(){
+    document.getElementById("encrypt_data").value = '';
+    document.getElementById("decrypt_data").value = '';
+  }
+  function encrypt() {
+    const key = document.getElementById("key").value;
+    const iv = document.getElementById("iv").value;
+    const data = document.getElementById("encrypt_data").value;
+    document.getElementById('encrypt_result').innerText = CryptoJS.AES.encrypt(
+            JSON.stringify(data),
+            CryptoJS.enc.Utf8.parse(key),
+            {
+              iv: CryptoJS.enc.Utf8.parse(iv),
+              mode: CryptoJS.mode.CBC,
+              padding: CryptoJS.pad.ZeroPadding,
+            },
+    ).toString()
+  }
+  function decrypt() {
+    document.querySelector("#json").innerHTML = '';
+    const key = document.getElementById("key").value;
+    const iv = document.getElementById("iv").value;
+    const data = document.getElementById("decrypt_data").value;
+    let result = CryptoJS.AES.decrypt(data, CryptoJS.enc.Utf8.parse(key), {
+      iv: CryptoJS.enc.Utf8.parse(iv),
+      padding: CryptoJS.pad.ZeroPadding,
+    }).toString(CryptoJS.enc.Utf8);
+    let json;
+    try {
+      json = JSON.parse(result);
+      var jsonViewer = new JSONViewer();
+      document.querySelector("#json").appendChild(jsonViewer.getContainer());
+      jsonViewer.showJSON(json, -1, -1);
+    }catch(e) {
+
+    }
+    // const wrapper =  document.getElementById('decrypt_result');
+
+    document.getElementById('decrypt_result').innerText = result;
+  }
+</script>
+</body>
+</html>
