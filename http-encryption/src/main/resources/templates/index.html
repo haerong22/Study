@@ -6,24 +6,46 @@
 </head>
 <body>
     <form id="form">
-        <input name="username" type="text"/>
-        <input name="age" type="text"/>
-        <button type="button" onclick="btn()">버튼</button>
+        <div>
+            <span>이름</span> <input name="username" type="text"/>
+        </div>
+        <div>
+            <span>나이</span> <input name="age" type="text"/>
+        </div>
+        <div>
+            <button type="button" onclick="btn()">등록</button>
+        </div>
     </form>
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script>
     const btn = () => {
+        const key = "example";
+        const sha256 = CryptoJS.SHA256(key);
+        const url = "http://localhost:8080"
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: encrypt(sha256)
+        })
+            .then(resp => resp.text())
+            .then(data => {
+                console.log(data);
+                decrypt(data, sha256);
+            });
+
+    }
+
+    const encrypt = (sha256) => {
         let form = document.querySelector('#form');
         let formData = new FormData(form);
         let obj = {};
         for (let key of formData.keys()) {
             obj[key] = formData.get(key);
         }
-        let key = "example";
-        let sha256 = CryptoJS.SHA256(key);
         let iv = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
-        console.log(iv.length)
         let string = CryptoJS.AES.encrypt(
             JSON.stringify(obj),
             sha256,
@@ -33,8 +55,23 @@
                 padding: CryptoJS.pad.Pkcs7,
             },
         ).toString();
-        console.log(iv)
-        console.log(iv + string, (iv+string).length);
+        return iv + string;
+    }
+
+    const decrypt = (data, sha256) => {
+        const iv = data.substring(0, 16);
+        const content = data.substring(16);
+
+        let result = CryptoJS.AES.decrypt(
+            content,
+            sha256,
+            {
+                iv: CryptoJS.enc.Utf8.parse(iv),
+                padding: CryptoJS.pad.Pkcs7,
+            }
+        ).toString(CryptoJS.enc.Utf8);
+
+        console.log(JSON.parse(result));
     }
 </script>
 </html>
