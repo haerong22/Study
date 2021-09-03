@@ -9,25 +9,25 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 
 public class MemberSpec {
-
     public static Specification<Member> teamName(final String teamName) {
         return (root, query, criteriaBuilder) -> {
-
             if (ObjectUtils.isEmpty(teamName)) {
                 return null;
             }
 
-            Join<Member, Team> t = root.join("team", JoinType.INNER);// 회원과 조인
+            Join<Member, Team> t = root.join("team", JoinType.INNER); //회원과 조인
             return criteriaBuilder.equal(t.get("name"), teamName);
         };
     }
-
     public static Specification<Member> username(final String username) {
         return (root, query, criteriaBuilder) -> {
             if (ObjectUtils.isEmpty(username)) {
                 return null;
             }
-            return criteriaBuilder.equal(root.get("name"), username);
+
+            return criteriaBuilder.equal(root.get("username"), username);
         };
     }
 }
+
+
