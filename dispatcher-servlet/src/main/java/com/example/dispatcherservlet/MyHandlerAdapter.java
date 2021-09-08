@@ -7,5 +7,5 @@ public interface MyHandlerAdapter {
 
     boolean supports(Object handler);
 
-    void handle(HttpServletRequest request, HttpServletResponse response, Object handler);
+    String handle(HttpServletRequest request, HttpServletResponse response, Object handler);
 }

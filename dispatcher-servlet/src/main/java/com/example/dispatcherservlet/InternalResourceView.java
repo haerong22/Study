@@ -5,12 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class MyViewResolver implements ViewResolver{
-    @Override
-    public boolean supportsView(String path) {
-        return path.endsWith(".jsp");
-    }
-
+public class InternalResourceView implements View {
     @Override
     public void render(HttpServletRequest request, HttpServletResponse response, String path) {
         try {

@@ -1,5 +1,9 @@
 package com.example.dispatcherservlet;
 
+import com.example.dispatcherservlet.annotation.Controller;
+import com.example.dispatcherservlet.annotation.RequestMapping;
+import com.example.dispatcherservlet.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -14,7 +18,7 @@ public class RequestMappingHandlerAdapter implements MyHandlerAdapter {
     }
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public String handle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String requestURI = request.getRequestURI();
 
         Method[] declaredMethods = handler.getClass().getDeclaredMethods();
@@ -26,17 +30,17 @@ public class RequestMappingHandlerAdapter implements MyHandlerAdapter {
                 if (requestURI.equals(value)) {
                     result = declaredMethod.invoke(handler);
                     if (declaredMethod.isAnnotationPresent(ResponseBody.class)) {
-                        response.setContentType("application/json");
-                        response.getWriter().println(result);
-                        return;
-                    } else {
-                        ViewResolver viewResolver = ApplicationStartUp.getInstance().getViewResolver((String) result);
-                        viewResolver.render(request, response, (String) result);
+                        if (result instanceof String) {
+                            response.setContentType("text/plain");
+                            response.getWriter().println(result);
+                        }
+                        return null;
                     }
                 }
-            } catch (IOException | InvocationTargetException | IllegalAccessException e) {
+            } catch (InvocationTargetException | IllegalAccessException | IOException e) {
                 e.printStackTrace();
             }
         }
+        return (String) result;
     }
 }
