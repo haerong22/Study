@@ -1,4 +1,4 @@
-package com.example.dispatcherservlet;
+package com.example.dispatcherservlet.springmvc;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "dispatcherServlet", urlPatterns = "/")
-public class MyDispatcherServlet extends HttpServlet {
+public class DispatcherServlet extends HttpServlet {
 
     private List<ViewResolver> viewResolvers;
-    private List<MyHandlerAdapter> handlerAdapters;
-    private Map<String, Object> handlerMapping;
+    private List<HandlerAdapter> handlerAdapters;
+    private Map<String, MappingRegistry> handlerMapping;
 
-    public MyDispatcherServlet() {
+    public DispatcherServlet() {
         WebApplicationContext resources = WebApplicationContext.getInstance();
         this.viewResolvers = resources.getViewResolvers();
         this.handlerMapping = resources.getHandlerMapping();
@@ -28,9 +28,9 @@ public class MyDispatcherServlet extends HttpServlet {
         response.setContentType("text/html");
 
         try {
-            Object handler = getHandler(request);
+            MappingRegistry handler = getHandler(request);
             if (handler != null) {
-                MyHandlerAdapter handlerAdapter = getHandlerAdapter(handler);
+                HandlerAdapter handlerAdapter = getHandlerAdapter(handler);
                 if (handlerAdapter != null) {
                     String result = handlerAdapter.handle(request, response, handler);
                     if (result != null) {
@@ -45,13 +45,13 @@ public class MyDispatcherServlet extends HttpServlet {
         }
     }
 
-    private Object getHandler(HttpServletRequest request) {
+    private MappingRegistry getHandler(HttpServletRequest request) {
         return handlerMapping.get(request.getRequestURI());
     }
 
-    private MyHandlerAdapter getHandlerAdapter(Object handler) {
-        for (MyHandlerAdapter handlerAdapter : handlerAdapters) {
-            if (handlerAdapter.supports(handler)) {
+    private HandlerAdapter getHandlerAdapter(MappingRegistry handler) {
+        for (HandlerAdapter handlerAdapter : handlerAdapters) {
+            if (handlerAdapter.supports(handler.getHandler())) {
                 return handlerAdapter;
             }
         }

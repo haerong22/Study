@@ -1,4 +1,4 @@
-package com.example.dispatcherservlet;
+package com.example.dispatcherservlet.springmvc;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.example.dispatcherservlet;
+package com.example.dispatcherservlet.springmvc;
 
 import com.example.dispatcherservlet.annotation.Controller;
 import com.example.dispatcherservlet.annotation.RequestMapping;
@@ -12,8 +12,8 @@ public class WebApplicationContext {
 
     public static WebApplicationContext instance;
 
-    private final Map<String, Object> handlerMapping = new HashMap<>();
-    private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>();
+    private final Map<String, MappingRegistry> handlerMapping = new HashMap<>();
+    private final List<HandlerAdapter> handlerAdapters = new ArrayList<>();
     private final List<ViewResolver> viewResolvers = new ArrayList<>();
 
     public static WebApplicationContext getInstance() {
@@ -27,11 +27,11 @@ public class WebApplicationContext {
         initResources();
     }
 
-    public Map<String, Object> getHandlerMapping() {
+    public Map<String, MappingRegistry> getHandlerMapping() {
         return handlerMapping;
     }
 
-    public List<MyHandlerAdapter> getHandlerAdapters() {
+    public List<HandlerAdapter> getHandlerAdapters() {
         return handlerAdapters;
     }
 
@@ -47,8 +47,8 @@ public class WebApplicationContext {
         for (Class<?> aClass : classes) {
             try {
                 Object instance = aClass.getConstructor().newInstance();
-                if (instance instanceof MyHandlerAdapter) {
-                    handlerAdapters.add((MyHandlerAdapter) instance);
+                if (instance instanceof HandlerAdapter) {
+                    handlerAdapters.add((HandlerAdapter) instance);
                 }
                 if (instance instanceof ViewResolver) {
                     viewResolvers.add((ViewResolver) instance);
@@ -56,8 +56,10 @@ public class WebApplicationContext {
                 if (aClass.isAnnotationPresent(Controller.class)) {
                     Method[] declaredMethods = aClass.getDeclaredMethods();
                     for (Method declaredMethod : declaredMethods) {
-                        RequestMapping annotation = declaredMethod.getAnnotation(RequestMapping.class);
-                        handlerMapping.put(annotation.value(), instance);
+                        if (declaredMethod.isAnnotationPresent(RequestMapping.class)) {
+                            RequestMapping annotation = declaredMethod.getAnnotation(RequestMapping.class);
+                            handlerMapping.put(annotation.value(), new MappingRegistry(instance, declaredMethod));
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -91,7 +93,7 @@ public class WebApplicationContext {
     }
 
     private boolean isExcluded(String fileName) {
-        String[] exclude = {"ApplicationStartUp", "MyDispatcherServlet"};
+        String[] exclude = {"WebApplicationContext", "MyDispatcherServlet"};
         for (String s : exclude) {
             if (fileName.contains(s)) return true;
         }

@@ -8,8 +8,8 @@ import com.example.dispatcherservlet.annotation.ResponseBody;
 public class HelloController {
 
     @ResponseBody
-    @RequestMapping("/add")
-    public String add() {
-        return "add";
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello";
     }
 }

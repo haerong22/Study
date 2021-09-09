@@ -1,6 +1,4 @@
-package com.example.dispatcherservlet;
-
-import javax.servlet.http.HttpServletRequest;
+package com.example.dispatcherservlet.springmvc;
 
 public interface ViewResolver {
 

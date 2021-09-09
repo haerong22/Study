@@ -1,4 +1,4 @@
-package com.example.dispatcherservlet;
+package com.example.dispatcherservlet.springmvc;
 
 public class InternalResourceViewResolver implements ViewResolver{
 
