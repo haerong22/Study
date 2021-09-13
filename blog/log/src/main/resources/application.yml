@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: local
+
+common: common
+test: common
