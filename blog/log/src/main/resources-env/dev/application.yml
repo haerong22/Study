@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include: common
+    active: dev
+
+test: dev

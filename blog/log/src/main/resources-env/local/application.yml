@@ -1,6 +1,6 @@
 spring:
   profiles:
+    include: common
     active: local
 
-common: common
-test: common
+test: local
