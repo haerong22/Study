@@ -1,0 +1,5 @@
+
+webhook-uri: https://hooks.slack.com/services/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
+channel: test_prod
+username: prod TEST ERROR LOG
+emoji: eyes

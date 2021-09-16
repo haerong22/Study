@@ -1,2 +1,7 @@
 common: common
-test: common
+
+logging.level:
+  root: info
+  com.example.log: info
+  com.example.log.controller: error
+  com.example.log.service: warn

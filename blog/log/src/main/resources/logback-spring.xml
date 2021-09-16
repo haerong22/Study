@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 로그 설정 -->
+    <property name="LOG_DIR" value="./logs"/>
+    <property name="LOG_PATH_NAME" value="${LOG_DIR}/data/"/>
+    <property name="ERROR_LOG_PATH_NAME" value="${LOG_DIR}/error/"/>
+    <property name="LOG_PATTERN_CONSOLE" value="%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %highlight([ %-5level]) | %cyan(%logger{35}) - %msg%n" />
+    <property name="LOG_PATTERN_FILE" value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n" />
+    <property name="MAX_HISTORY" value="365" />
+
+    <!-- 콘솔 출력 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN_CONSOLE}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 파일로 저장-->
+    <appender name="DATA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 일자별로 로그파일 적용하기 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_NAME}data_%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory> <!-- 일자별 백업파일의 보관기간 -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN_FILE}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 에러의 경우는 별도 파일 저장 -->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!-- .gz,.zip 등을 넣으면 자동 일자별 로그파일 압축가능 -->
+            <fileNamePattern>${ERROR_LOG_PATH_NAME}error_%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN_FILE}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- profile 에 따라 slack 에 전송 -->
+    <springProfile name="dev, prod">
+        <property resource="slack-logback.yml" />
+        <appender name="SLACK_ERROR" class="com.github.maricn.logback.SlackAppender">
+            <webhookUri>${webhook-uri}</webhookUri>
+            <channel>#${channel}</channel>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${LOG_PATTERN_FILE}</pattern>
+            </layout>
+            <username>${username}</username>
+            <iconEmoji>:${emoji}:</iconEmoji>
+            <colorCoding>true</colorCoding>
+        </appender>
+        <appender name="ASYNC_SLACK_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+            <appender-ref ref="SLACK_ERROR"/>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+        </appender>
+    </springProfile>
+
+    <!-- logger 설정 -->
+    <springProfile name="dev, prod">
+        <logger name="com.example.log" level="INFO" additivity="false">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="DATA"/>
+        </logger>
+        <logger name="com.example.log" level="ERROR" additivity="false">
+            <appender-ref ref="ERROR"/>
+            <appender-ref ref="ASYNC_SLACK_ERROR"/>
+        </logger>
+    </springProfile>
+
+    <!-- 위의 logger 에 해당하지 않으면 기본 설정 -->
+    <root level="INFO">
+        <appender-ref ref="DATA"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <root level="error">
+        <appender-ref ref="ERROR" />
+    </root>
+</configuration>
