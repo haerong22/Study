@@ -25,6 +25,8 @@ ext {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    runtimeOnly group: 'com.h2database', name: 'h2', version: '1.3.176'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
