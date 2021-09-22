@@ -60,4 +60,12 @@ public class UserServiceImpl implements UserService {
                 true, true, true, true,
                 new ArrayList<>());
     }
+
+    @Override
+    public UserDto getUserDetailByEmail(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
+
+        return mapper.map(userEntity, UserDto.class);
+    }
 }

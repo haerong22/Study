@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 
     runtimeOnly group: 'com.h2database', name: 'h2', version: '1.3.176'
     compileOnly 'org.projectlombok:lombok'

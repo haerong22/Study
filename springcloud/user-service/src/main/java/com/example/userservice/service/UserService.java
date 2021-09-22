@@ -11,4 +11,6 @@ public interface UserService extends UserDetailsService {
     void createUser(UserDto userDto);
     UserDto getUserByUserId(String userId);
     List<UserEntity> gerUserByAll();
+    UserDto getUserDetailByEmail(String username);
+
 }
