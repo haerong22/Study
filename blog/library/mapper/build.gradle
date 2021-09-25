@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'org.example'
+version '1.0'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'org.example'
+            artifactId = 'mapper'
+            version = '1.0'
+
+            from components.java
+        }
+    }
+}
