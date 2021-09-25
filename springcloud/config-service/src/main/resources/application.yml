@@ -9,4 +9,5 @@ spring:
     config:
       server:
         git:
-          uri: file://C:/Users/Woojin/Desktop/study/config
+#          uri: file://C:/Users/Woojin/Desktop/study/config
+          uri: file:///Users/bobby/Desktop/kim/study/config
