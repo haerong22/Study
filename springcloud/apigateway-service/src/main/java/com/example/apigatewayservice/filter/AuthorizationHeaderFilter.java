@@ -1,7 +1,6 @@
 package com.example.apigatewayservice.filter;
 
 import io.jsonwebtoken.Jwts;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -41,6 +40,9 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
             String jwt = authorizationHeader.replace("Bearer ", "");
 
+            System.out.println("jwt = " + jwt);
+            System.out.println(env.getProperty("token.secret"));
+
             if (!isJwtValid(jwt)) {
                 return onError(exchange, "JWT token is not vaild", HttpStatus.UNAUTHORIZED);
             }
@@ -65,7 +67,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         if (subject == null || subject.isEmpty()) {
             returnValue = false;
         }
-
+        System.out.println(subject);
+        System.out.println(returnValue);
         return returnValue;
     }
 
