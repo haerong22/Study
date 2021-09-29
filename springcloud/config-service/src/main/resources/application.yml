@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: config-server
-#  profile:
-#    active: native
+  profiles:
+    active: native
   cloud:
     config:
       server:
-#        native:
-#          search-locations: file:///${user.homr}/Desktop/study/native
+        native:
+          search-locations: file:///${user.home}/Desktop/study/native
 #          search-locations: file://${user.home}/Desktop/kim/study/native
         git:
           uri: file://C:/Users/Woojin/Desktop/study/config
