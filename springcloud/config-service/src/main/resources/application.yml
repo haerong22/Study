@@ -4,10 +4,17 @@ server:
 spring:
   application:
     name: config-server
-
+#  profile:
+#    active: native
   cloud:
     config:
       server:
+#        native:
+#          search-locations: file:///${user.homr}/Desktop/study/native
+#          search-locations: file://${user.home}/Desktop/kim/study/native
         git:
-#          uri: file://C:/Users/Woojin/Desktop/study/config
-          uri: file:///Users/bobby/Desktop/kim/study/config
+          uri: file://C:/Users/Woojin/Desktop/study/config
+#          uri: file:///Users/bobby/Desktop/kim/study/config
+#          uri: [github_uri]
+#          username: [your username]
+#          password: [your password]
