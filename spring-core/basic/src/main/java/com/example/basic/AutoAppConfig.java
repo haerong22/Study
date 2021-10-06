@@ -13,9 +13,10 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
 )
 public class AutoAppConfig {
-
+/*
     @Bean(name = "memoryMemberRepository") // 수동 빈, 자동 빈 이름 같을 경우 수동 빈이 우선순위를 가진다.( 최근 스프링 부트는 에러 )
     MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
+*/
 }
