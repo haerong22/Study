@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <meta charset="UTF-8">
+    <title>i18n</title>
+</head>
+<body>
+    <h1 th:text="'i18n Test'"></h1>
+
+    <h4 th:text="#{language}"></h4>
+    <h4 th:text="#{welcome}"></h4>
+</body>
+</html>
