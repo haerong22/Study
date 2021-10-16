@@ -56,12 +56,30 @@ function handleRoomSubmit(event) {
 
 form.addEventListener("submit", handleRoomSubmit);
 
-socket.on("welcome", (user) => {
+socket.on("welcome", (user, count) => {
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room : ${roomName} (${count})`;
     addMessage(`${user} joined!`);
 })
 
-socket.on("bye", (left) => {
+socket.on("bye", (left, count) => {
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room : ${roomName} (${count})`;
     addMessage(`${left} left...`);
 })
 
 socket.on("message", addMessage);
+
+socket.on("room_change", (rooms) => {
+    const roomList = welcome.querySelector("ul");
+    roomList.innerHTML = "";
+
+    if (rooms.length === 0) {
+        return;
+    }
+    rooms.forEach(room => {
+        const li = document.createElement("li");
+        li.innerText = room;
+        roomList.appendChild(li);
+    });
+});
