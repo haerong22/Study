@@ -19,7 +19,10 @@ html(lang="en")
 			div#room
 				h3  
 				ul
-				form
+				form#name
+					input(placeholder="nickname", required, type="text")
+					button Save
+				form#msg
 					input(placeholder="message", required, type="text")
 					button Send
 
