@@ -1,4 +1,4 @@
-package hello.proxy.trace;
+package com.example.proxy.trace;
 
 public class TraceStatus {
 
