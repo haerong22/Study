@@ -1,4 +1,4 @@
-package FactoryMethod.after;
+package factory_method.after;
 
 public class WhiteShipFactory extends DefaultShipFactory {
 

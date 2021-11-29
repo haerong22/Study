@@ -1,4 +1,4 @@
-package FactoryMethod.before;
+package factory_method.before;
 
 public class Client {
 

@@ -1,4 +1,4 @@
-package FactoryMethod.after;
+package factory_method.before;
 
 public class Ship {
 
