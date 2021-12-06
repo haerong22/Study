@@ -1,0 +1,13 @@
+#server:
+#  servlet:
+#    session:
+#      cookie:
+#        name: TESTSESSIONID
+#        path: /
+#        domain: aladdin25.com
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    password: 1234
