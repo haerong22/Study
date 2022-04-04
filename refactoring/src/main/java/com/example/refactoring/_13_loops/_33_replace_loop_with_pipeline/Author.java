@@ -1,6 +1,5 @@
 package com.example.refactoring._13_loops._33_replace_loop_with_pipeline;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
