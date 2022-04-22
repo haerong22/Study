@@ -53,7 +53,7 @@ function App() {
 
       dispatch({ type: "INIT", data: diaryList });
     }
-  });
+  }, []);
 
   // CREATE
   const onCreate = (date, content, emotion) => {
