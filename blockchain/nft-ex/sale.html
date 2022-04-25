@@ -13,10 +13,14 @@
 
     <link rel="stylesheet" href="./css/style.css">
 
-
     <!-- jquery  -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
     <script src="./js/jscript.js"></script>
+
+
+    <!-- ipfs -->
+    <script src="./js/buffer.js"></script>
+    <script src="https://unpkg.com/ipfs-api/dist/index.js" crossorigin="anonymous"></script>
 
     <!-- blockchain-->
     <script type="text/javascript" src='./js/abi.js'></script>
@@ -25,7 +29,7 @@
     <script>
 
         $(window).load(async function () {
-
+        
             if (typeof web3 !== "undefined") {
                 console.log("web3가 활성화되었습니다");
 
@@ -59,7 +63,7 @@
                 }
             } else {
                 $("#resultbrowsers").text("web3를 찾을 수 없습니다.");
-            }
+            }   
 
             //승인 상태조회
             const ApprovalState = await mintingEvent.methods.isApprovedForAll(accounts[0], contractAddress).call();
@@ -69,19 +73,32 @@
                 $("#btn_setApprovalForAll").text("거래상태 : 거래중지");
             }
 
+            //상태변경하기
+            $('#btn_setApprovalForAll').click(async function () {
+                var receiptObj = await mintingEvent.methods.setApprovalForAll(contractAddress, true).send({ from: accounts[0] });
+                console.log(receiptObj);
+                location.reload();
+            });
 
-            const tempnftListArray = await mintingEvent.methods.getNftTokens(accounts[0]).call();
 
-            console.log(tempnftListArray);
+
+            const tempnftListArray = await mintingEvent.methods.getSaleNftTokens().call();
+            // console.log(tempnftListArray)
+
+            let i = 0;
 
             for (i = 0; i < tempnftListArray.length; i++) {
 
                 _nftTokenId = tempnftListArray[i].nftTokenId;
                 _nftTokenURI = tempnftListArray[i].nftTokenURI;
                 _price = tempnftListArray[i].price;
+
                 _ipfsinfo = ipfsInfo(_nftTokenURI);
                 name = _ipfsinfo.name;
                 image = _ipfsinfo.image;
+
+                //console.log(v);
+
 
                 var html = '';
 
@@ -89,18 +106,14 @@
                 html += '<td>' + (i + 1) + '</td>';
                 html += '<td>' + _nftTokenId + '</td>';
 
+                html += '<td>' + _price + '</td>';
+
                 html += '<td>' + name + '</td>';
                 html += '<td><img src=' + image + ' width=100px/></td>';
 
-                html += '<td>' + _price + '</td>';
                 html += '<td>';
                 html += '<a href="./mynft_detail.html?tokenId=' + _nftTokenId + '" class="btn btn-secondary btn-flat">상세보기</a> ';
-
-                if (_price == 0) {
-                    html += '<button type="button" class="btn btn-primary btn_onSale" data-bs-toggle="modal" data-bs-target="#saleModal" data-val="' + _nftTokenId + '">판매하기</button> ';
-                }
-
-
+                html += '<button type="button" class="btn btn-success btn_buy" data-bs-toggle="modal" data-bs-target="#saleModal" data-val="' + _nftTokenId + '" data-price-val="' + _price + '"  ">구매하기</button> ';
                 html += '<button type="button" class="btn btn-danger btn_burn"" data-val="' + _nftTokenId + '">삭제하기</button> ';
 
                 html += '</td> ';
@@ -108,6 +121,8 @@
 
                 $("#dynamicTbody").append(html);
             }
+
+
 
             if (i == 0) {
 
@@ -120,6 +135,7 @@
                 $("#dynamicTbody").append(html);
 
             }
+
 
             function ipfsInfo(_nftTokenURI) {
                 $.ajax({
@@ -146,126 +162,106 @@
                     name: name,
                     image: image
                 };
+
             }
 
-            $('.btn_onSale').click(function () {
+            $('.btn_buy').click(function () {
                 var tokenId = $(this).attr("data-val");
-                $('.modal-title').html("판매등록하기");
+                var price = $(this).attr("data-price-val");
+                $("#price").val(price)
+
+                $('.modal-title').html("구매하기");
                 $('#saleModal').modal('show');
 
-                //판매하기
-                $('.btn_onSaleSubmit').click(async function () {
-                    var price = $("#price").val();
-                    //console.log(tokenId, price, ApprovalState);
 
-
+                //구매하기
+                $('.btn_buySubmit').click(async function () {
                     var ownerAddress = await mintingEvent.methods.ownerOf(tokenId).call();
                     console.log(ownerAddress.toLowerCase(), accounts[0]);
 
-                    if (ownerAddress.toLowerCase() != accounts[0]) {
-                        alert("제품 소유자만 판매등록할 수 있습니다.");
+                    if (ownerAddress.toLowerCase() == accounts[0]) {
+                        alert("제품 소유자는 구매할 수 없습니다.");
                         return false;
                     }
-
 
                     if (!ApprovalState) {
                         alert("판매승인 상태를 변경하세요");
                         return false;
                     }
 
-
-
-
-                    var receiptObj = await mintingEvent.methods.setSaleNftToken(tokenId, price).send({ from: accounts[0], gas: 3000000 });
+                    var receiptObj = await mintingEvent.methods.buyNftToken(tokenId).send({ from: accounts[0], value: price });
                     console.log(receiptObj);
-
                     location.reload();
+
                 });
 
-
-
             });
 
-            // 삭제하기
-            $('.btn_burn').click(async function () {
-                if (confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')) {
-                    var tokenId = $(this).attr("data-val");
-                    var receiptObj = await mintingEvent.methods.burn(tokenId).send({ from: accounts[0] });
-                    console.log(receiptObj);
-
-                    $('#tr_' + tokenId + '').remove();
-
-                    return false;
-                }
-            });
         });
 
     </script>
-</head>
 
+</head>
 <title>NFT</title>
 </head>
 
+
+
+
 <body>
+    <input type="hidden" id="hash_img_url" name="hash_img_url" />
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
+        <div class="container">
+            <a class="navbar-brand" href="#">NFT</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
+                aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample07">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">민팅하기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mynft.html">My-NFT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="sale.html">판매</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wallet.html">지갑세팅</a>
+                    </li>
 
 
 
-    <header>
-        <!-- Fixed navbar -->
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
-            <div class="container">
-                <a class="navbar-brand" href="#">NFT</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarsExample07">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.html">민팅하기</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="mynft.html">My-NFT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="sale.html">판매</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="wallet.html">지갑세팅</a>
-                        </li>
-
-
-                    </ul>
+                </ul>
 
 
 
 
-
-
-                    <div class="d-flex">
-                        <button type="button" class="btn btn-warning col-md-6" id="btn_setApprovalForAll">거래상태</button>
-                        &nbsp;&nbsp;
-                        <span class="col-md-7">
-                            <select class="form-select" aria-label="블록체인 네트워크" id="selectNetwork">
-                                <option value="">네트워크를 선택하세요</option>
-                                <option value="MATIC_MUMBAI">폴리곤-뭄바이</option>
-                                <option value="ETH_RINKEBY">이더리움-Rinkeby</option>
-                            </select>
-                        </span>
-                    </div>
-
-
+                <div class="d-flex">
+                    <button type="button" class="btn btn-warning col-md-6" id="btn_setApprovalForAll">거래상태</button>
+                    &nbsp;&nbsp;
+                    <span class="col-md-7">
+                        <select class="form-select" aria-label="블록체인 네트워크" id="selectNetwork">
+                            <option value="">네트워크를 선택하세요</option>
+                            <option value="MATIC_MUMBAI">폴리곤-뭄바이</option>
+                            <option value="ETH_RINKEBY">이더리움-Rinkeby</option>
+                        </select>
+                    </span>
                 </div>
+
+
+
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <div class="container">
 
-        <h1 class="bd-title text-center">My NFT</h1>
+        <h1 class="bd-title text-center">판매하기</h1>
 
         <div class="input-group mb-3">
             <div class="col-12  py-3">
@@ -286,9 +282,9 @@
                     <tr>
                         <th>순서</th>
                         <th>TokenId</th>
+                        <th>금액</th>
                         <th>창작자</th>
                         <th>이미지</th>
-                        <th>금액</th>
                         <th>비고</th>
                     </tr>
                 </thead>
@@ -297,34 +293,30 @@
             </table>
 
         </div>
+
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="saleModal" tabindex="-1" aria-labelledby="saleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="saleModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="saleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="buyModalLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="number" class="form-control" id="price" placeholder="판매금액을 입력하세요" value="0"
-                        onkeydown="return onlyNumber();" />
+                    <input type="number" class="form-control" id="price" onkeydown="return onlyNumber();" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn_onSaleSubmit">판매등록하기</button>
+                    <button type="button" class="btn btn-primary btn_buySubmit">구매하기</button>
                 </div>
             </div>
         </div>
     </div>
 
+
     <script src="./js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
-
-
-<!-- 
-inpage.js:1 MetaMask - RPC Error: Internal JSON-RPC error. {code: -32603, message: 'Internal JSON-RPC error.', data: {…}}
--->
