@@ -61,6 +61,15 @@
                 $("#resultbrowsers").text("web3를 찾을 수 없습니다.");
             }
 
+            //승인 상태조회
+            const ApprovalState = await mintingEvent.methods.isApprovedForAll(accounts[0], contractAddress).call();
+            if (ApprovalState) {
+                $("#btn_setApprovalForAll").text("거래상태 : 거래가능");
+            } else {
+                $("#btn_setApprovalForAll").text("거래상태 : 거래중지");
+            }
+
+
             const tempnftListArray = await mintingEvent.methods.getNftTokens(accounts[0]).call();
 
             console.log(tempnftListArray);
@@ -100,6 +109,18 @@
                 $("#dynamicTbody").append(html);
             }
 
+            if (i == 0) {
+
+                var html = '';
+
+                html += '<tr>';
+                html += '<td colspan="6" style="text-align:center;">자료없음</td> ';
+                html += '</tr>';
+
+                $("#dynamicTbody").append(html);
+
+            }
+
             function ipfsInfo(_nftTokenURI) {
                 $.ajax({
                     url: _nftTokenURI,
@@ -127,6 +148,56 @@
                 };
             }
 
+            $('.btn_onSale').click(function () {
+                var tokenId = $(this).attr("data-val");
+                $('.modal-title').html("판매등록하기");
+                $('#saleModal').modal('show');
+
+                //판매하기
+                $('.btn_onSaleSubmit').click(async function () {
+                    var price = $("#price").val();
+                    //console.log(tokenId, price, ApprovalState);
+
+
+                    var ownerAddress = await mintingEvent.methods.ownerOf(tokenId).call();
+                    console.log(ownerAddress.toLowerCase(), accounts[0]);
+
+                    if (ownerAddress.toLowerCase() != accounts[0]) {
+                        alert("제품 소유자만 판매등록할 수 있습니다.");
+                        return false;
+                    }
+
+
+                    if (!ApprovalState) {
+                        alert("판매승인 상태를 변경하세요");
+                        return false;
+                    }
+
+
+
+
+                    var receiptObj = await mintingEvent.methods.setSaleNftToken(tokenId, price).send({ from: accounts[0], gas: 3000000 });
+                    console.log(receiptObj);
+
+                    location.reload();
+                });
+
+
+
+            });
+
+            // 삭제하기
+            $('.btn_burn').click(async function () {
+                if (confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')) {
+                    var tokenId = $(this).attr("data-val");
+                    var receiptObj = await mintingEvent.methods.burn(tokenId).send({ from: accounts[0] });
+                    console.log(receiptObj);
+
+                    $('#tr_' + tokenId + '').remove();
+
+                    return false;
+                }
+            });
         });
 
     </script>
@@ -228,7 +299,7 @@
         </div>
     </div>
 
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    {{/* <script src="./js/bootstrap.bundle.min.js"></script> */}}
 </body>
 
 </html>
