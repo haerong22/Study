@@ -610,4 +610,5 @@ const abiobj = [
 	}
 ];
 
-let contractAddress = "0x0155B13063957e66dE19ea2B00f8Fc6E299b8A9C";
+let contractAddress_MATIC_MUMBAI = "0x0155B13063957e66dE19ea2B00f8Fc6E299b8A9C";
+let contractAddress_ETH_RINKEBY = "0x0155B13063957e66dE19ea2B00f8Fc6E299b8A9C";

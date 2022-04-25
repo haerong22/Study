@@ -26,6 +26,20 @@
 
         $(window).load(async function () {
 
+            var contractAddress;
+            //블록체인 네트워크 선택하기
+            var blockChainNetwork = localStorage.getItem("blockChainNetwork")
+            $("#selectNetwork").val(blockChainNetwork).prop("selected", true);
+
+
+            if (blockChainNetwork == "MATIC_MUMBAI") {
+                contractAddress = contractAddress_MATIC_MUMBAI;
+            }
+
+            else if (blockChainNetwork == "ETH_RINKEBY") {
+                contractAddress = contractAddress_ETH_RINKEBY;
+            }
+
             if (typeof web3 !== "undefined") {
                 console.log("web3가 활성화되었습니다");
 
