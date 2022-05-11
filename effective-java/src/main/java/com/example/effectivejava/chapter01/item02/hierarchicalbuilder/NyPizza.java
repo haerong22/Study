@@ -1,5 +1,7 @@
 package com.example.effectivejava.chapter01.item02.hierarchicalbuilder;
 
+import java.util.Objects;
+
 // 코드 2-5 뉴욕 피자 - 계층적 빌더를 활용한 하위 클래스 (20쪽)
 public class NyPizza extends Pizza {
     public enum Size { SMALL, MEDIUM, LARGE }
