@@ -1,13 +1,12 @@
 package com.example.effectivejava.chapter01.item05.dependencyinjection;
 
-import com.example.effectivejava.chapter01.item05.DefaultDictionary;
 import org.junit.jupiter.api.Test;
 
-class SpellCheckerTest {
+class  SpellCheckerTest {
 
     @Test
     void isValid() {
-        SpellChecker spellChecker = new SpellChecker(new DefaultDictionary());
+        SpellChecker spellChecker = new SpellChecker(DictionaryFactory::get);
         spellChecker.isValid("test");
     }
 

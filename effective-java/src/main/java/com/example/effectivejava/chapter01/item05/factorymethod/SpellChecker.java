@@ -1,20 +1,15 @@
-package com.example.effectivejava.chapter01.item05.dependencyinjection;
+package com.example.effectivejava.chapter01.item05.factorymethod;
 
 import com.example.effectivejava.chapter01.item05.Dictionary;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class SpellChecker {
 
-    private final Dictionary dictionary;
+    private Dictionary dictionary;
 
-    public SpellChecker(Dictionary dictionary) {
-        this.dictionary = dictionary;
-    }
-
-    public SpellChecker(Supplier<Dictionary> dictionarySupplier) {
-        this.dictionary = dictionarySupplier.get();
+    public SpellChecker(DictionaryFactory dictionaryFactory) {
+        this.dictionary = dictionaryFactory.getDictionary();
     }
 
     public boolean isValid(String word) {

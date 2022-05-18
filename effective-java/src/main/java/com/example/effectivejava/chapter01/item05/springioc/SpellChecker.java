@@ -1,20 +1,17 @@
-package com.example.effectivejava.chapter01.item05.dependencyinjection;
+package com.example.effectivejava.chapter01.item05.springioc;
 
 import com.example.effectivejava.chapter01.item05.Dictionary;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.function.Supplier;
 
+@Component
 public class SpellChecker {
 
-    private final Dictionary dictionary;
+    private Dictionary dictionary;
 
     public SpellChecker(Dictionary dictionary) {
         this.dictionary = dictionary;
-    }
-
-    public SpellChecker(Supplier<Dictionary> dictionarySupplier) {
-        this.dictionary = dictionarySupplier.get();
     }
 
     public boolean isValid(String word) {
