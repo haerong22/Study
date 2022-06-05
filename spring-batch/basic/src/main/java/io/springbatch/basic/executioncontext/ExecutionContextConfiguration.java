@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
     각 Step 의 StepExecution 에 저장되고 Step 간 공유 안됨
     각 Job 의 JobExecution 에 저장되고 Job 간 공유 안됨, 해당 Job 의 Step 간 서로 공유
  */
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class ExecutionContextConfiguration {
 
