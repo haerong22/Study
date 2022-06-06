@@ -1,4 +1,4 @@
-package io.springbatch.basic.job;
+package io.springbatch.basic.domain.job.jobinstance;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -9,16 +9,16 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
-public class JobConfiguration {
+public class JobInstanceConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job batchJob1() {
-        return jobBuilderFactory.get("batchJob1")
+    public Job job() {
+        return jobBuilderFactory.get("job")
                 .start(step1())
                 .next(step2())
                 .build();

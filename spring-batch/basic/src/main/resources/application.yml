@@ -33,5 +33,7 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+#      table-prefix: TEST_ # 테이블 prefix
     job:
-      enabled: false
+      enabled: true # 실행 시점에 job 자동 실행 여부
+      names: ${job.name:NONE} # 설정한 job 만 실행 (실행시점에 바인딩 하여 실행 --job.name=batchJob1)

@@ -1,4 +1,4 @@
-package io.springbatch.basic.job;
+package io.springbatch.basic.domain.job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -9,7 +9,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class JobConfiguration {
 
@@ -17,11 +17,12 @@ public class JobConfiguration {
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job batchJob1() {
-        return jobBuilderFactory.get("batchJob1")
-                .start(step1())
+    public Job job() {
+        return jobBuilderFactory.get("job")
+                .start(step1())// SimpleJobBuilder 클래스에 step 저장
                 .next(step2())
-                .build();
+                .build(); // SimpleJob 생성
+                          // (스프링부트에서는 JobLauncher 가 생성된 Job 을 자동으로 실행 시킨다)
     }
 
     @Bean
