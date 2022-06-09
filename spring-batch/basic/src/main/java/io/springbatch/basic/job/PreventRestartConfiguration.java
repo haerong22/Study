@@ -12,20 +12,19 @@ import org.springframework.context.annotation.Configuration;
 
 //@Configuration
 @RequiredArgsConstructor
-public class ValidatorConfiguration {
+public class PreventRestartConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     /*
-        validator()
+        preventRestart()
 
-        - Job 실행에 꼭 필요한 파라미터를 검증하는 용도
-        - DefaultJobParametersValidator 구현체 지원, 인터페이스를 직접 구현 가능
+        Job 의 재시작 여부 설정 기본값은 true
+        -> true 일 경우 Job 이 실패하면 재시작이 가능
+        -> false 일 경우 Job 이 실패해도 재시작 불가능 (JobRestartException 발생)
 
-        DefaultJobParametersValidator 흐름
-        SimpleJob -> JobParametersValidator -> JobParameters 검증 실패 -> JobParametersInvalidException
-                                            -> JobParameters 검증 성공
+        Job 의 실행이 처음이 아닌 경우는 Job 의 성공여부와 관계없이 preventRestart 설정 값으로 실행여부 판단
      */
     @Bean
     public Job batchJob1() {
@@ -33,8 +32,7 @@ public class ValidatorConfiguration {
                 .start(step1())
                 .next(step2())
                 .next(step3())
-//                .validator(new CustomJobParametersValidator())
-                .validator(new DefaultJobParametersValidator(new String[]{"name", "date"}, new String[]{"count"}))
+                .preventRestart() // 설정 할 경우 restartable 속성이 true -> false 로 변경
                 .build();
     }
 
@@ -62,6 +60,7 @@ public class ValidatorConfiguration {
     public Step step3() {
         return stepBuilderFactory.get("step3")
                 .tasklet((contribution, chunkContext) -> {
+//                    throw new RuntimeException("step3 was failed");
                     System.out.println("step3 was executed");
                     return RepeatStatus.FINISHED;
                 })

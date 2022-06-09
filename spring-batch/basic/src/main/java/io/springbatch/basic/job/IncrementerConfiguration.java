@@ -5,27 +5,23 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 //@Configuration
 @RequiredArgsConstructor
-public class ValidatorConfiguration {
+public class IncrementerConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     /*
-        validator()
+        incrementer()
 
-        - Job 실행에 꼭 필요한 파라미터를 검증하는 용도
-        - DefaultJobParametersValidator 구현체 지원, 인터페이스를 직접 구현 가능
-
-        DefaultJobParametersValidator 흐름
-        SimpleJob -> JobParametersValidator -> JobParameters 검증 실패 -> JobParametersInvalidException
-                                            -> JobParameters 검증 성공
+        JobParameters 에서 필요한 값을 증가시켜 다음에 사용될 JobParameters 객체 리턴
+        기존의 JobParameter 변경 없이 Job 을 여러번 시작이 필요할 경우
+        RunIdIncrementer 구현체 지원, 직접 구현 가능
      */
     @Bean
     public Job batchJob1() {
@@ -33,8 +29,7 @@ public class ValidatorConfiguration {
                 .start(step1())
                 .next(step2())
                 .next(step3())
-//                .validator(new CustomJobParametersValidator())
-                .validator(new DefaultJobParametersValidator(new String[]{"name", "date"}, new String[]{"count"}))
+                .incrementer(new CustomJobParametersIncrementer())
                 .build();
     }
 
