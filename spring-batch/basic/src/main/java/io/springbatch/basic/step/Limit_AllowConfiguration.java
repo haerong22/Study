@@ -1,6 +1,5 @@
 package io.springbatch.basic.step;
 
-import io.springbatch.basic.job.CustomJobParametersIncrementer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -14,9 +13,9 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//@Configuration
+@Configuration
 @RequiredArgsConstructor
-public class TaskletConfiguration {
+public class Limit_AllowConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
@@ -32,17 +31,19 @@ public class TaskletConfiguration {
     }
 
     /*
-        tasklet()
+        startLimit()
 
-        - Step 내에서 구성되고 실행되는 도메인 객체로써 주로 단일 태스크를 수행
-        - Tasklet 에 의해 반복적으로 수행되며 반환값에 따라 계속 수행 혹은 종료
-        - RepeatStatus
-            - RepeatStatus.FINISHED : Tasklet 종료 RepeatStatus 를 null 로 반환해도 같다.
-            - RepeatStatus.CONTINUABLE : Tasklet 반복
-            - RepeatStatus.FINISHED 가 리턴되거나 실패 예외가 발생하기 전까지 반복적으로 호출
-        - 익명클래스, 구현클래스를 만들어서 사용
-        - 이 메소드를 실행하면 TaskletStepBuilder 가 반환되어 관련 API 설정 가능
-        - Step 에 하나의 Tasklet 설정이 가능하며 두개 이상 설정 했을 경우 마지막에 설정한 객체가 실행
+        - Step 의 실행 횟수를 조정
+        - Step 마다 설정 가능
+        - 설정 값을 초과해서 다시 실행하려고 하면 StartLimitExceededException 발생
+        - 디폴트는 Integer.MAX_VALUE
+
+        allowStartIfComplete()
+
+        - 재시작 가능한 job 에서 step 의 이전 성공 여부와 상관없이 항상 step 을 실행하기 위한 설정
+        - 실행 마다 유효성을 검증하는 Step 이나 사전 작업이 꼭 필요한 Step 등에 사용
+        - 기본적으로 COMPLETED 상태를 가진 Step 은 Job 재시작시 실행하지 않고 스킵
+        - true 로 설정 된 step 은 항상 실행
 
     */
     @Bean
@@ -55,6 +56,7 @@ public class TaskletConfiguration {
                         return RepeatStatus.FINISHED;
                     }
                 })
+                .allowStartIfComplete(true)
                 .build();
     }
 
@@ -63,8 +65,11 @@ public class TaskletConfiguration {
         return stepBuilderFactory.get("step2")
                 .tasklet((contribution, chunkContext) -> { // 람다
                     System.out.println("step2 was executed");
-                    return RepeatStatus.FINISHED;
+
+                    throw new RuntimeException("step2 was failed");
+//                    return RepeatStatus.FINISHED;
                 })
+                .startLimit(3)
                 .build();
     }
 
