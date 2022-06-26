@@ -12,13 +12,47 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//@Configuration
+@Configuration
 @RequiredArgsConstructor
-public class FlowJobConfiguration2 {
+public class SimpleFlowConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
+    /*
+        <SimpleFlow>
+
+        - 스프링 배치에서 제공하는 Flow 의 구현체로 각 요소(Step, Flow, JobExecutionDecider)들을 담고있는 State  를
+          실행시키는 도메인 객체
+        - FlowBuilder 를 사용해서 생성하며 Transition 과 조합하여 여러개의 Flow 및 중첩 Flow 를 만들어 Job 구성 가능
+
+        <구조>
+
+        Flow
+        - getName()
+            : Flow 이름 조회
+        - State getState(String stateName)
+            : State 명으로 State 타입 반환
+        - FlowExecution start(FlowExecutor executor)
+            : Flow 를 실행시키는 start 메소드. 인자로 FlowExecutor 를 넘겨주어 실행을 위임, 실행 후 FlowExecution 반환
+        - FlowExecution resume(String stateName, FlowExecutor executor)
+            : 다음에 실행할 State 를 구해서 FlowExecutor 에게 실행을 위임
+        - Collection<State> getStates()
+            : Flow 가 가지고 있는 모든 State 를 Collection 타입으로 반환
+
+        SimpleFlow
+        - String name
+            : Flow 이름
+        - State startState
+            : State 들 중에서 처음 실행할 State
+        - Map<String, Set<StateTransition>> transitionMap
+            : State 명으로 매핑되어 있는 Set<StateTransition>
+        - Map<String, State> stateMap
+            : State 명으로 매핑되어 있는 State 객체
+        - List<StateTransition> stateTransitions
+            : State 와 Transition 정보를 가지고 있는 StateTransition 리스트
+        - Comparator<StateTransition> stateTransitionComparator
+     */
     @Bean
     public Job batchJob() {
         return jobBuilderFactory.get("batchJob")
