@@ -47,7 +47,7 @@ class MemberServiceTest {
     @Test
     void outerTxOff_fail() {
         //given
-        String username = "로그예외_outerTxOff_success";
+        String username = "로그예외_outerTxOff_fail";
 
         //when
         assertThrows(RuntimeException.class, () -> memberService.joinV1(username));
@@ -73,5 +73,41 @@ class MemberServiceTest {
         //then
         assertTrue(memberRepository.find(username).isPresent());
         assertTrue(logRepository.find(username).isPresent());
+    }
+
+    /**
+     * memberService    @Transactional:ON
+     * memberRepository @Transactional:ON
+     * logRepository    @Transactional:ON
+     */
+    @Test
+    void outerTxOn_success() {
+        //given
+        String username = "outerTxOn_success";
+
+        //when
+        memberService.joinV1(username);
+
+        //then
+        assertTrue(memberRepository.find(username).isPresent());
+        assertTrue(logRepository.find(username).isPresent());
+    }
+
+    /**
+     * memberService    @Transactional:ON
+     * memberRepository @Transactional:ON
+     * logRepository    @Transactional:ON Exception
+     */
+    @Test
+    void outerTxON_fail() {
+        //given
+        String username = "로그예외_outerTxON_fail";
+
+        //when
+        assertThrows(RuntimeException.class, () -> memberService.joinV1(username));
+
+        //then
+        assertTrue(memberRepository.find(username).isEmpty());
+        assertTrue(logRepository.find(username).isEmpty());
     }
 }
