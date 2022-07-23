@@ -11,8 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 class PostControllerTest {
@@ -24,7 +23,7 @@ class PostControllerTest {
 
     @Test
     @DisplayName("/posts 요청시 Hello World를 출력한다.")
-    void test() throws Exception {
+    void posts() throws Exception {
         PostCreate request = new PostCreate("글 제목입니다.", "글 내용입니다.");
         String jsonString = objectMapper.writeValueAsString(request);
 
@@ -34,8 +33,26 @@ class PostControllerTest {
                         .content(jsonString)
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World"))
+                .andExpect(content().string("{}"))
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("/posts 요청시 title값은 필수다.")
+    void posts_validation() throws Exception {
+        PostCreate request = new PostCreate("", "글 내용입니다.");
+        String jsonString = objectMapper.writeValueAsString(request);
+
+        // expected
+        mockMvc.perform(post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
+                .andExpect(jsonPath("$.validation.title").value("제목을 입력해주세요."))
+                .andDo(print())
+        ;
+    }
 }
