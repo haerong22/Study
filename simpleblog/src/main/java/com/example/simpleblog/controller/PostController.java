@@ -1,6 +1,5 @@
 package com.example.simpleblog.controller;
 
-import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.request.PostCreate;
 import com.example.simpleblog.response.PostResponse;
 import com.example.simpleblog.service.PostService;
@@ -9,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -25,5 +25,10 @@ public class PostController {
     @GetMapping("/posts/{postId}")
     public PostResponse getPost(@PathVariable(name = "postId") Long id) {
         return postService.getPost(id);
+    }
+
+    @GetMapping("/posts")
+    public List<PostResponse> getPostList() {
+        return postService.getPostList();
     }
 }

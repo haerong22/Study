@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -130,6 +131,39 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.id").value(post.getId()))
                 .andExpect(jsonPath("$.title").value("1234567890"))
                 .andExpect(jsonPath("$.content").value("글 내용입니다."))
+                .andDo(print())
+        ;
+
+    }
+
+    @Test
+    @DisplayName("글 리스트 조회")
+    void get_post_list_success() throws Exception {
+        // given
+        Post post1 = postRepository.save(Post.builder()
+                .title("제목1")
+                .content("내용1")
+                .build());
+
+        Post post2 = postRepository.save(Post.builder()
+                .title("제목2")
+                .content("내용2")
+                .build());
+
+        // json 응답에서 title 값 길이를 최대 10글자
+
+        // expected
+        mockMvc.perform(get("/posts")
+                        .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", is(2)))
+                .andExpect(jsonPath("$[0].id").value(post1.getId()))
+                .andExpect(jsonPath("$[0].title").value("제목1"))
+                .andExpect(jsonPath("$[0].content").value("내용1"))
+                .andExpect(jsonPath("$[1].id").value(post2.getId()))
+                .andExpect(jsonPath("$[1].title").value("제목2"))
+                .andExpect(jsonPath("$[1].content").value("내용2"))
                 .andDo(print())
         ;
 

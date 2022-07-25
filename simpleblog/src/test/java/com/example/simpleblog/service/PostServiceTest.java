@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -50,21 +52,41 @@ class PostServiceTest {
     @DisplayName("postId 로 글 조회")
     void get_post_by_id_test() {
         // given
-        Post post = Post.builder()
+        Post post = postRepository.save(Post.builder()
                 .title("글 제목입니다.")
                 .content("글 내용입니다.")
-                .build();
-
-        postRepository.save(post);
-
-        Long postId = 1L;
+                .build());
 
         // when
-        PostResponse response = postService.getPost(postId);
+        PostResponse response = postService.getPost(post.getId());
 
         // then
         assertNotNull(post);
         assertEquals("글 제목입니다.", response.getTitle());
         assertEquals("글 내용입니다.", response.getContent());
+    }
+
+    @Test
+    @DisplayName("글 리스트 조회")
+    void get_posts_list_test() {
+        // given
+        postRepository.saveAll(List.of(
+                Post.builder()
+                        .title("글 1제목입니다.")
+                        .content("글 1내용입니다.")
+                        .build(),
+                Post.builder()
+                        .title("글 2제목입니다.")
+                        .content("글 2내용입니다.")
+                        .build()
+        ));
+
+        Long postId = 1L;
+
+        // when
+        List<PostResponse> posts = postService.getPostList();
+
+        // then
+        assertEquals(2L, posts.size());
     }
 }
