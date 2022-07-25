@@ -3,6 +3,7 @@ package com.example.simpleblog.service;
 import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.repository.PostRepository;
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,11 +60,11 @@ class PostServiceTest {
         Long postId = 1L;
 
         // when
-        Post postEntity = postService.getPost(postId);
+        PostResponse response = postService.getPost(postId);
 
         // then
         assertNotNull(post);
-        assertEquals("글 제목입니다.", postEntity.getTitle());
-        assertEquals("글 내용입니다.", postEntity.getContent());
+        assertEquals("글 제목입니다.", response.getTitle());
+        assertEquals("글 내용입니다.", response.getContent());
     }
 }

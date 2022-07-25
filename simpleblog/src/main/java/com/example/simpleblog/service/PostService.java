@@ -3,6 +3,7 @@ package com.example.simpleblog.service;
 import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.repository.PostRepository;
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,14 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Post getPost(Long id) {
-        return postRepository.findById(id)
+    public PostResponse getPost(Long id) {
+        Post postEntity = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        return PostResponse.builder()
+                .id(postEntity.getId())
+                .title(postEntity.getTitle())
+                .content(postEntity.getContent())
+                .build();
     }
 }

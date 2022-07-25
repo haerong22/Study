@@ -2,6 +2,7 @@ package com.example.simpleblog.controller;
 
 import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.response.PostResponse;
 import com.example.simpleblog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public Post getPost(@PathVariable(name = "postId") Long id) {
+    public PostResponse getPost(@PathVariable(name = "postId") Long id) {
         return postService.getPost(id);
     }
 }
