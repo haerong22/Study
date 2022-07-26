@@ -9,10 +9,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @SpringBootTest
 class PostServiceTest {
@@ -67,26 +72,29 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 리스트 조회")
+    @DisplayName("글 1페이지 조회")
     void get_posts_list_test() {
         // given
-        postRepository.saveAll(List.of(
-                Post.builder()
-                        .title("글 1제목입니다.")
-                        .content("글 1내용입니다.")
-                        .build(),
-                Post.builder()
-                        .title("글 2제목입니다.")
-                        .content("글 2내용입니다.")
-                        .build()
-        ));
+        List<Post> requestPosts = IntStream.range(1, 31)
+                    .mapToObj(i -> Post.builder()
+                                .title("제목 " + i)
+                                .content("내용 " + i)
+                                .build()
+                    )
+                    .collect(Collectors.toList());
 
-        Long postId = 1L;
+        postRepository.saveAll(requestPosts);
 
         // when
-        List<PostResponse> posts = postService.getPostList();
+        List<PostResponse> posts = postService.getPostList(
+                PageRequest.of(0, 5, DESC, "id")
+        );
 
         // then
-        assertEquals(2L, posts.size());
+        assertEquals(5L, posts.size());
+        assertEquals("제목 30", posts.get(0).getTitle());
+        assertEquals("내용 30", posts.get(0).getContent());
+        assertEquals("제목 26", posts.get(4).getTitle());
+        assertEquals("내용 26", posts.get(4).getContent());
     }
 }
