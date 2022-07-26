@@ -1,12 +1,11 @@
 package com.example.simpleblog.controller;
 
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.request.PostSearch;
 import com.example.simpleblog.response.PostResponse;
 import com.example.simpleblog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +29,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponse> getPostList(@PageableDefault Pageable pageable) {
-        return postService.getPostList(pageable);
+    public List<PostResponse> getPostList(PostSearch postSearch) {
+        return postService.getPostList(postSearch);
     }
 }

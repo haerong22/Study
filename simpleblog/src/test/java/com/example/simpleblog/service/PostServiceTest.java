@@ -3,13 +3,13 @@ package com.example.simpleblog.service;
 import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.repository.PostRepository;
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.request.PostSearch;
 import com.example.simpleblog.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,6 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @SpringBootTest
 class PostServiceTest {
@@ -87,11 +86,14 @@ class PostServiceTest {
 
         // when
         List<PostResponse> posts = postService.getPostList(
-                PageRequest.of(0, 5, DESC, "id")
+                PostSearch.builder()
+                        .page(1)
+                        .size(10)
+                        .build()
         );
 
         // then
-        assertEquals(5L, posts.size());
+        assertEquals(10L, posts.size());
         assertEquals("제목 30", posts.get(0).getTitle());
         assertEquals("내용 30", posts.get(0).getContent());
         assertEquals("제목 26", posts.get(4).getTitle());
