@@ -1,6 +1,7 @@
 package com.example.simpleblog.controller;
 
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.request.PostEdit;
 import com.example.simpleblog.request.PostSearch;
 import com.example.simpleblog.response.PostResponse;
 import com.example.simpleblog.service.PostService;
@@ -31,5 +32,11 @@ public class PostController {
     @GetMapping("/posts")
     public List<PostResponse> getPostList(PostSearch postSearch) {
         return postService.getPostList(postSearch);
+    }
+
+    @PatchMapping("/posts/{postId}")
+    public void editPost(@PathVariable Long postId,
+                         @RequestBody @Valid PostEdit postEdit) {
+        postService.edit(postId, postEdit);
     }
 }

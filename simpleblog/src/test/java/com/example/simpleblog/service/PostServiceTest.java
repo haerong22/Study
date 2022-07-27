@@ -3,6 +3,7 @@ package com.example.simpleblog.service;
 import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.repository.PostRepository;
 import com.example.simpleblog.request.PostCreate;
+import com.example.simpleblog.request.PostEdit;
 import com.example.simpleblog.request.PostSearch;
 import com.example.simpleblog.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,5 +99,56 @@ class PostServiceTest {
         assertEquals("내용 30", posts.get(0).getContent());
         assertEquals("제목 26", posts.get(4).getTitle());
         assertEquals("내용 26", posts.get(4).getContent());
+    }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    void update_post_title_test() {
+        // given
+
+        Post post = postRepository.save(Post.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("제목 수정")
+                .build();
+
+
+        // when
+        postService.edit(post.getId(), postEdit);
+
+        // then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+
+        assertEquals("제목 수정", changedPost.getTitle());
+        assertEquals("내용", changedPost.getContent());
+    }
+
+    @Test
+    @DisplayName("글 내용 수정")
+    void update_post_content_test() {
+        // given
+        Post post = postRepository.save(Post.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+
+        PostEdit postEdit = PostEdit.builder()
+                .content("내용 수정")
+                .build();
+
+
+        // when
+        postService.edit(post.getId(), postEdit);
+
+        // then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+
+        assertEquals("제목", changedPost.getTitle());
+        assertEquals("내용 수정", changedPost.getContent());
     }
 }
