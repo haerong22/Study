@@ -39,6 +39,7 @@ class PostControllerTest {
 
     @BeforeEach
     void clean() {
+        System.out.println("시이볼..");
         postRepository.deleteAll();
     }
 
@@ -214,6 +215,25 @@ class PostControllerTest {
         mockMvc.perform(patch("/posts/{postId}", post.getId())
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(postEdit))
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+        ;
+
+    }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    void delete_post_test() throws Exception {
+        // given
+        Post post = postRepository.save(Post.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+
+        // expected
+        mockMvc.perform(delete("/posts/{postId}", post.getId())
+                        .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andDo(print())
