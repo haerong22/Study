@@ -2,6 +2,7 @@ package com.example.simpleblog.service;
 
 import com.example.simpleblog.domain.Post;
 import com.example.simpleblog.domain.PostEditor;
+import com.example.simpleblog.exception.PostNotFound;
 import com.example.simpleblog.repository.PostRepository;
 import com.example.simpleblog.request.PostCreate;
 import com.example.simpleblog.request.PostEdit;
@@ -34,7 +35,7 @@ public class PostService {
 
     public PostResponse getPost(Long id) {
         Post postEntity = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(PostNotFound::new);
 
         return PostResponse.builder()
                 .id(postEntity.getId())
@@ -53,7 +54,7 @@ public class PostService {
     @Transactional
     public void edit(Long id, PostEdit postEdit) {
         Post postEntity = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(PostNotFound::new);
 
         PostEditor.PostEditorBuilder postEditorBuilder = postEntity.toEditor();
 
@@ -67,7 +68,7 @@ public class PostService {
 
     public void delete(Long id) {
         Post postEntity = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(PostNotFound::new);
 
         postRepository.delete(postEntity);
     }

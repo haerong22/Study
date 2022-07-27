@@ -39,7 +39,6 @@ class PostControllerTest {
 
     @BeforeEach
     void clean() {
-        System.out.println("시이볼..");
         postRepository.deleteAll();
     }
 

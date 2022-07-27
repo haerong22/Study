@@ -1,6 +1,7 @@
 package com.example.simpleblog.service;
 
 import com.example.simpleblog.domain.Post;
+import com.example.simpleblog.exception.PostNotFound;
 import com.example.simpleblog.repository.PostRepository;
 import com.example.simpleblog.request.PostCreate;
 import com.example.simpleblog.request.PostEdit;
@@ -16,8 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PostServiceTest {
@@ -66,9 +66,25 @@ class PostServiceTest {
         PostResponse response = postService.getPost(post.getId());
 
         // then
-        assertNotNull(post);
+        assertNotNull(response);
         assertEquals("글 제목입니다.", response.getTitle());
         assertEquals("글 내용입니다.", response.getContent());
+    }
+
+    @Test
+    @DisplayName("postId 로 글 조회 실패")
+    void get_post_by_id_fail_test() {
+        // given
+        Post post = postRepository.save(Post.builder()
+                .title("글 제목입니다.")
+                .content("글 내용입니다.")
+                .build());
+
+        // expected
+        assertThrows(
+                PostNotFound.class,
+                () -> postService.getPost(post.getId() + 1L)
+        );
     }
 
     @Test
@@ -153,6 +169,26 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("글 내용 수정 실패")
+    void update_post_content_fail_test() {
+        // given
+        Post post = postRepository.save(Post.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+
+        PostEdit postEdit = PostEdit.builder()
+                .content("내용 수정")
+                .build();
+
+        // expected
+        assertThrows(
+                PostNotFound.class,
+                () ->  postService.edit(post.getId() + 1L, postEdit)
+        );
+    }
+
+    @Test
     @DisplayName("게시글 삭제")
     void delete_post_test() {
         // given
@@ -166,5 +202,21 @@ class PostServiceTest {
 
         // then
         assertEquals(0, postRepository.count());
+    }
+
+    @Test
+    @DisplayName("게시글 삭제 실패")
+    void delete_post_fail_test() {
+        // given
+        Post post = postRepository.save(Post.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+
+        // expected
+        assertThrows(
+                PostNotFound.class,
+                () -> postService.delete(post.getId() + 1L)
+        );
     }
 }
