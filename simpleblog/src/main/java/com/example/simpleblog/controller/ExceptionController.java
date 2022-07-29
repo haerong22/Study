@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
+
 @Slf4j
 @RestControllerAdvice
 public class ExceptionController {
@@ -18,17 +20,16 @@ public class ExceptionController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse invalidRequestHandler(MethodArgumentNotValidException e) {
 
-//        if (e.hasErrors()) {
-            ErrorResponse response = ErrorResponse.builder()
-                    .code("400")
-                    .message("잘못된 요청입니다.")
-                    .build();
+        ErrorResponse response = ErrorResponse.builder()
+                .code("400")
+                .message("잘못된 요청입니다.")
+                .validation(new HashMap<>())
+                .build();
 
-            e.getFieldErrors().forEach(fieldError -> {
-                response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
-            });
-            return response;
-//        }
+        e.getFieldErrors().forEach(fieldError -> {
+            response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
+        });
+        return response;
     }
 
     @ExceptionHandler(BizException.class)

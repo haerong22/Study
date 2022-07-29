@@ -1,0 +1,13 @@
+= Simple Blog API
+:toc:
+
+== 글 단건조회
+
+=== 요청
+include::{snippets}/index/http-request.adoc[]
+
+=== 응답
+include::{snippets}/index/http-response.adoc[]
+
+=== curl
+include::{snippets}/index/curl-request.adoc[]
