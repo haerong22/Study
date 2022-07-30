@@ -7,8 +7,10 @@ const content = ref("");
 
 
 const write = () => {
-  console.log("hi")
-  axios.get("http://localhost:8080");
+  axios.post("/api/posts", {
+    title: title.value,
+    content: content.value,
+  });
 }
 
 </script>
