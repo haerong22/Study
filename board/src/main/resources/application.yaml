@@ -10,12 +10,10 @@ logging:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/board
-    username: root
-    password: 1234
+    username: bobby
+    password: localhostTEST
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
-    database: mysql
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
@@ -24,13 +22,8 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
-  h2.console.enabled: true
+#  h2.console.enabled: true
   sql.init.mode: always
-#  data:
-#    rest:
-#      base-path: /api
-#      detection-strategy: annotated
-#  thymeleaf.cache: false
 
 ---
 
