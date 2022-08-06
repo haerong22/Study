@@ -24,6 +24,10 @@ spring:
       hibernate.default_batch_fetch_size: 100
 #  h2.console.enabled: true
   sql.init.mode: always
+  data:
+    rest:
+      base-path: /api
+      detection-strategy: annotated
 
 ---
 
