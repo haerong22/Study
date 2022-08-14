@@ -7,7 +7,6 @@ public class MetaElvis<T> {
 
     private MetaElvis() { }
 
-    @SuppressWarnings("unchecked")
     public static <E> MetaElvis<E> getInstance() { return (MetaElvis<E>) INSTANCE; }
 
     public void say(T t) {

@@ -1,5 +1,7 @@
 package com.example.effectivejava.chapter01.item03.staticfactory;
 
+import java.util.function.Supplier;
+
 // 코드 3-2 정적 팩터리 방식의 싱글턴 (24쪽)
 public class Elvis implements Singer {
     private static final Elvis INSTANCE = new Elvis();
@@ -14,6 +16,8 @@ public class Elvis implements Singer {
     public static void main(String[] args) {
         Elvis elvis = Elvis.getInstance();
         elvis.leaveTheBuilding();
+
+        Supplier<Elvis> supplier = Elvis::getInstance;
 
         System.out.println(Elvis.getInstance());
         System.out.println(Elvis.getInstance());
