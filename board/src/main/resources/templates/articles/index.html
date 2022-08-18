@@ -23,7 +23,7 @@
         <div class="row">
             <div class="card card-margin search-form">
                 <div class="card-body p-0">
-                    <form action="/articles" method="get">
+                    <form id="search-form">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row no-gutters">
@@ -57,45 +57,55 @@
             </div>
         </div>
 
-        <table class="table" id="article-table">
-            <thead>
-                <tr>
-                    <th class="title col-6"><a>제목</a></th>
-                    <th class="hashtag col-2"><a>해시태그</a></th>
-                    <th class="user-id col"><a>작성자</a></th>
-                    <th class="created-at col"><a>작성일</a></th>
-                </tr>
-            </thead>
+        <div class="row">
+            <table class="table" id="article-table">
+                <thead>
+                    <tr>
+                        <th class="title col-6"><a>제목</a></th>
+                        <th class="hashtag col-2"><a>해시태그</a></th>
+                        <th class="user-id col"><a>작성자</a></th>
+                        <th class="created-at col"><a>작성일</a></th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr>
-                    <td class="title"><a>첫 글</a></td>
-                    <td class="hashtag">#Java</td>
-                    <td class="user-id">kim</td>
-                    <td class="created-at"><time>2022-08-09</time></td>
-                </tr>
-                <tr>
-                    <td>두번째 글</td>
-                    <td>#Spring</td>
-                    <td>kim</td>
-                    <td>2022-08-09</td>
-                </tr>
-                <tr>
-                    <td>세번째 글</td>
-                    <td>#Mysql</td>
-                    <td>kim</td>
-                    <td>2022-08-09</td>
-                </tr>
-            </tbody>
-        </table>
+                <tbody>
+                    <tr>
+                        <td class="title col-6"><a>첫 글</a></td>
+                        <td class="hashtag col-2">#Java</td>
+                        <td class="user-id">kim</td>
+                        <td class="created-at"><time>2022-08-09</time></td>
+                    </tr>
+                    <tr>
+                        <td>두번째 글</td>
+                        <td>#Spring</td>
+                        <td>kim</td>
+                        <td>2022-08-09</td>
+                    </tr>
+                    <tr>
+                        <td>세번째 글</td>
+                        <td>#Mysql</td>
+                        <td>kim</td>
+                        <td>2022-08-09</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <nav id="pagination" aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+        <div class="row">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <nav id="pagination" aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
     </main>
 
     <footer id="footer">
