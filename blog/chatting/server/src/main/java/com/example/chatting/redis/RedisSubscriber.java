@@ -1,10 +1,9 @@
 package com.example.chatting.redis;
 
+import com.example.chatting.domain.dto.ChatMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.connection.Message;
-import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
@@ -12,17 +11,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class RedisSubscriber implements MessageListener {
+public class RedisSubscriber {
 
     private final ObjectMapper objectMapper;
     private final RedisTemplate<String, Object> redisTemplate;
     private final SimpMessageSendingOperations messagingTemplate;
 
-    @Override
-    public void onMessage(Message message, byte[] pattern) {
+    public void sendMessage(String message) {
         try {
-            String pubMessage = redisTemplate.getStringSerializer().deserialize(message.getBody());
-            messagingTemplate.convertAndSend("/sub/message", pubMessage == null ? "" : pubMessage);
+            ChatMessage chatMessage = objectMapper.readValue(message, ChatMessage.class);
+            messagingTemplate.convertAndSend("/sub/message", chatMessage);
+//            messagingTemplate.convertAndSendToUser(chatMessage.getSessionId(), "/sub/message", chatMessage);
         } catch (Exception e) {
             log.error("Subscriber Error", e);
         }
