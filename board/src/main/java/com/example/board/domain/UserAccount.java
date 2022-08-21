@@ -28,6 +28,7 @@ public class UserAccount extends AuditingFields {
     @Setter
     @Column(length = 100)
     private String email;
+
     @Setter
     @Column(length = 100)
     private String nickname;
