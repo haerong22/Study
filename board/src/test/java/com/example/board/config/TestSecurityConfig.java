@@ -20,7 +20,7 @@ public class TestSecurityConfig {
     @BeforeTestMethod
     public void securitySetup() {
         given(userAccountRepository.findById(anyString())).willReturn(Optional.of(UserAccount.of(
-                "test id",
+                "testId",
                 "1234",
                 "test@email.com",
                 "test nickname",
