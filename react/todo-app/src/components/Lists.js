@@ -2,7 +2,9 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from "./List";
 
-export default function Lists({ todoData, setTodoData }) {
+const Lists = ({ todoData, setTodoData, handleClick }) => {
+  console.log("Lists component");
+
   const handleEnd = (result) => {
     if (!result.destination) return;
 
@@ -37,6 +39,7 @@ export default function Lists({ todoData, setTodoData }) {
                       setTodoData={setTodoData}
                       provided={provided}
                       snapshot={snapshot}
+                      handleClick={handleClick}
                     />
                   )}
                 </Draggable>
@@ -48,4 +51,6 @@ export default function Lists({ todoData, setTodoData }) {
       </DragDropContext>
     </div>
   );
-}
+};
+
+export default React.memo(Lists);
