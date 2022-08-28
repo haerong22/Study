@@ -3,8 +3,6 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from "./List";
 
 const Lists = ({ todoData, setTodoData, handleClick }) => {
-  console.log("Lists component");
-
   const handleEnd = (result) => {
     if (!result.destination) return;
 
@@ -15,6 +13,7 @@ const Lists = ({ todoData, setTodoData, handleClick }) => {
     newTodoData.splice(result.destination.index, 0, reorderedItem);
 
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
 
   return (

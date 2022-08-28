@@ -22,6 +22,7 @@ const List = ({
     });
 
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
 
   const handleEditChange = (e) => {
@@ -39,6 +40,8 @@ const List = ({
     });
 
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
+
     setIsEditing(false);
   };
 
@@ -87,8 +90,8 @@ const List = ({
         <div className="items-center">
           <input
             type={"checkbox"}
-            defaultChecked={false}
             onChange={() => handleCompleteChange(id)}
+            checked={completed}
           />{" "}
           <span className={completed ? "line-through" : undefined}>
             {title}
