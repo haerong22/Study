@@ -1,4 +1,4 @@
-package org.example;
+package org.example.passwordvalidator;
 
 @FunctionalInterface
 public interface PasswordGenerator {
