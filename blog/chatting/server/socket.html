@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+<body>
+
+    <button onclick="connect()">Connect</button>
+
+    <hr/>
+
+    <input id="sub" type="text" />
+    <button onclick="subscribe()">Subscribe</button>
+
+    <hr/>
+
+    <input id="pub" type="text" />
+    <button onclick="publish()">Publish</button>
+
+    <script>
+        let stompClient;
+
+        const connect = () => {
+            const socket = new SockJS('http://localhost:28080/ws-stomp')
+
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({} , (frame) => {
+                console.log(frame);
+            });
+        }
+
+        const subscribe = () => {
+            const topic = document.getElementById("sub").value;
+
+            console.log(topic)
+            stompClient.subscribe("/sub/" + topic, (response) => {
+                console.log(response);
+            })
+
+
+        }
+
+        const publish = () => {
+            const topic = document.getElementById("sub").value;
+            const message = document.getElementById("pub").value;
+
+            const request = {
+                "message": message,
+                "id": 1,
+            }
+
+            stompClient.send("/pub/" + topic, {}, JSON.stringify(request));
+        }
+
+    </script>
+
+</body>
+</html>

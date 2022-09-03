@@ -15,4 +15,5 @@ public class ChatMessage {
     private String message;
     private LocalDateTime date;
     private TestEnum testEnum;
+    private String id;
 }

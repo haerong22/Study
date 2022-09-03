@@ -16,8 +16,8 @@ import java.io.IOException;
 public class CorsFilter implements Filter {
 
     private final String[] allowOriginDomains = {
-            "http://localhost:5500",
-            "http://127.0.0.1:5500"
+            "http://localhost:63342",
+            "http://127.0.0.1:63342"
     };
 
     @Override

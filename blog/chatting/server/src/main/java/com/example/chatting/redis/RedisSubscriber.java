@@ -20,8 +20,9 @@ public class RedisSubscriber {
     public void sendMessage(String message) {
         try {
             ChatMessage chatMessage = objectMapper.readValue(message, ChatMessage.class);
-            messagingTemplate.convertAndSend("/sub/message", chatMessage);
-//            messagingTemplate.convertAndSendToUser(chatMessage.getSessionId(), "/sub/message", chatMessage);
+            System.out.println("chatMessage = " + chatMessage);
+            messagingTemplate.convertAndSend("/sub/message/" + chatMessage.getId(), chatMessage);
+            messagingTemplate.convertAndSendToUser(chatMessage.getSessionId(), "/sub/message", chatMessage);
         } catch (Exception e) {
             log.error("Subscriber Error", e);
         }
