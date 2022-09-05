@@ -1,6 +1,7 @@
 package org.example;
 
 import org.assertj.core.api.Assertions;
+import org.example.was.QueryString;
 import org.junit.jupiter.api.Test;
 
 public class QueryStringTest {

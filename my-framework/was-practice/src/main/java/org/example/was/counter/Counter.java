@@ -1,4 +1,4 @@
-package org.example.counter;
+package org.example.was.counter;
 
 public class Counter implements Runnable {
     private int count = 0;
