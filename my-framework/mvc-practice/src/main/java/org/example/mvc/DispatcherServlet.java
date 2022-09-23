@@ -28,5 +28,17 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("[DispatcherServlet] service started.");
+
+        try {
+            Controller handler = requestMappingHandlerMapping.findHandler(req.getRequestURI());
+            String viewName = handler.handleRequest(req, resp);
+
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher(viewName);
+            requestDispatcher.forward(req, resp);
+
+        } catch (Exception e) {
+            log.error("exception occured: [{}]", e.getMessage(), e);
+            throw new ServletException(e);
+        }
     }
 }
