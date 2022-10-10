@@ -4,6 +4,7 @@ import org.example.mvc.controller.Controller;
 import org.example.mvc.controller.HandlerKey;
 import org.example.mvc.controller.RequestMethod;
 import org.example.mvc.view.JspViewResolver;
+import org.example.mvc.view.ModelAndView;
 import org.example.mvc.view.View;
 import org.example.mvc.view.ViewResolver;
 import org.slf4j.Logger;
@@ -27,12 +28,14 @@ public class DispatcherServlet extends HttpServlet {
 
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
     private List<ViewResolver> viewResolvers;
+    private List<HandlerAdapter> handlerAdapters;
 
     @Override
     public void init() throws ServletException {
         requestMappingHandlerMapping = new RequestMappingHandlerMapping();
         requestMappingHandlerMapping.init();
 
+        handlerAdapters = List.of(new SimpleControllerHandlerAdaptor());
         viewResolvers = Collections.singletonList(new JspViewResolver());
     }
 
@@ -49,11 +52,16 @@ public class DispatcherServlet extends HttpServlet {
                 return;
             }
 
-            String viewName = handler.handleRequest(req, resp);
+            HandlerAdapter handlerAdapter = handlerAdapters.stream()
+                    .filter(ha -> ha.supports(handler))
+                    .findFirst()
+                    .orElseThrow(() -> new ServletException("No adapter for handler [" + handler + "]"));
+
+            ModelAndView modelAndView = handlerAdapter.handle(req, resp, handler);
 
             for (ViewResolver viewResolver : viewResolvers) {
-                View view = viewResolver.resolveView(viewName);
-                view.render(new HashMap<>(), req, resp);
+                View view = viewResolver.resolveView(modelAndView.getViewName());
+                view.render(modelAndView.getModel(), req, resp);
             }
 
         } catch (Exception e) {
