@@ -1,6 +1,8 @@
 package org.example.mvc;
 
 import org.example.mvc.controller.Controller;
+import org.example.mvc.controller.HandlerKey;
+import org.example.mvc.controller.RequestMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +32,11 @@ public class DispatcherServlet extends HttpServlet {
         log.info("[DispatcherServlet] service started.");
 
         try {
-            Controller handler = requestMappingHandlerMapping.findHandler(req.getRequestURI());
+            Controller handler =
+                    requestMappingHandlerMapping.findHandler(new HandlerKey(RequestMethod.valueOf(req.getMethod()), req.getRequestURI()));
+
+            if (handler == null) return;
+
             String viewName = handler.handleRequest(req, resp);
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher(viewName);
