@@ -1,5 +1,6 @@
 package com.example.sns.service;
 
+import com.example.sns.exception.ErrorCode;
 import com.example.sns.exception.SnsApplicationException;
 import com.example.sns.model.User;
 import com.example.sns.model.entity.UserEntity;
@@ -18,12 +19,14 @@ public class UserService {
     public User join(String username, String password){
 
         // username 확인
-        Optional<UserEntity> userEntity = userEntityRepository.findByUsername(username);
+        userEntityRepository.findByUsername(username).ifPresent(it -> {
+            throw new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("$s is duplicated", username));
+        });
 
         // 회원가입 진행
-        userEntityRepository.save(new UserEntity());
+        UserEntity userEntity = userEntityRepository.save(UserEntity.of(username, password));
 
-        return new User();
+        return User.fromEntity(userEntity);
     }
 
     public String login(String username, String password) {
