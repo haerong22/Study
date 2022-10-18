@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users")
 @Getter @Setter
-@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = NOW() where id=?")
+@SQLDelete(sql = "UPDATE users SET deleted_at = NOW() where id=?")
 @Where(clause = "deleted_at IS NULL")
 public class UserEntity {
 
@@ -25,10 +25,12 @@ public class UserEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
 
     private Timestamp registeredAt;
     private Timestamp updatedAt;
+
+    @Column(name = "deleted_at")
     private Timestamp deletedAt;
 
     @PrePersist
