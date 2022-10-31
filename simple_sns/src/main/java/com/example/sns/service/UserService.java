@@ -6,15 +6,15 @@ import com.example.sns.model.User;
 import com.example.sns.model.entity.UserEntity;
 import com.example.sns.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserEntityRepository userEntityRepository;
+    private final BCryptPasswordEncoder encoder;
 
     public User join(String username, String password){
 
@@ -24,7 +24,7 @@ public class UserService {
         });
 
         // 회원가입 진행
-        UserEntity userEntity = userEntityRepository.save(UserEntity.of(username, password));
+        UserEntity userEntity = userEntityRepository.save(UserEntity.of(username, encoder.encode(password)));
 
         return User.fromEntity(userEntity);
     }
