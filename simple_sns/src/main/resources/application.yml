@@ -21,3 +21,7 @@ spring:
     platform: postgres
     driver-class-name: org.postgresql.Driver
 
+jwt:
+  secret-key: simple_sns_application_secret_key
+  token:
+    expired-time-ms: 2592000000
