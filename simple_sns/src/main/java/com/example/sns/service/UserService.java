@@ -8,6 +8,7 @@ import com.example.sns.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +17,12 @@ public class UserService {
     private final UserEntityRepository userEntityRepository;
     private final BCryptPasswordEncoder encoder;
 
+    @Transactional
     public User join(String username, String password){
 
         // username 확인
         userEntityRepository.findByUsername(username).ifPresent(it -> {
-            throw new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("$s is duplicated", username));
+            throw new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("%s is duplicated", username));
         });
 
         // 회원가입 진행
