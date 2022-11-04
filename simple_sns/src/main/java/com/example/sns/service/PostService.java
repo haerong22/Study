@@ -19,8 +19,6 @@ public class PostService {
 
     @Transactional
     public void create(String title, String body, String username) {
-
-        // TODO user find
         UserEntity userEntity = userEntityRepository.findByUsername(username)
                 .orElseThrow(
                         () -> new SnsApplicationException(
@@ -29,10 +27,7 @@ public class PostService {
                         )
                 );
 
-        // TODO post save
-        postEntityRepository.save(new PostEntity());
-
-        // TODO return
+        postEntityRepository.save(PostEntity.of(title, body, userEntity));
     }
 
 }
