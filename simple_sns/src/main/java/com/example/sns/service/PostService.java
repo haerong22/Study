@@ -154,4 +154,9 @@ public class PostService {
         // count like
         return likeEntityRepository.countByPost(postEntity);
     }
+
+    @Transactional
+    public void comment(Integer postId, String username) {
+
+    }
 }
