@@ -62,6 +62,8 @@ public class PostService {
             );
         }
 
+        likeEntityRepository.deleteAllByPost(postEntity);
+        commentEntityRepository.deleteAllByPost(postEntity);
         postEntityRepository.delete(postEntity);
     }
 
@@ -100,7 +102,7 @@ public class PostService {
         );
     }
 
-    public int likeCount(Integer postId) {
+    public long likeCount(Integer postId) {
         PostEntity postEntity = getPostEntityOrException(postId);
 
         // count like
