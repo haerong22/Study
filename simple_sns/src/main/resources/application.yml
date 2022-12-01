@@ -21,6 +21,9 @@ spring:
     platform: postgres
     driver-class-name: org.postgresql.Driver
 
+  redis:
+    url: redis://default:czGScHDINUmn78dFTZn0Bs5qa55BegQm@redis-19917.c8.us-east-1-2.ec2.cloud.redislabs.com:19917
+
 jwt:
   secret-key: simple_sns_application_secret_key
   token:

@@ -5,6 +5,7 @@ import com.example.sns.model.Alarm;
 import com.example.sns.model.User;
 import com.example.sns.model.entity.UserEntity;
 import com.example.sns.repository.AlarmEntityRepository;
+import com.example.sns.repository.UserCacheRepository;
 import com.example.sns.repository.UserEntityRepository;
 import com.example.sns.util.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class UserService {
     private final UserEntityRepository userEntityRepository;
     private final AlarmEntityRepository alarmEntityRepository;
     private final BCryptPasswordEncoder encoder;
+    private final UserCacheRepository userCacheRepository;
 
     @Value("${jwt.secret-key}")
     private String secretKey;
@@ -32,10 +34,12 @@ public class UserService {
     private Long expiredTimeMs;
 
     public User loadUserByUsername(String username) {
-        return userEntityRepository.findByUsername(username).map(User::fromEntity)
-                .orElseThrow(
-                        () -> new SnsApplicationException(USER_NOT_FOUND, String.format("%s not founded", username))
-                );
+        return userCacheRepository.getUser(username).orElseGet(() ->
+            userEntityRepository.findByUsername(username).map(User::fromEntity)
+                    .orElseThrow(
+                            () -> new SnsApplicationException(USER_NOT_FOUND, String.format("%s not founded", username))
+                    )
+        );
     }
 
     @Transactional
@@ -55,13 +59,12 @@ public class UserService {
     public String login(String username, String password) {
 
         // 회원가입 여부 체크
-        UserEntity userEntity = userEntityRepository.findByUsername(username)
-                .orElseThrow(
-                        () -> new SnsApplicationException(USER_NOT_FOUND, String.format("%s not founded", username))
-                );
+        User user = loadUserByUsername(username);
+
+        userCacheRepository.setUser(user);
 
         // 비밀번호 체크
-        if (!encoder.matches(password, userEntity.getPassword())) {
+        if (!encoder.matches(password, user.getPassword())) {
             throw new SnsApplicationException(INVALID_PASSWORD);
         }
 
