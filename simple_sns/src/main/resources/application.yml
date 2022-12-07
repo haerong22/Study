@@ -24,6 +24,29 @@ spring:
   redis:
     url: redis://default:czGScHDINUmn78dFTZn0Bs5qa55BegQm@redis-19917.c8.us-east-1-2.ec2.cloud.redislabs.com:19917
 
+  kafka:
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: SCRAM-SHA-256
+      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="2kfr2bqj" password="e2gm1woz7hG2mLoP8d-fImmSid_7vVN2";
+    consumer:
+      properties.spring.json.trusted.packages: "*"
+      bootstrap-servers: dory-01.srvs.cloudkafka.com:9094, dory-02.srvs.cloudkafka.com:9094, dory-03.srvs.cloudkafka.com:9094
+      group-id: alarm
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    listener:
+      ack-mode: manual
+    producer:
+      bootstrap-servers: dory-01.srvs.cloudkafka.com:9094, dory-02.srvs.cloudkafka.com:9094, dory-03.srvs.cloudkafka.com:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties.enable.idempotence: false
+    topic:
+      alarm: 2kfr2bqj-alarm
+
+
 jwt:
   secret-key: simple_sns_application_secret_key
   token:
