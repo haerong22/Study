@@ -25,7 +25,7 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/pharmacy-recommendation
+    url: jdbc:mariadb://localhost:13306/pharmacy-recommendation
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   redis:
@@ -33,7 +33,7 @@ spring:
     port: 6379
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: true
 
 ---
