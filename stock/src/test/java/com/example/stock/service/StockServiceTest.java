@@ -21,6 +21,9 @@ class StockServiceTest {
     private StockService stockService;
 
     @Autowired
+    private StockProxyService stockProxyService;
+
+    @Autowired
     private StockRepository stockRepository;
 
     @BeforeEach
@@ -56,6 +59,31 @@ class StockServiceTest {
             executorService.submit(() -> {
                 try {
                     stockService.decrease(1L, 1L);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+
+        Stock stock = stockRepository.findById(1L).orElseThrow();
+
+        // 100 - (1 * 100) = 0
+        assertEquals(0L, stock.getQuantity());
+    }
+
+    @Test
+    public void 동시에_100개의_요청_Proxy() throws InterruptedException {
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    stockProxyService.decrease(1L, 1L);
                 } finally {
                     latch.countDown();
                 }
