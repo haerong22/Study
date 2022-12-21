@@ -2,6 +2,7 @@ package com.example.orderservice.controller;
 
 import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.entity.OrderEntity;
+import com.example.orderservice.messagequeue.KafkaProducer;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
@@ -24,21 +25,28 @@ public class OrderController {
 
     private final Environment env;
     private final OrderService orderService;
+    private final KafkaProducer kafkaProducer;
     private final ModelMapper mapper = new ModelMapper();
 
     @PostConstruct
     public void setMapper() {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
+
     @PostMapping("/{userId}/orders")
     public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId,
                                                      @RequestBody RequestOrder requestOrder) {
 
+
+        // jpa
         OrderDto orderDto = mapper.map(requestOrder, OrderDto.class);
         orderDto.setUserId(userId);
         OrderDto createdOrder = orderService.createOrder(orderDto);
 
         ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+
+        // send this order to the kafka
+        kafkaProducer.send("example-catalog-topic", createdOrder);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
     }
