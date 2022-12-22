@@ -1,0 +1,17 @@
+tus:
+  server:
+    data:
+      directory: "/Users/bobby/Downloads/tus"
+      expiration: 60000
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  application:
+    name: tus
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+

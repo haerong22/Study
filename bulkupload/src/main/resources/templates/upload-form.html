@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>일반적인 파일 업로드</title>
+</head>
+<body>
+<form th:action method="post" enctype="multipart/form-data">
+    <ul>
+        <li>첨부파일<input type="file" name="file"></li>
+        <!--        <li>다수의 파일들<input type="file" multiple="multiple" name="multiFiles"></li> -->
+    </ul>
+    <input type="submit"/>
+</form>
+</body>
+</html>
