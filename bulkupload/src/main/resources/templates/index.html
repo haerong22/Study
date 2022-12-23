@@ -94,7 +94,7 @@
 
       let upload = new tus.Upload(file, {
         // endpoint   : 'https://tusd.tusdemo.net/files/',
-        endpoint: "/api/tus/file/upload",
+        endpoint: "http://169.254.130.102:8080/api/tus/file/upload",
         chunkSize,
         retryDelays: [0, 1000, 3000, 5000],
         metadata: {

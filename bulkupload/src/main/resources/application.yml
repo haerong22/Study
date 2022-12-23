@@ -2,7 +2,7 @@ tus:
   server:
     data:
       directory: "/Users/bobby/Downloads/tus"
-      expiration: 60000
+      expiration: 86400000
 
 spring:
   servlet:
