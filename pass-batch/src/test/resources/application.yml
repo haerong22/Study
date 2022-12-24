@@ -1,13 +1,21 @@
 spring:
+  config:
+    activate:
+      on-profile: test
   datasource:
-#    url: jdbc:h2:mem:mydb
     url: jdbc:mysql://127.0.0.1:13306/pass_local?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: pass_local_user
     password: test1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      maximum-pool-size: 20
-
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
   batch:
     jdbc:
       initialize-schema: always
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: off
