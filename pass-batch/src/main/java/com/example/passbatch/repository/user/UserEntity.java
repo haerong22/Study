@@ -1,6 +1,7 @@
 package com.example.passbatch.repository.user;
 
 import com.example.passbatch.repository.BaseEntity;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
