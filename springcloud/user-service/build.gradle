@@ -34,6 +34,9 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.3.RELEASE'
+
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
