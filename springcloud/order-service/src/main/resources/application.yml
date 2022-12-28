@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: order-service
+
+  zipkin:
+    base-url: http://127.0.0.1:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+
   h2:
     console:
       enabled: true
