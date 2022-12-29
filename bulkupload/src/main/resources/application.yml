@@ -1,8 +1,14 @@
+server:
+  port: 18081
+
 tus:
   server:
     data:
       directory: "/Users/bobby/Downloads/tus"
       expiration: 86400000
+
+video:
+  path: "/Users/bobby/Downloads/tus/video"
 
 spring:
   servlet:

@@ -29,7 +29,7 @@ public class TusConfig {
                 .withStoragePath(tusStoragePath)
                 .withDownloadFeature()
                 .withUploadExpirationPeriod(tusExpirationPeriod)
-                .withUploadURI("/api/tus/file/upload");
+                .withUploadURI("/api/upload");
     }
 }
 

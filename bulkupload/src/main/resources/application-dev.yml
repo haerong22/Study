@@ -1,0 +1,8 @@
+tus:
+  server:
+    data:
+      directory: "/data/tus"
+      expiration: 86400000
+
+video:
+  path: /data/video
