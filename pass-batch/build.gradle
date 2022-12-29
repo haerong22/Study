@@ -21,6 +21,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     // hibernate-types
     implementation 'com.vladmihalcea:hibernate-types-52:2.19.2'
