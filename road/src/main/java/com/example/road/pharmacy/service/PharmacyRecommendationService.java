@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +24,9 @@ public class PharmacyRecommendationService {
 
     private final KakaoAddressSearchService kakaoAddressSearchService;
     private final DirectionService directionService;
+
+    private static final String ROAD_VIEW_BASE_URL = "https://map.kakao.com/link/roadview/";
+    private static final String DIRECTION_BASE_URL = "https://map.kakao.com/link/map/";
 
     public List<OutputDto> recommendPharmacyList(String address) {
 
@@ -47,11 +51,32 @@ public class PharmacyRecommendationService {
     }
 
     private OutputDto convertToOutputDto(Direction direction) {
+        String directionParams = String.join(
+                ",",
+                direction.getTargetPharmacyName(),
+                String.valueOf(direction.getTargetLatitude()),
+                String.valueOf(direction.getTargetLongitude())
+        );
+
+        String directionUrl = UriComponentsBuilder
+                .fromHttpUrl(DIRECTION_BASE_URL + directionParams)
+                .toUriString();
+
+        String roadViewParams = String.join(
+                ",",
+                String.valueOf(direction.getTargetLatitude()),
+                String.valueOf(direction.getTargetLongitude())
+        );
+
+        String roadViewUrl = UriComponentsBuilder
+                .fromHttpUrl(ROAD_VIEW_BASE_URL + roadViewParams)
+                .toUriString();
+
         return OutputDto.builder()
                 .pharmacyName(direction.getTargetPharmacyName())
                 .pharmacyAddress(direction.getTargetAddress())
-                .directionUrl("todo")
-                .roadViewUrl("todo")
+                .directionUrl(directionUrl)
+                .roadViewUrl(roadViewUrl)
                 .distance(String.format("%.2f km", direction.getDistance()))
                 .build();
     }
