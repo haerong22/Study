@@ -1,5 +1,6 @@
 package com.example.road.pharmacy.service;
 
+import com.example.road.pharmacy.cache.PharmacyRedisTemplateService;
 import com.example.road.pharmacy.dto.PharmacyDto;
 import com.example.road.pharmacy.entity.Pharmacy;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,18 @@ import java.util.stream.Collectors;
 public class PharmacySearchService {
 
     private final PharmacyRepositoryService pharmacyRepositoryService;
+    private final PharmacyRedisTemplateService pharmacyRedisTemplateService;
 
     public List<PharmacyDto> searchPharmacyDtoList() {
 
+        // redis
+        List<PharmacyDto> pharmacyDtoList = pharmacyRedisTemplateService.findAll();
+        if (!pharmacyDtoList.isEmpty()) {
+            log.info("redis findAll success!");
+            return pharmacyDtoList;
+        }
+
+        // db
         return pharmacyRepositoryService.findAll()
                 .stream()
                 .map(this::convertToPharmacyDto)
