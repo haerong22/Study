@@ -5,6 +5,10 @@
     <persistence-unit name="hello">
         <class>com.hello.jpa.context.Member</class>
         <class>com.hello.jpa.entitymapping.ex00.Member</class>
+        <class>com.hello.jpa.entitymapping.ex01.domain.Item</class>
+        <class>com.hello.jpa.entitymapping.ex01.domain.Member</class>
+        <class>com.hello.jpa.entitymapping.ex01.domain.Order</class>
+        <class>com.hello.jpa.entitymapping.ex01.domain.OrderItem</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
