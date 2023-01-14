@@ -1,4 +1,4 @@
-package com.hello.jpa;
+package com.hello.jpa.entitymapping.ex00;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,13 +16,15 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("member");
-
+            Member member = new Member("name");
+            Member member2 = new Member("name2");
             em.persist(member);
-
+            em.persist(member2);
             tx.commit();
+
+            em.createQuery("select m from Member m").getResultList()
+                    .forEach(System.out::println);
+
         } catch (Exception e) {
             tx.rollback();
         } finally {

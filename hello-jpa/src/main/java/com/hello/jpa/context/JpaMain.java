@@ -1,12 +1,11 @@
-package com.hello.jpa;
+package com.hello.jpa.context;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
-public class JpaSelect {
+public class JpaMain {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -17,14 +16,11 @@ public class JpaSelect {
         tx.begin();
 
         try {
-            List<Member> result = em.createQuery("select m from Member m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
+            Member member = new Member();
+            member.setId(1L);
+            member.setName("member");
 
-            for (Member member : result) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {

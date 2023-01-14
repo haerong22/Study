@@ -1,9 +1,8 @@
-package com.hello.jpa;
+package com.hello.jpa.context;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+//@Entity
 public class Member {
 
     @Id
