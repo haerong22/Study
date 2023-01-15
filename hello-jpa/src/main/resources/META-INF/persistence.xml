@@ -3,12 +3,15 @@
              xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="hello">
-        <class>com.hello.jpa.context.Member</class>
-        <class>com.hello.jpa.entitymapping.ex00.Member</class>
-        <class>com.hello.jpa.entitymapping.ex01.domain.Item</class>
-        <class>com.hello.jpa.entitymapping.ex01.domain.Member</class>
-        <class>com.hello.jpa.entitymapping.ex01.domain.Order</class>
-        <class>com.hello.jpa.entitymapping.ex01.domain.OrderItem</class>
+<!--        <class>com.hello.jpa.context.Member</class>-->
+<!--        <class>com.hello.jpa.entitymapping.ex00.Member</class>-->
+<!--        <class>com.hello.jpa.entitymapping.ex01.domain.Item</class>-->
+<!--        <class>com.hello.jpa.entitymapping.ex01.domain.Member</class>-->
+<!--        <class>com.hello.jpa.entitymapping.ex01.domain.Order</class>-->
+<!--        <class>com.hello.jpa.entitymapping.ex01.domain.OrderItem</class>-->
+        <class>com.hello.jpa.relationmapping.ex00.Member</class>
+        <class>com.hello.jpa.relationmapping.ex00.Team</class>
+
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
