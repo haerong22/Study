@@ -50,4 +50,14 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         return modelMapper.map(application, ApplicationDto.Response.class);
     }
+
+    @Override
+    public void delete(Long applicationId) {
+        Application application = applicationRepository.findById(applicationId)
+                .orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+
+        application.setIsDeleted(true);
+
+        applicationRepository.save(application);
+    }
 }

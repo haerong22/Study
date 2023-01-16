@@ -9,4 +9,6 @@ public interface ApplicationService {
     ApplicationDto.Response get(Long applicationId);
 
     ApplicationDto.Response update(Long applicationId, ApplicationDto.Request request);
+
+    void delete(Long applicationId);
 }
