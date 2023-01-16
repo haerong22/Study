@@ -1,0 +1,8 @@
+package com.example.loan.service;
+
+import com.example.loan.dto.ApplicationDto;
+
+public interface ApplicationService {
+
+    ApplicationDto.Response create(ApplicationDto.Request request);
+}

@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @DynamicUpdate
 @Where(clause = "is_deleted=false")
+@ToString
 public class Application extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
