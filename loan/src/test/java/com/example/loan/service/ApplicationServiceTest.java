@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -54,5 +55,20 @@ class ApplicationServiceTest {
         assertThat(actual.getName()).isSameAs(entity.getName());
         assertThat(actual.getCellPhone()).isSameAs(entity.getCellPhone());
         assertThat(actual.getEmail()).isSameAs(entity.getEmail());
+    }
+
+    @Test
+    void Should_ReturnResponseOfExistApplicationEntity_When_RequestExistApplicationId() {
+        Long findId = 1L;
+
+        Application entity = Application.builder()
+                .applicationId(1L)
+                .build();
+
+        when(applicationRepository.findById(findId)).thenReturn(Optional.ofNullable(entity));
+
+        ApplicationDto.Response actual = applicationService.get(findId);
+
+        assertThat(actual.getApplicationId()).isSameAs(findId);
     }
 }
