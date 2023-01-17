@@ -12,8 +12,12 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.InstanceOfAssertFactories.list;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,5 +51,26 @@ class TermsServiceTest {
         assertThat(actual.getName()).isSameAs(entity.getName());
         assertThat(actual.getTermsDetailUrl()).isSameAs(entity.getTermsDetailUrl());
 
+    }
+
+    @Test
+    void Should_ReturnAllResponseOfExistTermsEntities_When_RequestTermsList() {
+        Terms entityA = Terms.builder()
+                .name("대출 이용약관 1")
+                .termsDetailUrl("https://terms.com/loan")
+                .build();
+
+        Terms entityB = Terms.builder()
+                .name("대출 이용약관 2")
+                .termsDetailUrl("https://terms.com/loan2")
+                .build();
+
+        List<Terms> list = Arrays.asList(entityA, entityB);
+
+        when(termsRepository.findAll()).thenReturn(list);
+
+        List<TermsDto.Response> actual = termsService.getAll();
+
+        assertThat(actual.size()).isSameAs(list.size());
     }
 }
