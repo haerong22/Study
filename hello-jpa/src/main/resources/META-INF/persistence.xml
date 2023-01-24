@@ -15,9 +15,15 @@
 <!--        <class>com.hello.jpa.relationmapping.ex01.domain.Member</class>-->
 <!--        <class>com.hello.jpa.relationmapping.ex01.domain.Order</class>-->
 <!--        <class>com.hello.jpa.relationmapping.ex01.domain.OrderItem</class>-->
-        <class>com.hello.jpa.relationmapping.ex02.domain.Member</class>
-        <class>com.hello.jpa.relationmapping.ex02.domain.Team</class>
-        <class>com.hello.jpa.relationmapping.ex02.domain.Locker</class>
+<!--        <class>com.hello.jpa.relationmapping.ex02.domain.Member</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex02.domain.Team</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex02.domain.Locker</class>-->
+        <class>com.hello.jpa.relationmapping.ex03.domain.Category</class>
+        <class>com.hello.jpa.relationmapping.ex03.domain.Delivery</class>
+        <class>com.hello.jpa.relationmapping.ex03.domain.Item</class>
+        <class>com.hello.jpa.relationmapping.ex03.domain.Member</class>
+        <class>com.hello.jpa.relationmapping.ex03.domain.Order</class>
+        <class>com.hello.jpa.relationmapping.ex03.domain.OrderItem</class>
 
         <properties>
             <!-- 필수 속성 -->
