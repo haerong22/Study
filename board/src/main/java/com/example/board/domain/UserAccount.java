@@ -44,11 +44,11 @@ public class UserAccount extends AuditingFields {
         this.nickname = nickname;
         this.memo = memo;
         this.createdBy = createdBy;
-        this.modifiedAt = createdAt;
+        this.modifiedBy = createdBy;
     }
 
     public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo) {
-        return new UserAccount(userId, userPassword, email, nickname, memo, null);
+        return of(userId, userPassword, email, nickname, memo, null);
     }
 
     public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
