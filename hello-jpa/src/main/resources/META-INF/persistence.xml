@@ -24,10 +24,12 @@
 <!--        <class>com.hello.jpa.relationmapping.ex03.domain.Member</class>-->
 <!--        <class>com.hello.jpa.relationmapping.ex03.domain.Order</class>-->
 <!--        <class>com.hello.jpa.relationmapping.ex03.domain.OrderItem</class>-->
-        <class>com.hello.jpa.inheritance.ex00.Item</class>
-        <class>com.hello.jpa.inheritance.ex00.Album</class>
-        <class>com.hello.jpa.inheritance.ex00.Book</class>
-        <class>com.hello.jpa.inheritance.ex00.Movie</class>
+<!--        <class>com.hello.jpa.inheritance.ex00.Item</class>-->
+<!--        <class>com.hello.jpa.inheritance.ex00.Album</class>-->
+<!--        <class>com.hello.jpa.inheritance.ex00.Book</class>-->
+<!--        <class>com.hello.jpa.inheritance.ex00.Movie</class>-->
+        <class>com.hello.jpa.inheritance.ex01.Member</class>
+        <class>com.hello.jpa.inheritance.ex01.Team</class>
 
         <properties>
             <!-- 필수 속성 -->
