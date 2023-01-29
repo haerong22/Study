@@ -18,19 +18,24 @@
 <!--        <class>com.hello.jpa.relationmapping.ex02.domain.Member</class>-->
 <!--        <class>com.hello.jpa.relationmapping.ex02.domain.Team</class>-->
 <!--        <class>com.hello.jpa.relationmapping.ex02.domain.Locker</class>-->
-        <class>com.hello.jpa.relationmapping.ex03.domain.Category</class>
-        <class>com.hello.jpa.relationmapping.ex03.domain.Delivery</class>
-        <class>com.hello.jpa.relationmapping.ex03.domain.Item</class>
-        <class>com.hello.jpa.relationmapping.ex03.domain.Member</class>
-        <class>com.hello.jpa.relationmapping.ex03.domain.Order</class>
-        <class>com.hello.jpa.relationmapping.ex03.domain.OrderItem</class>
+<!--        <class>com.hello.jpa.relationmapping.ex03.domain.Category</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex03.domain.Delivery</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex03.domain.Item</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex03.domain.Member</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex03.domain.Order</class>-->
+<!--        <class>com.hello.jpa.relationmapping.ex03.domain.OrderItem</class>-->
+        <class>com.hello.jpa.inheritance.ex00.Item</class>
+        <class>com.hello.jpa.inheritance.ex00.Album</class>
+        <class>com.hello.jpa.inheritance.ex00.Book</class>
+        <class>com.hello.jpa.inheritance.ex00.Movie</class>
 
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:~/testdb"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:~/testdb"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 
             <!-- 옵션 -->
