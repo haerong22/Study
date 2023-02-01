@@ -32,8 +32,9 @@
 <!--        <class>com.hello.jpa.inheritance.ex01.Team</class>-->
 <!--        <class>com.hello.jpa.proxy.ex00.Member</class>-->
 <!--        <class>com.hello.jpa.proxy.ex00.Team</class>-->
-        <class>com.hello.jpa.proxy.ex01.Parent</class>
-        <class>com.hello.jpa.proxy.ex01.Child</class>
+<!--        <class>com.hello.jpa.proxy.ex01.Parent</class>-->
+<!--        <class>com.hello.jpa.proxy.ex01.Child</class>-->
+        <class>com.hello.jpa.valuetype.ex00.Member</class>
 
         <properties>
             <!-- 필수 속성 -->
