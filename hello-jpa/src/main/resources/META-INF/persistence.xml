@@ -35,7 +35,8 @@
 <!--        <class>com.hello.jpa.proxy.ex01.Parent</class>-->
 <!--        <class>com.hello.jpa.proxy.ex01.Child</class>-->
 <!--        <class>com.hello.jpa.valuetype.ex00.Member</class>-->
-        <class>com.hello.jpa.valuetype.ex01.Member</class>
+<!--        <class>com.hello.jpa.valuetype.ex01.Member</class>-->
+        <class>com.hello.jpa.valuetype.ex02.Member</class>
 
         <properties>
             <!-- 필수 속성 -->
