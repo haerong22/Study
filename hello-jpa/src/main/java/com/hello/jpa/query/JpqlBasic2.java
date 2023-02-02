@@ -4,7 +4,7 @@ import com.hello.jpa.query.entity.Member;
 
 import javax.persistence.*;
 
-public class jpqlBasic2 {
+public class JpqlBasic2 {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
