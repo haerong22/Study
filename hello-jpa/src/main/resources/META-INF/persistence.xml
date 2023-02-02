@@ -37,7 +37,10 @@
 <!--        <class>com.hello.jpa.valuetype.ex00.Member</class>-->
 <!--        <class>com.hello.jpa.valuetype.ex01.Member</class>-->
 <!--        <class>com.hello.jpa.valuetype.ex02.Member</class>-->
-        <class>com.hello.jpa.query.Member</class>
+        <class>com.hello.jpa.query.entity.Member</class>
+        <class>com.hello.jpa.query.entity.Order</class>
+        <class>com.hello.jpa.query.entity.Product</class>
+        <class>com.hello.jpa.query.entity.Team</class>
 
         <properties>
             <!-- 필수 속성 -->
