@@ -49,7 +49,7 @@
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
 <!--            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:~/testdb"/>-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.dialect" value="com.hello.jpa.query.dialect.MyH2Dialect"/>
 
             <!-- 옵션 -->
             <property name="hibernate.show_sql" value="true"/>
