@@ -3,6 +3,10 @@ package com.hello.jpa.query.entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(
+        name = "Member.findByName",
+        query = "select m from Member m where m.name = :name"
+)
 public class Member {
 
     @Id @GeneratedValue
