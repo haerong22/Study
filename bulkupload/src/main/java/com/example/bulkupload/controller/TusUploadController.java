@@ -1,5 +1,6 @@
 package com.example.bulkupload.controller;
 
+import com.example.bulkupload.dto.UploadResponse;
 import com.example.bulkupload.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +29,18 @@ public class TusUploadController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = {"/upload", "/upload/**"})
-    public ResponseEntity<String> uploadWithTus2(HttpServletRequest request, HttpServletResponse response) {
-        String filename = fileUploadService.process(request, response);
-        return httpOkStatus(filename);
+    public ResponseEntity<UploadResponse> uploadWithTus2(HttpServletRequest request, HttpServletResponse response) {
+        UploadResponse res = fileUploadService.process(request, response);
+        return httpOkStatus(res);
     }
 
-    private static ResponseEntity<String> httpOkStatus(String filename) {
+    private static ResponseEntity<UploadResponse> httpOkStatus(UploadResponse res) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "*");
 
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(headers)
-                .body(filename);
+                .body(res);
     }
 
     @GetMapping("/video/{date}/{url}")

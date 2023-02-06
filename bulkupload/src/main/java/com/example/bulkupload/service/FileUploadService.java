@@ -1,5 +1,6 @@
 package com.example.bulkupload.service;
 
+import com.example.bulkupload.dto.UploadResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.desair.tus.server.TusFileUploadService;
@@ -27,14 +28,14 @@ public class FileUploadService {
     @Value("${video.path}")
     private String savedPath;
 
-    public String process(HttpServletRequest request, HttpServletResponse response) {
+    public UploadResponse process(HttpServletRequest request, HttpServletResponse response) {
         try {
             tusFileUploadService.process(request, response);
 
             UploadInfo uploadInfo = tusFileUploadService.getUploadInfo(request.getRequestURI());
 
             if (uploadInfo != null && !uploadInfo.isUploadInProgress()) {
-                String filename = createFile(tusFileUploadService.getUploadedBytes(request.getRequestURI()), uploadInfo.getFileName());
+                UploadResponse filename = createFile(tusFileUploadService.getUploadedBytes(request.getRequestURI()), uploadInfo.getFileName());
 
                 tusFileUploadService.deleteUpload(request.getRequestURI());
 
@@ -49,18 +50,26 @@ public class FileUploadService {
         }
     }
 
-    private String createFile(InputStream is, String filename) throws IOException {
+    private UploadResponse createFile(InputStream is, String filename) throws IOException {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 12);
 
         String[] split = filename.split("\\.");
 
-        String savedFilename = uuid + "." + split[split.length - 1];
-
         LocalDate today = LocalDate.now();
-        File file = new File(savedPath + "/" + today, savedFilename);
+
+        String uploadedPath = savedPath + "/" + today;
+        String videoName = uuid + "." + split[split.length - 1];
+
+        File file = new File(uploadedPath, videoName);
 
         FileUtils.copyInputStreamToFile(is, file);
 
-        return today + "/" + savedFilename;
+        String thumbnailName = ThumbnailExtractor.getThumbnail(file, uploadedPath, uuid);
+
+        return UploadResponse.builder()
+                .videoUrl(today + "/" + videoName)
+                .thumbnailUrl(today + "/" + thumbnailName)
+                .build();
+
     }
 }
