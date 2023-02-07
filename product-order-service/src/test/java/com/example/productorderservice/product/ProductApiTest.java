@@ -14,21 +14,25 @@ class ProductApiTest extends ApiTest {
 
     @Test
     void 상품등록() {
-        final var request = 상품등록요청_생성();
+        final var request = ProductSteps.상품등록요청_생성();
         final var response = ProductSteps.상품등록요청(request);
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 
+    @Test
+    void 상품조회() {
+        ProductSteps.상품등록요청(ProductSteps.상품등록요청_생성());
+        final Long productId = 1L;
 
+        ExtractableResponse<Response> response = RestAssured.given().log().all()
+                .when()
+                .get("/products/{productId}", productId)
+                .then().log().all()
+                .extract();
 
-    private static AddProductRequest 상품등록요청_생성() {
-        final String name = "상품명";
-        final int price = 1000;
-        final DiscountPolicy discountPolicy = DiscountPolicy.NONE;
-
-        final AddProductRequest request = new AddProductRequest(name, price, discountPolicy);
-        return request;
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.jsonPath().getString("name")).isEqualTo("상품명");
     }
 
 }

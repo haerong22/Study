@@ -19,7 +19,7 @@ class ProductService {
         productPort.save(product);
     }
 
-    public GetProductResponse getProduct(long productId) {
+    public GetProductResponse getProduct(Long productId) {
         final Product product = productPort.getProduct(productId);
 
         return new GetProductResponse(
