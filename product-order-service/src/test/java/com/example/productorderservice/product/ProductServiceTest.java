@@ -32,4 +32,20 @@ class ProductServiceTest {
         assertThat(response).isNotNull();
     }
 
+    @Test
+    void 상품수정() {
+        // 상품등록
+        productService.addProduct(ProductSteps.상품등록요청_생성());
+
+        final Long productId = 1L;
+        final UpdateProductRequest request = ProductSteps.상품수정요청();
+
+        productService.updateProduct(productId, request);
+
+        GetProductResponse response = productService.getProduct(productId);
+
+        assertThat(response.name()).isEqualTo("상품수정");
+        assertThat(response.price()).isEqualTo(2000);
+    }
+
 }

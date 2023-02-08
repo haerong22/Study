@@ -22,8 +22,7 @@ public class ProductSteps {
         final int price = 1000;
         final DiscountPolicy discountPolicy = DiscountPolicy.NONE;
 
-        final AddProductRequest request = new AddProductRequest(name, price, discountPolicy);
-        return request;
+        return new AddProductRequest(name, price, discountPolicy);
     }
 
     public static ExtractableResponse<Response> 상품조회요청(Long productId) {
@@ -32,5 +31,9 @@ public class ProductSteps {
                 .get("/products/{productId}", productId)
                 .then().log().all()
                 .extract();
+    }
+
+    public static UpdateProductRequest 상품수정요청() {
+        return new UpdateProductRequest("상품수정", 2000, DiscountPolicy.NONE);
     }
 }
