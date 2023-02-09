@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
+public
 interface ProductRepository extends JpaRepository<Product, Long> {
 //    private Map<Long, Product> persistence = new HashMap<>();
 //    private Long sequence = 0L;
