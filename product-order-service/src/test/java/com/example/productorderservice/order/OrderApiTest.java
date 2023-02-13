@@ -16,23 +16,11 @@ class OrderApiTest extends ApiTest {
     @Test
     void 상품주문() {
         ProductSteps.상품등록요청(ProductSteps.상품등록요청_생성());
-        final CreateOrderRequest request = 상품주문요청_생성();
+        final CreateOrderRequest request = OrderSteps.상품주문요청_생성();
 
-        ExtractableResponse<Response> response = RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(request)
-                .when()
-                .post("/orders")
-                .then()
-                .log().all().extract();
+        final var response = OrderSteps.상품주문요청(request);
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
-    }
-
-    private static CreateOrderRequest 상품주문요청_생성() {
-        final Long productId = 1L;
-        final int quantity = 2;
-        return new CreateOrderRequest(productId, quantity);
     }
 
 }
