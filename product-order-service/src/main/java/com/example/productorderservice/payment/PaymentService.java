@@ -2,6 +2,7 @@ package com.example.productorderservice.payment;
 
 import com.example.productorderservice.order.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentService {
@@ -11,6 +12,7 @@ public class PaymentService {
         this.paymentPort = paymentPort;
     }
 
+    @Transactional
     public void payment(PaymentRequest request) {
         final Order order = paymentPort.getOrder(request.orderId());
 
