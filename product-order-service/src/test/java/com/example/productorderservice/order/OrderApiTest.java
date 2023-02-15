@@ -1,13 +1,10 @@
 package com.example.productorderservice.order;
 
 import com.example.productorderservice.ApiTest;
+import com.example.productorderservice.order.application.service.CreateOrderRequest;
 import com.example.productorderservice.product.ProductSteps;
-import io.restassured.RestAssured;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

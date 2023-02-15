@@ -1,5 +1,10 @@
 package com.example.productorderservice.product;
 
+import com.example.productorderservice.product.application.port.ProductPort;
+import com.example.productorderservice.product.application.service.ProductService;
+import com.example.productorderservice.product.application.service.UpdateProductRequest;
+import com.example.productorderservice.product.domain.DiscountPolicy;
+import com.example.productorderservice.product.domain.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
