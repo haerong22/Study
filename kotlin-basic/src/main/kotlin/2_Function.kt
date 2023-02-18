@@ -25,13 +25,23 @@ fun greeting(message: String = "Hello World!") {
 }
 
 fun main() {
-    greeting()
-    greeting("Hi!!!")
+//    greeting()
+//    greeting("Hi!!!")
+//
+//    log(message = "인포 로그")
+//    log(level = "DEBUG", "디버그 로그")
+//    log("WARN", "워닝 로그")
+//    log(level = "ERROR", message = "에러 로그")
 
-    log(message = "인포 로그")
-    log(level = "DEBUG", "디버그 로그")
-    log("WARN", "워닝 로그")
-    log(level = "ERROR", message = "에러 로그")
+    welcome("Hi", "bobby")
+    welcome(name = "bobby")
+    welcome(message = "Hi", name = "bobby")
+    welcome(name = "bobby", message = "Hey")
+    welcome(message = "Hi", "bobby")
+}
+
+fun welcome(message: String = "Welcome", name: String) {
+    println("$message, $name!!")
 }
 
 fun log(level: String = "INFO", message: String) {
