@@ -14,6 +14,9 @@ repositories {
 dependencies {
     //서블릿
     implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+    // 스프링 MVC
+    implementation 'org.springframework:spring-webmvc:6.0.4'
 }
 
 tasks.named('test') {
