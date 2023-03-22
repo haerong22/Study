@@ -1,6 +1,6 @@
 management:
   server:
-    port: 9292
+    port: 8080
   info:
     java:
       enabled: true
@@ -28,4 +28,9 @@ info:
 logging:
   level:
     hello.controller: debug
+
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
 
