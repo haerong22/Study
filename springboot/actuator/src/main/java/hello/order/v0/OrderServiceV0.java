@@ -19,7 +19,7 @@ public class OrderServiceV0 implements OrderService {
     @Override
     public void cancel() {
         log.info("취소");
-        stock.decrementAndGet();
+        stock.incrementAndGet();
     }
 
     @Override
