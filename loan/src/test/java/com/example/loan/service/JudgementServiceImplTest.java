@@ -91,4 +91,28 @@ class JudgementServiceImplTest {
 
         assertThat(actual.getJudgementId()).isSameAs(1L);
     }
+
+    @Test
+    void Should_ReturnUpdatedResponseOfExistJudgementEntity_When_RequestUpdateExistJudgementInfo() {
+
+        Judgement entity = Judgement.builder()
+                .judgementId(1L)
+                .name("kim")
+                .approvalAmount(BigDecimal.valueOf(5000000))
+                .build();
+
+        JudgementDto.Request request = JudgementDto.Request.builder()
+                .name("lee")
+                .approvalAmount(BigDecimal.valueOf(10000000))
+                .build();
+
+        when(judgementRepository.findById(1L)).thenReturn(Optional.ofNullable(entity));
+        when(judgementRepository.save(ArgumentMatchers.any(Judgement.class))).thenReturn(entity);
+
+        JudgementDto.Response actual = judgementService.update(1L, request);
+
+        assertThat(actual.getJudgementId()).isSameAs(1L);
+        assertThat(actual.getName()).isSameAs(request.getName());
+        assertThat(actual.getApprovalAmount()).isSameAs(request.getApprovalAmount());
+    }
 }
