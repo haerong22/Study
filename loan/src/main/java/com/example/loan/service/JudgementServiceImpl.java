@@ -68,6 +68,16 @@ public class JudgementServiceImpl implements JudgementService {
         return modelMapper.map(judgement, JudgementDto.Response.class);
     }
 
+    @Override
+    public void delete(Long judgementId) {
+        Judgement judgement = judgementRepository.findById(judgementId)
+                .orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+
+        judgement.setIsDeleted(true);
+
+        judgementRepository.save(judgement);
+    }
+
     private boolean isPresentApplication(Long applicationId) {
         return applicationRepository.findById(applicationId).isPresent();
     }

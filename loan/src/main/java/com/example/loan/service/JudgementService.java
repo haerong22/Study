@@ -11,4 +11,6 @@ public interface JudgementService {
     JudgementDto.Response getJudgementOfApplication(Long applicationId);
 
     JudgementDto.Response update(Long judgementId, JudgementDto.Request request);
+
+    void delete(Long judgementId);
 }
