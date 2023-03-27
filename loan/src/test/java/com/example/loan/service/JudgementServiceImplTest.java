@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -52,8 +53,42 @@ class JudgementServiceImplTest {
 
         JudgementDto.Response actual = judgementService.create(request);
 
-        Assertions.assertThat(actual.getName()).isSameAs(judgement.getName());
-        Assertions.assertThat(actual.getApplicationId()).isSameAs(judgement.getApplicationId());
-        Assertions.assertThat(actual.getApprovalAmount()).isSameAs(judgement.getApprovalAmount());
+        assertThat(actual.getName()).isSameAs(judgement.getName());
+        assertThat(actual.getApplicationId()).isSameAs(judgement.getApplicationId());
+        assertThat(actual.getApprovalAmount()).isSameAs(judgement.getApprovalAmount());
+    }
+
+    @Test
+    void Should_ReturnResponseOfExistJudgementEntity_When_RequestExistJudgementId() {
+
+        Judgement entity = Judgement.builder()
+                .judgementId(1L)
+                .build();
+
+        when(judgementRepository.findById(1L)).thenReturn(Optional.ofNullable(entity));
+
+        JudgementDto.Response actual = judgementService.get(1L);
+
+        assertThat(actual.getJudgementId()).isSameAs(1L);
+    }
+
+    @Test
+    void Should_ReturnResponseOfExistJudgementEntity_When_RequestExistApplicationId() {
+
+        Judgement judgementEntity
+                = Judgement.builder()
+                .judgementId(1L)
+                .build();
+
+        Application applicationEntity = Application.builder()
+                .applicationId(1L)
+                .build();
+
+        when(applicationRepository.findById(1L)).thenReturn(Optional.ofNullable(applicationEntity));
+        when(judgementRepository.findByApplicationId(1L)).thenReturn(Optional.ofNullable(judgementEntity));
+
+        JudgementDto.Response actual = judgementService.getJudgementOfApplication(1L);
+
+        assertThat(actual.getJudgementId()).isSameAs(1L);
     }
 }
