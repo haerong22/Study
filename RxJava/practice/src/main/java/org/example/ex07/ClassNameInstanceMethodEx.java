@@ -1,5 +1,7 @@
 package org.example.ex07;
 
+import org.example.common.Car;
+
 import java.util.function.Function;
 
 /**
