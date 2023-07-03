@@ -1,2 +1,3 @@
 rootProject.name = 'bobby-pay'
+include 'membership-service'
 
