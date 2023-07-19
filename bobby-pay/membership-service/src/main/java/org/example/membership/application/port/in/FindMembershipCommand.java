@@ -1,10 +1,10 @@
 package org.example.membership.application.port.in;
 
 
-import common.SelfValidating;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.example.common.SelfValidating;
 
 @Data
 @Builder

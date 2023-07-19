@@ -9,43 +9,46 @@ plugins {
     id 'java'
 }
 
-compileJava {
-    sourceCompatibility = 11
-    targetCompatibility = 11
+subprojects {
+    compileJava {
+        sourceCompatibility = 11
+        targetCompatibility = 11
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+        implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+        implementation 'io.springfox:springfox-swagger2:2.9.2'
+
+        testImplementation 'com.tngtech.archunit:archunit:1.0.1'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
-apply plugin: 'java'
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-group 'org.example'
-version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
+bootRun {
+    enabled = false
 }
 
-dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
-    implementation 'io.springfox:springfox-swagger2:2.9.2'
-
-    testImplementation 'com.tngtech.archunit:archunit:1.0.1'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'javax.persistence:javax.persistence-api:2.2'
-//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    testImplementation 'junit:junit:4.13.1'
+bootJar {
+    enabled = false
 }
 
-test {
-    useJUnitPlatform()
+bootBuildImage{
+    enabled = false
 }
