@@ -1,3 +1,6 @@
+plugins {
+    id 'com.palantir.docker' version '0.25.0'
+}
 
 group 'org.example.membership'
 version '1.0-SNAPSHOT'
@@ -21,6 +24,10 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 }
 
-test {
-    useJUnitPlatform()
+docker {
+    println(tasks.bootJar.outputs.files)
+    name rootProject.name + '-' + project.name + ":" + version
+    dockerfile file('../Dockerfile')
+    files tasks.bootJar.outputs.files
+    buildArgs(['JAR_FILE': tasks.bootJar.outputs.files.singleFile.name])
 }
