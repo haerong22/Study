@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class MembershipJpaEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String membershipId;
+    private Long membershipId;
 
     private String name;
     private String email;
