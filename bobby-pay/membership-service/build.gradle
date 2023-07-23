@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'org.example.membership'
-version '1.0-SNAPSHOT'
+version '1.0.1'
 
 repositories {
     mavenCentral()
@@ -22,6 +22,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
 
     runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
 }
 
 docker {
