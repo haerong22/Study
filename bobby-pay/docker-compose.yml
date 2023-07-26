@@ -48,7 +48,24 @@ services:
       - SPRING_DATASOURCE_USERNAME=mysqluser
       - SPRING_DATASOURCE_PASSWORD=mysqlpw
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5InnoDBDialect
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+    restart: always
+
+  money-service:
+    image: bobby-pay-money-service:1.0.0
+    networks:
+      - bobbypay_network
+    ports:
+      - "8083:8080"
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/bobby_pay?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=mysqluser
+      - SPRING_DATASOURCE_PASSWORD=mysqlpw
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5InnoDBDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
     restart: always
 
 networks:
