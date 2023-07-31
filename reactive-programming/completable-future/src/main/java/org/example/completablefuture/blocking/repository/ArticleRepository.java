@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class ArticleRepository {
-    private static List<ArticleEntity> articleEntities;
+    private final List<ArticleEntity> articleEntities;
 
     public ArticleRepository() {
         articleEntities = List.of(

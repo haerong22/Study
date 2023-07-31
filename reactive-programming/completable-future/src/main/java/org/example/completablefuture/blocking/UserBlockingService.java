@@ -9,6 +9,7 @@ import org.example.completablefuture.common.Article;
 import org.example.completablefuture.common.Image;
 import org.example.completablefuture.common.User;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,17 +23,15 @@ public class UserBlockingService {
     public Optional<User> getUserById(String id) {
         return userRepository.findById(id)
                 .map(user -> {
-                    var image = imageRepository.findById(user.getProfileImageId())
-                            .map(imageEntity -> {
-                                return new Image(imageEntity.getId(), imageEntity.getName(), imageEntity.getUrl());
-                            });
+                    Optional<Image> image = imageRepository.findById(user.getProfileImageId())
+                            .map(imageEntity -> new Image(imageEntity.getId(), imageEntity.getName(), imageEntity.getUrl()));
 
-                    var articles = articleRepository.findAllByUserId(user.getId())
+                    List<Article> articles = articleRepository.findAllByUserId(user.getId())
                             .stream().map(articleEntity ->
                                     new Article(articleEntity.getId(), articleEntity.getTitle(), articleEntity.getContent()))
                             .collect(Collectors.toList());
 
-                    var followCount = followRepository.countByUserId(user.getId());
+                    Long followCount = followRepository.countByUserId(user.getId());
 
                     return new User(
                             user.getId(),

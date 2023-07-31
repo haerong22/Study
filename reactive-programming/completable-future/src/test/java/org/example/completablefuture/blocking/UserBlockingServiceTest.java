@@ -54,7 +54,7 @@ class UserBlockingServiceTest {
         // then
         assertFalse(optionalUser.isEmpty());
         var user = optionalUser.get();
-        assertEquals(user.getName(), "taewoo");
+        assertEquals(user.getName(), "bobby");
         assertEquals(user.getAge(), 32);
 
         assertFalse(user.getProfileImage().isEmpty());

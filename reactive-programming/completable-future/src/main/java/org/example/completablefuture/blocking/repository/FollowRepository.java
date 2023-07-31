@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Slf4j
 public class FollowRepository {
-    private Map<String, Long> userFollowCountMap;
+    private final Map<String, Long> userFollowCountMap;
 
     public FollowRepository() {
         userFollowCountMap = Map.of("1234", 1000L);
