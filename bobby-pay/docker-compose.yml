@@ -118,6 +118,17 @@ services:
       - LOGGING_TOPIC=bobby.logging.out.stdout
     restart: always
 
+  logging-consumer:
+    image: bobby-pay-logging-consumer:1.0.0
+    networks:
+      - bobbypay_network
+    restart: always
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka:29092
+      - LOGGING_TOPIC=bobby.logging.out.stdout
 networks:
   bobbypay_network:
     driver: bridge
