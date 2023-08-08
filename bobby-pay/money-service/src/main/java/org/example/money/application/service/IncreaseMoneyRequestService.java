@@ -1,6 +1,7 @@
 package org.example.money.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.common.CountDownLatchManager;
 import org.example.common.UseCase;
 import org.example.common.tasks.RechargingMoneyTask;
 import org.example.common.tasks.SubTask;
@@ -27,6 +28,7 @@ public class IncreaseMoneyRequestService implements IncreaseMoneyRequestUseCase 
     private final IncreaseMoneyPort increaseMoneyPort;
     private final GetMembershipPort getMembershipPort;
     private final SendRechargingMoneyTaskPort sendRechargingMoneyTaskPort;
+    private final CountDownLatchManager countDownLatchManager;
     private final MoneyChangingRequestMapper mapper;
 
     @Override
@@ -88,15 +90,42 @@ public class IncreaseMoneyRequestService implements IncreaseMoneyRequestUseCase 
 
         // kafka produce
         sendRechargingMoneyTaskPort.sendRechargingMoneyTaskPort(task);
+        countDownLatchManager.addCountDownLatch(task.getTaskID());
 
         // wait
+        try {
+            countDownLatchManager.getCountDownLatch(task.getTaskID()).await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // task-consumer
 
         // task result consume
+        String result = countDownLatchManager.getDataForKey(task.getTaskID());
 
-        // business logic
+        if (result.equals("success")) {
+            MemberMoneyJpaEntity memberMoneyEntity = increaseMoneyPort.increaseMoney(
+                    new MemberMoney.MembershipId(command.getTargetMembershipId()),
+                    command.getAmount()
+            );
 
+            if (memberMoneyEntity != null) {
+
+                MoneyChangingRequestJpaEntity entity = increaseMoneyPort.createMoneyChangingRequest(
+                        new MoneyChangingRequest.TargetMembershipId(command.getTargetMembershipId()),
+                        new MoneyChangingRequest.MoneyChangingType(0),
+                        new MoneyChangingRequest.ChangingMoneyAmount(command.getAmount()),
+                        new MoneyChangingRequest.MoneyChangingStatus(1),
+                        new MoneyChangingRequest.Uuid(UUID.randomUUID())
+                );
+                return mapper.mapToDomainEntity(entity);
+            }
+
+
+        } else {
+
+        }
         return null;
     }
 }

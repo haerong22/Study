@@ -118,6 +118,8 @@ services:
       - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka:29092
       - LOGGING_TOPIC=bobby.logging.out.stdout
       - TASK_TOPIC=bobby.task.topic
+      - TASK_RESULT_TOPIC=bobby.task.result.topic
+      - SERVICE_MEMBERSHIP_URL=http://membership-service:8080
     restart: always
 
   logging-consumer:
@@ -131,6 +133,20 @@ services:
     environment:
       - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka:29092
       - LOGGING_TOPIC=bobby.logging.out.stdout
+
+  task-consumer:
+    image: bobby-pay-task-consumer:1.0.0
+    networks:
+      - bobbypay_network
+    restart: always
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka:29092
+      - LOGGING_TOPIC=bobby.logging.out.stdout
+      - TASK_TOPIC=bobby.task.topic
+      - TASK_RESULT_TOPIC=bobby.task.result.topic
 networks:
   bobbypay_network:
     driver: bridge

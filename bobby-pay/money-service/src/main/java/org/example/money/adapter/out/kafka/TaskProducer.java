@@ -47,14 +47,14 @@ public class TaskProducer implements SendRechargingMoneyTaskPort {
             throw new RuntimeException();
         }
 
-//        ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
-//        producer.send(record, (metadata, exception) -> {
-//            if (exception == null) {
-//                // System.out.println("Message sent successfully. Offset: " + metadata.offset());
-//            } else {
-//                exception.printStackTrace();
-//                // System.err.println("Failed to send message: " + exception.getMessage());
-//            }
-//        });
+        ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, jsonStringToProduce);
+        producer.send(record, (metadata, exception) -> {
+            if (exception == null) {
+                // System.out.println("Message sent successfully. Offset: " + metadata.offset());
+            } else {
+                exception.printStackTrace();
+                // System.err.println("Failed to send message: " + exception.getMessage());
+            }
+        });
     }
 }
