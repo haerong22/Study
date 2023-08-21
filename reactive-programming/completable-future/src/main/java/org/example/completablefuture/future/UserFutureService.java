@@ -12,7 +12,6 @@ import org.example.completablefuture.future.repository.FollowFutureRepository;
 import org.example.completablefuture.future.repository.ImageFutureRepository;
 import org.example.completablefuture.future.repository.UserFutureRepository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
