@@ -3,6 +3,8 @@ package org.example.money.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
 import org.example.common.WebAdapter;
+import org.example.money.application.port.in.CreateMemberMoneyCommand;
+import org.example.money.application.port.in.CreateMemberMoneyUseCase;
 import org.example.money.application.port.in.IncreaseMoneyRequestCommand;
 import org.example.money.application.port.in.IncreaseMoneyRequestUseCase;
 import org.example.money.domain.MoneyChangingRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RequestMoneyChangingController {
 
     private final IncreaseMoneyRequestUseCase increaseMoneyRequestUseCase;
+    private final CreateMemberMoneyUseCase createMemberMoneyUseCase;
 
     @PostMapping("/money/increase")
     MoneyChangingResultDetail increaseMoneyChangingRequest(@RequestBody IncreaseMoneyChangingRequest request) {
@@ -63,5 +66,14 @@ public class RequestMoneyChangingController {
                 0,
                 moneyChangingRequest.getChangingMoneyAmount()
         );
+    }
+
+    @PostMapping("/money/create-member-money")
+    void createMemberMoney(@RequestBody CreateMemberMoneyRequest request) {
+        CreateMemberMoneyCommand command = CreateMemberMoneyCommand.builder()
+                .membershipId(request.getMembershipId())
+                .build();
+
+        createMemberMoneyUseCase.createMemberMoney(command);
     }
 }

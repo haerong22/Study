@@ -2,6 +2,7 @@ package org.example.money.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.example.common.PersistenceAdapter;
+import org.example.money.application.port.in.CreateMemberMoneyPort;
 import org.example.money.application.port.out.IncreaseMoneyPort;
 import org.example.money.domain.MemberMoney;
 import org.example.money.domain.MoneyChangingRequest;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class MoneyChangingRequestPersistenceAdapter implements IncreaseMoneyPort {
+public class MoneyChangingRequestPersistenceAdapter implements IncreaseMoneyPort, CreateMemberMoneyPort {
 
     private final SpringDataMoneyChangingRequestRepository moneyChangingRequestRepository;
     private final SpringDataMemberMoneyRepository memberMoneyRepository;
@@ -47,9 +48,21 @@ public class MoneyChangingRequestPersistenceAdapter implements IncreaseMoneyPort
         } catch (Exception e) {
             entity = new MemberMoneyJpaEntity(
                     Long.parseLong(membershipId.getMembershipId()),
-                    increaseMoneyAmount
+                    increaseMoneyAmount,
+                    ""
             );
             return memberMoneyRepository.save(entity);
         }
+    }
+
+    @Override
+    public void createMemberMoney(MemberMoney.MembershipId memberId, MemberMoney.MoneyAggregateIdentifier aggregateIdentifier) {
+        MemberMoneyJpaEntity entity = new MemberMoneyJpaEntity(
+                Long.parseLong(memberId.getMembershipId()),
+                0,
+                aggregateIdentifier.getAggregateIdentifier()
+        );
+
+        memberMoneyRepository.save(entity);
     }
 }
