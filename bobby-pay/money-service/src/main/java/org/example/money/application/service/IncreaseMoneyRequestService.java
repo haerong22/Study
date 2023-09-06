@@ -7,6 +7,7 @@ import org.example.common.CountDownLatchManager;
 import org.example.common.UseCase;
 import org.example.common.tasks.RechargingMoneyTask;
 import org.example.common.tasks.SubTask;
+import org.example.money.adapter.axon.command.IncreaseMemberMoneyCommand;
 import org.example.money.adapter.axon.command.MemberMoneyCreatedCommand;
 import org.example.money.adapter.out.persistence.MemberMoneyJpaEntity;
 import org.example.money.adapter.out.persistence.MoneyChangingRequestJpaEntity;
@@ -35,6 +36,7 @@ public class IncreaseMoneyRequestService implements IncreaseMoneyRequestUseCase,
     private final MoneyChangingRequestMapper mapper;
     private final CommandGateway commandGateway;
     private final CreateMemberMoneyPort createMemberMoneyPort;
+    private final GetMemberMoneyPort getMemberMoneyPort;
 
     @Override
     public MoneyChangingRequest increaseMoneyRequest(IncreaseMoneyRequestCommand command) {
@@ -146,6 +148,34 @@ public class IncreaseMoneyRequestService implements IncreaseMoneyRequestUseCase,
                 createMemberMoneyPort.createMemberMoney(
                         new MemberMoney.MembershipId(command.getMembershipId()),
                         new MemberMoney.MoneyAggregateIdentifier(result.toString())
+                );
+            }
+        });
+    }
+
+    @Override
+    public void increaseMoneyRequestByEvent(IncreaseMoneyRequestCommand command) {
+        MemberMoneyJpaEntity memberMoneyJpaEntity = getMemberMoneyPort.getMemberMoney(
+                new MemberMoney.MembershipId(command.getTargetMembershipId())
+        );
+
+        String aggregateIdentifier = memberMoneyJpaEntity.getAggregateIdentifier();
+
+        IncreaseMemberMoneyCommand axonCommand = IncreaseMemberMoneyCommand.builder()
+                .aggregateIdentifier(aggregateIdentifier)
+                .membershipId(command.getTargetMembershipId())
+                .amount(command.getAmount())
+                .build();
+
+        commandGateway.send(axonCommand).whenComplete((result, throwable) -> {
+            if (throwable != null) {
+                log.info("throwable =>", throwable);
+                throw new RuntimeException(throwable);
+            } else {
+                log.info("result => {}", result);
+                increaseMoneyPort.increaseMoney(
+                        new MemberMoney.MembershipId(command.getTargetMembershipId()),
+                        command.getAmount()
                 );
             }
         });
