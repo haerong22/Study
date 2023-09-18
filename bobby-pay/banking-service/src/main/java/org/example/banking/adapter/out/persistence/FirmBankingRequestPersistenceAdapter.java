@@ -14,7 +14,7 @@ public class FirmBankingRequestPersistenceAdapter implements RequestFirmBankingP
     private final SpringDataFirmBankingRequestRepository firmBankingRequestRepository;
 
     @Override
-    public FirmBankingRequestJpaEntity createRequestFirmBanking(FirmBankingRequest.FromBankName fromBankName, FirmBankingRequest.FromBankAccountNumber fromBankAccountNumber, FirmBankingRequest.ToBankName toBankName, FirmBankingRequest.ToBankAccountNumber toBankAccountNumber, FirmBankingRequest.MoneyAmount moneyAmount, FirmBankingRequest.FirmBankingStatus firmBankingStatus) {
+    public FirmBankingRequestJpaEntity createRequestFirmBanking(FirmBankingRequest.FromBankName fromBankName, FirmBankingRequest.FromBankAccountNumber fromBankAccountNumber, FirmBankingRequest.ToBankName toBankName, FirmBankingRequest.ToBankAccountNumber toBankAccountNumber, FirmBankingRequest.MoneyAmount moneyAmount, FirmBankingRequest.FirmBankingStatus firmBankingStatus, FirmBankingRequest.FirmBankingAggregateIdentifier aggregateIdentifier) {
         return firmBankingRequestRepository.save(
                 new FirmBankingRequestJpaEntity(
                         fromBankName.getFromBankName(),
@@ -23,7 +23,8 @@ public class FirmBankingRequestPersistenceAdapter implements RequestFirmBankingP
                         toBankAccountNumber.getToBankAccountNumber(),
                         moneyAmount.getMoneyAmount(),
                         firmBankingStatus.getFirmBankingStatus(),
-                        UUID.randomUUID()
+                        UUID.randomUUID(),
+                        aggregateIdentifier.getAggregateIdentifier()
                 )
         );
     }

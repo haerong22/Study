@@ -1,9 +1,7 @@
 package org.example.banking.application.port.out;
 
 import org.example.banking.adapter.out.persistence.FirmBankingRequestJpaEntity;
-import org.example.banking.adapter.out.persistence.RegisteredBankAccountJpaEntity;
 import org.example.banking.domain.FirmBankingRequest;
-import org.example.banking.domain.RegisteredBankAccount;
 
 public interface RequestFirmBankingPort {
 
@@ -13,7 +11,8 @@ public interface RequestFirmBankingPort {
             FirmBankingRequest.ToBankName toBankName,
             FirmBankingRequest.ToBankAccountNumber toBankAccountNumber,
             FirmBankingRequest.MoneyAmount moneyAmount,
-            FirmBankingRequest.FirmBankingStatus firmBankingStatus
+            FirmBankingRequest.FirmBankingStatus firmBankingStatus,
+            FirmBankingRequest.FirmBankingAggregateIdentifier firmBankingAggregateIdentifier
     );
 
     FirmBankingRequestJpaEntity modifyRequestFirmBanking(
