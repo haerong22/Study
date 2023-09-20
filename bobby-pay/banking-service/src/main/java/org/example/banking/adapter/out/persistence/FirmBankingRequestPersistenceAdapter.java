@@ -5,6 +5,7 @@ import org.example.banking.application.port.out.RequestFirmBankingPort;
 import org.example.banking.domain.FirmBankingRequest;
 import org.example.common.PersistenceAdapter;
 
+import java.util.List;
 import java.util.UUID;
 
 @PersistenceAdapter
@@ -32,5 +33,10 @@ public class FirmBankingRequestPersistenceAdapter implements RequestFirmBankingP
     @Override
     public FirmBankingRequestJpaEntity modifyRequestFirmBanking(FirmBankingRequestJpaEntity entity) {
         return firmBankingRequestRepository.save(entity);
+    }
+
+    @Override
+    public FirmBankingRequestJpaEntity getFirmBankingRequest(FirmBankingRequest.FirmBankingAggregateIdentifier firmBankingAggregateIdentifier) {
+        return firmBankingRequestRepository.findByAggregateIdentifier(firmBankingAggregateIdentifier.getAggregateIdentifier());
     }
 }

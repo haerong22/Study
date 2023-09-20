@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.example.banking.adapter.axon.command.CreateFirmBankingRequestCommand;
+import org.example.banking.adapter.axon.command.UpdateFirmBankingRequestCommand;
 import org.example.banking.adapter.out.external.bank.ExternalFirmBankingRequest;
 import org.example.banking.adapter.out.external.bank.FirmBankingResult;
 import org.example.banking.adapter.out.persistence.FirmBankingRequestJpaEntity;
 import org.example.banking.adapter.out.persistence.FirmBankingRequestMapper;
 import org.example.banking.application.port.in.RequestFirmBankingCommand;
 import org.example.banking.application.port.in.RequestFirmBankingUseCase;
+import org.example.banking.application.port.in.UpdateFirmBankingCommand;
+import org.example.banking.application.port.in.UpdateFirmBankingUseCase;
 import org.example.banking.application.port.out.RequestExternalFirmBankingPort;
 import org.example.banking.application.port.out.RequestFirmBankingPort;
 import org.example.banking.domain.FirmBankingRequest;
@@ -22,7 +25,7 @@ import java.util.UUID;
 @UseCase
 @Transactional
 @RequiredArgsConstructor
-public class RequestFirmBankingService implements RequestFirmBankingUseCase {
+public class RequestFirmBankingService implements RequestFirmBankingUseCase, UpdateFirmBankingUseCase {
 
     private final RequestFirmBankingPort requestFirmBankingPort;
     private final FirmBankingRequestMapper mapper;
@@ -109,5 +112,29 @@ public class RequestFirmBankingService implements RequestFirmBankingUseCase {
                     }
                 }
         );
+    }
+
+    @Override
+    public void updateFirmBankingByEvent(UpdateFirmBankingCommand command) {
+
+        UpdateFirmBankingRequestCommand updateFirmBankingRequestCommand =
+                new UpdateFirmBankingRequestCommand(command.getFirmBankingAggregateIdentifier(), command.getFirmBankingStatus());
+
+        commandGateway.send(updateFirmBankingRequestCommand)
+                .whenComplete((result, throwable) -> {
+                    if (throwable != null) {
+                        throwable.printStackTrace();
+                    } else {
+                        log.info("UpdateFirmBankingRequestCommand completed, Aggregate ID: {}", result.toString());
+
+                        FirmBankingRequestJpaEntity entity = requestFirmBankingPort.getFirmBankingRequest(
+                                new FirmBankingRequest.FirmBankingAggregateIdentifier(command.getFirmBankingAggregateIdentifier())
+                        );
+
+                        entity.setFirmBankingStatus(command.getFirmBankingStatus());
+
+                        requestFirmBankingPort.modifyRequestFirmBanking(entity);
+                    }
+                });
     }
 }

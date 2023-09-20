@@ -7,7 +7,9 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.example.banking.adapter.axon.command.CreateFirmBankingRequestCommand;
+import org.example.banking.adapter.axon.command.UpdateFirmBankingRequestCommand;
 import org.example.banking.adapter.axon.event.FirmBankingRequestCreatedEvent;
+import org.example.banking.adapter.axon.event.FirmBankingRequestUpdatedEvent;
 
 import java.util.UUID;
 
@@ -44,6 +46,16 @@ public class FirmBankingRequestAggregate {
         ));
     }
 
+    @CommandHandler
+    public String handle(UpdateFirmBankingRequestCommand command) {
+        log.info("UpdateFirmBankingRequestCommand Handler");
+
+        id = command.getAggregateIdentifier();
+        apply(new FirmBankingRequestUpdatedEvent(command.getFirmBankingStatus()));
+
+        return id;
+    }
+
     @EventSourcingHandler
     public void on(FirmBankingRequestCreatedEvent event) {
         log.info("FirmBankingRequestCreatedEvent Sourcing Handler");
@@ -53,6 +65,13 @@ public class FirmBankingRequestAggregate {
         fromBankAccountNumber = event.getFromBankAccountNumber();
         toBankName = event.getToBankName();
         toBankAccountNumber = event.getToBankAccountNumber();
+    }
+
+    @EventSourcingHandler
+    public void on(FirmBankingRequestUpdatedEvent event) {
+        log.info("FirmBankingRequestUpdatedEvent Sourcing Handler");
+
+        firmBankingStatus = event.getFirmBankingStatus();
     }
 
     public FirmBankingRequestAggregate() {
