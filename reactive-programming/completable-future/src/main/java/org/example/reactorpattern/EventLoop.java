@@ -12,14 +12,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Slf4j
-public class Reactor implements Runnable {
+public class EventLoop implements Runnable {
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final ServerSocketChannel serverSocket;
     private final Selector selector;
     private final EventHandler acceptor;
 
     @SneakyThrows
-    public Reactor(int port) {
+    public EventLoop(int port) {
         selector = Selector.open();
         serverSocket = ServerSocketChannel.open();
         serverSocket.bind(new InetSocketAddress("localhost", port));

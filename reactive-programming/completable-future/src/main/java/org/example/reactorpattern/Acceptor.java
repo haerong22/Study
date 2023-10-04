@@ -18,6 +18,7 @@ public class Acceptor implements EventHandler {
     @Override
     public void handle() {
         SocketChannel clientSocket = serverSocketChannel.accept();
-        new TcpEventHandler(selector, clientSocket);
+//        new TcpEventHandler(selector, clientSocket);
+        new HttpEventHandler(selector, clientSocket);
     }
 }
