@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ApplyServiceTest {
 
     @Autowired
-    private ApplyService applyService;
+    ApplyService applyService;
 
     @Autowired
-    private CouponRepository couponRepository;
+    CouponRepository couponRepository;
 
     @Test
     void 한번만_응모() {
