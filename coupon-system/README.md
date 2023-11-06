@@ -22,6 +22,32 @@ docker run -d -p 6379:6379 --name redis redis
 
 ---
 
+### kafka
+```yaml
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+
+```shell
+docker-compose up -d
+docker-compose down
+```
+
 ### 요구사항
 ```text
 선착순 100명에게 할인쿠폰을 제공하는 이벤트를 진행하고자 한다.
