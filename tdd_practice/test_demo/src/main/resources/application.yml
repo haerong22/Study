@@ -1,0 +1,29 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: ${MAIL_USERNAME}
+    port: '587'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          timeout: '5000'
+          auth: 'true'
+    password: ${MAIL_APPLICATION_PASSWORD}
+  datasource:
+    driverClassName: org.h2.Driver
+    password: ''
+    username: sa
+    url: jdbc:h2:~/mem-data;
+  h2:
+    console:
+      path: /h2-console
+      enabled: 'true'
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
