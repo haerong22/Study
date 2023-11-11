@@ -1,7 +1,6 @@
 package com.example.test_demo.repository;
 
 import com.example.test_demo.model.UserStatus;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,10 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest(showSql = true)
-@TestPropertySource(properties = {"spring.config.location = classpath:test-application.yml"})
+@TestPropertySource(properties = {"spring.config.location = classpath:application-test.yml"})
 @Sql("/sql/user-repository-test-data.sql")
 class UserRepositoryTest {
 
