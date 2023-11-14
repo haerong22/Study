@@ -81,6 +81,19 @@ class UserControllerTest {
     }
 
     @Test
+    @DisplayName("인증 코드가 일치하지 않으면 403 응답을 받는다.")
+    void verifyEmail_403() throws Exception {
+        mockMvc
+                .perform(
+                        get("/api/users/2/verify")
+                                .queryParam("certificationCode", "")
+                )
+                .andExpect(status().isForbidden())
+                .andExpect(content().string("자격 증명에 실패하였습니다."))
+        ;
+    }
+
+    @Test
     @DisplayName("내 정보를 불러올 때 주소를 받을 수 있다.")
     void getMyInfo_200() throws Exception {
         mockMvc
@@ -94,6 +107,19 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.nickname").value("bobby"))
                 .andExpect(jsonPath("$.address").value("seoul"))
                 .andExpect(jsonPath("$.status").value("ACTIVE"))
+        ;
+    }
+
+    @Test
+    @DisplayName("잘못된 이메일로 내 정보를 불러올 때 404 응답을 받는다.")
+    void getMyInfo_404() throws Exception {
+        mockMvc
+                .perform(
+                        get("/api/users/me")
+                                .header("EMAIL", "")
+                )
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Users에서 ID 를 찾을 수 없습니다."))
         ;
     }
 
