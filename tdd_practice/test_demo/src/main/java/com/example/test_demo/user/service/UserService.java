@@ -2,19 +2,19 @@ package com.example.test_demo.user.service;
 
 import com.example.test_demo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.test_demo.common.domain.exception.ResourceNotFoundException;
-import com.example.test_demo.user.domain.UserStatus;
 import com.example.test_demo.user.domain.UserCreate;
+import com.example.test_demo.user.domain.UserStatus;
 import com.example.test_demo.user.domain.UserUpdate;
 import com.example.test_demo.user.infrastructure.UserEntity;
-import com.example.test_demo.user.infrastructure.UserRepository;
-import java.time.Clock;
-import java.util.UUID;
-
+import com.example.test_demo.user.service.port.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Clock;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

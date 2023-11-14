@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest(showSql = true)
 @TestPropertySource(properties = {"spring.config.location = classpath:application-test.yml"})
 @Sql("/sql/user-repository-test-data.sql")
-class UserRepositoryTest {
+class UserJpaRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Test
     @DisplayName("findByIdAndStatus로 유저 데이터 조회")
@@ -26,7 +26,7 @@ class UserRepositoryTest {
         // given
 
         // when
-        Optional<UserEntity> result = userRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
+        Optional<UserEntity> result = userJpaRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
 
         // then
         assertThat(result.isPresent()).isTrue();
@@ -38,7 +38,7 @@ class UserRepositoryTest {
         // given
 
         // when
-        Optional<UserEntity> result = userRepository.findByIdAndStatus(1L, UserStatus.PENDING);
+        Optional<UserEntity> result = userJpaRepository.findByIdAndStatus(1L, UserStatus.PENDING);
 
         // then
         assertThat(result.isEmpty()).isTrue();
@@ -50,7 +50,7 @@ class UserRepositoryTest {
         // given
 
         // when
-        Optional<UserEntity> result = userRepository.findByEmailAndStatus("test@test.com", UserStatus.ACTIVE);
+        Optional<UserEntity> result = userJpaRepository.findByEmailAndStatus("test@test.com", UserStatus.ACTIVE);
 
         // then
         assertThat(result.isPresent()).isTrue();
@@ -62,7 +62,7 @@ class UserRepositoryTest {
         // given
 
         // when
-        Optional<UserEntity> result = userRepository.findByEmailAndStatus("test@test.com", UserStatus.PENDING);
+        Optional<UserEntity> result = userJpaRepository.findByEmailAndStatus("test@test.com", UserStatus.PENDING);
 
         // then
         assertThat(result.isEmpty()).isTrue();
