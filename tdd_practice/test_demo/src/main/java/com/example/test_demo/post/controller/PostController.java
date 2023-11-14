@@ -1,10 +1,10 @@
 package com.example.test_demo.post.controller;
 
-import com.example.test_demo.user.controller.UserController;
 import com.example.test_demo.post.controller.response.PostResponse;
 import com.example.test_demo.post.domain.PostUpdate;
 import com.example.test_demo.post.infrastructure.PostEntity;
 import com.example.test_demo.post.service.PostService;
+import com.example.test_demo.user.controller.UserController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

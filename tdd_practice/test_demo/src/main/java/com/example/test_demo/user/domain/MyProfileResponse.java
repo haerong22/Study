@@ -1,6 +1,5 @@
 package com.example.test_demo.user.domain;
 
-import com.example.test_demo.user.domain.UserStatus;
 import lombok.Getter;
 import lombok.Setter;
 
