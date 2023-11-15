@@ -1,9 +1,8 @@
 package com.example.test_demo.post.service;
 
+import com.example.test_demo.post.domain.Post;
 import com.example.test_demo.post.domain.PostCreate;
 import com.example.test_demo.post.domain.PostUpdate;
-import com.example.test_demo.post.infrastructure.PostEntity;
-import com.example.test_demo.post.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ class PostServiceTest {
         long id = 1;
 
         // when
-        PostEntity result = postService.getPostById(id);
+        Post result = postService.getPostById(id);
 
         // then
         assertThat(result.getContent()).isEqualTo("helloworld");
@@ -51,7 +50,7 @@ class PostServiceTest {
                 .build();
 
         // when
-        PostEntity result = postService.create(postCreate);
+        Post result = postService.create(postCreate);
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -71,7 +70,7 @@ class PostServiceTest {
         postService.update(1, userUpdateDto);
 
         // then
-        PostEntity postEntity = postService.getPostById(1);
+        Post postEntity = postService.getPostById(1);
         assertThat(postEntity.getContent()).isEqualTo("update content");
         assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
     }
