@@ -1,10 +1,10 @@
 package com.example.test_demo.post.domain;
 
+import com.example.test_demo.common.infrastructure.SystemClockHolder;
+import com.example.test_demo.common.service.port.ClockHolder;
 import com.example.test_demo.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.Clock;
 
 @Getter
 public class Post {
@@ -25,19 +25,26 @@ public class Post {
     }
 
     public static Post from(User writer, PostCreate postCreate) {
+        return from(writer, postCreate, new SystemClockHolder());
+    }
+    public static Post from(User writer, PostCreate postCreate, ClockHolder clockHolder) {
         return Post.builder()
                 .content(postCreate.getContent())
-                .createdAt(Clock.systemUTC().millis())
+                .createdAt(clockHolder.millis())
                 .writer(writer)
                 .build();
     }
 
     public Post update(PostUpdate postUpdate) {
+        return update(postUpdate, new SystemClockHolder());
+    }
+
+    public Post update(PostUpdate postUpdate, ClockHolder clockHolder) {
         return Post.builder()
                 .id(id)
                 .content(postUpdate.getContent())
                 .createdAt(createdAt)
-                .modifiedAt(Clock.systemUTC().millis())
+                .modifiedAt(clockHolder.millis())
                 .writer(writer)
                 .build();
     }
