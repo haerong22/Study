@@ -1,8 +1,8 @@
 package com.example.test_demo.post.controller;
 
+import com.example.test_demo.post.controller.port.PostService;
 import com.example.test_demo.post.controller.response.PostResponse;
 import com.example.test_demo.post.domain.PostCreate;
-import com.example.test_demo.post.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
