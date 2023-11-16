@@ -1,8 +1,9 @@
-package com.example.test_demo.post.service;
+package com.example.test_demo.medium;
 
 import com.example.test_demo.post.domain.Post;
 import com.example.test_demo.post.domain.PostCreate;
 import com.example.test_demo.post.domain.PostUpdate;
+import com.example.test_demo.post.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

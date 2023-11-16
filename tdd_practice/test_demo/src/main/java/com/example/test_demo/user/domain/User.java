@@ -7,9 +7,6 @@ import com.example.test_demo.common.service.port.UuidHolder;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.Clock;
-import java.util.UUID;
-
 @Getter
 public class User {
 

@@ -8,11 +8,13 @@ import com.example.test_demo.user.domain.UserCreate;
 import com.example.test_demo.user.domain.UserStatus;
 import com.example.test_demo.user.domain.UserUpdate;
 import com.example.test_demo.user.service.port.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class UserService {
 

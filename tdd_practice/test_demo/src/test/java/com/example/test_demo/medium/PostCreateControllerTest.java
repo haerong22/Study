@@ -1,6 +1,6 @@
-package com.example.test_demo.user.controller;
+package com.example.test_demo.medium;
 
-import com.example.test_demo.user.domain.UserCreate;
+import com.example.test_demo.post.domain.PostCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,17 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,41 +24,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 @SqlGroup({
+        @Sql(value = "/sql/post-create-controller-test-data.sql", executionPhase = BEFORE_TEST_METHOD),
         @Sql(value = "/sql/delete-all-data.sql", executionPhase = AFTER_TEST_METHOD)
 })
-class UserCreateControllerTest {
+class PostCreateControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private JavaMailSender mailSender;
-
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @DisplayName("회원 가입을 할 수 있고 회원가입된 사용자는 PENDING 상태이다.")
-    void createUser_201() throws Exception {
-        UserCreate userCreate = UserCreate.builder()
-                .email("testtest@test.com")
-                .nickname("bobby")
-                .address("seoul")
+    @DisplayName("유저는 게시물을 작성할 수 있다.")
+    void createPost_201() throws Exception {
+        PostCreate postCreate = PostCreate.builder()
+                .writerId(1)
+                .content("helloworld")
                 .build();
-
-        doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
         mockMvc
                 .perform(
-                        post("/api/users")
+                        post("/api/posts")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(userCreate))
+                                .content(objectMapper.writeValueAsString(postCreate))
                 )
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.email").value("testtest@test.com"))
-                .andExpect(jsonPath("$.nickname").value("bobby"))
-                .andExpect(jsonPath("$.address").doesNotExist())
-                .andExpect(jsonPath("$.status").value("PENDING"))
+                .andExpect(jsonPath("$.content").value("helloworld"))
+                .andExpect(jsonPath("$.writer.id").isNumber())
+                .andExpect(jsonPath("$.writer.email").value("test@test.com"))
+                .andExpect(jsonPath("$.writer.nickname").value("bobby"))
         ;
     }
 }
