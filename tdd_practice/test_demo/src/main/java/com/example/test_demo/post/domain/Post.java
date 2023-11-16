@@ -24,19 +24,12 @@ public class Post {
         this.writer = writer;
     }
 
-    public static Post from(User writer, PostCreate postCreate) {
-        return from(writer, postCreate, new SystemClockHolder());
-    }
     public static Post from(User writer, PostCreate postCreate, ClockHolder clockHolder) {
         return Post.builder()
                 .content(postCreate.getContent())
                 .createdAt(clockHolder.millis())
                 .writer(writer)
                 .build();
-    }
-
-    public Post update(PostUpdate postUpdate) {
-        return update(postUpdate, new SystemClockHolder());
     }
 
     public Post update(PostUpdate postUpdate, ClockHolder clockHolder) {
