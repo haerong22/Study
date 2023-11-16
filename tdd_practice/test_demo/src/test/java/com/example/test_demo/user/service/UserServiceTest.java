@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class UserServiceTest {
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @BeforeEach
     void init() {
@@ -47,9 +47,9 @@ class UserServiceTest {
                         .build()
         );
 
-        this.userService = UserService.builder()
+        this.userService = UserServiceImpl.builder()
                 .userRepository(fakeUserRepository)
-                .certificationService(new CertificationService(new FakeMailSender()))
+                .certificationService(new CertificationServiceImpl(new FakeMailSender()))
                 .uuidHolder(new TestUuidHolder("1234-1234-1234-1234"))
                 .clockHolder(new TestClockHolder(1678530673958L))
                 .build();

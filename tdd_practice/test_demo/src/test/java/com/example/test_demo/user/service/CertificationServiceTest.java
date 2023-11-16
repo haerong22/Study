@@ -13,10 +13,10 @@ class CertificationServiceTest {
     void email_content_test() {
         // given
         FakeMailSender fakeMailSender = new FakeMailSender();
-        CertificationService certificationService = new CertificationService(fakeMailSender);
+        CertificationServiceImpl certificationService = new CertificationServiceImpl(fakeMailSender);
 
         // when
-        certificationService.sendCertificationEmail("test@test.com", 1, "1234-1234-1234-1234");
+        certificationService.send("test@test.com", 1, "1234-1234-1234-1234");
 
         // then
         assertThat(fakeMailSender.email).isEqualTo("test@test.com");

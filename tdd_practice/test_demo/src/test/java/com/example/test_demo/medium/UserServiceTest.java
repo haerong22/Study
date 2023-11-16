@@ -6,7 +6,7 @@ import com.example.test_demo.user.domain.User;
 import com.example.test_demo.user.domain.UserCreate;
 import com.example.test_demo.user.domain.UserStatus;
 import com.example.test_demo.user.domain.UserUpdate;
-import com.example.test_demo.user.service.UserService;
+import com.example.test_demo.user.service.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @MockBean
     private JavaMailSender mailSender;

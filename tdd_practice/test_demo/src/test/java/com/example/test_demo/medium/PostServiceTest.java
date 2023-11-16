@@ -22,10 +22,10 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
         @Sql(value = "/sql/post-service-test-data.sql", executionPhase = BEFORE_TEST_METHOD),
         @Sql(value = "/sql/delete-all-data.sql", executionPhase = AFTER_TEST_METHOD)
 })
-class PostServiceImplTest {
+class PostServiceTest {
 
     @Autowired
-    private PostServiceImpl postServiceImpl;
+    private PostServiceImpl postService;
 
     @Test
     @DisplayName("getPostById 는 존재하는 게시물 조회")
@@ -34,7 +34,7 @@ class PostServiceImplTest {
         long id = 1;
 
         // when
-        Post result = postServiceImpl.getPostById(id);
+        Post result = postService.getPostById(id);
 
         // then
         assertThat(result.getContent()).isEqualTo("helloworld");
@@ -51,7 +51,7 @@ class PostServiceImplTest {
                 .build();
 
         // when
-        Post result = postServiceImpl.create(postCreate);
+        Post result = postService.create(postCreate);
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -68,10 +68,10 @@ class PostServiceImplTest {
                 .build();
 
         // when
-        postServiceImpl.update(1, userUpdateDto);
+        postService.update(1, userUpdateDto);
 
         // then
-        Post postEntity = postServiceImpl.getPostById(1);
+        Post postEntity = postService.getPostById(1);
         assertThat(postEntity.getContent()).isEqualTo("update content");
         assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
     }
