@@ -6,6 +6,7 @@ import com.example.test_demo.post.controller.port.PostService;
 import com.example.test_demo.post.service.PostServiceImpl;
 import com.example.test_demo.post.service.port.PostRepository;
 import com.example.test_demo.user.controller.UserController;
+import com.example.test_demo.user.controller.UserCreateController;
 import com.example.test_demo.user.controller.port.*;
 import com.example.test_demo.user.service.CertificationServiceImpl;
 import com.example.test_demo.user.service.UserServiceImpl;
@@ -25,6 +26,7 @@ public class TestContainer {
     public final AuthenticationService authenticationService;
     public final PostService postService;
     public final UserController userController;
+    public final UserCreateController userCreateController;
 
     @Builder
     public TestContainer(ClockHolder clockHolder, UuidHolder uuidHolder) {
@@ -57,6 +59,10 @@ public class TestContainer {
                 .userCreateService(this.userCreateService)
                 .userUpdateService(this.userUpdateService)
                 .authenticationService(this.authenticationService)
+                .build();
+
+        this.userCreateController = UserCreateController.builder()
+                .userCreateService(this.userCreateService)
                 .build();
     }
 
