@@ -4,10 +4,12 @@ import com.example.test_demo.post.controller.port.PostService;
 import com.example.test_demo.post.controller.response.PostResponse;
 import com.example.test_demo.post.domain.PostUpdate;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Builder
 @Tag(name = "게시물(posts)")
 @RestController
 @RequestMapping("/api/posts")

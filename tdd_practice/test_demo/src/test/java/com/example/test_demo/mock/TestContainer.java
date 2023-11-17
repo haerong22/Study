@@ -2,6 +2,7 @@ package com.example.test_demo.mock;
 
 import com.example.test_demo.common.service.port.ClockHolder;
 import com.example.test_demo.common.service.port.UuidHolder;
+import com.example.test_demo.post.controller.PostController;
 import com.example.test_demo.post.controller.PostCreateController;
 import com.example.test_demo.post.controller.port.PostService;
 import com.example.test_demo.post.service.PostServiceImpl;
@@ -28,6 +29,7 @@ public class TestContainer {
     public final PostService postService;
     public final UserController userController;
     public final UserCreateController userCreateController;
+    public final PostController postController;
     public final PostCreateController postCreateController;
 
     @Builder
@@ -65,6 +67,10 @@ public class TestContainer {
 
         this.userCreateController = UserCreateController.builder()
                 .userCreateService(this.userCreateService)
+                .build();
+
+        this.postController = PostController.builder()
+                .postService(this.postService)
                 .build();
 
         this.postCreateController = PostCreateController.builder()
