@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
     private final ClockHolder clockHolder;
 
     @Override
-    public Post getPostById(long id) {
+    public Post getById(long id) {
         return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
     }
 
@@ -36,7 +36,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post update(long id, PostUpdate postUpdate) {
-        Post post = getPostById(id);
+        Post post = getById(id);
         return postRepository.save(post.update(postUpdate, clockHolder));
     }
 }

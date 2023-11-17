@@ -6,7 +6,7 @@ import com.example.test_demo.post.domain.PostUpdate;
 
 public interface PostService {
 
-    Post getPostById(long id);
+    Post getById(long id);
     Post create(PostCreate postCreate);
     Post update(long id, PostUpdate postUpdate);
 }

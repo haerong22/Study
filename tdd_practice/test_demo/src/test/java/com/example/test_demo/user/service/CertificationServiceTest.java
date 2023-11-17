@@ -13,7 +13,7 @@ class CertificationServiceTest {
     void email_content_test() {
         // given
         FakeMailSender fakeMailSender = new FakeMailSender();
-        CertificationServiceImpl certificationService = new CertificationServiceImpl(fakeMailSender);
+        CertificationService certificationService = new CertificationService(fakeMailSender);
 
         // when
         certificationService.send("test@test.com", 1, "1234-1234-1234-1234");

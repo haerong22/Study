@@ -66,7 +66,7 @@ class PostServiceTest {
         long id = 1;
 
         // when
-        Post result = postService.getPostById(id);
+        Post result = postService.getById(id);
 
         // then
         assertThat(result.getContent()).isEqualTo("helloworld");
@@ -103,7 +103,7 @@ class PostServiceTest {
         postService.update(1, userUpdateDto);
 
         // then
-        Post postEntity = postService.getPostById(1);
+        Post postEntity = postService.getById(1);
         assertThat(postEntity.getContent()).isEqualTo("update content");
         assertThat(postEntity.getModifiedAt()).isEqualTo(1678530673958L);
     }

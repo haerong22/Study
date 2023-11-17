@@ -3,33 +3,20 @@ package com.example.test_demo.post.controller;
 import com.example.test_demo.common.domain.exception.ResourceNotFoundException;
 import com.example.test_demo.mock.TestClockHolder;
 import com.example.test_demo.mock.TestContainer;
-import com.example.test_demo.mock.TestUuidHolder;
 import com.example.test_demo.post.controller.response.PostResponse;
 import com.example.test_demo.post.domain.Post;
 import com.example.test_demo.post.domain.PostUpdate;
 import com.example.test_demo.user.domain.User;
 import com.example.test_demo.user.domain.UserStatus;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class PostControllerTest {
 
@@ -61,7 +48,7 @@ class PostControllerTest {
         testContainer.postRepository.save(post);
 
         // when
-        ResponseEntity<PostResponse> result = testContainer.postController.getPostById(1L);
+        ResponseEntity<PostResponse> result = testContainer.postController.getById(1L);
 
         // then
         assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
@@ -84,7 +71,7 @@ class PostControllerTest {
 
         // then
         assertThatThrownBy(() -> {
-            testContainer.postController.getPostById(1234);
+            testContainer.postController.getById(1234);
         })
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Posts에서 ID 1234를 찾을 수 없습니다.");
@@ -123,7 +110,7 @@ class PostControllerTest {
                 .build();
 
         // when
-        ResponseEntity<PostResponse> result = testContainer.postController.updatePost(1, postUpdate);
+        ResponseEntity<PostResponse> result = testContainer.postController.update(1, postUpdate);
 
         // then
         assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));

@@ -49,7 +49,7 @@ class UserServiceTest {
 
         this.userService = UserServiceImpl.builder()
                 .userRepository(fakeUserRepository)
-                .certificationService(new CertificationServiceImpl(new FakeMailSender()))
+                .certificationService(new CertificationService(new FakeMailSender()))
                 .uuidHolder(new TestUuidHolder("1234-1234-1234-1234"))
                 .clockHolder(new TestClockHolder(1678530673958L))
                 .build();
