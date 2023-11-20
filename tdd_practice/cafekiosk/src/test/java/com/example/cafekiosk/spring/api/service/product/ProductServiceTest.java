@@ -1,6 +1,6 @@
 package com.example.cafekiosk.spring.api.service.product;
 
-import com.example.cafekiosk.spring.api.controller.product.request.ProductCreateRequest;
+import com.example.cafekiosk.spring.api.service.product.request.ProductCreateServiceRequest;
 import com.example.cafekiosk.spring.api.service.product.response.ProductResponse;
 import com.example.cafekiosk.spring.domain.product.Product;
 import com.example.cafekiosk.spring.domain.product.ProductRepository;
@@ -42,7 +42,7 @@ class ProductServiceTest {
         Product product = createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
         productRepository.save(product);
 
-        ProductCreateRequest request = ProductCreateRequest.builder()
+        ProductCreateServiceRequest request = ProductCreateServiceRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("카푸치노")
@@ -72,7 +72,7 @@ class ProductServiceTest {
     @DisplayName("상품이 하나도 없는 경우 신규 상품을 등록하면 상품번호는 001이다.")
     void test() {
         // given
-        ProductCreateRequest request = ProductCreateRequest.builder()
+        ProductCreateServiceRequest request = ProductCreateServiceRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("카푸치노")
