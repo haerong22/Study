@@ -12,6 +12,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +39,22 @@ class MailServiceTest {
 //        doReturn(true)
 //                .when(mailSendClient)
 //                .sendEmail(anyString(), anyString(), anyString(), anyString());
+
+        // when
+        boolean result = mailService.sendMail("", "", "", "");
+
+        // then
+        verify(mailSendHistoryRepository, times(1)).save(any(MailSendHistory.class));
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("메일 전송 테스트(BDD Mockito)")
+    void sendMailWithBDDMockito() {
+        // given
+        given(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
+                .willReturn(true);
 
         // when
         boolean result = mailService.sendMail("", "", "", "");
