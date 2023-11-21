@@ -1,5 +1,6 @@
 package com.example.cafekiosk.spring.domain.order;
 
+import com.example.cafekiosk.spring.RepositoryTestSupport;
 import com.example.cafekiosk.spring.domain.product.Product;
 import com.example.cafekiosk.spring.domain.product.ProductRepository;
 import com.example.cafekiosk.spring.domain.product.ProductSellingStatus;
@@ -7,8 +8,6 @@ import com.example.cafekiosk.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,9 +17,7 @@ import static com.example.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@ActiveProfiles("test")
-@DataJpaTest
-class OrderRepositoryTest {
+class OrderRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private OrderRepository orderRepository;
