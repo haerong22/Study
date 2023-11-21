@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +42,7 @@ class ProductTypeTest {
     }
 
     @ParameterizedTest
-    @DisplayName("상품 타입이 재고 관련 타입인지 확인한다.")
+    @DisplayName("상품 타입이 재고 관련 타입인지 확인한다.(CsvSource)")
     @CsvSource({"HANDMADE, false", "BOTTLE, true", "BAKERY, true"})
     void containsStockType3(ProductType productType, boolean expected) {
         // given
@@ -64,7 +63,7 @@ class ProductTypeTest {
     }
 
     @ParameterizedTest
-    @DisplayName("상품 타입이 재고 관련 타입인지 확인한다.")
+    @DisplayName("상품 타입이 재고 관련 타입인지 확인한다.(MethodSource)")
     @MethodSource("provideProductTypesForCheckingStockType")
     void containsStockType4(ProductType productType, boolean expected) {
         // given
