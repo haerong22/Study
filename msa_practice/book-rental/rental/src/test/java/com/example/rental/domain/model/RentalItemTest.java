@@ -33,4 +33,24 @@ class RentalItemTest {
                 .containsExactly(10L, "SpringBoot");
     }
 
+    @Test
+    @DisplayName("대여도서를 연체 처리할 수 있다.")
+    void overdue() {
+        // given
+        LocalDate now = LocalDate.of(2023, 11, 22);
+
+        Item item = Item.builder()
+                .no(10L)
+                .title("SpringBoot")
+                .build();
+
+        RentalItem rentalItem = RentalItem.createRentalItem(item, now);
+
+        // when
+        rentalItem.overdue();
+
+        // then
+        assertThat(rentalItem.isOverdue()).isTrue();
+    }
+
 }

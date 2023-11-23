@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @Getter
 public class RentalItem {
 
-    private final Item item;
-    private final LocalDate rentDate;
-    private final boolean overdue;
-    private final LocalDate overdueDate;
+    private Item item;
+    private LocalDate rentDate;
+    private boolean overdue;
+    private LocalDate overdueDate;
 
     @Builder
     private RentalItem(Item item, LocalDate rentDate, boolean overdue, LocalDate overdueDate) {
@@ -29,5 +29,9 @@ public class RentalItem {
                 .overdue(false)
                 .overdueDate(rentDate.plusDays(14))
                 .build();
+    }
+
+    public void overdue() {
+        this.overdue = true;
     }
 }
