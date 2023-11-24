@@ -3,7 +3,6 @@ package com.example.rental.domain.model;
 import com.example.rental.domain.model.vo.*;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,15 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 public class RentalCard {
 
     private RentalCardNo rentalCardNo;
     private IDName member;
     private RentStatus rentStatus;
     private LateFee lateFee;
-    private List<RentalItem> rentalItems = new ArrayList<>();
-    private List<ReturnItem> returnItems = new ArrayList<>();
+    private List<RentalItem> rentalItems;
+    private List<ReturnItem> returnItems;
+
+    public RentalCard() {
+        this.rentalCardNo = new RentalCardNo("0");
+        this.member = new IDName("0", "test");
+        this.rentStatus = RentStatus.RENT_AVAILABLE;
+        this.lateFee = new LateFee(0);
+        this.rentalItems = new ArrayList<>();
+        this.returnItems = new ArrayList<>();
+    }
 
     @Builder
     private RentalCard(RentalCardNo rentalCardNo, IDName member, RentStatus rentStatus, LateFee lateFee, List<RentalItem> rentalItems, List<ReturnItem> returnItems) {
