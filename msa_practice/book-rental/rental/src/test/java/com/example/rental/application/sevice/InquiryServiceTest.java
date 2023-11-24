@@ -7,6 +7,7 @@ import com.example.rental.application.port.in.command.InquiryCommand;
 import com.example.rental.domain.model.RentalCard;
 import com.example.rental.domain.model.RentalItem;
 import com.example.rental.domain.model.vo.RentStatus;
+import com.example.rental.domain.model.vo.ReturnItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,6 +129,58 @@ class InquiryServiceTest extends IntegrationTestSupport {
         assertThat(result).isEmpty();
     }
 
+    @Test
+    @DisplayName("반납완료한 전체 도서를 조회한다.")
+    void getAllReturnItem() {
+        // given
+        RentalCardJpaEntity entity = testRentalCardJpaEntity(
+                new RentalCardJpaEntity.RentalCardNo("TEST"),
+                new RentalCardJpaEntity.IDName("001", "bobby"),
+                RENT_AVAILABLE,
+                new RentalCardJpaEntity.LateFee(100));
+
+        LocalDate rentDate = LocalDate.of(2023, 1, 1);
+        LocalDate returnDate = LocalDate.of(2023, 1, 10);
+        entity.getReturnItems().add(testJpaReturnItem(testJpaRentalItem(testJpaItem(1L, "Springboot"), rentDate), returnDate));
+        entity.getReturnItems().add(testJpaReturnItem(testJpaRentalItem(testJpaItem(2L, "Java"), rentDate), returnDate));
+        entity.getReturnItems().add(testJpaReturnItem(testJpaRentalItem(testJpaItem(3L, "Mysql"), rentDate), returnDate));
+
+        rentalCardJpaRepository.save(entity);
+
+        InquiryCommand bobby = InquiryCommand.builder()
+                .userId("001")
+                .userNm("bobby")
+                .build();
+
+        // when
+        List<ReturnItem> result = inquiryService.getAllReturnItem(bobby);
+
+        // then
+        assertThat(result).hasSize(3)
+                .extracting("rentalItem.item.no", "rentalItem.item.title", "rentalItem.rentDate", "rentalItem.overdue", "rentalItem.overdueDate", "returnDate")
+                .containsExactlyInAnyOrder(
+                        tuple(1L, "Springboot", rentDate, false, rentDate.plusDays(14), returnDate),
+                        tuple(2L, "Java", rentDate, false, rentDate.plusDays(14), returnDate),
+                        tuple(3L, "Mysql", rentDate, false, rentDate.plusDays(14), returnDate)
+                );
+    }
+
+    @Test
+    @DisplayName("반납완료한 전체 도서를 조회 시 대여 카드가 없으면 빈 리스트를 응답한다.")
+    void getAllReturnItemEmpty() {
+        // given
+        InquiryCommand bobby = InquiryCommand.builder()
+                .userId("001")
+                .userNm("bobby")
+                .build();
+
+        // when
+        List<ReturnItem> result = inquiryService.getAllReturnItem(bobby);
+
+        // then
+        assertThat(result).isEmpty();
+    }
+
     private RentalCardJpaEntity testRentalCardJpaEntity(
             RentalCardJpaEntity.RentalCardNo rentalCardNo,
             RentalCardJpaEntity.IDName creator,
@@ -160,6 +213,16 @@ class InquiryServiceTest extends IntegrationTestSupport {
                 .rentDate(rentDate)
                 .overdue(false)
                 .overdueDate(rentDate.plusDays(14))
+                .build();
+    }
+
+    private RentalCardJpaEntity.ReturnItem testJpaReturnItem(
+            RentalCardJpaEntity.RentalItem rentalItem,
+            LocalDate returnDate
+    ) {
+        return RentalCardJpaEntity.ReturnItem.builder()
+                .rentalItem(rentalItem)
+                .returnDate(returnDate)
                 .build();
     }
 

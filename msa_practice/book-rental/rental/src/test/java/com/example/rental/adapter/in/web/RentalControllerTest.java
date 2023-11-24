@@ -139,4 +139,25 @@ class RentalControllerTest {
         ;
 
     }
+
+    @Test
+    @DisplayName("반납완료한 전체 도서를 조회한다.")
+    void getAllReturnItem() throws Exception {
+        // given
+        when(inquiryUseCase.getAllReturnItem(any(InquiryCommand.class)))
+                .thenReturn(List.of());
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        get("/api/v1/rentalCard/0/returnBook")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+        ;
+
+    }
 }

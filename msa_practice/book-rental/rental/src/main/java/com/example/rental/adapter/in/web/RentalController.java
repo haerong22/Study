@@ -2,7 +2,9 @@ package com.example.rental.adapter.in.web;
 
 import com.example.rental.adapter.in.web.response.RentItemResponse;
 import com.example.rental.adapter.in.web.response.RentalCardResponse;
-import com.example.rental.application.port.in.*;
+import com.example.rental.adapter.in.web.response.ReturnItemResponse;
+import com.example.rental.application.port.in.CreateRentalCardUseCase;
+import com.example.rental.application.port.in.InquiryUseCase;
 import com.example.rental.application.port.in.command.CreateRentalCardCommand;
 import com.example.rental.application.port.in.command.InquiryCommand;
 import com.example.rental.domain.model.RentalCard;
@@ -55,4 +57,16 @@ public class RentalController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/api/v1/rentalCard/{userId}/returnBook")
+    public ResponseEntity<List<ReturnItemResponse>> getAllReturnItem(@PathVariable String userId) {
+        List<ReturnItemResponse> response = inquiryUseCase.getAllReturnItem(
+                        InquiryCommand.builder()
+                                .userId(userId)
+                                .build()
+                ).stream()
+                .map(ReturnItemResponse::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
 }
