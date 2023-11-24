@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,11 +28,13 @@ public class InquiryService implements InquiryUseCase {
 
     @Override
     public List<RentalItem> getAllRentItem(InquiryCommand command) {
-        return rentalCardPort.findRentalCard(command.getUserId()).orElse(new RentalCard()).getRentalItems();
+        RentalCard rentalCard = rentalCardPort.findRentalCard(command.getUserId()).orElse(null);
+        return rentalCard == null ? new ArrayList<>() : rentalCard.getRentalItems();
     }
 
     @Override
     public List<ReturnItem> getAllReturnItem(InquiryCommand command) {
-        return rentalCardPort.findRentalCard(command.getUserId()).orElse(new RentalCard()).getReturnItems();
+        RentalCard rentalCard = rentalCardPort.findRentalCard(command.getUserId()).orElse(null);
+        return rentalCard == null ? new ArrayList<>() : rentalCard.getReturnItems();
     }
 }

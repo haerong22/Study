@@ -1,5 +1,6 @@
 package com.example.rental.adapter.in.web;
 
+import com.example.rental.adapter.in.web.response.RentItemResponse;
 import com.example.rental.adapter.in.web.response.RentalCardResponse;
 import com.example.rental.application.port.in.*;
 import com.example.rental.application.port.in.command.CreateRentalCardCommand;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,4 +41,18 @@ public class RentalController {
                 rentalCard == null ? null : RentalCardResponse.toResponse(rentalCard)
         );
     }
+
+    @GetMapping("/api/v1/rentalCard/{userId}/rentBook")
+    public ResponseEntity<List<RentItemResponse>> getAllRentItem(@PathVariable String userId) {
+        List<RentItemResponse> response = inquiryUseCase.getAllRentItem(
+                InquiryCommand.builder()
+                        .userId(userId)
+                        .build()
+        ).stream()
+                .map(RentItemResponse::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
 }
