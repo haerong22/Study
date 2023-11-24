@@ -14,4 +14,8 @@ public class Item {
         this.no = no;
         this.title = title;
     }
+
+    public static Item create(Long no, String title) {
+        return new Item(no, title);
+    }
 }

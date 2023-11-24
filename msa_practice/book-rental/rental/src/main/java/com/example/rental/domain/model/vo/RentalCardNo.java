@@ -10,7 +10,7 @@ public class RentalCardNo {
 
     private final String no;
 
-    private RentalCardNo(String no) {
+    public RentalCardNo(String no) {
         this.no = no;
     }
 

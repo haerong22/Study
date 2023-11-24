@@ -15,7 +15,7 @@ public class RentalItem {
     private LocalDate overdueDate;
 
     @Builder
-    private RentalItem(Item item, LocalDate rentDate, boolean overdue, LocalDate overdueDate) {
+    public RentalItem(Item item, LocalDate rentDate, boolean overdue, LocalDate overdueDate) {
         this.item = item;
         this.rentDate = rentDate;
         this.overdue = overdue;
