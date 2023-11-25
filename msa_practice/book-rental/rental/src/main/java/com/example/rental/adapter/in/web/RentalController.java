@@ -5,8 +5,10 @@ import com.example.rental.adapter.in.web.response.RentalCardResponse;
 import com.example.rental.adapter.in.web.response.ReturnItemResponse;
 import com.example.rental.application.port.in.CreateRentalCardUseCase;
 import com.example.rental.application.port.in.InquiryUseCase;
+import com.example.rental.application.port.in.RentItemUseCase;
 import com.example.rental.application.port.in.command.CreateRentalCardCommand;
 import com.example.rental.application.port.in.command.InquiryCommand;
+import com.example.rental.application.port.in.command.RentItemCommand;
 import com.example.rental.domain.model.RentalCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ public class RentalController {
 
     private final CreateRentalCardUseCase createRentalCardUseCase;
     private final InquiryUseCase inquiryUseCase;
+    private final RentItemUseCase rentItemUseCase;
 
     @PostMapping("/api/v1/rentalCard")
     public ResponseEntity<RentalCardResponse> createRentalCard(@RequestBody CreateRentalCardCommand request) {
@@ -68,5 +71,11 @@ public class RentalController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/api/v1/rentalCard/rent")
+    public ResponseEntity<RentalCardResponse> rentItem(@RequestBody RentItemCommand command) {
+        RentalCard rentalCard = rentItemUseCase.rentItem(command);
+        return ResponseEntity.ok(RentalCardResponse.toResponse(rentalCard));
     }
 }

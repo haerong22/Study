@@ -2,8 +2,10 @@ package com.example.rental.adapter.in.web;
 
 import com.example.rental.application.port.in.CreateRentalCardUseCase;
 import com.example.rental.application.port.in.InquiryUseCase;
+import com.example.rental.application.port.in.RentItemUseCase;
 import com.example.rental.application.port.in.command.CreateRentalCardCommand;
 import com.example.rental.application.port.in.command.InquiryCommand;
+import com.example.rental.application.port.in.command.RentItemCommand;
 import com.example.rental.domain.model.RentalCard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,6 +36,9 @@ class RentalControllerTest {
 
     @MockBean
     private CreateRentalCardUseCase createRentalCardUseCase;
+
+    @MockBean
+    private RentItemUseCase rentItemUseCase;
 
     @MockBean
     private InquiryUseCase inquiryUseCase;
@@ -69,6 +75,7 @@ class RentalControllerTest {
                 .andExpect(jsonPath("$.totalOverduedCnt").value(0))
         ;
 
+        verify(createRentalCardUseCase).createRentalCard(any(CreateRentalCardCommand.class));
     }
 
     @Test
@@ -97,6 +104,7 @@ class RentalControllerTest {
                 .andExpect(jsonPath("$.totalOverduedCnt").value(0))
         ;
 
+        verify(inquiryUseCase).getRentalCard(any(InquiryCommand.class));
     }
 
     @Test
@@ -117,6 +125,7 @@ class RentalControllerTest {
                 .andExpect(content().string(""))
         ;
 
+        verify(inquiryUseCase).getRentalCard(any(InquiryCommand.class));
     }
 
     @Test
@@ -138,6 +147,7 @@ class RentalControllerTest {
                 .andExpect(jsonPath("$").isArray())
         ;
 
+        verify(inquiryUseCase).getAllRentItem(any(InquiryCommand.class));
     }
 
     @Test
@@ -159,5 +169,35 @@ class RentalControllerTest {
                 .andExpect(jsonPath("$").isArray())
         ;
 
+        verify(inquiryUseCase).getAllReturnItem(any(InquiryCommand.class));
+    }
+
+    @Test
+    @DisplayName("도서를 대여한다.")
+    void rentItem() throws Exception {
+        // given
+        RentItemCommand request = RentItemCommand.builder()
+                .userId("001")
+                .userNm("bobby")
+                .itemId(1L)
+                .itemTitle("SpringBoot")
+                .build();
+
+        when(rentItemUseCase.rentItem(any(RentItemCommand.class)))
+                .thenReturn(new RentalCard());
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        post("/api/v1/rentalCard/rent")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+        ;
+
+        verify(rentItemUseCase).rentItem(any(RentItemCommand.class));
     }
 }
