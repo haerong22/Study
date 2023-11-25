@@ -3,14 +3,8 @@ package com.example.rental.adapter.in.web;
 import com.example.rental.adapter.in.web.response.RentItemResponse;
 import com.example.rental.adapter.in.web.response.RentalCardResponse;
 import com.example.rental.adapter.in.web.response.ReturnItemResponse;
-import com.example.rental.application.port.in.CreateRentalCardUseCase;
-import com.example.rental.application.port.in.InquiryUseCase;
-import com.example.rental.application.port.in.RentItemUseCase;
-import com.example.rental.application.port.in.ReturnItemUseCase;
-import com.example.rental.application.port.in.command.CreateRentalCardCommand;
-import com.example.rental.application.port.in.command.InquiryCommand;
-import com.example.rental.application.port.in.command.RentItemCommand;
-import com.example.rental.application.port.in.command.ReturnItemCommand;
+import com.example.rental.application.port.in.*;
+import com.example.rental.application.port.in.command.*;
 import com.example.rental.domain.model.RentalCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +22,7 @@ public class RentalController {
     private final InquiryUseCase inquiryUseCase;
     private final RentItemUseCase rentItemUseCase;
     private final ReturnItemUseCase returnItemUseCase;
+    private final OverdueItemUseCase overdueItemUseCase;
 
     @PostMapping("/api/v1/rentalCard")
     public ResponseEntity<RentalCardResponse> createRentalCard(@RequestBody CreateRentalCardCommand request) {
@@ -85,6 +80,12 @@ public class RentalController {
     @PostMapping("/api/v1/rentalCard/return")
     public ResponseEntity<RentalCardResponse> returnItem(@RequestBody ReturnItemCommand command) {
         RentalCard rentalCard = returnItemUseCase.returnItem(command);
+        return ResponseEntity.ok(RentalCardResponse.toResponse(rentalCard));
+    }
+
+    @PostMapping("/api/v1/rentalCard/overdue")
+    public ResponseEntity<RentalCardResponse> overdueItem(@RequestBody OverdueItemCommand command) {
+        RentalCard rentalCard = overdueItemUseCase.overdueItem(command);
         return ResponseEntity.ok(RentalCardResponse.toResponse(rentalCard));
     }
 }
