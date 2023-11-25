@@ -6,9 +6,11 @@ import com.example.rental.adapter.in.web.response.ReturnItemResponse;
 import com.example.rental.application.port.in.CreateRentalCardUseCase;
 import com.example.rental.application.port.in.InquiryUseCase;
 import com.example.rental.application.port.in.RentItemUseCase;
+import com.example.rental.application.port.in.ReturnItemUseCase;
 import com.example.rental.application.port.in.command.CreateRentalCardCommand;
 import com.example.rental.application.port.in.command.InquiryCommand;
 import com.example.rental.application.port.in.command.RentItemCommand;
+import com.example.rental.application.port.in.command.ReturnItemCommand;
 import com.example.rental.domain.model.RentalCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ public class RentalController {
     private final CreateRentalCardUseCase createRentalCardUseCase;
     private final InquiryUseCase inquiryUseCase;
     private final RentItemUseCase rentItemUseCase;
+    private final ReturnItemUseCase returnItemUseCase;
 
     @PostMapping("/api/v1/rentalCard")
     public ResponseEntity<RentalCardResponse> createRentalCard(@RequestBody CreateRentalCardCommand request) {
@@ -76,6 +79,12 @@ public class RentalController {
     @PostMapping("/api/v1/rentalCard/rent")
     public ResponseEntity<RentalCardResponse> rentItem(@RequestBody RentItemCommand command) {
         RentalCard rentalCard = rentItemUseCase.rentItem(command);
+        return ResponseEntity.ok(RentalCardResponse.toResponse(rentalCard));
+    }
+
+    @PostMapping("/api/v1/rentalCard/return")
+    public ResponseEntity<RentalCardResponse> returnItem(@RequestBody ReturnItemCommand command) {
+        RentalCard rentalCard = returnItemUseCase.returnItem(command);
         return ResponseEntity.ok(RentalCardResponse.toResponse(rentalCard));
     }
 }

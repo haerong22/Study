@@ -3,9 +3,11 @@ package com.example.rental.adapter.in.web;
 import com.example.rental.application.port.in.CreateRentalCardUseCase;
 import com.example.rental.application.port.in.InquiryUseCase;
 import com.example.rental.application.port.in.RentItemUseCase;
+import com.example.rental.application.port.in.ReturnItemUseCase;
 import com.example.rental.application.port.in.command.CreateRentalCardCommand;
 import com.example.rental.application.port.in.command.InquiryCommand;
 import com.example.rental.application.port.in.command.RentItemCommand;
+import com.example.rental.application.port.in.command.ReturnItemCommand;
 import com.example.rental.domain.model.RentalCard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -42,6 +44,9 @@ class RentalControllerTest {
 
     @MockBean
     private InquiryUseCase inquiryUseCase;
+
+    @MockBean
+    private ReturnItemUseCase returnItemUseCase;
 
     @Test
     @DisplayName("RentalCard를 생성한다.")
@@ -199,5 +204,34 @@ class RentalControllerTest {
         ;
 
         verify(rentItemUseCase).rentItem(any(RentItemCommand.class));
+    }
+
+    @Test
+    @DisplayName("도서를 반납한다.")
+    void returnItem() throws Exception {
+        // given
+        ReturnItemCommand request = ReturnItemCommand.builder()
+                .userId("001")
+                .userNm("bobby")
+                .itemId(1L)
+                .itemTitle("SpringBoot")
+                .build();
+
+        when(returnItemUseCase.returnItem(any(ReturnItemCommand.class)))
+                .thenReturn(new RentalCard());
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        post("/api/v1/rentalCard/return")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+        ;
+
+        verify(returnItemUseCase).returnItem(any(ReturnItemCommand.class));
     }
 }

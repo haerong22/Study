@@ -4,8 +4,8 @@ import com.example.rental.domain.model.vo.*;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.Duration;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +96,7 @@ public class RentalCard {
 
     private void calculateLateFee(RentalItem rentalItem, LocalDate returnDate) {
         if (returnDate.compareTo(rentalItem.getOverdueDate()) > 0) {
-            int point = Period.between(rentalItem.getOverdueDate(), returnDate).getDays() * 10;
+            long point = Duration.between(rentalItem.getOverdueDate().atStartOfDay(), returnDate.atStartOfDay()).toDays() * 10;
             this.lateFee = this.lateFee.addPoint(point);
         }
     }
