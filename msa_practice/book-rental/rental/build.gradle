@@ -31,12 +31,8 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.apache.kafka:kafka-clients'
 
-    // Javaassist
-    implementation 'javassist:javassist:3.3'
-
     // Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 
     // H2
     runtimeOnly 'com.h2database:h2'

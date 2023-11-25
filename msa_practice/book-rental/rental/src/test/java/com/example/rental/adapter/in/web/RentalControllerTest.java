@@ -1,13 +1,7 @@
 package com.example.rental.adapter.in.web;
 
-import com.example.rental.application.port.in.CreateRentalCardUseCase;
-import com.example.rental.application.port.in.InquiryUseCase;
-import com.example.rental.application.port.in.RentItemUseCase;
-import com.example.rental.application.port.in.ReturnItemUseCase;
-import com.example.rental.application.port.in.command.CreateRentalCardCommand;
-import com.example.rental.application.port.in.command.InquiryCommand;
-import com.example.rental.application.port.in.command.RentItemCommand;
-import com.example.rental.application.port.in.command.ReturnItemCommand;
+import com.example.rental.application.port.in.*;
+import com.example.rental.application.port.in.command.*;
 import com.example.rental.domain.model.RentalCard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -47,6 +41,12 @@ class RentalControllerTest {
 
     @MockBean
     private ReturnItemUseCase returnItemUseCase;
+
+    @MockBean
+    private OverdueItemUseCase overdueItemUseCase;
+
+    @MockBean
+    private ClearOverdueItemUseCase clearOverdueItemUseCase;
 
     @Test
     @DisplayName("RentalCard를 생성한다.")
@@ -233,5 +233,62 @@ class RentalControllerTest {
         ;
 
         verify(returnItemUseCase).returnItem(any(ReturnItemCommand.class));
+    }
+
+    @Test
+    @DisplayName("연체 처리 한다.")
+    void overdueItem() throws Exception {
+        // given
+        OverdueItemCommand request = OverdueItemCommand.builder()
+                .userId("001")
+                .userNm("bobby")
+                .itemId(1L)
+                .itemTitle("SpringBoot")
+                .build();
+
+        when(overdueItemUseCase.overdueItem(any(OverdueItemCommand.class)))
+                .thenReturn(new RentalCard());
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        post("/api/v1/rentalCard/overdue")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+        ;
+
+        verify(overdueItemUseCase).overdueItem(any(OverdueItemCommand.class));
+    }
+
+    @Test
+    @DisplayName("연체 상태를 해제한다.")
+    void clearOverdueItem() throws Exception {
+        // given
+        ClearOverdueItemCommand request = ClearOverdueItemCommand.builder()
+                .userId("001")
+                .userNm("bobby")
+                .point(100)
+                .build();
+
+        when(clearOverdueItemUseCase.clearOverdue(any(ClearOverdueItemCommand.class)))
+                .thenReturn(new RentalCard());
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        post("/api/v1/rentalCard/clearOverdue")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+        ;
+
+        verify(clearOverdueItemUseCase).clearOverdue(any(ClearOverdueItemCommand.class));
     }
 }

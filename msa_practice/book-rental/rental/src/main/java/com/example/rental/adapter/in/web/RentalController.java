@@ -2,6 +2,7 @@ package com.example.rental.adapter.in.web;
 
 import com.example.rental.adapter.in.web.response.RentItemResponse;
 import com.example.rental.adapter.in.web.response.RentalCardResponse;
+import com.example.rental.adapter.in.web.response.RentalResultResponse;
 import com.example.rental.adapter.in.web.response.ReturnItemResponse;
 import com.example.rental.application.port.in.*;
 import com.example.rental.application.port.in.command.*;
@@ -23,6 +24,7 @@ public class RentalController {
     private final RentItemUseCase rentItemUseCase;
     private final ReturnItemUseCase returnItemUseCase;
     private final OverdueItemUseCase overdueItemUseCase;
+    private final ClearOverdueItemUseCase clearOverdueItemUseCase;
 
     @PostMapping("/api/v1/rentalCard")
     public ResponseEntity<RentalCardResponse> createRentalCard(@RequestBody CreateRentalCardCommand request) {
@@ -87,5 +89,11 @@ public class RentalController {
     public ResponseEntity<RentalCardResponse> overdueItem(@RequestBody OverdueItemCommand command) {
         RentalCard rentalCard = overdueItemUseCase.overdueItem(command);
         return ResponseEntity.ok(RentalCardResponse.toResponse(rentalCard));
+    }
+
+    @PostMapping("/api/v1/rentalCard/clearOverdue")
+    public ResponseEntity<RentalResultResponse> clearOverdueItem(@RequestBody ClearOverdueItemCommand command) {
+        RentalCard rentalCard = clearOverdueItemUseCase.clearOverdue(command);
+        return ResponseEntity.ok(RentalResultResponse.toResponse(rentalCard));
     }
 }
