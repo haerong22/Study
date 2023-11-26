@@ -1,6 +1,7 @@
-package com.example.book.application.service;
+package com.example.book.application.service.unit;
 
 import com.example.book.application.port.out.BookPort;
+import com.example.book.application.service.ChangeBookStatusService;
 import com.example.book.domain.model.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
