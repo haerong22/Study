@@ -1,6 +1,7 @@
 package com.example.book.adapter.in.web;
 
 import com.example.book.application.port.in.AddBookUseCase;
+import com.example.book.application.port.in.InquiryUseCase;
 import com.example.book.application.port.in.command.AddBookCommand;
 import com.example.book.domain.model.Book;
 import com.example.book.domain.model.vo.BookDesc;
@@ -21,8 +22,10 @@ import static com.example.book.domain.model.vo.Classification.COMPUTER;
 import static com.example.book.domain.model.vo.Location.JEONGJA;
 import static com.example.book.domain.model.vo.Source.SUPPLY;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,6 +40,9 @@ class BookControllerTest {
 
     @MockBean
     private AddBookUseCase addBookUseCase;
+
+    @MockBean
+    private InquiryUseCase inquiryUseCase;
 
     @Test
     @DisplayName("도서를 등록한다.")
@@ -68,6 +74,26 @@ class BookControllerTest {
         ;
 
         verify(addBookUseCase).addBook(any(AddBookCommand.class));
+    }
+
+    @Test
+    @DisplayName("도서를 조회한다.")
+    void getBook() throws Exception {
+        // given
+        when(inquiryUseCase.getBookInfo(anyLong())).thenReturn(createTestBook());
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        get("/api/v1/book/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+        ;
+
+        verify(inquiryUseCase).getBookInfo(anyLong());
     }
 
     public Book createTestBook() {

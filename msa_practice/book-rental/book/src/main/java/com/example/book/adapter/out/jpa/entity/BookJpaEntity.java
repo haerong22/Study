@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "book")
 public class BookJpaEntity {
 
     @Id

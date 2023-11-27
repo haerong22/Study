@@ -4,7 +4,6 @@ import com.example.book.adapter.out.jpa.entity.BookJpaEntity;
 import com.example.book.adapter.out.jpa.repository.BookJpaRepository;
 import com.example.book.domain.model.Book;
 import com.example.book.domain.model.vo.BookDesc;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ import static com.example.book.domain.model.vo.Classification.COMPUTER;
 import static com.example.book.domain.model.vo.Location.JEONGJA;
 import static com.example.book.domain.model.vo.Location.PANGYO;
 import static com.example.book.domain.model.vo.Source.SUPPLY;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Import({BookAdapter.class})
 @DataJpaTest
@@ -29,11 +29,6 @@ class BookAdapterTest {
 
     @Autowired
     private BookAdapter bookAdapter;
-
-    @AfterEach
-    void clear() {
-        bookJpaRepository.deleteAllInBatch();
-    }
 
     @Test
     @DisplayName("도서를 조회할 수 있다.")
@@ -110,7 +105,6 @@ class BookAdapterTest {
 
     private BookJpaEntity createTestBookJpaEntity() {
         return BookJpaEntity.builder()
-                .no(1)
                 .title("test")
                 .description("test")
                 .author("test")

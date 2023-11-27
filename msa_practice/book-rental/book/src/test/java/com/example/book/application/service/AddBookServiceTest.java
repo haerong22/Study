@@ -47,23 +47,23 @@ class AddBookServiceTest extends IntegrationTestSupport {
         // then
         assertThat(result).isNotNull()
                 .extracting(
-                        "no", "title", "desc.description", "desc.author", "desc.isbn",
+                        "title", "desc.description", "desc.author", "desc.isbn",
                         "desc.publicationDate", "desc.source", "classification", "bookStatus", "location"
                 )
                 .containsExactly(
-                        1L, "test", "test", "test", "test", LocalDate.of(2023, 1, 1),
+                        "test", "test", "test", "test", LocalDate.of(2023, 1, 1),
                         SUPPLY, ART, ENTERED, PANGYO
                 );
 
-        BookJpaEntity entity = bookJpaRepository.findById(1L).get();
+        BookJpaEntity entity = bookJpaRepository.findById(result.getNo()).get();
 
         assertThat(entity).isNotNull()
                 .extracting(
-                        "no", "title", "description", "author", "isbn",
+                        "title", "description", "author", "isbn",
                         "publicationDate", "source", "classification", "bookStatus", "location"
                 )
                 .containsExactly(
-                        1L, "test", "test", "test", "test", LocalDate.of(2023, 1, 1),
+                        "test", "test", "test", "test", LocalDate.of(2023, 1, 1),
                         SUPPLY, ART, ENTERED, PANGYO
                 );
     }
