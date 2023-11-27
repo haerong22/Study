@@ -4,8 +4,8 @@ import com.example.member.domain.vo.*;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -15,7 +15,7 @@ public class Member {
     private IDName idName;
     private Password password;
     private Email email;
-    private Set<Authority> authorites;
+    private List<Authority> authorites;
     private Point point;
 
     public static Member register(IDName idName, Password pwd, Email email) {
@@ -23,7 +23,7 @@ public class Member {
                 .idName(idName)
                 .password(pwd)
                 .email(email)
-                .authorites(new HashSet<>() {{
+                .authorites(new ArrayList<>() {{
                     add(Authority.create(UserRole.USER));
                 }})
                 .point(Point.create(0))
