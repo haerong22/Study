@@ -2,7 +2,9 @@ package com.example.rental.application.sevice;
 
 import com.example.rental.application.port.in.ClearOverdueItemUseCase;
 import com.example.rental.application.port.in.command.ClearOverdueItemCommand;
+import com.example.rental.application.port.out.EventPort;
 import com.example.rental.application.port.out.RentalCardPort;
+import com.example.rental.domain.event.OverdueCleared;
 import com.example.rental.domain.model.RentalCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClearOverdueItemService implements ClearOverdueItemUseCase {
 
     private final RentalCardPort rentalCardPort;
+    private final EventPort eventPort;
 
     @Override
     public RentalCard clearOverdue(ClearOverdueItemCommand command) {
@@ -22,7 +25,12 @@ public class ClearOverdueItemService implements ClearOverdueItemUseCase {
 
         rentalCard.makeAvailableRental(command.getPoint());
 
-        return rentalCardPort.save(rentalCard);
+        RentalCard saved = rentalCardPort.save(rentalCard);
+
+        OverdueCleared event = RentalCard.createOverdueClearedEvent(rentalCard.getMember(), 10L);
+        eventPort.overdueClearEvent(event);
+
+        return saved;
     }
 
 }

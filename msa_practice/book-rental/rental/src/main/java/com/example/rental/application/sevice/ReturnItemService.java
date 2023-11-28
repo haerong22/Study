@@ -2,7 +2,9 @@ package com.example.rental.application.sevice;
 
 import com.example.rental.application.port.in.ReturnItemUseCase;
 import com.example.rental.application.port.in.command.ReturnItemCommand;
+import com.example.rental.application.port.out.EventPort;
 import com.example.rental.application.port.out.RentalCardPort;
+import com.example.rental.domain.event.ItemReturned;
 import com.example.rental.domain.model.RentalCard;
 import com.example.rental.domain.model.vo.Item;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 public class ReturnItemService implements ReturnItemUseCase {
 
     private final RentalCardPort rentalCardPort;
+    private final EventPort eventPort;
 
     @Override
     public RentalCard returnItem(ReturnItemCommand command) {
@@ -26,6 +29,11 @@ public class ReturnItemService implements ReturnItemUseCase {
         Item returnItem = Item.create(command.getItemId(), command.getItemTitle());
         rentalCard.returnItem(returnItem, LocalDate.now());
 
-        return rentalCardPort.save(rentalCard);
+        RentalCard saved = rentalCardPort.save(rentalCard);
+
+        ItemReturned event = RentalCard.createItemReturnEvent(rentalCard.getMember(), returnItem, 10L);
+        eventPort.returnEvent(event);
+
+        return saved;
     }
 }

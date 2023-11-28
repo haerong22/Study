@@ -1,5 +1,8 @@
 package com.example.rental.domain.model;
 
+import com.example.rental.domain.event.ItemRented;
+import com.example.rental.domain.event.ItemReturned;
+import com.example.rental.domain.event.OverdueCleared;
 import com.example.rental.domain.model.vo.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,6 +50,18 @@ public class RentalCard {
                 .rentalItems(new ArrayList<>())
                 .returnItems(new ArrayList<>())
                 .build();
+    }
+
+    public static ItemRented createItemRentedEvent(IDName idName, Item item, long point) {
+        return new ItemRented(idName, item, point);
+    }
+
+    public static ItemReturned createItemReturnEvent(IDName idName, Item item, long point) {
+        return new ItemReturned(idName, item, point);
+    }
+
+    public static OverdueCleared createOverdueClearedEvent(IDName idName, long point) {
+        return new OverdueCleared(idName, point);
     }
 
     public RentalCard rentItem(Item item, LocalDate rentDate) {
