@@ -24,8 +24,7 @@ public class BestBookService {
     }
 
     public void dealBestBook(Item item) {
-        BestBook bestBook = bestBookRepository.findBestBookByItem(item)
-                .orElse(BestBook.register(item));
+        BestBook bestBook = bestBookRepository.findBestBookByItem(item).orElse(BestBook.register(item));
 
         bestBook.increase();
 
