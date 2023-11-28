@@ -19,7 +19,7 @@ class BestBookTest {
         // then
         assertThat(bestBook).isNotNull()
                 .extracting("item.no", "item.title", "rentCount")
-                .containsExactly(1, "SpringBoot", 1L);
+                .containsExactly(1, "SpringBoot", 0L);
     }
 
     @Test

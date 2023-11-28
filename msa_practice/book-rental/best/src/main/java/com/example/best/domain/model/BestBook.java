@@ -25,7 +25,7 @@ public class BestBook {
         return BestBook.builder()
                 .id(UUID.randomUUID().toString())
                 .item(item)
-                .rentCount(1)
+                .rentCount(0)
                 .build();
     }
 

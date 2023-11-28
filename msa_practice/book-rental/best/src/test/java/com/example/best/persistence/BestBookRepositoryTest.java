@@ -122,7 +122,7 @@ class BestBookRepositoryTest {
         List<BestBook> result = bestBookRepository.findAll();
 
         // then
-        assertThat(result).isNotNull()
+        assertThat(result).hasSize(2)
                 .extracting("item.no", "item.title", "rentCount")
                 .containsExactlyInAnyOrder(
                         tuple(1, "SpringBoot", 1L),
