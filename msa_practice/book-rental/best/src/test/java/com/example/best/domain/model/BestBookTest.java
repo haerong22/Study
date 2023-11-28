@@ -35,6 +35,25 @@ class BestBookTest {
         assertThat(cnt).isEqualTo(11L);
     }
 
+    @Test
+    @DisplayName("도서를 업데이트 한다.")
+    void update() {
+        // given
+        Item item = Item.create(1, "Springboot");
+        Item updateItem = Item.create(2, "Java");
+
+        BestBook bestBook = createTestBestBook(item, 1);
+        BestBook updateBestBook = createTestBestBook(updateItem, 50);
+
+        // when
+        bestBook.update(updateBestBook);
+
+        // then
+        assertThat(bestBook).isNotNull()
+                .extracting("item.no", "item.title", "rentCount")
+                .containsExactly(2, "Java", 50L);
+    }
+
     private BestBook createTestBestBook(Item item, long count) {
         return BestBook.builder()
                 .item(item)
