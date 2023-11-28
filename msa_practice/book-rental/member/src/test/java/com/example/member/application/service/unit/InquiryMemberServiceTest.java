@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -34,6 +35,24 @@ class InquiryMemberServiceTest {
         inquiryMemberService.getMember(memberNo);
 
         // then
+        verify(memberPort, times(1)).getMember(anyLong());
+    }
+
+    @Test
+    @DisplayName("회원이 없으면 조회할 수 없다.")
+    void getMemberNotExist() {
+        // given
+        long memberNo = 1;
+
+        when(memberPort.getMember(anyLong())).thenReturn(null);
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> inquiryMemberService.getMember(memberNo))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("회원이 없습니다.");
+
         verify(memberPort, times(1)).getMember(anyLong());
     }
 

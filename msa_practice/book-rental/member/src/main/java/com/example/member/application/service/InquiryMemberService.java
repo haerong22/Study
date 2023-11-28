@@ -14,6 +14,12 @@ public class InquiryMemberService implements InquiryMemberUseCase {
 
     @Override
     public Member getMember(long memberNo) {
-        return memberPort.getMember(memberNo);
+        Member member = memberPort.getMember(memberNo);
+
+        if (member == null) {
+            throw new IllegalArgumentException("회원이 없습니다.");
+        }
+
+        return member;
     }
 }
