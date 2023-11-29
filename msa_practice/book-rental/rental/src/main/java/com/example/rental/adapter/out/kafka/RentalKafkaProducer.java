@@ -4,6 +4,7 @@ import com.example.rental.application.port.out.EventPort;
 import com.example.rental.domain.event.ItemRented;
 import com.example.rental.domain.event.ItemReturned;
 import com.example.rental.domain.event.OverdueCleared;
+import com.example.rental.domain.event.PointUse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,9 +27,13 @@ public class RentalKafkaProducer implements EventPort {
     @Value("${producers.topic3.name}")
     private String TOPIC_CLEAR;
 
+    @Value("${producers.topic4.name}")
+    private String POINT_USE;
+
     private final KafkaTemplate<String, ItemRented> kafkaTemplate1;
     private final KafkaTemplate<String, ItemReturned> kafkaTemplate2;
     private final KafkaTemplate<String, OverdueCleared> kafkaTemplate3;
+    private final KafkaTemplate<String, PointUse> kafkaTemplate4;
 
     @Override
     public void rentalEvent(ItemRented event) {
@@ -77,6 +82,25 @@ public class RentalKafkaProducer implements EventPort {
                     @Override
                     public void onSuccess(SendResult<String, OverdueCleared> result) {
                         OverdueCleared value = result.getProducerRecord().value();
+                        log.info("Send message=[{}] with offset=[{}]", value.getIdName().getId(), result.getRecordMetadata().offset());
+                    }
+
+                    @Override
+                    public void onFailure(Throwable ex) {
+                        log.error("Unable to send message=[{}] due to : {}", event.getIdName().getId(), ex.getMessage(), ex);
+                    }
+                });
+    }
+
+    @Override
+    public void pointUseEvent(PointUse event) {
+        this.kafkaTemplate4
+                .send(POINT_USE, event)
+                .addCallback(new ListenableFutureCallback<>() {
+
+                    @Override
+                    public void onSuccess(SendResult<String, PointUse> result) {
+                        PointUse value = result.getProducerRecord().value();
                         log.info("Send message=[{}] with offset=[{}]", value.getIdName().getId(), result.getRecordMetadata().offset());
                     }
 

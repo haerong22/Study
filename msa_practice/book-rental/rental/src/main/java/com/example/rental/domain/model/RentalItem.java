@@ -2,11 +2,13 @@ package com.example.rental.domain.model;
 
 import com.example.rental.domain.model.vo.Item;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
+@EqualsAndHashCode
 public class RentalItem {
 
     private Item item;

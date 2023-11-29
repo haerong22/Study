@@ -96,6 +96,27 @@ public class RentalCard {
         return this;
     }
 
+    public RentalCard cancelRentItem(Item item) {
+        RentalItem rentalItem = this.rentalItems.stream()
+                .filter(i -> i.getItem().equals(item))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 도서가 없습니다."));
+
+        this.removeRentalItem(rentalItem);
+        return this;
+    }
+
+    public RentalCard cancelReturnItem(Item item, long point) {
+        ReturnItem returnItem = this.returnItems.stream()
+                .filter(i -> i.getRentalItem().getItem().equals(item))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 도서가 없습니다."));
+
+        this.addRentalItem(returnItem.getRentalItem());
+        this.removeReturnItem(returnItem);
+        return this;
+    }
+
     public void makeAvailableRental(long point) {
         if (this.rentalItems.size() != 0) {
             throw new IllegalArgumentException("모든 도서가 반납되어야 정지를 해제할 수 있습니다.");
@@ -107,6 +128,12 @@ public class RentalCard {
 
         this.lateFee = this.getLateFee().removePoint(point);
         this.rentStatus = RentStatus.RENT_AVAILABLE;
+    }
+
+    public long cancelMakeAvailableRental(long point) {
+        this.lateFee = this.getLateFee().addPoint(point);
+        this.rentStatus = RentStatus.RENT_UNAVAILABLE;
+        return this.lateFee.getPoint();
     }
 
     private void calculateLateFee(RentalItem rentalItem, LocalDate returnDate) {

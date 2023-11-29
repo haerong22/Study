@@ -6,10 +6,12 @@ import com.example.rental.application.port.out.RentalCardPort;
 import com.example.rental.domain.model.RentalCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
+@Transactional
 @RequiredArgsConstructor
 public class RentalCardJpaAdapter implements RentalCardPort {
 
