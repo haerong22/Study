@@ -2,9 +2,7 @@ package com.example.member.adapter.out.kafka;
 
 import com.example.member.application.port.in.SavePointUseCase;
 import com.example.member.application.port.in.UsePointUseCase;
-import com.example.member.domain.event.ItemRented;
-import com.example.member.domain.event.ItemReturned;
-import com.example.member.domain.event.OverdueCleared;
+import com.example.member.domain.event.*;
 import com.example.member.domain.vo.IDName;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +19,7 @@ public class MemberEventConsumers {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final SavePointUseCase savePointUsecase;
     private final UsePointUseCase usePointUsecase;
+    private final MemberEventProducers memberEventProducers;
 
     @KafkaListener(topics = "${consumer.topic1.name}", groupId = "${consumer.groupId.name}")
     public void consumeRent(ConsumerRecord<String, String> record) throws JsonProcessingException {
@@ -40,7 +39,32 @@ public class MemberEventConsumers {
     public void consumeClear(ConsumerRecord<String, String> record) throws JsonProcessingException {
         log.info("overdue_cleared: {}", record.value());
         OverdueCleared overdueCleared = objectMapper.readValue(record.value(), OverdueCleared.class);
-        usePointUsecase.usePoint(IDName.create(overdueCleared.getIdName().getId(),overdueCleared.getIdName().getName()), overdueCleared.getPoint())
-        ;
+
+        EventResult eventResult = new EventResult();
+        eventResult.setEventType(EventType.OVERDUE);
+        eventResult.setItem(new Item());
+        eventResult.setIdName(overdueCleared.getIdName());
+        eventResult.setPoint(overdueCleared.getPoint());
+
+        try {
+            usePointUsecase.usePoint(IDName.create(overdueCleared.getIdName().getId(),overdueCleared.getIdName().getName()), overdueCleared.getPoint());
+            eventResult.setSuccess(true);
+        } catch (Exception e) {
+            eventResult.setSuccess(false);
+        }
+
+        memberEventProducers.produce(eventResult);
+    }
+
+    @KafkaListener(topics = "${consumer.topic4.name}", groupId = "${consumer.groupId.name}")
+    public void consumeUsePoint(ConsumerRecord<String, String> record) throws JsonProcessingException {
+        log.info("use_point: {}", record.value());
+        PointUse pointUse = objectMapper.readValue(record.value(), PointUse.class);
+
+        try {
+            usePointUsecase.usePoint(IDName.create(pointUse.getIdName().getId(),pointUse.getIdName().getName()), pointUse.getPoint());
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }
