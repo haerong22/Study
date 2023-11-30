@@ -1,13 +1,17 @@
 package org.example.banking.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
+import org.example.banking.application.port.in.GetRegisteredBankAccountCommand;
+import org.example.banking.application.port.out.GetRegisteredBankAccountPort;
 import org.example.banking.application.port.out.RegisterBankAccountPort;
 import org.example.banking.domain.RegisteredBankAccount;
 import org.example.common.PersistenceAdapter;
 
+import java.util.List;
+
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class RegisteredBankAccountPersistenceAdapter implements RegisterBankAccountPort {
+public class RegisteredBankAccountPersistenceAdapter implements RegisterBankAccountPort, GetRegisteredBankAccountPort {
 
     private final SpringDataRegisteredBankAccountRepository bankAccountRepository;
 
@@ -21,5 +25,16 @@ public class RegisteredBankAccountPersistenceAdapter implements RegisterBankAcco
                         linkedStatusIsValid.isLinkedStatusIsValid()
                 )
         );
+    }
+
+    @Override
+    public RegisteredBankAccountJpaEntity getRegisteredBankAccount(GetRegisteredBankAccountCommand command) {
+        List<RegisteredBankAccountJpaEntity> entityList = bankAccountRepository.findByMembershipId(command.getMembershipId());
+
+        if (entityList.size() > 0 ) {
+            return entityList.get(0);
+        }
+
+        return null;
     }
 }
