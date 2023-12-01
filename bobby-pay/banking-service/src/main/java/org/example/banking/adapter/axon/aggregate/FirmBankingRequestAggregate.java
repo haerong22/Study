@@ -10,6 +10,15 @@ import org.example.banking.adapter.axon.command.CreateFirmBankingRequestCommand;
 import org.example.banking.adapter.axon.command.UpdateFirmBankingRequestCommand;
 import org.example.banking.adapter.axon.event.FirmBankingRequestCreatedEvent;
 import org.example.banking.adapter.axon.event.FirmBankingRequestUpdatedEvent;
+import org.example.banking.adapter.out.external.bank.ExternalFirmBankingRequest;
+import org.example.banking.adapter.out.external.bank.FirmBankingResult;
+import org.example.banking.application.port.out.RequestExternalFirmBankingPort;
+import org.example.banking.application.port.out.RequestFirmBankingPort;
+import org.example.banking.domain.FirmBankingRequest;
+import org.example.common.event.RequestFirmBankingCommand;
+import org.example.common.event.RequestFirmBankingFinishedEvent;
+import org.example.common.event.RollbackFirmBankingFinishedEvent;
+import org.example.common.event.RollbackFirmBankingRequestCommand;
 
 import java.util.UUID;
 
@@ -54,6 +63,80 @@ public class FirmBankingRequestAggregate {
         apply(new FirmBankingRequestUpdatedEvent(command.getFirmBankingStatus()));
 
         return id;
+    }
+
+    @CommandHandler
+    public FirmBankingRequestAggregate(RequestFirmBankingCommand command, RequestFirmBankingPort requestFirmBankingPort, RequestExternalFirmBankingPort externalFirmBankingPort) {
+        log.info("RequestFirmBankingCommand Handler");
+
+        id = command.getAggregateIdentifier();
+
+        requestFirmBankingPort.createRequestFirmBanking(
+                new FirmBankingRequest.FromBankName(command.getFromBankName()),
+                new FirmBankingRequest.FromBankAccountNumber(command.getFromBankAccountNumber()),
+                new FirmBankingRequest.ToBankName(command.getToBankName()),
+                new FirmBankingRequest.ToBankAccountNumber(command.getToBankAccountNumber()),
+                new FirmBankingRequest.MoneyAmount(command.getAmount()),
+                new FirmBankingRequest.FirmBankingStatus(0),
+                new FirmBankingRequest.FirmBankingAggregateIdentifier(id)
+        );
+
+        FirmBankingResult firmBankingResult = externalFirmBankingPort.requestExternalFirmBanking(new ExternalFirmBankingRequest(
+                command.getFromBankName(),
+                command.getFromBankAccountNumber(),
+                command.getToBankName(),
+                command.getToBankAccountNumber(),
+                command.getAmount()
+        ));
+
+        int resultCode = firmBankingResult.getResultCode();
+
+        apply(new RequestFirmBankingFinishedEvent(
+                command.getRequestFirmBankingId(),
+                command.getRechargeRequestId(),
+                command.getMembershipId(),
+                command.getToBankName(),
+                command.getToBankAccountNumber(),
+                command.getAmount(),
+                resultCode,
+                id
+        ));
+    }
+
+    @CommandHandler
+    public FirmBankingRequestAggregate(RollbackFirmBankingRequestCommand command, RequestFirmBankingPort requestFirmBankingPort, RequestExternalFirmBankingPort externalFirmBankingPort) {
+        log.info("RollbackFirmBankingRequestCommand Handler");
+
+        id = UUID.randomUUID().toString();
+
+        // rollback 법인계좌 -> 고객계좌
+        requestFirmBankingPort.createRequestFirmBanking(
+                new FirmBankingRequest.FromBankName("bobby"),
+                new FirmBankingRequest.FromBankAccountNumber("123456789"),
+                new FirmBankingRequest.ToBankName(command.getBankName()),
+                new FirmBankingRequest.ToBankAccountNumber(command.getBankAccountNumber()),
+                new FirmBankingRequest.MoneyAmount(command.getAmount()),
+                new FirmBankingRequest.FirmBankingStatus(0),
+                new FirmBankingRequest.FirmBankingAggregateIdentifier(id)
+        );
+
+        FirmBankingResult result = externalFirmBankingPort.requestExternalFirmBanking(
+                new ExternalFirmBankingRequest(
+                        "bobby",
+                        "123456789",
+                        command.getBankName(),
+                        command.getBankAccountNumber(),
+                        command.getAmount()
+                )
+        );
+
+        int resultCode = result.getResultCode();
+
+        apply(new RollbackFirmBankingFinishedEvent(
+                command.getRollbackFirmBankingId(),
+                command.getMembershipId(),
+                id
+        ));
     }
 
     @EventSourcingHandler

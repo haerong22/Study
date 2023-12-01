@@ -8,7 +8,11 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.example.banking.adapter.axon.command.CreateRegisteredBankAccountCommand;
 import org.example.banking.adapter.axon.event.CreateRegisteredBankAccountEvent;
+import org.example.banking.adapter.out.external.bank.BankAccount;
+import org.example.banking.adapter.out.external.bank.GetBankAccountRequest;
+import org.example.banking.application.port.out.RequestBankAccountInfoPort;
 import org.example.common.event.CheckRegisteredBankAccountCommand;
+import org.example.common.event.CheckRegisteredBankAccountEvent;
 
 import java.util.UUID;
 
@@ -35,9 +39,25 @@ public class RegisteredBankAccountAggregate {
     }
 
     @CommandHandler
-    public void handle(CheckRegisteredBankAccountCommand command) {
+    public void handle(CheckRegisteredBankAccountCommand command, RequestBankAccountInfoPort bankAccountInfoPort) {
         log.info("CheckRegisteredBankAccountCommand Handler");
 
+        id = command.getAggregateIdentifier();
+
+        BankAccount account = bankAccountInfoPort.getBankAccountInfo(new GetBankAccountRequest(command.getBankName(), command.getBankAccountNumber()));
+
+        String firmBankingUUID = UUID.randomUUID().toString();
+
+        apply(new CheckRegisteredBankAccountEvent(
+                command.getRechargingRequestId(),
+                command.getCheckRegisteredAccountId(),
+                command.getMembershipId(),
+                account.isValid(),
+                command.getAmount(),
+                firmBankingUUID,
+                account.getBankName(),
+                account.getBankAccountNumber()
+        ));
     }
 
     @EventSourcingHandler

@@ -51,7 +51,8 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase, G
                     new RegisteredBankAccount.MembershipId(command.getMembershipId() + ""),
                     new RegisteredBankAccount.BankName(accountInfo.getBankName()),
                     new RegisteredBankAccount.BankAccountNumber(accountInfo.getBankAccountNumber()),
-                    new RegisteredBankAccount.LinkedStatusIsValid(true)
+                    new RegisteredBankAccount.LinkedStatusIsValid(true),
+                    new RegisteredBankAccount.AggregateIdentifier("")
             );
 
             return mapper.mapToDomainEntity(savedAccountInfo);
@@ -75,7 +76,8 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase, G
                                         new RegisteredBankAccount.MembershipId(command.getMembershipId() + ""),
                                         new RegisteredBankAccount.BankName(command.getBankName()),
                                         new RegisteredBankAccount.BankAccountNumber(command.getBankAccountNumber()),
-                                        new RegisteredBankAccount.LinkedStatusIsValid(true)
+                                        new RegisteredBankAccount.LinkedStatusIsValid(true),
+                                        new RegisteredBankAccount.AggregateIdentifier(result.toString())
                                 );
                             }
                         }

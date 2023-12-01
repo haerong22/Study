@@ -8,6 +8,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    implementation 'org.axonframework:axon-configuration:4.6.0'
+    implementation 'org.axonframework:axon-spring-boot-starter:4.6.0'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
