@@ -1,0 +1,4 @@
+dependencies {
+    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.json:json:20200518'
+}
