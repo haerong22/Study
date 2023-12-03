@@ -8,4 +8,5 @@ include 'task-consumer'
 include 'remittance-service'
 include 'payment-service'
 include 'utility'
+include 'money-aggregation-service'
 
