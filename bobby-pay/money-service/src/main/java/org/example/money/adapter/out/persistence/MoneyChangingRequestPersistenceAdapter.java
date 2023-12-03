@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.common.PersistenceAdapter;
 import org.example.money.application.port.in.CreateMemberMoneyPort;
 import org.example.money.application.port.in.GetMemberMoneyPort;
+import org.example.money.application.port.out.GetMemberMoneyListPort;
 import org.example.money.application.port.out.IncreaseMoneyPort;
 import org.example.money.domain.MemberMoney;
 import org.example.money.domain.MoneyChangingRequest;
@@ -11,17 +12,20 @@ import org.example.money.domain.MoneyChangingRequest;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
 public class MoneyChangingRequestPersistenceAdapter implements
         IncreaseMoneyPort,
         CreateMemberMoneyPort,
-        GetMemberMoneyPort
+        GetMemberMoneyPort,
+        GetMemberMoneyListPort
 {
 
     private final SpringDataMoneyChangingRequestRepository moneyChangingRequestRepository;
     private final SpringDataMemberMoneyRepository memberMoneyRepository;
+    private final MemberMoneyMapper mapper;
 
     @Override
     public MoneyChangingRequestJpaEntity createMoneyChangingRequest(MoneyChangingRequest.TargetMembershipId targetMembershipId, MoneyChangingRequest.MoneyChangingType moneyChangingType, MoneyChangingRequest.ChangingMoneyAmount changingMoneyAmount, MoneyChangingRequest.MoneyChangingStatus moneyChangingStatus, MoneyChangingRequest.Uuid uuid) {
@@ -84,5 +88,13 @@ public class MoneyChangingRequestPersistenceAdapter implements
             return entity;
         }
         return  entityList.get(0);
+    }
+
+    @Override
+    public List<MemberMoney> getMemberMoney(List<Long> membershipIds) {
+        return memberMoneyRepository.findByMemberMoneyByMembershipIds(membershipIds)
+                .stream()
+                .map(mapper::mapToDomainEntity)
+                .collect(Collectors.toList());
     }
 }

@@ -3,14 +3,14 @@ package org.example.money.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
 import org.example.common.WebAdapter;
-import org.example.money.application.port.in.CreateMemberMoneyCommand;
-import org.example.money.application.port.in.CreateMemberMoneyUseCase;
-import org.example.money.application.port.in.IncreaseMoneyRequestCommand;
-import org.example.money.application.port.in.IncreaseMoneyRequestUseCase;
+import org.example.money.application.port.in.*;
+import org.example.money.domain.MemberMoney;
 import org.example.money.domain.MoneyChangingRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @WebAdapter
 @RestController
@@ -19,6 +19,7 @@ public class RequestMoneyChangingController {
 
     private final IncreaseMoneyRequestUseCase increaseMoneyRequestUseCase;
     private final CreateMemberMoneyUseCase createMemberMoneyUseCase;
+    private final FindMemberMoneyListByMembershipIdsRequestUseCase findMemberMoneyListByMembershipIdsRequestUseCase;
 
     @PostMapping("/money/increase")
     MoneyChangingResultDetail increaseMoneyChangingRequest(@RequestBody IncreaseMoneyChangingRequest request) {
@@ -95,5 +96,14 @@ public class RequestMoneyChangingController {
                 .build();
 
         increaseMoneyRequestUseCase.increaseMoneyRequestByEvent(command);
+    }
+
+    @PostMapping(path = "/money/member-money")
+    List<MemberMoney> findMemberMoneyListByMembershipIdsRequest(@RequestBody FindMemberMoneyListByMembershipIdsRequest request) {
+        FindMemberMoneyListByMembershipIdsRequestCommand command = FindMemberMoneyListByMembershipIdsRequestCommand.builder()
+                .membershipIds(request.getMembershipId())
+                .build();
+
+        return findMemberMoneyListByMembershipIdsRequestUseCase.findMemberMoneyListByMembershipIds(command);
     }
 }
