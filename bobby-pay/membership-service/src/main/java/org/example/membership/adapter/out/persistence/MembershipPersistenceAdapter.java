@@ -7,6 +7,8 @@ import org.example.membership.application.port.out.ModifyMembershipPort;
 import org.example.membership.application.port.out.RegisterMembershipPort;
 import org.example.membership.domain.Membership;
 
+import java.util.List;
+
 @PersistenceAdapter
 @RequiredArgsConstructor
 public class MembershipPersistenceAdapter implements RegisterMembershipPort, FindMembershipPort, ModifyMembershipPort {
@@ -29,6 +31,12 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
     @Override
     public MembershipJpaEntity findMembership(Membership.MembershipId membershipId) {
         return membershipRepository.getById(Long.parseLong(membershipId.getMembershipId()));
+    }
+
+    @Override
+    public List<MembershipJpaEntity> findMembershipListByAddress(Membership.MembershipAddress membershipAddress) {
+        String address = membershipAddress.getMembershipAddress();
+        return membershipRepository.findByAddress(address);
     }
 
     @Override
