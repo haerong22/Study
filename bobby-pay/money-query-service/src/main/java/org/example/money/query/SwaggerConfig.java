@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.example.money.aggregation"))
+                .apis(RequestHandlerSelectors.basePackage("org.example.money.query"))
                 .paths(PathSelectors.any())
                 .build();
     }
