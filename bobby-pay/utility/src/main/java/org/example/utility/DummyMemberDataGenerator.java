@@ -22,7 +22,7 @@ public class DummyMemberDataGenerator {
 
             Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            generateDummyMembershipData(conn);
+//            generateDummyMembershipData(conn);
 
             generateDummyPaymentData(conn);
 
@@ -63,9 +63,8 @@ public class DummyMemberDataGenerator {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
 
             int numberOfTestData = 100;
-            for (int i = 0; i < numberOfTestData; i++) {
+            for (int i = 1; i <= numberOfTestData; i++) {
                 // 랜덤 값 생성
-                long paymentId = (random.nextInt(900) + 100L); // 100 ~ 999
                 String membershipId = "" + (random.nextInt(900) + 100); // 100 ~ 999
                 int price = (random.nextInt(9) + 1) * 1000; // 1000 ~ 9000
                 String franchiseId =  "" + (random.nextInt(10) + 1L);
@@ -73,7 +72,7 @@ public class DummyMemberDataGenerator {
                 int paymentStatus = i % 2;
                 Date approvedAt = new Date(System.currentTimeMillis() - random.nextInt(10000000));
 
-                preparedStatement.setLong(1, paymentId);
+                preparedStatement.setLong(1, i);
                 preparedStatement.setString(2, membershipId);
                 preparedStatement.setInt(3, price);
                 preparedStatement.setString(4, franchiseId);

@@ -12,4 +12,5 @@ include 'money-aggregation-service'
 include 'money-query-service'
 include 'banking-service:a'
 findProject(':banking-service:a')?.name = 'a'
+include 'settlement-service'
 
