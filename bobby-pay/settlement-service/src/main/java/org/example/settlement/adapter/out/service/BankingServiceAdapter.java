@@ -13,11 +13,14 @@ public class BankingServiceAdapter implements GetRegisteredBankAccountPort {
     private final CommonHttpClient commonHttpClient;
 
     private final String bankingServiceUrl;
+    private final ObjectMapper mapper;
 
     public BankingServiceAdapter(CommonHttpClient commonHttpClient,
-                                 @Value("${service.banking.url}") String membershipServiceUrl) {
+                                 @Value("${service.banking.url}") String membershipServiceUrl,
+                                 ObjectMapper objectMapper) {
         this.commonHttpClient = commonHttpClient;
         this.bankingServiceUrl = membershipServiceUrl;
+        this.mapper = objectMapper;
     }
 
     @Override
@@ -27,7 +30,6 @@ public class BankingServiceAdapter implements GetRegisteredBankAccountPort {
             String jsonResponse = commonHttpClient.sendGetRequest(url).body();
             // json RegisteredBankAccount
 
-            ObjectMapper mapper = new ObjectMapper();
             RegisteredBankAccount registeredBankAccount = mapper.readValue(jsonResponse, RegisteredBankAccount.class);
 
             return new RegisteredBankAccountAggregateIdentifier(
