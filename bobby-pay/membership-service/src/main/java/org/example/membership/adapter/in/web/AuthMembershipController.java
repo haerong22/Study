@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.common.WebAdapter;
 import org.example.membership.application.port.in.LoginMembershipCommand;
 import org.example.membership.application.port.in.AuthMembershipUseCase;
+import org.example.membership.application.port.in.RefreshTokenCommand;
 import org.example.membership.domain.JwtToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,5 +26,15 @@ public class AuthMembershipController {
                 .build();
 
         return authMembershipUseCase.loginMembership(command);
+    }
+
+    @PostMapping("/membership/refresh-token")
+    JwtToken refreshToken(@RequestBody RefreshTokenRequest request) {
+
+        RefreshTokenCommand command = RefreshTokenCommand.builder()
+                .refreshToken(request.getRefreshToken())
+                .build();
+
+        return authMembershipUseCase.refreshAccessTokenByRefreshToken(command);
     }
 }

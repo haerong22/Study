@@ -5,6 +5,7 @@ import org.example.common.UseCase;
 import org.example.membership.adapter.out.persistence.MembershipJpaEntity;
 import org.example.membership.application.port.in.AuthMembershipUseCase;
 import org.example.membership.application.port.in.LoginMembershipCommand;
+import org.example.membership.application.port.in.RefreshTokenCommand;
 import org.example.membership.application.port.out.AuthMembershipPort;
 import org.example.membership.application.port.out.FindMembershipPort;
 import org.example.membership.application.port.out.ModifyMembershipPort;
@@ -52,6 +53,32 @@ public class AuthMembershipService implements AuthMembershipUseCase {
 			);
 		}
 
+
+		return null;
+	}
+
+	@Override
+	public JwtToken refreshAccessTokenByRefreshToken(RefreshTokenCommand command) {
+
+		String refreshToken = command.getRefreshToken();
+
+		boolean isValid = authMembershipPort.validateToken(refreshToken);
+
+		if (isValid) {
+			Long membershipId = authMembershipPort.parseMembershipIdFromToken(refreshToken);
+
+			MembershipJpaEntity jpaEntity = findMembershipPort.findMembership(new Membership.MembershipId(String.valueOf(membershipId)));
+
+			if (jpaEntity.isValid() && jpaEntity.getRefreshToken().equals(refreshToken)) {
+				String newAccessToken = authMembershipPort.generateAccessToken(membershipId);
+
+				return JwtToken.generateJwtToken(
+						new JwtToken.MembershipId(membershipId),
+						new JwtToken.AccessToken(newAccessToken),
+						new JwtToken.RefreshToken(refreshToken)
+				);
+			}
+		}
 
 		return null;
 	}

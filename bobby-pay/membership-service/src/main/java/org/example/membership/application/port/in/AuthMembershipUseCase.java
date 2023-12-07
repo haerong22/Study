@@ -5,4 +5,6 @@ import org.example.membership.domain.JwtToken;
 public interface AuthMembershipUseCase {
 
     JwtToken loginMembership(LoginMembershipCommand command);
+
+    JwtToken refreshAccessTokenByRefreshToken(RefreshTokenCommand command);
 }
