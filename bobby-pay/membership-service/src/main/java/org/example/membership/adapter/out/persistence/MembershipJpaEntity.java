@@ -13,7 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class MembershipJpaEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long membershipId;
 
     private String name;
@@ -21,12 +22,14 @@ public class MembershipJpaEntity {
     private String address;
     private boolean isValid;
     private boolean isCorp;
+    private String refreshToken;
 
-    public MembershipJpaEntity(String name, String email, String address, boolean isValid, boolean isCorp) {
+    public MembershipJpaEntity(String name, String email, String address, boolean isValid, boolean isCorp, String refreshToken) {
         this.name = name;
         this.email = email;
         this.address = address;
         this.isValid = isValid;
         this.isCorp = isCorp;
+        this.refreshToken = refreshToken;
     }
 }

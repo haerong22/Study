@@ -16,14 +16,15 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
     private final SpringDataMembershipRepository membershipRepository;
 
     @Override
-    public MembershipJpaEntity createMembership(Membership.MembershipName membershipName, Membership.MembershipEmail membershipEmail, Membership.MembershipAddress membershipAddress, Membership.MembershipIsValid membershipIsValid, Membership.MembershipIsCorp membershipIsCorp) {
+    public MembershipJpaEntity createMembership(Membership.MembershipName membershipName, Membership.MembershipEmail membershipEmail, Membership.MembershipAddress membershipAddress, Membership.MembershipIsValid membershipIsValid, Membership.MembershipIsCorp membershipIsCorp, Membership.RefreshToken refreshToken) {
         return membershipRepository.save(
                 new MembershipJpaEntity(
                         membershipName.getMembershipName(),
                         membershipEmail.getMembershipEmail(),
                         membershipAddress.getMembershipAddress(),
                         membershipIsValid.isMembershipIsValid(),
-                        membershipIsCorp.isMembershipIsCorp()
+                        membershipIsCorp.isMembershipIsCorp(),
+                        refreshToken.getRefreshToken()
                 )
         );
     }
@@ -40,7 +41,7 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
     }
 
     @Override
-    public MembershipJpaEntity modifyMembership(Membership.MembershipId membershipId, Membership.MembershipName membershipName, Membership.MembershipEmail membershipEmail, Membership.MembershipAddress membershipAddress, Membership.MembershipIsValid membershipIsValid, Membership.MembershipIsCorp membershipIsCorp) {
+    public MembershipJpaEntity modifyMembership(Membership.MembershipId membershipId, Membership.MembershipName membershipName, Membership.MembershipEmail membershipEmail, Membership.MembershipAddress membershipAddress, Membership.MembershipIsValid membershipIsValid, Membership.MembershipIsCorp membershipIsCorp, Membership.RefreshToken refreshToken) {
         MembershipJpaEntity entity = membershipRepository.getById(Long.parseLong(membershipId.getMembershipId()));
 
         entity.setName(membershipName.getMembershipName());
@@ -48,6 +49,7 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
         entity.setEmail(membershipEmail.getMembershipEmail());
         entity.setCorp(membershipIsCorp.isMembershipIsCorp());
         entity.setValid(membershipIsValid.isMembershipIsValid());
+        entity.setRefreshToken(refreshToken.getRefreshToken());
 
         return membershipRepository.save(entity);
     }
