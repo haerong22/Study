@@ -6,6 +6,7 @@ import org.example.common.WebAdapter;
 import org.example.membership.application.port.in.LoginMembershipCommand;
 import org.example.membership.application.port.in.AuthMembershipUseCase;
 import org.example.membership.application.port.in.RefreshTokenCommand;
+import org.example.membership.application.port.in.ValidateTokenCommand;
 import org.example.membership.domain.JwtToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,5 +37,15 @@ public class AuthMembershipController {
                 .build();
 
         return authMembershipUseCase.refreshAccessTokenByRefreshToken(command);
+    }
+
+    @PostMapping("/membership/token-validate")
+    boolean validateToken(@RequestBody ValidateTokenRequest request) {
+
+        ValidateTokenCommand command = ValidateTokenCommand.builder()
+                .token(request.getToken())
+                .build();
+
+        return authMembershipUseCase.validateToken(command);
     }
 }

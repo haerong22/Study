@@ -6,6 +6,7 @@ import org.example.membership.adapter.out.persistence.MembershipJpaEntity;
 import org.example.membership.application.port.in.AuthMembershipUseCase;
 import org.example.membership.application.port.in.LoginMembershipCommand;
 import org.example.membership.application.port.in.RefreshTokenCommand;
+import org.example.membership.application.port.in.ValidateTokenCommand;
 import org.example.membership.application.port.out.AuthMembershipPort;
 import org.example.membership.application.port.out.FindMembershipPort;
 import org.example.membership.application.port.out.ModifyMembershipPort;
@@ -81,6 +82,11 @@ public class AuthMembershipService implements AuthMembershipUseCase {
 		}
 
 		return null;
+	}
+
+	@Override
+	public boolean validateToken(ValidateTokenCommand command) {
+		return authMembershipPort.validateToken(command.getToken());
 	}
 }
 
