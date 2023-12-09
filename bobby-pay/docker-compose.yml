@@ -306,6 +306,17 @@ services:
       - SERVICE_MONEY_URL=http://money-service:8080
       - SERVICE_PAYMENT_URL=http://payment-service:8080
 
+  vault:
+    image: vault:1.13.1
+    networks:
+      - bobbypay_network
+    container_name: vault
+    ports:
+      - "8200:8200"
+    restart: always
+    cap_add:
+      - IPC_LOCK
+
 volumes:
   axonserver-data:
     driver: local

@@ -13,3 +13,11 @@
 #    console:
 #      enabled: true
 #      path: /h2-console
+
+spring:
+  cloud:
+    vault:
+      token: hvs.CAESIKSFIQl8AEXULEo8JbKkbN0IjzdriYmKvHwKNUUBxkEuGh4KHGh2cy45Q0dySGpWdVpvYm9ja2VQWFdWcUNMWkU
+      scheme: http
+      host: localhost
+      port: 8200
