@@ -1,0 +1,34 @@
+axon:
+  axonserver:
+    servers: localhost:8284
+  serializer:
+    events: jackson
+    messages: jackson
+    general: xstream
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bobby_pay?useSSL=false&allowPublicKeyRetrieval=true
+    username: mysqluser
+    password: mysqlpw
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create-drop
+
+kafka:
+  clusters:
+    bootstrapservers: localhost:29092
+
+logging:
+  topic: bobby.logging.out.stdout
+
+service:
+  membership:
+    url: localhost:8080
+  banking:
+    url: localhost:8080
+  money:
+    url: localhost:8080

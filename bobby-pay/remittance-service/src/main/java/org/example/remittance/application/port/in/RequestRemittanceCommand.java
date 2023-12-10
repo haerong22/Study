@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.example.common.SelfValidating;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Builder
@@ -25,8 +24,8 @@ public class RequestRemittanceCommand extends SelfValidating<RequestRemittanceCo
     private int remittanceType; // 0: membership(내부 고객), 1: bank (외부 은행 계좌)
 
     // 송금요청 금액
-    @NotNull
-    @NotBlank
+//    @NotNull
+//    @NotBlank
     private int amount;
 
     public RequestRemittanceCommand(String fromMembershipId, String toMembershipId, String toBankName, String toBankAccountNumber, int remittanceType, int amount) {
