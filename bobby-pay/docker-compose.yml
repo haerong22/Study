@@ -82,6 +82,7 @@ services:
       - "8081:8080"
     depends_on:
       - mysql
+      - vault
     environment:
       - AXON_AXONSERVER_SERVERS=axon-server:8124
       - AXON_SERIALIZER_EVENTS=jackson
@@ -95,6 +96,10 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
       - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka:29092
       - LOGGING_TOPIC=bobby.logging.out.stdout
+      - SPRING_CLOUD_VAULT_TOKEN=hvs.CAESIKSFIQl8AEXULEo8JbKkbN0IjzdriYmKvHwKNUUBxkEuGh4KHGh2cy45Q0dySGpWdVpvYm9ja2VQWFdWcUNMWkU
+      - SPRING_CLOUD_VAULT_SCHEME=http
+      - SPRING_CLOUD_VAULT_HOST=vault
+      - SPRING_CLOUD_VAULT_PORT=8200
     restart: always
 
   banking-service:

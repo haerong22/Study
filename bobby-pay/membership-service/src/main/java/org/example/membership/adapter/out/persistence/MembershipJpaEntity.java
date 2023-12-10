@@ -32,4 +32,8 @@ public class MembershipJpaEntity {
         this.isCorp = isCorp;
         this.refreshToken = refreshToken;
     }
+
+    public MembershipJpaEntity clone() {
+        return new MembershipJpaEntity(this.name, this.email, this.address, this.isValid, this.isCorp, this.refreshToken);
+    }
 }
