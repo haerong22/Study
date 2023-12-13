@@ -1,5 +1,6 @@
 package com.example.pricecompare.service;
 
+import com.example.pricecompare.vo.Keyword;
 import com.example.pricecompare.vo.Product;
 import com.example.pricecompare.vo.ProductGroup;
 
@@ -14,4 +15,6 @@ public interface LowestPriceService {
     int setNewProductGroup(ProductGroup productGroup);
 
     int setNewProductGroupToKeyword(String keyword, String prodGrpId, double score);
+
+    Keyword getLowestPriceProductByKeyword(String keyword);
 }

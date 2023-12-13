@@ -1,6 +1,7 @@
 package com.example.pricecompare.controller;
 
 import com.example.pricecompare.service.LowestPriceService;
+import com.example.pricecompare.vo.Keyword;
 import com.example.pricecompare.vo.Product;
 import com.example.pricecompare.vo.ProductGroup;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,11 @@ public class LowestPriceController {
     @GetMapping("/zset")
     public Set getZsetValue(String key) {
         return lowestPriceService.getZsetValue(key);
+    }
+
+    @GetMapping("/product/lowest")
+    public Keyword getLowestPriceProductByKeyword(String keyword) {
+        return lowestPriceService.getLowestPriceProductByKeyword(keyword);
     }
 
     @PutMapping("/product")
