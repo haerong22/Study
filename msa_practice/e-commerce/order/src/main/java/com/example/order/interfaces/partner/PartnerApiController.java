@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PartnerApiController {
 
     private final PartnerFacade partnerFacade;
+    private final PartnerDtoMapper partnerDtoMapper;
 
     @PostMapping
     public CommonResponse<PartnerResponse.Register> registerPartner(
             @Valid @RequestBody PartnerRequest.Register request
     ) {
-        PartnerCommand command = request.toCommand();
+        PartnerCommand command = partnerDtoMapper.of(request);
         PartnerInfo partnerInfo = partnerFacade.registerPartner(command);
         return CommonResponse.success(PartnerResponse.Register.of(partnerInfo));
     }
