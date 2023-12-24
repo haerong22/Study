@@ -1,7 +1,8 @@
-package com.example.order.domain.order;
+package com.example.order.domain.order.item;
 
 import com.example.order.common.exception.InvalidParamException;
 import com.example.order.domain.AbstractEntity;
+import com.example.order.domain.order.Order;
 import com.google.common.collect.Lists;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
