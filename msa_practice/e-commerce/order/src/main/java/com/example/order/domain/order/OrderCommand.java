@@ -5,6 +5,7 @@ import com.example.order.domain.order.fragment.DeliveryFragment;
 import com.example.order.domain.order.item.OrderItem;
 import com.example.order.domain.order.item.OrderItemOption;
 import com.example.order.domain.order.item.OrderItemOptionGroup;
+import com.example.order.domain.order.payment.PayMethod;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -101,5 +102,14 @@ public class OrderCommand {
                     .itemOptionPrice(itemOptionPrice)
                     .build();
         }
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class PaymentRequest {
+        private final String orderToken;
+        private final Long amount;
+        private final PayMethod payMethod;
     }
 }
