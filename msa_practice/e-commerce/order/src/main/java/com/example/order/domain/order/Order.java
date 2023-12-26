@@ -87,4 +87,11 @@ public class Order extends AbstractEntity {
         if (this.status != Status.INIT) throw new IllegalStatusException();
         this.status = Status.ORDER_COMPLETE;
     }
+
+    public boolean isAlreadyPaymentComplete() {
+        return switch (this.status) {
+            case ORDER_COMPLETE, DELIVERY_PREPARE, IN_DELIVERY, DELIVERY_COMPLETE -> true;
+            default -> false;
+        };
+    }
 }
