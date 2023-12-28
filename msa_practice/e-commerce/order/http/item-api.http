@@ -111,7 +111,7 @@ POST http://localhost:8080/api/v1/items/change-on-sales
 Content-Type: application/json
 
 {
-  "itemToken": "itm_qCPGVzwvLVmCoZs6"
+  "itemToken": "itm_NdsZTKpjHBnNVQqP"
 }
 
 ### 아이템 등록 3
