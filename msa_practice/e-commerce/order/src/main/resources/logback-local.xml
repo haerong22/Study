@@ -9,7 +9,7 @@
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.hibernate" level="INFO" />
     <logger name="org.hibernate.SQL" level="DEBUG" />
-    <logger name="dev.example.order" level="DEBUG"/>
+    <logger name="com.example.order" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
