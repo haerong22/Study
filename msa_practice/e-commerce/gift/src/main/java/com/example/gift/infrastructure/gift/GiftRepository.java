@@ -1,4 +1,4 @@
-package com.example.gift.infrastructure;
+package com.example.gift.infrastructure.gift;
 
 import com.example.gift.domain.gift.Gift;
 import org.springframework.data.jpa.repository.JpaRepository;

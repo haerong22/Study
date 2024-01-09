@@ -1,4 +1,4 @@
-package com.example.gift.infrastructure;
+package com.example.gift.infrastructure.gift;
 
 import com.example.gift.common.exception.InvalidParamException;
 import com.example.gift.domain.gift.Gift;
