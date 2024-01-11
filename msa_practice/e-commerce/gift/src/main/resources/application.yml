@@ -26,3 +26,8 @@ spring:
 
 logging:
   config: classpath:logback-local.xml
+
+cloud:
+  aws:
+    access-key:
+    secret-key:
