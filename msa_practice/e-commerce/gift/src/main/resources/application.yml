@@ -27,6 +27,9 @@ spring:
 logging:
   config: classpath:logback-local.xml
 
+example.order:
+  base-url: http://localhost:8080/
+
 cloud:
   aws:
     access-key:
