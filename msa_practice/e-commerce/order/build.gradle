@@ -37,6 +37,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // aws sqs
+    implementation platform('software.amazon.awssdk:bom:2.15.0')
+    implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.1.RELEASE'
+
     // MapStruct
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
