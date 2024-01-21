@@ -10,9 +10,9 @@ import retrofit2.http.Path;
 
 public interface RetrofitOrderApi {
 
-    @POST("api/v1/gift-orders/init")
+    @POST("/api/v1/gift-orders/init")
     Call<CommonResponse<RetrofitOrderApiResponse.Register>> registerOrder(@Body OrderApiCommand.Register request);
 
-    @POST("api/v1/gift-orders/{orderToken}/update-receiver-info")
+    @POST("/api/v1/gift-orders/{orderToken}/update-receiver-info")
     Call<Void> updateReceiverInfo(@Path("orderToken") String orderToken, @Body GiftCommand.Accept request);
 }
