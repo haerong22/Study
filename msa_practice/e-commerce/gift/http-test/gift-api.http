@@ -1,0 +1,95 @@
+### 선물하기 등록
+POST http://localhost:18080/api/v1/gifts
+Content-Type: application/json
+
+{
+  "buyerUserId": "12345",
+  "payMethod": "TOSS_PAY",
+  "pushType": "KAKAO",
+  "giftReceiverName": "홍길동",
+  "giftReceiverPhone": "01000001111",
+  "giftMessage": "생일 축하~",
+  "orderItemList": [
+    {
+      "orderCount": 1,
+      "itemToken": "itm_Hwa6RRzwXDdDf4En",
+      "itemName": "티셔츠",
+      "itemPrice": "30000",
+      "orderItemOptionGroupList": [
+        {
+          "ordering": 1,
+          "itemOptionGroupName": "사이즈",
+          "orderItemOptionList": [
+            {
+              "ordering": 1,
+              "itemOptionName": "MEDIUM",
+              "itemOptionPrice": 0
+            }
+          ]
+        },
+        {
+          "ordering": 2,
+          "itemOptionGroupName": "컬러",
+          "orderItemOptionList": [
+            {
+              "ordering": 1,
+              "itemOptionName": "GOLD",
+              "itemOptionPrice": 1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "orderCount": 1,
+      "itemToken": "itm_NdsZTKpjHBnNVQqP",
+      "itemName": "양말",
+      "itemPrice": "10000",
+      "orderItemOptionGroupList": [
+        {
+          "ordering": 1,
+          "itemOptionGroupName": "사이즈",
+          "orderItemOptionList": [
+            {
+              "ordering": 1,
+              "itemOptionName": "LARGE",
+              "itemOptionPrice": 0
+            }
+          ]
+        },
+        {
+          "ordering": 2,
+          "itemOptionGroupName": "컬러",
+          "orderItemOptionList": [
+            {
+              "ordering": 1,
+              "itemOptionName": "RED",
+              "itemOptionPrice": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+### 선물하기 결제중 상태로 변경
+POST http://localhost:18080/api/v1/gifts/gt_KAC2BKCAWBndg7sZe/payment-processing
+Content-Type: application/json
+
+### 선물하기 수락 상태로 변경
+POST http://localhost:18080/api/v1/gifts/gt_KAC2BKCAWBndg7sZe/accept-gift
+Content-Type: application/json
+
+{
+  "receiverName": "그렉",
+  "receiverPhone": "01000001111",
+  "receiverZipcode": "123123",
+  "receiverAddress1": "서울시 강동구",
+  "receiverAddress2": "우리집",
+  "etcMessage": "감사합니다!"
+}
+
+### 선물하기 조회
+GET http://localhost:18080/api/v1/gifts/gt_KAC2BKCAWBndg7sZe
+Content-Type: application/json
