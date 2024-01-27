@@ -1,0 +1,27 @@
+### 유저 생성
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "bobby",
+  "email": "test@email.com"
+}
+
+### 전체 유저 조회
+GET http://localhost:8080/users
+
+### 유저 조회
+GET http://localhost:8080/users/1
+
+### 유저 업데이트
+PUT http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+  "name": "bobby2",
+  "email": "test2@email.com"
+}
+
+### 유저 삭제
+DELETE http://localhost:8080/users/1
+

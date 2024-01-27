@@ -11,3 +11,9 @@
 ### Service
 
 ### Repository
+
+---
+
+### WebClient
+- functional
+- reactive nonblocking
