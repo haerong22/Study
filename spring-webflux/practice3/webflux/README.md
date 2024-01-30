@@ -27,4 +27,14 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 --name r2dbc-mysql mysql:
 on-server=utf8mb4_unicode_ci
 ```
 
-
+- Table
+```mysql
+create table users
+(
+    id         bigint auto_increment primary key,
+    name       varchar(128),
+    email      varchar(255),
+    created_at datetime default CURRENT_TIMESTAMP not null,
+    updated_at datetime default CURRENT_TIMESTAMP not null
+);
+```

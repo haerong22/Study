@@ -11,5 +11,5 @@ public interface UserRepository {
 
     Mono<User> findById(Long id);
 
-    Mono<Integer> deleteById(Long id);
+    Mono<Void> deleteById(Long id);
 }

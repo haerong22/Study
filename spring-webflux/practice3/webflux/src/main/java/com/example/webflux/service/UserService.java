@@ -11,7 +11,7 @@ public interface UserService {
 
     Mono<User> findById(Long id);
 
-    Mono<Integer> deleteById(Long id);
+    Mono<Void> deleteById(Long id);
 
     Mono<User> update(Long id, String name, String email);
 }

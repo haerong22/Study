@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(id);
     }
 
-    public Mono<Integer> deleteById(Long id) {
+    public Mono<Void> deleteById(Long id) {
         return userRepository.deleteById(id);
     }
 

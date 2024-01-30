@@ -3,7 +3,7 @@ package com.example.webflux.controller;
 import com.example.webflux.dto.UserCreateRequest;
 import com.example.webflux.dto.UserResponse;
 import com.example.webflux.dto.UserUpdateRequest;
-import com.example.webflux.service.UserServiceImpl;
+import com.example.webflux.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
