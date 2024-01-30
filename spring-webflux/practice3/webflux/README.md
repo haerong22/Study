@@ -37,4 +37,16 @@ create table users
     created_at datetime default CURRENT_TIMESTAMP not null,
     updated_at datetime default CURRENT_TIMESTAMP not null
 );
+
+create table posts
+(
+    id         bigint auto_increment primary key,
+    user_id    bigint,
+    title      varchar(30),
+    content    varchar(200),
+    created_at datetime default CURRENT_TIMESTAMP not null,
+    updated_at datetime default CURRENT_TIMESTAMP not null
+);
+
+create index idx_user_id on posts(user_id);
 ```

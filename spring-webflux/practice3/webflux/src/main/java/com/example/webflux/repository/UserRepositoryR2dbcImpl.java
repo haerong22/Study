@@ -1,5 +1,6 @@
 package com.example.webflux.repository;
 
+import com.example.webflux.repository.r2dbc.UserR2dbcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
