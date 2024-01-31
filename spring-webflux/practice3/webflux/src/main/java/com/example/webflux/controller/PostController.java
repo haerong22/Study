@@ -1,7 +1,7 @@
 package com.example.webflux.controller;
 
 import com.example.webflux.dto.PostResponse;
-import com.example.webflux.service.PostService;
+import com.example.webflux.service.PostServiceEx;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
 
-    private final PostService postService;
+    private final PostServiceEx postService;
 
     @GetMapping("/{id}")
     public Mono<PostResponse> getPostContent(@PathVariable Long id) {

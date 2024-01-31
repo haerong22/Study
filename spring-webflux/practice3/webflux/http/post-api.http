@@ -1,3 +1,5 @@
+# V1
+
 ### Post 조회
 GET http://localhost:8080/posts/11
 
@@ -6,3 +8,24 @@ GET http://localhost:8080/posts/search?ids=1,2,3,4
 
 ### Post 조회
 GET http://localhost:8080/posts/search/parallel?ids=1,2,3,4
+
+# V2
+
+### Post 생성
+POST http://localhost:8080/v2/posts
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "title": "제목",
+  "content": "내용"
+}
+
+### 전체 Post 조회
+GET http://localhost:8080/v2/posts
+
+### Post 조회
+GET http://localhost:8080/v2/posts/1
+
+### Post 삭제
+DELETE http://localhost:8080/v2/posts/1
