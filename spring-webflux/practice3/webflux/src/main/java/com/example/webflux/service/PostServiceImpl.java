@@ -1,40 +1,40 @@
 package com.example.webflux.service;
 
-import com.example.webflux.client.PostClient;
-import com.example.webflux.dto.PostResponse;
+import com.example.webflux.repository.Post;
+import com.example.webflux.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-    private final PostClient postClient;
+    private final PostRepository postRepository;
 
-    public Mono<PostResponse> getPostContent(Long id) {
-        return postClient.getPost(id)
-                .onErrorResume(e -> Mono.just(new PostResponse()));
+    @Override
+    public Mono<Post> create(Long userId, String title, String content) {
+        return postRepository.save(Post.builder()
+                .userId(userId)
+                .title(title)
+                .content(content)
+                .build());
     }
 
     @Override
-    public Flux<PostResponse> getMultiplePostContent(List<Long> idList) {
-        return Flux.fromIterable(idList)
-                .flatMap(this::getPostContent)
-                .log();
+    public Flux<Post> findAll() {
+        return postRepository.findAll();
     }
 
     @Override
-    public Flux<PostResponse> getParallelMultiplePostContent(List<Long> idList) {
-        return Flux.fromIterable(idList)
-                .parallel()
-                .runOn(Schedulers.parallel())
-                .flatMap(this::getPostContent)
-                .log()
-                .sequential();
+    public Mono<Post> findById(Long id) {
+        return postRepository.findById(id);
     }
+
+    @Override
+    public Mono<Void> deleteById(Long id) {
+        return postRepository.deleteById(id);
+    }
+
 }

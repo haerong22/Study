@@ -1,16 +1,16 @@
 package com.example.webflux.service;
 
-import com.example.webflux.dto.PostResponse;
+import com.example.webflux.repository.Post;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 public interface PostService {
 
-    Mono<PostResponse> getPostContent(Long id);
+    Mono<Post> create(Long userId, String title, String content);
 
-    Flux<PostResponse> getMultiplePostContent(List<Long> idList);
+    Flux<Post> findAll();
 
-    Flux<PostResponse> getParallelMultiplePostContent(List<Long> idList);
+    Mono<Post> findById(Long id);
+
+    Mono<Void> deleteById(Long id);
 }
