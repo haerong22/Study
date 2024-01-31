@@ -48,4 +48,9 @@ public class UserRepositoryImpl implements UserRepository {
 
         return Mono.empty();
     }
+
+    @Override
+    public Mono<Void> deleteByName(String name) {
+        return null;
+    }
 }

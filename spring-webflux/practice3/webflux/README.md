@@ -50,3 +50,7 @@ create table posts
 
 create index idx_user_id on posts(user_id);
 ```
+- Repository
+  - ReactiveCrudRepository
+  - @Query
+  - Custom Repository

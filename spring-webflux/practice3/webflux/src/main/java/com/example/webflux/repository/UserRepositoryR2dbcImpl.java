@@ -31,4 +31,9 @@ public class UserRepositoryR2dbcImpl implements UserRepository {
     public Mono<Void> deleteById(Long id) {
         return userR2dbcRepository.deleteById(id);
     }
+
+    @Override
+    public Mono<Void> deleteByName(String name) {
+        return userR2dbcRepository.deleteByName(name);
+    }
 }

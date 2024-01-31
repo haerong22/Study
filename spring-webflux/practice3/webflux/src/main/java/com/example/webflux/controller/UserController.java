@@ -44,6 +44,12 @@ public class UserController {
         return userService.deleteById(id).then();
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/search")
+    public Mono<Void> deleteUserByName(@RequestParam String name) {
+        return userService.deleteByName(name).then();
+    }
+
     @PutMapping("/{id}")
     public Mono<ResponseEntity<UserResponse>> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
         return userService.update(id, request.getName(), request.getEmail())

@@ -25,3 +25,6 @@ Content-Type: application/json
 ### 유저 삭제
 DELETE http://localhost:8080/users/1
 
+### 유저 삭제
+DELETE http://localhost:8080/users/search?name=bobby
+
