@@ -1,8 +1,10 @@
 package com.example.webflux.controller;
 
 import com.example.webflux.dto.UserCreateRequest;
+import com.example.webflux.dto.UserPostResponse;
 import com.example.webflux.dto.UserResponse;
 import com.example.webflux.dto.UserUpdateRequest;
+import com.example.webflux.service.PostService;
 import com.example.webflux.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import reactor.core.publisher.Mono;
 public class UserController {
 
     private final UserService userService;
+    private final PostService postService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -55,5 +58,11 @@ public class UserController {
         return userService.update(id, request.getName(), request.getEmail())
                 .map(u -> ResponseEntity.ok(UserResponse.of(u)))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+
+    @GetMapping("/{id}/posts")
+    public Flux<UserPostResponse> getUserPosts(@PathVariable Long id) {
+        return postService.findAllByUserId(id)
+                .map(UserPostResponse::of);
     }
 }

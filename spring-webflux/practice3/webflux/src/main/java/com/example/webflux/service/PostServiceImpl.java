@@ -33,6 +33,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Flux<Post> findAllByUserId(Long id) {
+        return postRepository.findAllByUserId(id);
+    }
+
+    @Override
     public Mono<Void> deleteById(Long id) {
         return postRepository.deleteById(id);
     }

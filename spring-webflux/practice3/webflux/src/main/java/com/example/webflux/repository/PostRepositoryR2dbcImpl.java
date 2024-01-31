@@ -28,6 +28,11 @@ public class PostRepositoryR2dbcImpl implements PostRepository {
     }
 
     @Override
+    public Flux<Post> findAllByUserId(Long id) {
+        return postR2dbcRepository.findAllByUserId(id);
+    }
+
+    @Override
     public Mono<Void> deleteById(Long id) {
         return postR2dbcRepository.deleteById(id);
     }
