@@ -54,3 +54,15 @@ create index idx_user_id on posts(user_id);
   - ReactiveCrudRepository
   - @Query
   - Custom Repository
+
+---
+
+### Reactive Redis
+```shell
+docker run -d -p 6379:6379 --name redis redis:6.2
+```
+
+- Reactive Stream
+- Nonblocking I/O
+- Spring Data Reactive Redis
+  - lettuce
