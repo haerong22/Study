@@ -21,6 +21,14 @@ repositories {
     mavenCentral()
 }
 
+tasks.withType(Test).all {
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_13)) {
+        jvmArgs += [
+                "-XX:+AllowRedefinitionToAddDeleteMethods"
+        ]
+    }
+}
+
 dependencies {
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.94.Final:osx-aarch_64'
 
@@ -34,6 +42,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'io.projectreactor.tools:blockhound:1.0.8.RELEASE'
 }
 
 tasks.named('test') {

@@ -66,3 +66,29 @@ docker run -d -p 6379:6379 --name redis redis:6.2
 - Nonblocking I/O
 - Spring Data Reactive Redis
   - lettuce
+
+---
+
+### Spring MVC vs Webflux 성능
+- JMeter
+
+---
+
+### Blockhound
+Blocking 코드 검증 
+
+- Gradle
+```groovy
+implementation 'io.projectreactor.tools:blockhound:1.0.8.RELEASE'
+testImplementation 'io.projectreactor.tools:blockhound:1.0.8.RELEASE'
+```
+
+- Code
+```text
+BlockHound.install();
+```
+
+- JDK 13+ 에서 옵션 추가
+```shell
+-XX:+AllowRedefinitionToAddDeleteMethods
+```
