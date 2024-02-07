@@ -153,4 +153,28 @@ class UserQueueServiceTest {
                 .verifyComplete();
     }
 
+    @DisplayName("접근 토큰을 검증 실패 시 false 응답한다.")
+    @Test
+    void isNotAllowedByTokenTest() {
+        StepVerifier.create(userQueueService.isAllowedByToken("default", 100L, ""))
+                .expectNext(false)
+                .verifyComplete();
+    }
+
+    @DisplayName("접근 토큰을 검증 성공 시 true 응답한다.")
+    @Test
+    void isAllowedByTokenTest() {
+        StepVerifier.create(userQueueService.isAllowedByToken("default", 100L, "d333a5d4eb24f3f5cdd767d79b8c01aad3cd73d3537c70dec430455d37afe4b8"))
+                .expectNext(true)
+                .verifyComplete();
+    }
+
+    @DisplayName("접근 토큰을 생성한다.")
+    @Test
+    void generateTokenTest() {
+        StepVerifier.create(userQueueService.generateToken("default", 100L))
+                .expectNext("d333a5d4eb24f3f5cdd767d79b8c01aad3cd73d3537c70dec430455d37afe4b8")
+                .verifyComplete();
+    }
+
 }

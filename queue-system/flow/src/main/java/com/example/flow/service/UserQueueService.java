@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 
 @Slf4j
@@ -57,12 +60,41 @@ public class UserQueueService {
                 .map(rank -> rank >= 0);
     }
 
+    // 접근 토큰 검증
+    public Mono<Boolean> isAllowedByToken(final String queue, final Long userId, final String token) {
+        return this.generateToken(queue, userId)
+                .filter(gen -> gen.equalsIgnoreCase(token))
+                .map(i -> true)
+                .defaultIfEmpty(false);
+    }
+
     // 대기 순번 조회
     public Mono<Long> getRank(final String queue, final Long userId) {
         return reactiveRedisTemplate.opsForZSet()
                 .rank(USER_QUEUE_WAIT_KEY.formatted(queue), userId.toString())
                 .defaultIfEmpty(-1L)
                 .map(rank -> rank >= 0 ? rank + 1 : rank);
+    }
+
+    // 접근 토큰 생성
+    public Mono<String> generateToken(final String queue, final Long userId) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+
+            String input = "user-queue-%s-%d".formatted(queue, userId);
+
+            byte[] encodedHash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte aByte : encodedHash) {
+                hexString.append(String.format("%02x", aByte));
+            }
+
+            return Mono.just(hexString.toString());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Scheduled(initialDelay = 5000, fixedDelay = 10000)
