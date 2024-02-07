@@ -46,11 +46,16 @@
             .then(response => response.json())
             .then(data => {
                 if (data.rank < 0) {
-                    document.querySelector('#number').innerHTML = 0;
-                    document.querySelector('#updated').innerHTML = new Date();
+                    fetch('/api/v1/queue/touch?' + queryParam)
+                        .then(response => {
+                            document.querySelector('#number').innerHTML = 0;
+                            document.querySelector('#updated').innerHTML = new Date();
 
-                    const newUrl = window.location.origin + window.location.pathname + window.location.search;
-                    window.location.href = newUrl;
+                            const newUrl = window.location.origin + window.location.pathname + window.location.search;
+                            window.location.href = newUrl;
+                        })
+                        .catch(error => console.error(error));
+
                     return;
                 }
                 document.querySelector('#number').innerHTML = data.rank;
