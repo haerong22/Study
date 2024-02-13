@@ -1,0 +1,10 @@
+### 사용자 가입
+POST http://localhost:8080/open-api/user
+Content-Type: application/json
+
+{
+  "name": "bobby",
+  "email": "email@email.com",
+  "address": "seoul",
+  "password": "1234"
+}

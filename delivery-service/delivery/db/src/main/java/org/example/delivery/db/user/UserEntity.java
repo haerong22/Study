@@ -41,4 +41,10 @@ public class UserEntity extends BaseEntity {
     private LocalDateTime unregisteredAt;
 
     private LocalDateTime lastLoginAt;
+
+    public UserEntity register() {
+        this.status = UserStatus.REGISTERED;
+        this.registeredAt = LocalDateTime.now();
+        return this;
+    }
 }
