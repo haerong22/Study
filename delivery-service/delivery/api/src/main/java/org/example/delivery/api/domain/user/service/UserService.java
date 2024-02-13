@@ -36,4 +36,11 @@ public class UserService {
                 UserStatus.REGISTERED
         ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
     }
+
+    public UserEntity getUserWithThrow(Long userId) {
+        return userRepository.findFirstByIdAndStatusOrderByIdDesc(
+                userId,
+                UserStatus.REGISTERED
+        ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+    }
 }

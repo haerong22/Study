@@ -8,6 +8,7 @@ import org.example.delivery.api.domain.user.controller.model.UserLoginRequest;
 import org.example.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.example.delivery.api.domain.user.controller.model.UserResponse;
 import org.example.delivery.api.domain.user.converter.UserConverter;
+import org.example.delivery.api.domain.user.model.User;
 import org.example.delivery.api.domain.user.service.UserService;
 import org.example.delivery.db.user.UserEntity;
 
@@ -28,5 +29,10 @@ public class UserBusiness {
     public TokenResponse login(UserLoginRequest request) {
         UserEntity userEntity = userService.login(request.getEmail(), request.getPassword());
         return tokenBusiness.issueToken(userEntity);
+    }
+
+    public UserResponse me(User user) {
+        UserEntity userEntity = userService.getUserWithThrow(user.getId());
+        return userConverter.toResponse(userEntity);
     }
 }

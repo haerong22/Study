@@ -17,3 +17,7 @@ Content-Type: application/json
   "email": "email@email.com",
   "password": "1234"
 }
+
+### 내정보 조회하기
+GET http://localhost:8080/api/user/me
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwNzgyNjQ5NX0.9hc_EPZ7AjlmYpajnDs5iwLUDTN-AvtBPoIYLhUhDb0

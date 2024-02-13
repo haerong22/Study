@@ -29,11 +29,10 @@ public class TokenService {
         return tokenHelper.issueRefreshToken(data);
     }
 
-    private Long validationToken(String token) {
+    public Long validationToken(String token) {
         Map<String, Object> map = tokenHelper.validationTokenWithThrow(token);
         Object userId = map.get("userId");
         Objects.requireNonNull(userId, () -> {throw new ApiException(CommonErrorCode.NULL_POINT);});
         return Long.parseLong(userId.toString());
-
     }
 }
