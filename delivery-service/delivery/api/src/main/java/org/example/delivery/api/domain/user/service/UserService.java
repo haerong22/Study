@@ -2,9 +2,11 @@ package org.example.delivery.api.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.delivery.api.common.error.CommonErrorCode;
+import org.example.delivery.api.common.error.UserErrorCode;
 import org.example.delivery.api.common.exception.ApiException;
 import org.example.delivery.db.user.UserEntity;
 import org.example.delivery.db.user.UserRepository;
+import org.example.delivery.db.user.enums.UserStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,5 +23,17 @@ public class UserService {
         return Optional.ofNullable(userEntity)
                 .map(it -> userRepository.save(it.register()))
                 .orElseThrow(() -> new ApiException(CommonErrorCode.NULL_POINT, "UserEntity"));
+    }
+
+    public UserEntity login(String email, String password) {
+        return getUserWithThrow(email, password);
+    }
+
+    public UserEntity getUserWithThrow(String email, String password) {
+        return userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
+                email,
+                password,
+                UserStatus.REGISTERED
+        ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
     }
 }

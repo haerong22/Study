@@ -8,3 +8,12 @@ Content-Type: application/json
   "address": "seoul",
   "password": "1234"
 }
+
+### 로그인
+POST http://localhost:8080/open-api/user/login
+Content-Type: application/json
+
+{
+  "email": "email@email.com",
+  "password": "1234"
+}
