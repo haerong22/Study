@@ -1,0 +1,17 @@
+### 상점 등록
+POST http://localhost:8080/open-api/store
+Content-Type: application/json
+
+{
+  "name": "맥도날드 강남점",
+  "address": "서울시 강남구",
+  "category": "HAMBURGER",
+  "thumbnail_url": "thumbnail.png",
+  "minimum_amount": 8000,
+  "minimum_delivery_amount": 3000,
+  "phone_number": "0212341234"
+}
+
+### 상점 조회
+GET http://localhost:8080/api/store/search?storeCategory=HAMBURGER
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwNzkyMjU3MX0.LS1ExKzLl0VrOCcXXtsL9izh8BKJuyezxpGHt0gwoRU
