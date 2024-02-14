@@ -48,4 +48,10 @@ public class StoreEntity extends BaseEntity {
 
     @Column(length = 20)
     private String phoneNumber;
+
+    public StoreEntity register() {
+        this.star = 0;
+        this.status = StoreStatus.REGISTERED;
+        return this;
+    }
 }
