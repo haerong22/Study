@@ -1,0 +1,14 @@
+### 상점 메뉴 등록
+POST http://localhost:8080/open-api/store-menu
+Content-Type: application/json
+
+{
+  "store_id": 1,
+  "name": "불고기버거",
+  "amount": 4000,
+  "thumbnail_url": "bulgogi.png"
+}
+
+### 상점 메뉴 조회
+GET http://localhost:8080/api/store-menu/search?storeId=1
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwNzk4NTQyNX0.HpSfFAa2pWrB0g1qd_2LiMxNaBP18UjkVwUXVSX_kUw
