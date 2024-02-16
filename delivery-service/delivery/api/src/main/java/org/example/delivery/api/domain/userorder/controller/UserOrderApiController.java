@@ -7,12 +7,12 @@ import org.example.delivery.api.common.annotation.UserSession;
 import org.example.delivery.api.common.api.Api;
 import org.example.delivery.api.domain.user.model.User;
 import org.example.delivery.api.domain.userorder.business.UserOrderBusiness;
+import org.example.delivery.api.domain.userorder.controller.model.UserOrderDetailResponse;
 import org.example.delivery.api.domain.userorder.controller.model.UserOrderRequest;
 import org.example.delivery.api.domain.userorder.controller.model.UserOrderResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user-order")
@@ -30,5 +30,26 @@ public class UserOrderApiController {
         return Api.ok(userOrderBusiness.userOrder(user, userOrderRequest));
     }
 
+    @GetMapping("/current")
+    public Api<List<UserOrderDetailResponse>> current(
+            @Parameter(hidden = true) @UserSession User user
+    ) {
+        return Api.ok(userOrderBusiness.current(user));
+    }
+
+    @GetMapping("/history")
+    public Api<List<UserOrderDetailResponse>> history(
+            @Parameter(hidden = true) @UserSession User user
+    ) {
+        return Api.ok(userOrderBusiness.history(user));
+    }
+
+    @GetMapping("/{orderId}")
+    public Api<UserOrderDetailResponse> read(
+            @Parameter(hidden = true) @UserSession User user,
+            @PathVariable Long orderId
+    ) {
+        return Api.ok(userOrderBusiness.read(user, orderId));
+    }
 
 }

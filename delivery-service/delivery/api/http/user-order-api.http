@@ -8,3 +8,18 @@ authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwODA4MDg5NH
     1, 2
   ]
 }
+
+
+### 현재 주문 건 조회
+GET http://localhost:8080/api/user-order/current
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwODA4NDYxN30.TQVR1Yv83elTzcLQNVSbxoVBt-eyCj8sKFRbI2qXhKI
+
+
+### 과거 주문 건 조회
+GET http://localhost:8080/api/user-order/history
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwODA4NDYxN30.TQVR1Yv83elTzcLQNVSbxoVBt-eyCj8sKFRbI2qXhKI
+
+
+### 주문 건 조회
+GET http://localhost:8080/api/user-order/1
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwODA4NDYxN30.TQVR1Yv83elTzcLQNVSbxoVBt-eyCj8sKFRbI2qXhKI
