@@ -1,0 +1,10 @@
+### 주문
+POST http://localhost:8080/api/user-order
+Content-Type: application/json
+authorization-token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImV4cCI6MTcwODA4MDg5NH0.rbnzjtrQPcLhvAIK8T_t-RGUkjJ9WNh5qH9nfEwa1nw
+
+{
+  "store_menu_id_list": [
+    1, 2
+  ]
+}
