@@ -27,4 +27,9 @@ public class UserOrderMenuEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
     private UserOrderMenuStatus status;
+
+    public UserOrderMenuEntity order() {
+        this.status = UserOrderMenuStatus.REGISTERED;
+        return this;
+    }
 }
