@@ -1,0 +1,10 @@
+### 상점 유저 등록
+POST http://localhost:8081/open-api/store-user
+Content-Type: application/json
+
+{
+  "storeName": "맥도날드 강남점",
+  "email": "email@email.com",
+  "password": "1234",
+  "role": "MASTER"
+}

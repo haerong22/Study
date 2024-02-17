@@ -24,4 +24,8 @@ public interface StoreRepository extends JpaRepository<StoreEntity, Long> {
      */
     List<StoreEntity> findAllByStatusAndCategoryOrderByStarDesc(StoreStatus status, StoreCategory category);
 
+    /**
+     * SELECT * FROM store WHERE name = ? AND status = ? ORDER BY id DESC;
+     */
+    Optional<StoreEntity> findFirstByNameAndStatusOrderByIdDesc(String name, StoreStatus status);
 }

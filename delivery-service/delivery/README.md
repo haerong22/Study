@@ -5,6 +5,7 @@
 - mysql
 - jpa
 - swagger
+- security
 
 ---
 
@@ -18,6 +19,6 @@
 - Exception Handler
 - Interceptor를 통한 인증 처리
 - JWT 토큰 발행 및 사용자 인증
-
+- Spring Security 활용 사용자 인증
 
 #### DB
