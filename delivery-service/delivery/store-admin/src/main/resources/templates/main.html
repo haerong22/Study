@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Main Page</h1>
+
+<h3 th:text="${#authentication?.name}"></h3>
+<h3 th:text="${#authentication?.principal?.storeName}"></h3>
+<h3 th:text="${#authentication?.principal?.role}"></h3>
+
+</body>
+</html>

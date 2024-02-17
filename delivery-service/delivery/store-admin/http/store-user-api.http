@@ -8,3 +8,7 @@ Content-Type: application/json
   "password": "1234",
   "role": "MASTER"
 }
+
+### 유저 정보 조회
+GET http://localhost:8081/api/store-user/me
+Cookie: JSESSIONID=58BB304B30E205D70994D2E3B471286C;
