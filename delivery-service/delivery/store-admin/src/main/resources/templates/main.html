@@ -13,4 +13,18 @@
 <h3 th:text="${#authentication?.principal?.role}"></h3>
 
 </body>
+
+<script>
+    const url = "http://localhost:8081/api/sse/connect"
+    const eventSource = new EventSource(url);
+
+    eventSource.onopen = event => {
+        console.log("sse connection : " + event.data);
+    }
+
+    eventSource.onmessage = event => {
+        console.log("receive data : " + event.data);
+    }
+</script>
+
 </html>
