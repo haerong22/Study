@@ -6,12 +6,13 @@
 - jpa
 - swagger
 - security
+- rabbitmq
 
 ---
 
-### 모듈
+## 모듈
 
-#### API
+### API
 - swagger : http://localhost:8080/swagger-ui/index.html
 
 - Filter를 통한 Request, Response 로그
@@ -20,5 +21,23 @@
 - Interceptor를 통한 인증 처리
 - JWT 토큰 발행 및 사용자 인증
 - Spring Security 활용 사용자 인증
+- Rabbitmq 활용 비동기 메시지 처리
 
-#### DB
+---
+
+### DB
+
+---
+
+### RabbitMQ
+
+실행
+```shell
+docker-compose -f rabbitmq/docker-compose.yml up -d
+```
+Management 활성화
+```shell
+rabbitmq-plugins enable rabbitmq_management
+```
+관리자 페이지 접속
+- http://localhost:15672
