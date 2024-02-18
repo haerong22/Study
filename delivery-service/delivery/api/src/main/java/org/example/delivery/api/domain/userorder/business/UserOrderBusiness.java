@@ -11,6 +11,7 @@ import org.example.delivery.api.domain.userorder.controller.model.UserOrderDetai
 import org.example.delivery.api.domain.userorder.controller.model.UserOrderRequest;
 import org.example.delivery.api.domain.userorder.controller.model.UserOrderResponse;
 import org.example.delivery.api.domain.userorder.converter.UserOrderConverter;
+import org.example.delivery.api.domain.userorder.producer.UserOrderProducer;
 import org.example.delivery.api.domain.userorder.service.UserOrderService;
 import org.example.delivery.api.domain.userordermenu.converter.UserOrderMenuConverter;
 import org.example.delivery.api.domain.userordermenu.service.UserOrderMenuService;
@@ -35,6 +36,7 @@ public class UserOrderBusiness {
     private final UserOrderMenuConverter userOrderMenuConverter;
     private final StoreMenuConverter storeMenuConverter;
     private final StoreConverter storeConverter;
+    private final UserOrderProducer userOrderProducer;
 
     @Transactional
     public UserOrderResponse userOrder(User user, UserOrderRequest userOrderRequest) {
@@ -51,6 +53,8 @@ public class UserOrderBusiness {
                 .toList();
 
         userOrderMenuEntityList.forEach(userOrderMenuService::order);
+
+        userOrderProducer.sendOrder(ordered);
 
         return userOrderConverter.toResponse(ordered);
     }
