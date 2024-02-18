@@ -22,10 +22,14 @@ repositories {
 }
 
 dependencies {
+    implementation project(':common')
     implementation project(':db')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // rabbitmq
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
     // thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
