@@ -21,3 +21,14 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+aws:
+  s3:
+    accessKey:
+    secretKey:
+    bucket:
+    region:
+    bucket.prefix:
+    vod.prefix:
+    base.path:
+
+  cloudfront.prefix:

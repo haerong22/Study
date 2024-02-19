@@ -22,6 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.131'
     implementation 'commons-fileupload:commons-fileupload:1.4'
 
     implementation 'org.jcodec:jcodec:0.2.5'

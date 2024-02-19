@@ -29,7 +29,7 @@ public class TusUploadController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = {"/upload", "/upload/**"})
-    public ResponseEntity<UploadResponse> uploadWithTus2(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<UploadResponse> uploadWithTus(HttpServletRequest request, HttpServletResponse response) {
         UploadResponse res = fileUploadService.process(request, response);
         return httpOkStatus(res);
     }
