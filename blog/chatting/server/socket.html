@@ -24,7 +24,7 @@
         let stompClient;
 
         const connect = () => {
-            const socket = new SockJS('http://localhost:28080/ws-stomp')
+            const socket = new SockJS('http://localhost:18081/ws-stomp')
 
             stompClient = Stomp.over(socket);
 
@@ -37,7 +37,7 @@
             const topic = document.getElementById("sub").value;
 
             console.log(topic)
-            stompClient.subscribe("/sub/" + topic, (response) => {
+            stompClient.subscribe(topic, {"PREVIEW":"R"}, (response) => {
                 console.log(response);
             })
 
@@ -53,7 +53,7 @@
                 "id": 1,
             }
 
-            stompClient.send("/pub/" + topic, {}, JSON.stringify(request));
+            stompClient.send(topic, {}, JSON.stringify(request));
         }
 
     </script>
