@@ -6,7 +6,7 @@ import org.example.delivery.db.store.StoreRepository;
 import org.example.delivery.db.store.enums.StoreStatus;
 import org.example.delivery.db.storeuser.StoreUserEntity;
 import org.example.delivery.storeadmin.doamin.authorization.model.UserSession;
-import org.example.delivery.storeadmin.doamin.user.service.StoreUserService;
+import org.example.delivery.storeadmin.doamin.storeuser.service.StoreUserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

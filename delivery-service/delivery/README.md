@@ -25,6 +25,12 @@
 
 ---
 
+### Store admin
+- Rabbitmq 활용 비동기 메시지 처리
+- SSE 활용 알림 전송
+
+---
+
 ### DB
 
 ---
@@ -41,3 +47,9 @@ rabbitmq-plugins enable rabbitmq_management
 ```
 관리자 페이지 접속
 - http://localhost:15672
+
+---
+
+## FLOW
+### 주문 비동기 메시징 처리
+![rabbitmq.png](images/rabbitmq.png)

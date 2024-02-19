@@ -44,7 +44,7 @@ public class UserOrderBusiness {
                 .map(storeMenuService::getStoreMenuWithThrow)
                 .toList();
 
-        UserOrderEntity userOrderEntity = userOrderConverter.toEntity(user, storeMenuEntityList);
+        UserOrderEntity userOrderEntity = userOrderConverter.toEntity(user, userOrderRequest.getStoreId(), storeMenuEntityList);
 
         UserOrderEntity ordered = userOrderService.order(userOrderEntity);
 
