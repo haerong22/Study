@@ -1,4 +1,4 @@
-package org.example.delivery.storeadmin.doamin.user.business;
+package org.example.delivery.storeadmin.doamin.storeuser.business;
 
 
 import lombok.RequiredArgsConstructor;
@@ -6,10 +6,10 @@ import org.example.delivery.db.store.StoreRepository;
 import org.example.delivery.db.store.enums.StoreStatus;
 import org.example.delivery.db.storeuser.StoreUserEntity;
 import org.example.delivery.storeadmin.common.annotation.Business;
-import org.example.delivery.storeadmin.doamin.user.controller.model.StoreUserRegisterRequest;
-import org.example.delivery.storeadmin.doamin.user.controller.model.StoreUserResponse;
-import org.example.delivery.storeadmin.doamin.user.converter.StoreUserConverter;
-import org.example.delivery.storeadmin.doamin.user.service.StoreUserService;
+import org.example.delivery.storeadmin.doamin.storeuser.controller.model.StoreUserRegisterRequest;
+import org.example.delivery.storeadmin.doamin.storeuser.controller.model.StoreUserResponse;
+import org.example.delivery.storeadmin.doamin.storeuser.converter.StoreUserConverter;
+import org.example.delivery.storeadmin.doamin.storeuser.service.StoreUserService;
 
 @Business
 @RequiredArgsConstructor

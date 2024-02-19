@@ -1,4 +1,4 @@
-package org.example.delivery.storeadmin.doamin.user.controller.model;
+package org.example.delivery.storeadmin.doamin.storeuser.controller.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

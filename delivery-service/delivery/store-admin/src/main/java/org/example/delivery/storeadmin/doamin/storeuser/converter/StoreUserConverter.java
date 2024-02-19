@@ -1,11 +1,11 @@
-package org.example.delivery.storeadmin.doamin.user.converter;
+package org.example.delivery.storeadmin.doamin.storeuser.converter;
 
 import org.example.delivery.db.store.StoreEntity;
 import org.example.delivery.db.storeuser.StoreUserEntity;
 import org.example.delivery.storeadmin.common.annotation.Converter;
 import org.example.delivery.storeadmin.doamin.authorization.model.UserSession;
-import org.example.delivery.storeadmin.doamin.user.controller.model.StoreUserRegisterRequest;
-import org.example.delivery.storeadmin.doamin.user.controller.model.StoreUserResponse;
+import org.example.delivery.storeadmin.doamin.storeuser.controller.model.StoreUserRegisterRequest;
+import org.example.delivery.storeadmin.doamin.storeuser.controller.model.StoreUserResponse;
 
 @Converter
 public class StoreUserConverter {

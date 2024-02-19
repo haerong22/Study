@@ -1,4 +1,4 @@
-package org.example.delivery.storeadmin.doamin.user.controller.model;
+package org.example.delivery.storeadmin.doamin.storeuser.controller.model;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
