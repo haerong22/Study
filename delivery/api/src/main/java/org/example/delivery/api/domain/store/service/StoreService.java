@@ -20,7 +20,7 @@ public class StoreService {
     private final StoreRepository storeRepository;
 
     public StoreEntity getStoreWithThrow(Long id) {
-        return storeRepository.findFirstByIdAndStatusOrderByIdDesc(id, StoreStatus.REGISTERED)
+        return Optional.ofNullable(storeRepository.findFirstByIdAndStatusOrderByIdDesc(id, StoreStatus.REGISTERED))
                 .orElseThrow(() -> new ApiException(CommonErrorCode.NULL_POINT));
     }
 

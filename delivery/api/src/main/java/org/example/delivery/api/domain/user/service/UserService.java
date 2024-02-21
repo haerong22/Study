@@ -30,17 +30,17 @@ public class UserService {
     }
 
     public UserEntity getUserWithThrow(String email, String password) {
-        return userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
+        return Optional.ofNullable(userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
                 email,
                 password,
                 UserStatus.REGISTERED
-        ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+        )).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
     }
 
     public UserEntity getUserWithThrow(Long userId) {
-        return userRepository.findFirstByIdAndStatusOrderByIdDesc(
+        return Optional.ofNullable(userRepository.findFirstByIdAndStatusOrderByIdDesc(
                 userId,
                 UserStatus.REGISTERED
-        ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+        )).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
     }
 }

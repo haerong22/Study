@@ -21,8 +21,8 @@ public class StoreUserBusiness {
 
     public StoreUserResponse register(StoreUserRegisterRequest request) {
         var storeEntity = storeRepository.findFirstByNameAndStatusOrderByIdDesc(request.getStoreName(), StoreStatus.REGISTERED);
-        StoreUserEntity entity = storeUserConverter.toEntity(request, storeEntity.get());
+        StoreUserEntity entity = storeUserConverter.toEntity(request, storeEntity);
         StoreUserEntity registered = storeUserService.register(entity);
-        return storeUserConverter.toResponse(registered, storeEntity.get());
+        return storeUserConverter.toResponse(registered, storeEntity);
     }
 }
