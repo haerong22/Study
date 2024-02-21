@@ -1,5 +1,6 @@
 ## 배달 플랫폼 프로젝트
 - java 17
+- kotlin 1.9.22
 - springboot 3.2.2
 - gradle
 - mysql

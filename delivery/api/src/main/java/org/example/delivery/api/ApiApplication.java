@@ -1,3 +1,4 @@
+/*
 package org.example.delivery.api;
 
 import org.springframework.boot.SpringApplication;
@@ -10,3 +11,4 @@ public class ApiApplication {
         SpringApplication.run(ApiApplication.class, args);
     }
 }
+*/
