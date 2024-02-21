@@ -2,7 +2,7 @@ package org.example.delivery.api.domain.user.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.api.Api;
+import org.example.delivery.common.api.Api;
 import org.example.delivery.api.domain.token.controller.model.TokenResponse;
 import org.example.delivery.api.domain.user.business.UserBusiness;
 import org.example.delivery.api.domain.user.controller.model.UserLoginRequest;

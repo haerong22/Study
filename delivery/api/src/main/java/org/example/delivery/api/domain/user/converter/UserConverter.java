@@ -1,9 +1,9 @@
 package org.example.delivery.api.domain.user.converter;
 
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.annotation.Converter;
-import org.example.delivery.api.common.error.CommonErrorCode;
-import org.example.delivery.api.common.exception.ApiException;
+import org.example.delivery.common.annotation.Converter;
+import org.example.delivery.common.error.CommonErrorCode;
+import org.example.delivery.common.exception.ApiException;
 import org.example.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.example.delivery.api.domain.user.controller.model.UserResponse;
 import org.example.delivery.db.user.UserEntity;

@@ -1,7 +1,7 @@
 package org.example.delivery.api.resolver;
 
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.annotation.UserSession;
+import org.example.delivery.common.annotation.UserSession;
 import org.example.delivery.api.domain.user.model.User;
 import org.example.delivery.api.domain.user.service.UserService;
 import org.example.delivery.db.user.UserEntity;

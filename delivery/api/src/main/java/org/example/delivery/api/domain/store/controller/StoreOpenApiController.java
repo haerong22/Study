@@ -2,7 +2,7 @@ package org.example.delivery.api.domain.store.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.api.Api;
+import org.example.delivery.common.api.Api;
 import org.example.delivery.api.domain.store.business.StoreBusiness;
 import org.example.delivery.api.domain.store.controller.model.StoreRegisterRequest;
 import org.example.delivery.api.domain.store.controller.model.StoreResponse;

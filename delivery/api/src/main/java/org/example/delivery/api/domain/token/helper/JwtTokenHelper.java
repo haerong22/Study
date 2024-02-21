@@ -2,8 +2,8 @@ package org.example.delivery.api.domain.token.helper;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.example.delivery.api.common.error.TokenErrorCode;
-import org.example.delivery.api.common.exception.ApiException;
+import org.example.delivery.common.error.TokenErrorCode;
+import org.example.delivery.common.exception.ApiException;
 import org.example.delivery.api.domain.token.interfaces.TokenHelper;
 import org.example.delivery.api.domain.token.model.TokenDto;
 import org.springframework.beans.factory.annotation.Value;

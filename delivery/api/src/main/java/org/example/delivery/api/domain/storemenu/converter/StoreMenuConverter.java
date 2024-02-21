@@ -1,8 +1,8 @@
 package org.example.delivery.api.domain.storemenu.converter;
 
-import org.example.delivery.api.common.annotation.Converter;
-import org.example.delivery.api.common.error.CommonErrorCode;
-import org.example.delivery.api.common.exception.ApiException;
+import org.example.delivery.common.annotation.Converter;
+import org.example.delivery.common.error.CommonErrorCode;
+import org.example.delivery.common.exception.ApiException;
 import org.example.delivery.api.domain.storemenu.controller.model.StoreMenuRegisterRequest;
 import org.example.delivery.api.domain.storemenu.controller.model.StoreMenuResponse;
 import org.example.delivery.db.storemenu.StoreMenuEntity;

@@ -1,9 +1,9 @@
 package org.example.delivery.api.domain.token.converter;
 
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.annotation.Converter;
-import org.example.delivery.api.common.error.CommonErrorCode;
-import org.example.delivery.api.common.exception.ApiException;
+import org.example.delivery.common.annotation.Converter;
+import org.example.delivery.common.error.CommonErrorCode;
+import org.example.delivery.common.exception.ApiException;
 import org.example.delivery.api.domain.token.controller.model.TokenResponse;
 import org.example.delivery.api.domain.token.model.TokenDto;
 

@@ -1,8 +1,8 @@
 package org.example.delivery.api.domain.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.annotation.UserSession;
-import org.example.delivery.api.common.api.Api;
+import org.example.delivery.common.annotation.UserSession;
+import org.example.delivery.common.api.Api;
 import org.example.delivery.api.domain.user.business.UserBusiness;
 import org.example.delivery.api.domain.user.controller.model.UserResponse;
 import org.example.delivery.api.domain.user.model.User;

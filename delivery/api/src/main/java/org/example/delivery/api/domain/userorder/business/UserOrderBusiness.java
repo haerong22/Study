@@ -1,7 +1,7 @@
 package org.example.delivery.api.domain.userorder.business;
 
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.annotation.Business;
+import org.example.delivery.common.annotation.Business;
 import org.example.delivery.api.domain.store.converter.StoreConverter;
 import org.example.delivery.api.domain.store.service.StoreService;
 import org.example.delivery.api.domain.storemenu.converter.StoreMenuConverter;

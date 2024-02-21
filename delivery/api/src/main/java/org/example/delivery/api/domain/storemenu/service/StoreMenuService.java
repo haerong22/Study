@@ -1,8 +1,8 @@
 package org.example.delivery.api.domain.storemenu.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.delivery.api.common.error.CommonErrorCode;
-import org.example.delivery.api.common.exception.ApiException;
+import org.example.delivery.common.error.CommonErrorCode;
+import org.example.delivery.common.exception.ApiException;
 import org.example.delivery.db.storemenu.StoreMenuEntity;
 import org.example.delivery.db.storemenu.StoreMenuRepository;
 import org.example.delivery.db.storemenu.enums.StoreMenuStatus;

@@ -1,6 +1,6 @@
 package org.example.delivery.api.domain.userorder.converter;
 
-import org.example.delivery.api.common.annotation.Converter;
+import org.example.delivery.common.annotation.Converter;
 import org.example.delivery.api.domain.user.model.User;
 import org.example.delivery.api.domain.userorder.controller.model.UserOrderResponse;
 import org.example.delivery.db.storemenu.StoreMenuEntity;
