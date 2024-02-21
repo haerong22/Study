@@ -1,6 +1,7 @@
 package org.example.delivery.api.domain.userorder.business;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.delivery.common.annotation.Business;
 import org.example.delivery.api.domain.store.converter.StoreConverter;
 import org.example.delivery.api.domain.store.service.StoreService;
@@ -19,10 +20,12 @@ import org.example.delivery.db.store.StoreEntity;
 import org.example.delivery.db.storemenu.StoreMenuEntity;
 import org.example.delivery.db.userorder.UserOrderEntity;
 import org.example.delivery.db.userordermenu.UserOrderMenuEntity;
+import org.example.delivery.db.userordermenu.enums.UserOrderMenuStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Business
 @RequiredArgsConstructor
 public class UserOrderBusiness {
@@ -40,11 +43,13 @@ public class UserOrderBusiness {
 
     @Transactional
     public UserOrderResponse userOrder(User user, UserOrderRequest userOrderRequest) {
+        StoreEntity storeEntity = storeService.getStoreWithThrow(userOrderRequest.getStoreId());
+
         List<StoreMenuEntity> storeMenuEntityList = userOrderRequest.getStoreMenuIdList().stream()
                 .map(storeMenuService::getStoreMenuWithThrow)
                 .toList();
 
-        UserOrderEntity userOrderEntity = userOrderConverter.toEntity(user, userOrderRequest.getStoreId(), storeMenuEntityList);
+        UserOrderEntity userOrderEntity = userOrderConverter.toEntity(user, storeEntity, storeMenuEntityList);
 
         UserOrderEntity ordered = userOrderService.order(userOrderEntity);
 
@@ -65,14 +70,15 @@ public class UserOrderBusiness {
 
         return userOrderEntityList.stream()
                 .map(userOrder -> {
-                    List<StoreMenuEntity> storeMenuEntityList = userOrderMenuService.getUserOrderMenu(userOrder.getId()).stream()
-                            .map(userOrderMenu -> storeMenuService.getStoreMenuWithThrow(userOrderMenu.getStoreMenuId()))
+                    log.info("사용자의 주문 정보 : {}", userOrder);
+
+                    List<StoreMenuEntity> storeMenuEntityList = userOrder.getUserOrderMenuList().stream()
+                            .filter(userOrderMenu -> userOrderMenu.getStatus().equals(UserOrderMenuStatus.REGISTERED))
+                            .toList().stream()
+                            .map(UserOrderMenuEntity::getStoreMenu)
                             .toList();
 
-                    StoreEntity storeEntity = storeService.getStoreWithThrow(storeMenuEntityList
-                            .stream()
-                            .findFirst()
-                            .get().getStoreId());
+                    StoreEntity storeEntity = userOrder.getStore();
 
                     return UserOrderDetailResponse.builder()
                             .userOrderResponse(userOrderConverter.toResponse(userOrder))
@@ -88,14 +94,14 @@ public class UserOrderBusiness {
 
         return userOrderEntityList.stream()
                 .map(userOrder -> {
-                    List<StoreMenuEntity> storeMenuEntityList = userOrderMenuService.getUserOrderMenu(userOrder.getId()).stream()
-                            .map(userOrderMenu -> storeMenuService.getStoreMenuWithThrow(userOrderMenu.getStoreMenuId()))
+
+                    List<StoreMenuEntity> storeMenuEntityList = userOrder.getUserOrderMenuList().stream()
+                            .filter(userOrderMenu -> userOrderMenu.getStatus().equals(UserOrderMenuStatus.REGISTERED))
+                            .toList().stream()
+                            .map(UserOrderMenuEntity::getStoreMenu)
                             .toList();
 
-                    StoreEntity storeEntity = storeService.getStoreWithThrow(storeMenuEntityList
-                            .stream()
-                            .findFirst()
-                            .get().getStoreId());
+                    StoreEntity storeEntity = userOrder.getStore();
 
                     return UserOrderDetailResponse.builder()
                             .userOrderResponse(userOrderConverter.toResponse(userOrder))
@@ -110,14 +116,13 @@ public class UserOrderBusiness {
 
         UserOrderEntity userOrderEntity = userOrderService.getUserOrderWithOutStatusWithThrow(orderId, user.getId());
 
-        List<StoreMenuEntity> storeMenuEntityList = userOrderMenuService.getUserOrderMenu(userOrderEntity.getId()).stream()
-                .map(userOrderMenu -> storeMenuService.getStoreMenuWithThrow(userOrderMenu.getStoreMenuId()))
+        List<StoreMenuEntity> storeMenuEntityList = userOrderEntity.getUserOrderMenuList().stream()
+                .filter(userOrderMenu -> userOrderMenu.getStatus().equals(UserOrderMenuStatus.REGISTERED))
+                .toList().stream()
+                .map(UserOrderMenuEntity::getStoreMenu)
                 .toList();
 
-        StoreEntity storeEntity = storeService.getStoreWithThrow(storeMenuEntityList
-                .stream()
-                .findFirst()
-                .get().getStoreId());
+        StoreEntity storeEntity = userOrderEntity.getStore();
 
         return UserOrderDetailResponse.builder()
                 .userOrderResponse(userOrderConverter.toResponse(userOrderEntity))

@@ -3,6 +3,7 @@ package org.example.delivery.api.domain.userorder.converter;
 import org.example.delivery.common.annotation.Converter;
 import org.example.delivery.api.domain.user.model.User;
 import org.example.delivery.api.domain.userorder.controller.model.UserOrderResponse;
+import org.example.delivery.db.store.StoreEntity;
 import org.example.delivery.db.storemenu.StoreMenuEntity;
 import org.example.delivery.db.userorder.UserOrderEntity;
 
@@ -12,14 +13,14 @@ import java.util.List;
 @Converter
 public class UserOrderConverter {
 
-    public UserOrderEntity toEntity(User user, Long storeId, List<StoreMenuEntity> storeMenuEntityList) {
+    public UserOrderEntity toEntity(User user, StoreEntity storeEntity, List<StoreMenuEntity> storeMenuEntityList) {
         BigDecimal totalAmount = storeMenuEntityList.stream()
                 .map(StoreMenuEntity::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return UserOrderEntity.builder()
                 .userId(user.getId())
-                .storeId(storeId)
+                .store(storeEntity)
                 .amount(totalAmount)
                 .build();
     }

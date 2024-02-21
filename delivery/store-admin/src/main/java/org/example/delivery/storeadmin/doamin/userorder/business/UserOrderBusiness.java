@@ -39,7 +39,7 @@ public class UserOrderBusiness {
         List<UserOrderMenuEntity> userOrderMenuList = userOrderMenuService.getUserOrderMenuList(userOrderEntity.getId());
 
         List<StoreMenuResponse> storeMenuResponseList = userOrderMenuList.stream()
-                .map(it -> storeMenuService.getStoreMenuWithThrow(it.getStoreMenuId()))
+                .map(it -> storeMenuService.getStoreMenuWithThrow(it.getStoreMenu().getId()))
                 .map(storeMenuConverter::toResponse)
                 .toList();
 
@@ -50,7 +50,7 @@ public class UserOrderBusiness {
                 .storeMenuResponseList(storeMenuResponseList)
                 .build();
 
-        UserSseConnection connection = sseConnectionPool.getSession(userOrderEntity.getStoreId().toString());
+        UserSseConnection connection = sseConnectionPool.getSession(userOrderEntity.getStore().getId().toString());
 
         connection.sendMessage(message);
     }

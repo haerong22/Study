@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.example.delivery.db.BaseEntity;
+import org.example.delivery.db.storemenu.StoreMenuEntity;
+import org.example.delivery.db.userorder.UserOrderEntity;
 import org.example.delivery.db.userordermenu.enums.UserOrderMenuStatus;
 
 @Getter
@@ -18,11 +20,13 @@ import org.example.delivery.db.userordermenu.enums.UserOrderMenuStatus;
 @SuperBuilder
 public class UserOrderMenuEntity extends BaseEntity {
 
-    @Column(nullable = false)
-    private Long userOrderId;
+    @JoinColumn(nullable = false, name = "user_order_id")
+    @ManyToOne
+    private UserOrderEntity userOrder;
 
-    @Column(nullable = false)
-    private Long storeMenuId;
+    @JoinColumn(nullable = false, name = "store_menu_id")
+    @ManyToOne
+    private StoreMenuEntity storeMenu;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
