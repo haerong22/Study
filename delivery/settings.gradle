@@ -3,4 +3,5 @@ include 'api'
 include 'db'
 include 'store-admin'
 include 'common'
+include 'gateway'
 
