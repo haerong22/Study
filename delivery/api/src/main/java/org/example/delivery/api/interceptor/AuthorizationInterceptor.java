@@ -4,10 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.delivery.common.error.CommonErrorCode;
-import org.example.delivery.common.error.TokenErrorCode;
-import org.example.delivery.common.exception.ApiException;
 import org.example.delivery.api.domain.token.business.TokenBusiness;
+import org.example.delivery.common.error.CommonErrorCode;
+import org.example.delivery.common.exception.ApiException;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -36,19 +35,14 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String accessToken = request.getHeader("authorization-token");
-        if (accessToken == null) {
-            throw new ApiException(TokenErrorCode.AUTHORIZATION_TOKEN_NOT_FOUND);
+        String userId = request.getHeader("x-user-id");
+        if (userId == null) {
+            throw new ApiException(CommonErrorCode.BAD_REQUEST, "x-user-id header 없음");
         }
 
-        Long userId = tokenBusiness.validationAccessToken(accessToken);
+        RequestAttributes requestAttributes = Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
+        requestAttributes.setAttribute("userId", userId, RequestAttributes.SCOPE_REQUEST);
 
-        if (userId != null) {
-            RequestAttributes requestAttributes = Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
-            requestAttributes.setAttribute("userId", userId, RequestAttributes.SCOPE_REQUEST);
-            return true;
-        }
-
-        throw new ApiException(CommonErrorCode.BAD_REQUEST, "인증 실패");
+        return true;
     }
 }
