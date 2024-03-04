@@ -3,5 +3,5 @@ package org.example.delivery.account.domain.token.controller.model
 import org.example.delivery.account.domain.token.model.TokenDto
 
 data class TokenValidationRequest(
-    val tokenDto: TokenDto
+    var tokenDto: TokenDto?=null
 )
