@@ -64,3 +64,8 @@ rabbitmq-plugins enable rabbitmq_management
 
 ### Log
 - logback
+- ELK stack
+```shell
+cd docker-compose/elk-stack
+docker-compose up -d
+```
