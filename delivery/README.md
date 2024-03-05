@@ -8,6 +8,7 @@
 - swagger
 - security
 - rabbitmq
+- spring cloud gateway
 
 ---
 
@@ -23,6 +24,7 @@
 - JWT 토큰 발행 및 사용자 인증
 - Spring Security 활용 사용자 인증
 - Rabbitmq 활용 비동기 메시지 처리
+- gateway 서버 인증 및 라우팅
 
 ---
 
@@ -54,3 +56,11 @@ rabbitmq-plugins enable rabbitmq_management
 ## FLOW
 ### 주문 비동기 메시징 처리
 ![rabbitmq.png](images/rabbitmq.png)
+
+
+---
+
+## 모니터링
+
+### Log
+- logback
