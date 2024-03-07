@@ -40,8 +40,14 @@ management:
       exposure:
         include: "*"
   endpoint:
+    prometheus:
+      enabled: true
     health:
       show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 logging:
   config: classpath:logback.xml

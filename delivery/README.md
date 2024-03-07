@@ -64,13 +64,23 @@ rabbitmq-plugins enable rabbitmq_management
 
 ## 모니터링
 
-### Log
+### Log 모니터링
 - logback
 - ELK stack
+  - Kibana : `http://localhost:5601`
+  - id/pw : elastic/changeme
+
 ```shell
 cd docker-compose/elk-stack
 docker-compose up -d
 ```
 
-### Application
+### Application 모니터링
 - spring boot admin
+  - `http://localhost:8085`
+- prometheus, grafana
+  - grafana : `http://localhost:3000`
+```shell
+cd docker-compose/prometheus-grafana
+docker-compose up -d
+```
