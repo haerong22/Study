@@ -39,15 +39,26 @@ management:
     web:
       exposure:
         include: "*"
+
   endpoint:
     prometheus:
       enabled: true
     health:
       show-details: always
+
   prometheus:
     metrics:
       export:
         enabled: true
+
+  statsd:
+    metrics:
+      export:
+        enabled: true
+        flavor: telegraf
+        polling-frequency: 5s
+        host: localhost
+        port: 8125
 
 logging:
   config: classpath:logback.xml

@@ -80,7 +80,14 @@ docker-compose up -d
   - `http://localhost:8085`
 - prometheus, grafana
   - grafana : `http://localhost:3000`
+  - id/pw : admin/admin
 ```shell
 cd docker-compose/prometheus-grafana
+docker-compose up -d
+```
+- TICK stack
+  - chronograf : `http://lcoalhost:8888`
+```shell
+cd docker-compose/tick
 docker-compose up -d
 ```

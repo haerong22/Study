@@ -43,6 +43,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.12.3'
 
+    // tick
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-statsd:1.12.3'
+    implementation 'io.micrometer:micrometer-core:1.12.3'
+
     // rabbitmq
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
