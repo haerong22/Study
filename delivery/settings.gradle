@@ -6,4 +6,5 @@ include 'common'
 include 'gateway'
 include 'account'
 include 'bootadmin'
+include 'redis'
 

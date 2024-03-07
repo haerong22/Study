@@ -10,6 +10,7 @@
 - rabbitmq
 - spring cloud gateway
 - spring boot admin
+- redis
 
 ---
 
@@ -27,6 +28,8 @@
 - gateway 서버 인증 및 라우팅
 - ELK stack 을 통한 로그 모니터링
 - Spring Boot Admin 을 통한 애플리케이션 모니터링
+- Prometheus, grafana 을 통한 애플리케이션 모니터링
+- TICK stack 을 통한 애플리케이션 모니터링
 
 ---
 
@@ -54,6 +57,11 @@ rabbitmq-plugins enable rabbitmq_management
 - http://localhost:15672
 
 ---
+
+### Redis
+```shell
+docker-compose -f redis/docker-compose.yml up -d
+```
 
 ## FLOW
 ### 주문 비동기 메시징 처리
