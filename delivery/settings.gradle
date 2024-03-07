@@ -5,4 +5,5 @@ include 'store-admin'
 include 'common'
 include 'gateway'
 include 'account'
+include 'bootadmin'
 
