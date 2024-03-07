@@ -11,7 +11,7 @@
         <file>api/logs/logFile.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <fileNamePattern>api/logs/logFile.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
 
             <!-- keep 30 days' worth of history capped at 3GB total size -->
             <maxHistory>3</maxHistory>
@@ -49,7 +49,7 @@
 
     </appender>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="LOGSTASH"/>

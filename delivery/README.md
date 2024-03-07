@@ -9,6 +9,7 @@
 - security
 - rabbitmq
 - spring cloud gateway
+- spring boot admin
 
 ---
 
@@ -16,7 +17,6 @@
 
 ### API
 - swagger : http://localhost:8080/swagger-ui/index.html
-
 - Filter를 통한 Request, Response 로그
 - 공통 Api 응답 및 에러코드 정의 
 - Exception Handler
@@ -25,6 +25,8 @@
 - Spring Security 활용 사용자 인증
 - Rabbitmq 활용 비동기 메시지 처리
 - gateway 서버 인증 및 라우팅
+- ELK stack 을 통한 로그 모니터링
+- Spring Boot Admin 을 통한 애플리케이션 모니터링
 
 ---
 
@@ -69,3 +71,6 @@ rabbitmq-plugins enable rabbitmq_management
 cd docker-compose/elk-stack
 docker-compose up -d
 ```
+
+### Application
+- spring boot admin

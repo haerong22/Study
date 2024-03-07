@@ -1,6 +1,13 @@
 spring:
   application:
     name: delivery-api
+
+  boot:
+    admin:
+      client:
+        url:
+          - http://localhost:8085
+
   rabbitmq:
     host: localhost
     port: 5672
@@ -26,3 +33,17 @@ token:
     expired-hour: 1
   refresh-token:
     expired-hour: 12
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  config: classpath:logback.xml
+  file:
+    name: api/logs/logFile.log
