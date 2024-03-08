@@ -1,0 +1,5 @@
+### 공지 조회
+GET http://localhost:8087/api/notice?id=1
+
+### 공지 저장
+POST http://localhost:8087/api/notice?notice=공지사항
