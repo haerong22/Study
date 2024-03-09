@@ -40,8 +40,8 @@ public class EhcacheConfig {
     private javax.cache.configuration.Configuration<?, ?> cacheConfiguration(Class<?> key, Class<?> value) {
         var config = newCacheConfigurationBuilder(key, value, heap(10000))
                 .withService(listenerConfiguration())
-                .withExpiry(timeToIdleExpiration(ofSeconds(10)))
-                .withExpiry(timeToLiveExpiration(ofSeconds(10)));
+                .withExpiry(timeToIdleExpiration(ofSeconds(20)))
+                .withExpiry(timeToLiveExpiration(ofSeconds(20)));
         return Eh107Configuration.fromEhcacheCacheConfiguration(config);
     }
 
