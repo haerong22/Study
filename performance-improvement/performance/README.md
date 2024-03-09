@@ -25,6 +25,8 @@ CREATE TABLE `notice`
   DEFAULT CHARSET = utf8mb4;
 ```
 
+---
+
 ### ngrinder 활용 부하테스트
 
 #### 공지사항 전체 데이터 조회
@@ -48,4 +50,28 @@ CREATE TABLE `notice`
 | Peek TPS           | 91.5   | 622.5  |
 | Mean Test Time(ms) | 124.47 | 20.28  |
 | Executed Test      | 4,459  | 27,090 |
+
+#### 공지사항 데이터 조회(page)
+
+- `GET /api/notices/{pageNo}`
+- 테스트 조건
+  - Vuser: 10
+  - Duration: 60s
+
+- 캐시 적용 전
+  ![findpage-before.png](images/findpage-before.png)
+
+- 캐시 적용 후
+  ![findpage-after.png](images/findpage-after.png)
+
+- 수치 비교
+
+| 항목                 | 적용 전    | 적용 후     |
+|--------------------|---------|----------|
+| 평균 TPS             | 2,205.6 | 12,795.1 |
+| Peek TPS           | 3,324.5 | 14,716.5 |
+| Mean Test Time(ms) | 3.72    | 0.65     |
+| Executed Test      | 123,882 | 743,380  |
+
+---
 

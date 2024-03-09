@@ -18,9 +18,9 @@ public class NoticeServiceImpl implements NoticeService{
     private final NoticeReadMapper noticeReadMapper;
 
     @Override
-    @Cacheable(
-            value = "NoticeReadMapper.findAll"
-    )
+//    @Cacheable(
+//            value = "NoticeReadMapper.findAll"
+//    )
     public List<Notice> getAllNotices() {
         log.info("[SERVICE] getAllNotices");
         return noticeReadMapper.findAll();
@@ -30,7 +30,7 @@ public class NoticeServiceImpl implements NoticeService{
     @Cacheable(
             value = "NoticeReadMapper.findByPage",
             key = "#request.requestURI + '-' + #pageNumber",
-            condition = "#pageNumber <= 5"
+            condition = "#pageNumber <= 10"
     )
     public List<Notice> findByPage(HttpServletRequest request, int pageNumber) {
         log.info("[SERVICE] findByPage : {}", pageNumber);
