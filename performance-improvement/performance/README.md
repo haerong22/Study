@@ -153,3 +153,7 @@ CREATE TABLE `notice`
 | Peek TPS           | 15.5   | 210.0  |
 | Mean Test Time(ms) | 817.81 | 50.84  |
 | Executed Test      | 693    | 10,918 |
+
+---
+
+### 비동기 활용하여 성능 향상
