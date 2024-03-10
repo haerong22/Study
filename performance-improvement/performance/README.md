@@ -27,7 +27,7 @@ CREATE TABLE `notice`
 
 ---
 
-### ngrinder 활용 부하테스트
+### 캐시 활용 성능 향상
 
 #### 공지사항 전체 데이터 조회
 
@@ -75,3 +75,4 @@ CREATE TABLE `notice`
 
 ---
 
+### 인덱스 활용하여 성능 향상

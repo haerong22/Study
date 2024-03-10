@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -18,9 +19,9 @@ public class NoticeServiceImpl implements NoticeService{
     private final NoticeReadMapper noticeReadMapper;
 
     @Override
-//    @Cacheable(
-//            value = "NoticeReadMapper.findAll"
-//    )
+    @Cacheable(
+            value = "NoticeReadMapper.findAll"
+    )
     public List<Notice> getAllNotices() {
         log.info("[SERVICE] getAllNotices");
         return noticeReadMapper.findAll();
@@ -36,5 +37,10 @@ public class NoticeServiceImpl implements NoticeService{
         log.info("[SERVICE] findByPage : {}", pageNumber);
         int startIdx = (pageNumber - 1) * 10;
         return noticeReadMapper.findByPage(startIdx);
+    }
+
+    @Override
+    public List<Notice> findNoticesByDates(LocalDateTime startDate, LocalDateTime endDate) {
+        return noticeReadMapper.findNoticesByDates(startDate, endDate);
     }
 }
