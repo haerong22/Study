@@ -41,6 +41,7 @@ public class NoticeServiceImpl implements NoticeService{
 
     @Override
     public List<Notice> findNoticesByDates(LocalDateTime startDate, LocalDateTime endDate) {
+        log.info("[SERVICE] findNoticesByDates : {} ~ {}", startDate, endDate);
         return noticeReadMapper.findNoticesByDates(startDate, endDate);
     }
 }
