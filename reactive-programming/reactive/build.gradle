@@ -12,6 +12,8 @@ repositories {
 dependencies {
     implementation 'io.netty:netty-all:4.1.107.Final'
 
+    implementation 'io.projectreactor:reactor-core:3.6.3'
+
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
