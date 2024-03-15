@@ -24,8 +24,23 @@
 
 ### 지연과 위임
 - lateinit, lazy()
+- by lazy 원리, 위임 프로퍼티
+- 표준 위임 객체
+  - notNull()
+  - observable()
+  - vetoable()
+  - map
+- ReadOnlyProperty
+- ReadWriteProperty
+- DelegateProvider
+- 위임 클래스
 
 > tip
 > - lateinit 을 primitive type 에 사용할 수 없다. (Int, Long)
 > - lateinit : 초기화를 지연시킨 변수, 초기화 로직이 여러 곳에 위치할 수 있다. 초기화 없이 호출하면 예외 발생
-> - lazy : 초기화를 get 호출 전으로 지연시킨 변수, 초기화 로직은 변수 선언과 동시에 한 곳에만 위치 할 수 있다. 
+> - lazy : 초기화를 get 호출 전으로 지연시킨 변수, 초기화 로직은 변수 선언과 동시에 한 곳에만 위치 할 수 있다.
+> - primitive type 에는 lateinit을 사용할 수 없지만, notNull()은 사용할 수 있다.
+> - observable() 은 setter 가 호출될 때 onChange() 함수 호출
+> - vetoable() 은 setter 가 호출될 때 onChange() 함수 호출 true 이면 변경 적용 false 이면 변경 X
+> - 위임 객체 map 은 getter 호출 시 Map 에서 찾아 응답한다.
+> - sequence 는 원소 하나씩 중간연산 실행 후 다음 원소로 넘어간다. 최종 연산이 없을 경우 실행 안함(지연 연산)
