@@ -34,6 +34,11 @@
 - ReadWriteProperty
 - DelegateProvider
 - 위임 클래스
+- iterable, sequence
+  - 성능 차이(200만 건)
+    ![sequence.png](images/sequence.png)
+  - 성능 차이(100 건)
+    ![sequence2](images/sequence2.png)
 
 > tip
 > - lateinit 을 primitive type 에 사용할 수 없다. (Int, Long)
@@ -44,3 +49,8 @@
 > - vetoable() 은 setter 가 호출될 때 onChange() 함수 호출 true 이면 변경 적용 false 이면 변경 X
 > - 위임 객체 map 은 getter 호출 시 Map 에서 찾아 응답한다.
 > - sequence 는 원소 하나씩 중간연산 실행 후 다음 원소로 넘어간다. 최종 연산이 없을 경우 실행 안함(지연 연산)
+
+
+---
+
+
