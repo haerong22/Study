@@ -1,5 +1,6 @@
 package com.example.webflux.user.controller;
 
+import com.example.webflux.user.controller.dto.ProfileImageResponse;
 import com.example.webflux.user.controller.dto.UserResponse;
 import com.example.webflux.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,12 @@ public class UserController {
                                 return new UserResponse(
                                         user.getId(),
                                         user.getName(),
-                                        user.getAge()
+                                        user.getAge(),
+                                        new ProfileImageResponse(
+                                                user.getProfileImage().getId(),
+                                                user.getProfileImage().getName(),
+                                                user.getProfileImage().getUrl()
+                                        )
                                 );
                             })
                             .switchIfEmpty(
