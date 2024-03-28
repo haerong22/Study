@@ -72,3 +72,15 @@
 > - 코틀린에서는 SAM 이름 + 람다식으로 인스턴스화 할 수 있다.
 > - 암시적인 SAM 인스턴스화를 할 경우 의도하지 않은 SAM 이 호출될 수 있다.
 > - Java 에서는 호출 가능 참조 결과값이 Consumer / Supplier 같은 함수형 인터페이스 이지만 kotlin 에서는 리플렉션 객체이다.
+
+---
+
+### 연산자 오버로딩, Kotlin DSL
+- [연산자 오버로딩](https://kotlinlang.org/docs/operator-overloading.html#unary-operations)
+
+
+> tip
+> - 복합 대입 연산자(e.g : +=)의 오버로딩
+>   1. 복합 대입 연산자 오버로딩이 되어있다면 바로 적용
+>   2. 오버로딩이 없고 var 변수라면 산술연산자를 적용해 변수 업데이트
+>   3. 오버로딩이 없고 val 변수라면 에러 발생
