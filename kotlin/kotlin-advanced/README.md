@@ -77,10 +77,11 @@
 
 ### 연산자 오버로딩, Kotlin DSL
 - [연산자 오버로딩](https://kotlinlang.org/docs/operator-overloading.html#unary-operations)
-
+- DSL(Domain-Specific Language) : HTML, SQL 처럼 특정 목적을 위해 존재하는 언어 [참고](https://kotlinlang.org/docs/type-safe-builders.html#how-it-works)
 
 > tip
 > - 복합 대입 연산자(e.g : +=)의 오버로딩
 >   1. 복합 대입 연산자 오버로딩이 되어있다면 바로 적용
 >   2. 오버로딩이 없고 var 변수라면 산술연산자를 적용해 변수 업데이트
 >   3. 오버로딩이 없고 val 변수라면 에러 발생
+> - @DslMarker : 가장 가까운 수신객체에 대해서만 this를 생략할 수 있다.
