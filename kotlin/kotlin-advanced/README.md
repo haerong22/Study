@@ -93,6 +93,7 @@
 - reflection
   - KClassifier, KAnnotatedElement, KClass, KType, KParameter
   - KTypeParameter, KCallable, KFunction, KProperty
+- DI container
 
 > tip
 > - 어노테이션 사용은 named argument 사용 가능
