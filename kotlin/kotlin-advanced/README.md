@@ -85,3 +85,19 @@
 >   2. 오버로딩이 없고 var 변수라면 산술연산자를 적용해 변수 업데이트
 >   3. 오버로딩이 없고 val 변수라면 에러 발생
 > - @DslMarker : 가장 가까운 수신객체에 대해서만 this를 생략할 수 있다.
+
+---
+
+### 어노테이션, 리플렉션
+- annotation
+- reflection
+  - KClassifier, KAnnotatedElement, KClass, KType, KParameter
+  - KTypeParameter, KCallable, KFunction, KProperty
+
+> tip
+> - 어노테이션 사용은 named argument 사용 가능
+> - 배열로 이루어진 어노테이션 필드는 [] 또는 arrayOf() 를 사용
+> - 어노테이션을 사용하는 위치가 애매한 경우 어떤 요소에 붙였는지 알려주어야 한다.
+>   -> use-site target(e.g @get:Shape) 기본 순서는 param > property > field
+>   -> @Target 으로 지정하면 지정한 곳에 붙는다.
+> - @Repeatable 어노테이션은 어노테이션을 반복해서 붙일 수 있게 해준다.
