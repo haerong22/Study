@@ -94,6 +94,8 @@
   - KClassifier, KAnnotatedElement, KClass, KType, KParameter
   - KTypeParameter, KCallable, KFunction, KProperty
 - DI container
+- 타입 안전 이종 컨테이너 패턴
+- 슈퍼 타입 토큰
 
 > tip
 > - 어노테이션 사용은 named argument 사용 가능
