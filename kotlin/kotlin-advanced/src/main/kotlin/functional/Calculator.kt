@@ -1,17 +1,20 @@
 package functional
 
-class Calculator {
-}
+class Calculator
 
 fun main() {
     println(calculator(5, 3, Operator.PLUS))
 }
 
-fun calculator(num1: Int, num2: Int, oper: Operator) = oper.calcFun(num1, num2)
+fun calculator(
+    num1: Int,
+    num2: Int,
+    oper: Operator,
+) = oper.calcFun(num1, num2)
 
 enum class Operator(
     private val oper: Char,
-    val calcFun: (Int, Int) -> Int
+    val calcFun: (Int, Int) -> Int,
 ) {
     PLUS('+', { a, b -> a + b }),
     MINUS('-', { a, b -> a - b }),

@@ -18,25 +18,27 @@ open class Sequence {
 
     @Setup
     fun init() {
-        (1..100).forEach { _ -> fruits.add(Fruit.random())}
+        (1..100).forEach { _ -> fruits.add(Fruit.random()) }
     }
 
     @Benchmark
     fun kotlinSequence() {
-        val avg = fruits.asSequence()
-            .filter { it.name == "사과" }
-            .map { it.price }
-            .take(10_000)
-            .average()
+        val avg =
+            fruits.asSequence()
+                .filter { it.name == "사과" }
+                .map { it.price }
+                .take(10_000)
+                .average()
     }
 
     @Benchmark
     fun kotlinIterator() {
-        val avg = fruits
-            .filter { it.name == "사과" }
-            .map { it.price }
-            .take(10_000)
-            .average()
+        val avg =
+            fruits
+                .filter { it.name == "사과" }
+                .map { it.price }
+                .take(10_000)
+                .average()
     }
 }
 
@@ -53,7 +55,7 @@ data class Fruit(
 
             return Fruit(
                 name = NAME_CANDIDATES[randNum1],
-                price = randNum2
+                price = randNum2,
             )
         }
     }

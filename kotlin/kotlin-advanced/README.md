@@ -112,6 +112,11 @@
   - repeat, TODO, measureTimeMillis, require, check
   - runCatching
 - 꼬리 재귀 함수(tailrec), 인라인 클래스, multiple catch
+- kdoc block tag
+  - @param, @property, @constructor, @receiver, @throws, @exceptions
+  - @sample, @see, @author, @since, @suppress
+- dokka(https://kotlinlang.org/docs/dokka-introduction.html)
+- ktlint(https://pinterest.github.io/ktlint/1.2.1/)
 
 > tip
 > - require 함수는 IllegalArgumentException
@@ -119,3 +124,4 @@
 > - 꼬리 재귀 함수가 되려면 재귀 함수 호출 이후 추가 연산이 없어야 한다.
 > - @JvmInline + value class = 인라인 클래스
 > - 인라인 클래스는 프로퍼티를 하나만 가지고 있어야 한다.
+> - lint 설정 : https://editorconfig.org/

@@ -3,7 +3,6 @@ package initialize
 class Person1(
     private val name: String,
 ) {
-
     val isKim: Boolean
         get() = this.name.startsWith("김")
 

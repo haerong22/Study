@@ -17,7 +17,6 @@ fun main() {
 }
 
 class Cage {
-
     private val animals: MutableList<Animal> = mutableListOf()
 
     fun getFirst(): Animal {

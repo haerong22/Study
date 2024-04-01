@@ -2,8 +2,7 @@ package functions
 
 import kotlin.reflect.KClass
 
-class MultipleCatch {
-}
+class MultipleCatch
 
 fun logic(n: Int) {
     when {
@@ -15,16 +14,18 @@ fun logic(n: Int) {
 }
 
 class AException : RuntimeException()
+
 class BException : RuntimeException()
+
 class CException : RuntimeException()
 
 fun main() {
     try {
-
     } catch (e: Exception) {
         when (e) {
             is AException,
-            is BException -> TODO()
+            is BException,
+            -> TODO()
             is CException -> TODO()
         }
 
@@ -36,7 +37,6 @@ fun main() {
             println("A 예외 B 예외")
         }
         .onError(AException::class) {
-
         }
 }
 
@@ -44,12 +44,14 @@ class ResultWrapper<T>(
     private val result: Result<T>,
     private val knownExceptions: MutableList<KClass<out Throwable>>,
 ) {
-
     fun toResult(): Result<T> {
         return this.result
     }
 
-    fun onError(vararg exceptions: KClass<out Throwable>, action: (Throwable) -> Unit): ResultWrapper<T> {
+    fun onError(
+        vararg exceptions: KClass<out Throwable>,
+        action: (Throwable) -> Unit,
+    ): ResultWrapper<T> {
         this.result.exceptionOrNull()?.let {
             if (it::class in exceptions && it::class !in this.knownExceptions) {
                 action(it)
@@ -59,7 +61,10 @@ class ResultWrapper<T>(
     }
 }
 
-fun <T> Result<T>.onError(vararg exceptions: KClass<out Throwable>, action: (Throwable) -> Unit): ResultWrapper<T> {
+fun <T> Result<T>.onError(
+    vararg exceptions: KClass<out Throwable>,
+    action: (Throwable) -> Unit,
+): ResultWrapper<T> {
     exceptionOrNull()?.let {
         if (it::class in exceptions) {
             action(it)

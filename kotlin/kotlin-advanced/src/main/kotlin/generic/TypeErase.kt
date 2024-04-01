@@ -12,10 +12,10 @@ fun main() {
     str.toSuperString() // "String: ABC"
 }
 
-//fun <T> T.toSuperString() {
+// fun <T> T.toSuperString() {
 //    // 런타임에는 T를 알 수 없으므로 오류가 발생
 //    println("${T::class.simpleName}: $this")
-//}
+// }
 
 inline fun <reified T> T.toSuperString() {
     println("${T::class.simpleName}: $this")

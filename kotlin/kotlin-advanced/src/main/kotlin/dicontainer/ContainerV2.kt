@@ -19,19 +19,21 @@ object ContainerV2 {
             return type.cast(cachedInstances[type])
         }
 
-        val instance = registeredClasses.firstOrNull { clazz -> clazz == type }
-            ?.let { clazz -> instantiate(clazz) as T }
-            ?: throw IllegalArgumentException("해당 인스턴스 타입을 찾을 수 없습니다.")
+        val instance =
+            registeredClasses.firstOrNull { clazz -> clazz == type }
+                ?.let { clazz -> instantiate(clazz) as T }
+                ?: throw IllegalArgumentException("해당 인스턴스 타입을 찾을 수 없습니다.")
 
         cachedInstances[type] = instance
         return instance
     }
 
-    private fun <T: Any> instantiate(clazz: KClass<T>): T {
+    private fun <T : Any> instantiate(clazz: KClass<T>): T {
         val constructor = findUsableConstructor(clazz)
-        val params = constructor.parameters
-            .map { param -> getInstance(param.type.classifier as KClass<*>) }
-            .toTypedArray()
+        val params =
+            constructor.parameters
+                .map { param -> getInstance(param.type.classifier as KClass<*>) }
+                .toTypedArray()
 
         return constructor.call(*params)
     }
@@ -54,7 +56,6 @@ fun main() {
 }
 
 class AServiceV2 {
-
     fun print() {
         println("AServiceV2 입니다.")
     }
@@ -64,8 +65,7 @@ class BServiceV2(
     private val aServiceV2: AServiceV2,
     private val cServiceV2: CServiceV2?,
 ) {
-
-    constructor(aServiceV2: AServiceV2): this(aServiceV2, null)
+    constructor(aServiceV2: AServiceV2) : this(aServiceV2, null)
 
     fun print() {
         this.aServiceV2.print()

@@ -1,9 +1,11 @@
 package functions
 
-class TailRecursion {
-}
+class TailRecursion
 
-tailrec fun factorialV2(n: Int, curr: Int = 1) : Int {
+tailrec fun factorialV2(
+    n: Int,
+    curr: Int = 1,
+): Int {
     return if (n <= 1) {
         curr
     } else {

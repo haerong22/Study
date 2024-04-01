@@ -10,21 +10,20 @@ fun main() {
 
 abstract class Bird(
     name: String,
-    private val size: Int
+    private val size: Int,
 ) : Animal(name), Comparable<Bird> {
-
     override fun compareTo(other: Bird): Int {
         return this.size.compareTo(other.size)
     }
 }
 
 class Sparrow : Bird("참새", 100)
+
 class Eagle : Bird("독수리", 500)
 
 class Cage5<T>(
-    private val animals: MutableList<T> = mutableListOf()
+    private val animals: MutableList<T> = mutableListOf(),
 ) where T : Animal, T : Comparable<T> {
-
     fun printAfterSorting() {
         this.animals.sorted()
             .map { it.name }

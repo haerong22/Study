@@ -27,7 +27,10 @@ class LazyInitProperty<T>(val init: () -> T) {
             return _value!!
         }
 
-    operator fun getValue(thisRef: Any, property: KProperty<*>): T {
+    operator fun getValue(
+        thisRef: Any,
+        property: KProperty<*>,
+    ): T {
         return value
     }
 }

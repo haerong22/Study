@@ -12,7 +12,6 @@ fun main() {
  * -> 클래스를 공변하게 만들 수 있다.(선언 지점 변성)
  */
 class Cage3<out T> {
-
     private val animals: MutableList<T> = mutableListOf()
 
     fun getFirst(): T {

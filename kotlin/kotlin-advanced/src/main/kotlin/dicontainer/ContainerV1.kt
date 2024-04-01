@@ -24,7 +24,6 @@ fun main() {
 }
 
 class AService {
-
     fun print() {
         println("AService 입니다.")
     }

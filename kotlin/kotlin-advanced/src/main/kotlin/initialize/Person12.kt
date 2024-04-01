@@ -13,20 +13,26 @@ class Person12() {
 }
 
 class DelegateProvider(
-    private val initValue: String
+    private val initValue: String,
 ) : PropertyDelegateProvider<Any, DelegateProperty> {
-    override fun provideDelegate(thisRef: Any, property: KProperty<*>) : DelegateProperty {
+    override fun provideDelegate(
+        thisRef: Any,
+        property: KProperty<*>,
+    ): DelegateProperty {
         if (property.name != "name") {
             throw IllegalArgumentException("${property.name} : name 만 연결 가능합니다!")
         }
-        return DelegateProperty(initValue);
+        return DelegateProperty(initValue)
     }
 }
 
 class DelegateProperty(
     private val initValue: String,
 ) : ReadOnlyProperty<Any, String> {
-    override fun getValue(thisRef: Any, property: KProperty<*>): String {
+    override fun getValue(
+        thisRef: Any,
+        property: KProperty<*>,
+    ): String {
         return initValue
     }
 }

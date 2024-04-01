@@ -5,9 +5,8 @@ import kotlin.reflect.KType
 import kotlin.reflect.cast
 
 abstract class Animal(
-    val name: String
-) {
-}
+    val name: String,
+)
 
 abstract class Fish(name: String) : Animal(name)
 
@@ -15,16 +14,17 @@ class GoldFish(name: String) : Fish(name)
 
 class Carp(name: String) : Fish(name)
 
-
 class TypeSafeCage {
-
     private val animals = mutableMapOf<KClass<*>, Animal>()
 
     fun <T : Animal> getOne(type: KClass<T>): T {
         return type.cast(animals[type])
     }
 
-    fun <T : Animal> putOne(type: KClass<T>, animal: T) {
+    fun <T : Animal> putOne(
+        type: KClass<T>,
+        animal: T,
+    ) {
         animals[type] = type.cast(animal)
     }
 
@@ -38,14 +38,16 @@ class TypeSafeCage {
 }
 
 class SuperTypeSafeCage {
-
     private val animals = mutableMapOf<SuperTypeToken<*>, Any>()
 
     fun <T : Any> getOne(token: SuperTypeToken<T>): T {
         return this.animals[token] as T
     }
 
-    fun <T : Any> putOne(token: SuperTypeToken<T>, animal: T) {
+    fun <T : Any> putOne(
+        token: SuperTypeToken<T>,
+        animal: T,
+    ) {
         animals[token] = animal
     }
 }
@@ -65,7 +67,6 @@ abstract class SuperTypeToken<T> {
     override fun hashCode(): Int {
         return type.hashCode()
     }
-
 }
 
 fun main() {

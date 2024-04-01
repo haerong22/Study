@@ -1,20 +1,22 @@
 package functional
 
-class Inline {
-}
+class Inline
 
 fun main() {
     repeat(2) { println("Hello World!") }
 
     iterate2(listOf(1, 2, 3, 4, 5)) { num ->
-        if(num ==3) {
+        if (num == 3) {
             return // inline 함수로 사용 가능(단, main 함수를 return 하게 된다!)
         }
         println(num)
     }
 }
 
-inline fun iterate2(numbers: List<Int>, exec: (Int) -> Unit) {
+inline fun iterate2(
+    numbers: List<Int>,
+    exec: (Int) -> Unit,
+) {
     for (number in numbers) {
         exec(number)
     }

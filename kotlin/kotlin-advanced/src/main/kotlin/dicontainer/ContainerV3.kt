@@ -11,13 +11,14 @@ class DI
 fun start(clazz: KClass<*>) {
     val reflections = Reflections(clazz.packageName)
     val classes = reflections.getTypesAnnotatedWith(MyService::class.java)
-    classes.forEach { c -> ContainerV3.register(c.kotlin)}
+    classes.forEach { c -> ContainerV3.register(c.kotlin) }
 }
 
 private val KClass<*>.packageName: String
     get() {
-        val name = this.qualifiedName
-            ?: throw IllegalArgumentException("익명 객체입니다!")
+        val name =
+            this.qualifiedName
+                ?: throw IllegalArgumentException("익명 객체입니다!")
         val hierarchy = name.split(".")
         return hierarchy.subList(0, hierarchy.lastIndex).joinToString(".")
     }
@@ -36,19 +37,21 @@ object ContainerV3 {
             return type.cast(cachedInstances[type])
         }
 
-        val instance = registeredClasses.firstOrNull { clazz -> clazz == type }
-            ?.let { clazz -> instantiate(clazz) as T }
-            ?: throw IllegalArgumentException("해당 인스턴스 타입을 찾을 수 없습니다.")
+        val instance =
+            registeredClasses.firstOrNull { clazz -> clazz == type }
+                ?.let { clazz -> instantiate(clazz) as T }
+                ?: throw IllegalArgumentException("해당 인스턴스 타입을 찾을 수 없습니다.")
 
         cachedInstances[type] = instance
         return instance
     }
 
-    private fun <T: Any> instantiate(clazz: KClass<T>): T {
+    private fun <T : Any> instantiate(clazz: KClass<T>): T {
         val constructor = findUsableConstructor(clazz)
-        val params = constructor.parameters
-            .map { param -> getInstance(param.type.classifier as KClass<*>) }
-            .toTypedArray()
+        val params =
+            constructor.parameters
+                .map { param -> getInstance(param.type.classifier as KClass<*>) }
+                .toTypedArray()
 
         return constructor.call(*params)
     }
@@ -74,7 +77,6 @@ annotation class MyService
 
 @MyService
 class AServiceV3 {
-
     fun print() {
         println("AServiceV3 입니다.")
     }
@@ -85,8 +87,7 @@ class BServiceV3(
     private val aServiceV3: AServiceV3,
     private val cServiceV3: CServiceV3?,
 ) {
-
-    constructor(aServiceV3: AServiceV3): this(aServiceV3, null)
+    constructor(aServiceV3: AServiceV3) : this(aServiceV3, null)
 
     fun print() {
         this.aServiceV3.print()

@@ -4,13 +4,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class Person3Test {
-
     private val person = Person3()
 
     @Test
     fun isKimTest() {
         // given
-        val person = person.apply { name = "홍길동"}
+        val person = person.apply { name = "홍길동" }
 
         // when
         val isKim = person.isKim
@@ -22,7 +21,7 @@ class Person3Test {
     @Test
     fun maskingNameTest() {
         // given
-        val person = person.apply { name = "홍길동"}
+        val person = person.apply { name = "홍길동" }
 
         // when
         val maskingName = person.maskingName

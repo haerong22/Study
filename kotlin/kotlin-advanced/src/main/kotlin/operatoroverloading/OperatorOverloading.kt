@@ -2,8 +2,7 @@ package operatoroverloading
 
 import java.time.LocalDate
 
-class OperatorOverloading {
-}
+class OperatorOverloading
 
 data class Point(
     val x: Int,
@@ -18,7 +17,6 @@ data class Point(
     operator fun inc(): Point {
         return Point(x + 1, y + 1)
     }
-
 }
 
 fun main() {

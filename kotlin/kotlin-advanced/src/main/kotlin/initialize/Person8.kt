@@ -10,7 +10,7 @@ import kotlin.properties.Delegates
  */
 class Person8 {
     var age: Int by Delegates.observable(20) { _, oldValue, newValue ->
-        println("이전 값 : ${oldValue}, 새로운 값 : ${newValue}")
+        println("이전 값 : $oldValue, 새로운 값 : $newValue")
     }
 }
 

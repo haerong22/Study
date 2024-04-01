@@ -6,6 +6,7 @@ package initialize
 interface Fruit {
     val name: String
     val color: String
+
     fun bite()
 }
 
@@ -21,12 +22,11 @@ class Apple : Fruit {
 }
 
 class GreenApple(
-    private val apple: Apple
-) : Fruit by apple{
+    private val apple: Apple,
+) : Fruit by apple {
     override val color: String
         get() = "초록색"
 }
 
 fun main() {
-
 }

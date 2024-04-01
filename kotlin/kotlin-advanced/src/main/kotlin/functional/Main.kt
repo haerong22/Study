@@ -13,31 +13,46 @@ fun main() {
     compute(5, 3) { a, b -> a + b }
 
     // 익명 함수
-    compute(5, 3, fun(a: Int, b: Int) = a + b)
+    compute(
+        5,
+        3,
+        fun(
+            a: Int,
+            b: Int,
+        ) = a + b,
+    )
 
     // 람다식
     iterate(listOf(1, 2, 3, 4, 5)) { num ->
-        if(num !=3) {
+        if (num != 3) {
             println(num)
         }
     }
 
     // 익명 함수
-    iterate(listOf(1, 2, 3, 4, 5), fun (num) {
-
-        if(num ==3) {
-            return
-        }
-        println(num)
-    })
-
+    iterate(
+        listOf(1, 2, 3, 4, 5),
+        fun (num) {
+            if (num == 3) {
+                return
+            }
+            println(num)
+        },
+    )
 }
 
-fun compute(num1: Int, num2: Int, op: (Int, Int) -> Int): Int {
+fun compute(
+    num1: Int,
+    num2: Int,
+    op: (Int, Int) -> Int,
+): Int {
     return op(num1, num2)
 }
 
-fun iterate(numbers: List<Int>, exec: (Int) -> Unit) {
+fun iterate(
+    numbers: List<Int>,
+    exec: (Int) -> Unit,
+) {
     for (number in numbers) {
         exec(number)
     }

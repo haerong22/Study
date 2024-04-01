@@ -21,14 +21,12 @@ fun main() {
     goldFishCage.moveTo(fishCage)
 
     val fish: Fish = fishCage.getFirst()
-
 }
 
 /**
  * 제네릭 적용
  */
 class Cage2<T> {
-
     private val animals: MutableList<T> = mutableListOf()
 
     fun getFirst(): T {

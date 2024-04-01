@@ -4,8 +4,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.cast
 import kotlin.reflect.full.createType
 
-class KReflection {
-}
+class KReflection
 
 class GoldFish(val name: String) {
     fun print() {
@@ -29,5 +28,5 @@ fun main() {
     val kType = GoldFish::class.createType()
 
     val goldFish = GoldFish("금붕")
-    goldFish::class.members.first { it.name == "print"}.call(goldFish)
+    goldFish::class.members.first { it.name == "print" }.call(goldFish)
 }

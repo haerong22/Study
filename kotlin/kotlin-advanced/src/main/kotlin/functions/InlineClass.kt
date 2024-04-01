@@ -2,8 +2,7 @@ package functions
 
 import java.awt.print.Book
 
-class InlineClass {
-}
+class InlineClass
 
 fun main() {
     val key = Key("비밀 번호")
@@ -31,21 +30,23 @@ class Author(
     val author: String,
 )
 
-fun handle(userId: Long, bookId: Long) {
-
+fun handle(
+    userId: Long,
+    bookId: Long,
+) {
 }
 
-fun handleV2(userId: Id<User>, bookId: Id<Book>) {
-
+fun handleV2(
+    userId: Id<User>,
+    bookId: Id<Book>,
+) {
 }
 
 @JvmInline
 value class Id<T>(val Id: Long)
 
-
 @JvmInline
 value class Number(val num: Long) {
-
     init {
         require(num in 1..10)
     }

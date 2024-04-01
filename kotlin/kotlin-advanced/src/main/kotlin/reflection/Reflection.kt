@@ -19,7 +19,6 @@ annotation class Executable
 
 @Executable
 class Reflection {
-
     fun a() {
         println("a 입니다.")
     }
@@ -27,16 +26,16 @@ class Reflection {
     fun b(n: Int) {
         println("b 입니다.")
     }
-
 }
 
 fun executeAll(obj: Any) {
     val kClass = obj::class
     if (!kClass.hasAnnotation<Executable>()) return
 
-    val callableFunctions = kClass.members.filterIsInstance<KFunction<*>>()
-        .filter { it.returnType == Unit::class.createType() }
-        .filter { it.parameters.size == 1 && it.parameters[0].type == kClass.createType() }
+    val callableFunctions =
+        kClass.members.filterIsInstance<KFunction<*>>()
+            .filter { it.returnType == Unit::class.createType() }
+            .filter { it.parameters.size == 1 && it.parameters[0].type == kClass.createType() }
 
     callableFunctions.forEach { func -> func.call(obj) }
 }
