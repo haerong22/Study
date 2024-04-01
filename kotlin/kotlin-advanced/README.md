@@ -104,3 +104,18 @@
 >   -> use-site target(e.g @get:Shape) 기본 순서는 param > property > field
 >   -> @Target 으로 지정하면 지정한 곳에 붙는다.
 > - @Repeatable 어노테이션은 어노테이션을 반복해서 붙일 수 있게 해준다.
+
+---
+
+### ETC
+- 코틀린 표준 라이브러리 함수
+  - repeat, TODO, measureTimeMillis, require, check
+  - runCatching
+- 꼬리 재귀 함수(tailrec), 인라인 클래스, multiple catch
+
+> tip
+> - require 함수는 IllegalArgumentException
+> - check 함수는 IllegalStateException
+> - 꼬리 재귀 함수가 되려면 재귀 함수 호출 이후 추가 연산이 없어야 한다.
+> - @JvmInline + value class = 인라인 클래스
+> - 인라인 클래스는 프로퍼티를 하나만 가지고 있어야 한다.
