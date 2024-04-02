@@ -12,3 +12,4 @@ plugins {
 rootProject.name = "webflux"
 include("user")
 include("image")
+include("sse")
