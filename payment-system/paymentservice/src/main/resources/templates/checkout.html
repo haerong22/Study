@@ -37,7 +37,17 @@
     const button = document.getElementById("payment-button");
     const coupon = document.getElementById("coupon-box");
     const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
-    var amount = 50000;
+
+    /*<![CDATA[*/
+    const orderId = "[[${orderId}]]"
+    const orderName = "[[${orderName}]]"
+    var amount = [[${amount}]]
+    /*]]>*/
+
+    console.log("orderId: " + orderId)
+    console.log("orderName: " + orderName)
+    console.log("amount: " + amount)
+
     // ------  결제위젯 초기화 ------
     // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
     // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
