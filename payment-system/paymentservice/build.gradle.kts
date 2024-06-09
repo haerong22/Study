@@ -31,6 +31,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.104.Final:osx-aarch_64")
 }
 
 tasks.withType<KotlinCompile> {
