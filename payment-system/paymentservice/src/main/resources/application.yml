@@ -13,7 +13,24 @@ spring:
   thymeleaf:
     cache: false
 
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:10000, localhost:10001, localhost:10002
+
+      bindings:
+        consume-in-0:
+          destination: payment
+          group: payment-service
+
 psp:
   toss:
     url: https://api.tosspayments.com
     secret-key: test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bindings
