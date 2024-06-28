@@ -31,6 +31,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-reactive")
 
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+
     runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("io.asyncer:r2dbc-mysql")
 
