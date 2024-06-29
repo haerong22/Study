@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct
 import org.example.paymentservice.common.Log
 import org.example.paymentservice.common.StreamAdapter
 import org.example.paymentservice.payment.adapter.out.persistent.repository.PaymentOutboxRepository
+import org.example.paymentservice.payment.application.port.out.DispatchEventMessagePort
 import org.example.paymentservice.payment.domain.PaymentEventMessage
 import org.example.paymentservice.payment.domain.PaymentEventMessageType
 import org.springframework.context.annotation.Bean
@@ -26,7 +27,7 @@ import java.util.function.Supplier
 @StreamAdapter
 class PaymentEventMessageSender(
     private val paymentOutboxRepository: PaymentOutboxRepository,
-) {
+) : DispatchEventMessagePort {
 
     private val sender = Sinks.many().unicast().onBackpressureBuffer<Message<PaymentEventMessage>>()
     private val sendResult = Sinks.many().unicast().onBackpressureBuffer<SenderResult<String>>()
@@ -91,7 +92,7 @@ class PaymentEventMessageSender(
         dispatch(paymentEventMessage)
     }
 
-    fun dispatch(paymentEventMessage: PaymentEventMessage) {
+    override fun dispatch(paymentEventMessage: PaymentEventMessage) {
         sender.emitNext(createEventMessage(paymentEventMessage), Sinks.EmitFailureHandler.FAIL_FAST)
     }
 
