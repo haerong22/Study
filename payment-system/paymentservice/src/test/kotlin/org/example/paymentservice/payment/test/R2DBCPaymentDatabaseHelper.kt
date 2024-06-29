@@ -58,6 +58,7 @@ class R2DBCPaymentDatabaseHelper(
         return deletePaymentOrderHistories()
             .flatMap { deletePaymentOrders() }
             .flatMap { deletePaymentEvents() }
+            .flatMap { deleteOutboxes() }
             .`as`(transactionalOperator::transactional)
             .then()
     }
@@ -80,6 +81,12 @@ class R2DBCPaymentDatabaseHelper(
             .rowsUpdated()
     }
 
+    private fun deleteOutboxes(): Mono<Long> {
+        return databaseClient.sql(DELETE_OUTBOX_QUERY)
+            .fetch()
+            .rowsUpdated()
+    }
+
     companion object {
         val SELECT_PAYMENT_QUERY = """
             SELECT * FROM payment_events pe 
@@ -97,6 +104,10 @@ class R2DBCPaymentDatabaseHelper(
 
         val DELETE_PAYMENT_ORDER_HISTORY_QUERY = """
             DELETE FROM payment_order_histories
+        """.trimIndent()
+
+        val DELETE_OUTBOX_QUERY = """
+            DELETE FROM outboxes
         """.trimIndent()
     }
 }
