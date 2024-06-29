@@ -18,9 +18,16 @@ spring:
       kafka:
         binder:
           brokers: localhost:10000, localhost:10001, localhost:10002
+          required-acks: all
+          auto-create-topics: false
+
+        bindings:
+          send-out-0:
+            producer:
+              record-metadata-channel: payment-result
 
       bindings:
-        consume-in-0:
+        send-out-0:
           destination: payment
           group: payment-service
 
