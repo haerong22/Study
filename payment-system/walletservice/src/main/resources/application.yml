@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql//localhost:3306/wallet
+      username: root
+      password: 1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wallet
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:10000, localhost:10001, localhost:10002
+          required-acks: all
+          auto-create-topics: false
+
+      bindings:
+        consume-in-0:
+          destination: payment
+          group: wallet-service
+
+logging:
+  level:
+    org:
+      springframework:
+        transaction: TRACE
+        orm:
+          jpa: DEBUG
+        kafka: TRACE
