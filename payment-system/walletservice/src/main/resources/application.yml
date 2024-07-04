@@ -14,7 +14,7 @@ spring:
 
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql//localhost:3306/wallet
+      jdbc-url: jdbc:mysql://localhost:3306/payment
       username: root
       password: 1234
       driver-class-name: com.mysql.cj.jdbc.Driver
