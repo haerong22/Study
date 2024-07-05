@@ -24,4 +24,9 @@ data class JpaWalletEntity (
 
   @Version
   val version: Int
-)
+) {
+
+  fun addBalance(amount: BigDecimal): JpaWalletEntity {
+    return copy(balance = balance + amount)
+  }
+}
