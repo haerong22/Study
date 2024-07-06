@@ -27,6 +27,13 @@ spring:
           brokers: localhost:10000, localhost:10001, localhost:10002
           required-acks: all
           auto-create-topics: false
+          transaction:
+            transaction-id-prefix: wallet-
+            producer:
+              configuration:
+                transaction:
+                  timeout:
+                    ms: 30000
 
       bindings:
         consume-in-0:
