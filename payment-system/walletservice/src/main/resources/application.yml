@@ -35,10 +35,18 @@ spring:
                   timeout:
                     ms: 30000
 
+        bindings:
+          consume-in-0:
+            consumer:
+              enable-dlq: true
+              dlq-name: payment_wallet_dlq
+
       bindings:
         consume-in-0:
           destination: payment
           group: wallet-service
+          consumer:
+            max-attempts: 5
 
 logging:
   level:
