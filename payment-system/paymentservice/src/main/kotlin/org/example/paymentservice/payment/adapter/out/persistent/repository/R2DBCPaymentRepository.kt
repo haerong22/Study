@@ -2,6 +2,7 @@ package org.example.paymentservice.payment.adapter.out.persistent.repository
 
 import org.example.paymentservice.payment.adapter.out.persistent.util.MySQLDateTimeFormatter
 import org.example.paymentservice.payment.domain.PaymentEvent
+import org.example.paymentservice.payment.domain.PaymentOrder
 import org.example.paymentservice.payment.domain.PaymentStatus
 import org.example.paymentservice.payment.domain.PendingPaymentEvent
 import org.example.paymentservice.payment.domain.PendingPaymentOrder
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.transaction.reactive.TransactionalOperator
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.kotlin.core.publisher.toMono
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.time.LocalDateTime
@@ -52,6 +54,41 @@ class R2DBCPaymentRepository(
                     )
                 }
             }
+    }
+
+    override fun getPayment(orderId: String): Mono<PaymentEvent> {
+        return databaseClient.sql(SELECT_PAYMENT_EVENT_QUERY)
+            .bind("orderId", orderId)
+            .fetch()
+            .all()
+            .groupBy { it["payment_event_id"] as Long }
+            .flatMap { groupedFlux ->
+                groupedFlux.collectList().map { results ->
+                    val paymentOrders = results.map { result ->
+                        PaymentOrder(
+                            id = result["payment_order_id"] as Long,
+                            paymentEventId = groupedFlux.key(),
+                            sellerId = result["seller_id"] as Long,
+                            productId = result["product_id"] as Long,
+                            orderId = result["order_id"] as String,
+                            amount = (result["amount"] as BigDecimal).toLong(),
+                            paymentStatus = PaymentStatus.get(result["payment_order_status"] as String),
+                            isLedgerUpdated = if (((result["ledger_updated"] as Byte).toInt()) == 1) true else false,
+                            isWalletUpdated = if (((result["wallet_updated"] as Byte).toInt()) == 1) true else false
+                        )
+                    }
+
+                    PaymentEvent(
+                        id = groupedFlux.key(),
+                        orderId =  results.first()["order_id"] as String,
+                        buyerId = results.first()["buyer_id"] as Long,
+                        orderName = results.first()["order_name"] as String,
+                        paymentOrders = paymentOrders,
+                        isPaymentDone = if (((results.first()["is_payment_done"] as Byte).toInt()) == 1) true else false
+                    )
+                }
+            }
+            .toMono()
     }
 
     private fun insertPaymentEvent(paymentEvent: PaymentEvent): Mono<Long> {
@@ -102,6 +139,13 @@ class R2DBCPaymentRepository(
             WHERE (po.payment_order_status = 'UNKNOWN' OR (po.payment_order_status = 'EXECUTING' AND po.updated_at <= :updatedAt - INTERVAL 3 MINUTE))
             AND po.failed_count < po.threshold
             LIMIT 10
+        """.trimIndent()
+
+        val SELECT_PAYMENT_EVENT_QUERY = """
+            SELECT pe.id as payment_event_id, po.id as payment_order_id, pe.order_id, pe.order_name, pe.buyer_id, pe.is_payment_done, po.seller_id, po.product_id, po.payment_order_status, po.amount, po.ledger_updated, po.wallet_updated 
+            FROM payment_events pe
+            INNER JOIN payment_orders po ON pe.order_id = po.order_id
+            WHERE pe.order_id = :orderId 
         """.trimIndent()
     }
 }
