@@ -87,7 +87,7 @@ CREATE TABLE wallet_transactions
     updated_at      DATETIME                 NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE ledger_transaction
+CREATE TABLE ledger_transactions
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,
     description     VARCHAR(100)        NOT NULL,
@@ -115,4 +115,63 @@ CREATE TABLE ledger_entries
     FOREIGN KEY (transaction_id) REFERENCES ledger_transaction (id),
     FOREIGN KEY (account_id) REFERENCES accounts (id)
 );
+```
+
+### Trigger
+
+```sql
+DELIMITER $$
+
+CREATE TRIGGER check_balance_after_insert
+    AFTER INSERT
+    ON ledger_entries
+    FOR EACH ROW
+BEGIN
+    DECLARE credit_sum DECIMAL(15, 2);
+    DECLARE debit_sum DECIMAL(15, 2);
+
+    SELECT SUM(amount)
+    INTO credit_sum
+    FROM ledger_entries
+    WHERE transaction_id = NEW.transaction_id
+      AND type = 'CREDIT';
+
+    SELECT SUM(amount)
+    INTO debit_sum
+    FROM ledger_entries
+    WHERE transaction_id = NEW.transaction_id
+      AND type = 'DEBIT';
+
+    IF NOT (credit_sum - debit_sum = 0) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Sum of CREDIT and DEBIT amounts does not balance to zero';
+    END IF;
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER prevent_update_before
+    BEFORE UPDATE
+    ON ledger_entries
+    FOR EACH ROW
+
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Updates are not allowed on this table';
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER prevent_delete_before
+    BEFORE DELETE
+    ON ledger_entries
+    FOR EACH ROW
+
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Delete are not allowed on this table';
+END $$
+
+DELIMITER ;
 ```
