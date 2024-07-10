@@ -3,7 +3,6 @@ package org.example.paymentservice.payment.adapter.out.web.product.client
 import org.example.paymentservice.payment.domain.Product
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
-import java.math.BigDecimal
 
 @Component
 class MockProductClient : ProductClient {
@@ -13,7 +12,7 @@ class MockProductClient : ProductClient {
             productIds.map {
                 Product(
                     id = it,
-                    amount = BigDecimal(it * 10000),
+                    amount = it * 10000,
                     quantity = 2,
                     name = "test_product_$it",
                     sellerId = 1,
