@@ -26,10 +26,37 @@ spring:
             producer:
               record-metadata-channel: payment-result
 
+          wallet-in-0:
+            consumer:
+              configuration:
+                isolation:
+                  level: read_committed
+              enable-dlq: true
+              dlq-name: wallet_payment_dlq
+
+          ledger-in-0:
+            consumer:
+              configuration:
+                isolation:
+                  level: read_committed
+              enable-dlq: true
+              dlq-name: ledger_payment_dlq
+
       bindings:
         send-out-0:
           destination: payment
           group: payment-service
+
+        wallet-in-0:
+          destination: wallet
+          group: payment-service
+
+        ledger-in-0:
+          destination: ledger
+          group: payment-service
+
+    function:
+      definition: send;wallet;ledger
 
 psp:
   toss:
