@@ -91,6 +91,15 @@ class R2DBCPaymentRepository(
             .toMono()
     }
 
+    override fun complete(paymentEvent: PaymentEvent): Mono<Void> {
+        return when {
+            paymentEvent.isPaymentDone() -> handlePaymentCompletion(paymentEvent)
+            paymentEvent.isLedgerUpdateDone() -> handleLedgerUpdate(paymentEvent)
+            paymentEvent.isWalletUpdateDone() -> handleWalletUpdate(paymentEvent)
+            else -> error("Incorrect state for PaymentEvent id: ${paymentEvent.id}")
+        }
+    }
+
     private fun insertPaymentEvent(paymentEvent: PaymentEvent): Mono<Long> {
         return databaseClient.sql(INSERT_PAYMENT_EVENT_QUERY)
             .bind("buyerId", paymentEvent.buyerId)
@@ -115,6 +124,37 @@ class R2DBCPaymentRepository(
         return databaseClient.sql(INSERT_PAYMENT_ORDER_QUERY(valueClauses))
             .fetch()
             .rowsUpdated()
+    }
+
+    private fun handlePaymentCompletion(paymentEvent: PaymentEvent): Mono<Void> {
+        return Mono.`when`(
+            handleLedgerUpdate(paymentEvent),
+            handleWalletUpdate(paymentEvent)
+        ).then(Mono.defer { completePaymentEvent(paymentEvent) })
+    }
+
+    private fun handleLedgerUpdate(paymentEvent: PaymentEvent): Mono<Void> {
+        return databaseClient.sql(UPDATE_PAYMENT_ORDER_LEDGER_DONE_QUERY)
+            .bind("paymentEventId", paymentEvent.id!!)
+            .fetch()
+            .rowsUpdated()
+            .then()
+    }
+
+    private fun handleWalletUpdate(paymentEvent: PaymentEvent): Mono<Void> {
+        return databaseClient.sql(UPDATE_PAYMENT_ORDER_WALLET_DONE_QUERY)
+            .bind("paymentEventId", paymentEvent.id!!)
+            .fetch()
+            .rowsUpdated()
+            .then()
+    }
+
+    private fun completePaymentEvent(paymentEvent: PaymentEvent): Mono<Void> {
+        return databaseClient.sql(UPDATE_PAYMENT_EVENT_COMPLETE_QUERY)
+            .bind("paymentEventId", paymentEvent.id!!)
+            .fetch()
+            .rowsUpdated()
+            .then()
     }
 
     companion object {
@@ -146,6 +186,24 @@ class R2DBCPaymentRepository(
             FROM payment_events pe
             INNER JOIN payment_orders po ON pe.order_id = po.order_id
             WHERE pe.order_id = :orderId 
+        """.trimIndent()
+
+        val UPDATE_PAYMENT_ORDER_LEDGER_DONE_QUERY = """ 
+            UPDATE payment_orders 
+            SET ledger_updated = true  
+            WHERE payment_event_id = :paymentEventId
+        """.trimIndent()
+
+        val UPDATE_PAYMENT_ORDER_WALLET_DONE_QUERY = """
+            UPDATE payment_orders 
+            SET wallet_updated = true  
+            WHERE payment_event_id = :paymentEventId
+        """.trimIndent()
+
+        val UPDATE_PAYMENT_EVENT_COMPLETE_QUERY = """
+            UPDATE payment_events 
+            SET is_payment_done = true
+            WHERE id = :paymentEventId
         """.trimIndent()
     }
 }

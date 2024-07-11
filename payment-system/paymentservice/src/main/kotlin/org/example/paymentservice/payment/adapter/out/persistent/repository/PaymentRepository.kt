@@ -12,4 +12,6 @@ interface PaymentRepository {
     fun getPendingPayments(): Flux<PendingPaymentEvent>
 
     fun getPayment(orderId: String): Mono<PaymentEvent>
+
+    fun complete(paymentEvent: PaymentEvent): Mono<Void>
 }
