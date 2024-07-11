@@ -5,6 +5,8 @@ import org.example.paymentservice.payment.adapter.out.persistent.repository.Paym
 import org.example.paymentservice.payment.adapter.out.persistent.repository.PaymentRepository
 import org.example.paymentservice.payment.adapter.out.persistent.repository.PaymentStatusUpdateRepository
 import org.example.paymentservice.payment.adapter.out.persistent.repository.PaymentValidationRepository
+import org.example.paymentservice.payment.application.port.out.CompletePaymentPort
+import org.example.paymentservice.payment.application.port.out.LoadPaymentPort
 import org.example.paymentservice.payment.application.port.out.LoadPendingPaymentEventMessagePort
 import org.example.paymentservice.payment.application.port.out.LoadPendingPaymentPort
 import org.example.paymentservice.payment.application.port.out.PaymentStatusUpdateCommand
@@ -24,7 +26,7 @@ class PaymentPersistentAdapter(
     private val paymentValidationRepository: PaymentValidationRepository,
     private val paymentOutboxRepository: PaymentOutboxRepository,
 ) : SavePaymentPort, PaymentStatusUpdatePort, PaymentValidationPort, LoadPendingPaymentPort,
-    LoadPendingPaymentEventMessagePort {
+    LoadPendingPaymentEventMessagePort, LoadPaymentPort, CompletePaymentPort {
 
     override fun save(paymentEvent: PaymentEvent): Mono<Void> {
         return paymentRepository.save(paymentEvent)
@@ -48,5 +50,13 @@ class PaymentPersistentAdapter(
 
     override fun getPendingPaymentEventMessage(): Flux<PaymentEventMessage> {
         return paymentOutboxRepository.getPendingPaymentOutboxes()
+    }
+
+    override fun getPayment(orderId: String): Mono<PaymentEvent> {
+        return paymentRepository.getPayment(orderId)
+    }
+
+    override fun complete(paymentEvent: PaymentEvent): Mono<Void> {
+        return paymentRepository.complete(paymentEvent)
     }
 }
