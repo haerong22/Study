@@ -8,10 +8,19 @@ data class PaymentOrder(
     val orderId: String,
     val amount: Long,
     val paymentStatus: PaymentStatus,
-    private val isLedgerUpdated: Boolean = false,
-    private val isWalletUpdated: Boolean = false,
+    private var isLedgerUpdated: Boolean = false,
+    private var isWalletUpdated: Boolean = false,
 ) {
 
     fun isLedgerUpdated(): Boolean = isLedgerUpdated
+
     fun isWalletUpdated(): Boolean = isWalletUpdated
+
+    fun confirmWalletUpdate() {
+        isWalletUpdated = true
+    }
+
+    fun confirmLedgerUpdate() {
+        isLedgerUpdated = true
+    }
 }

@@ -12,7 +12,7 @@ data class PaymentEvent(
     val paymentMethod: PaymentMethod? = null,
     val approvedAt: LocalDateTime? = null,
     val paymentOrders: List<PaymentOrder> = emptyList(),
-    private val isPaymentDone: Boolean = false,
+    private var isPaymentDone: Boolean = false,
 ) {
     fun totalAmount(): Long {
         return paymentOrders.sumOf { it.amount }.toLong()
@@ -30,5 +30,31 @@ data class PaymentEvent(
 
     fun isUnknown(): Boolean {
         return paymentOrders.all { it.paymentStatus == PaymentStatus.UNKNOWN }
+    }
+
+    fun confirmWalletUpdate() {
+        paymentOrders.forEach { it.confirmWalletUpdate() }
+    }
+
+    fun confirmLedgerUpdate() {
+        paymentOrders.forEach { it.confirmLedgerUpdate() }
+    }
+
+    fun completeIfDone() {
+        if (allPaymentOrdersDone()) {
+            isPaymentDone = true
+        }
+    }
+
+    fun isLedgerUpdateDone(): Boolean {
+        return paymentOrders.all { it.isLedgerUpdated() }
+    }
+
+    fun isWalletUpdateDone(): Boolean {
+        return paymentOrders.all { it.isWalletUpdated() }
+    }
+
+    private fun allPaymentOrdersDone(): Boolean {
+        return paymentOrders.all { it.isWalletUpdated() && it.isLedgerUpdated() }
     }
 }
