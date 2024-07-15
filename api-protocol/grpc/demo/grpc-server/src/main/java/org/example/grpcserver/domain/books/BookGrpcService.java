@@ -5,11 +5,13 @@ import bookstore.Bookstore;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.example.grpcserver.interceptor.AccessLoggingInterceptor;
+import org.example.grpcserver.interceptor.BasicAuthInterceptor;
 import org.example.grpcserver.utils.TimestampConverter;
 
 import java.util.List;
 
-@GrpcService
+@GrpcService(interceptors = {BasicAuthInterceptor.class, AccessLoggingInterceptor.class})
 @RequiredArgsConstructor
 public class BookGrpcService extends BookServiceGrpc.BookServiceImplBase {
 
