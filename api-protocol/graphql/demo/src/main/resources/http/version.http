@@ -1,0 +1,8 @@
+GRAPHQL http://localhost:8080/graphql
+
+{
+    getVersion {
+        name
+        releaseDate
+    }
+}
