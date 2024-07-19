@@ -1,8 +1,68 @@
+scalar Date
+scalar DateTime
+scalar Long
+
 type Query {
-    getVersion: Version,
+    getVersion: Version
+
+    # Author
+    getAllAuthors: [Author]
+    getAuthorById(id: ID!): Author
+
+    # Book
+    getBookById(id: ID!): Book
+    getBooks: [Book]
+    getBooksByAuthorName(authorName: String): [Book]
+
+    # Review
+    getReviewsByBookId(id: ID!): [Review]
+}
+
+type Mutation {
+
+    # Author
+    addAuthor(authorName: String): Author
+
+    # Book
+    addBook(title: String!, publisher: String, publishedDate: String, authorIds: [ID]!): Book!
+    deleteBook(id: ID!): DeleteBookResponse
+
+    # Review
+    addReview(bookId: ID!, content: String, rating: Float): Review
+    deleteReviewById(reviewId: ID!): DeleteReviewResponse
 }
 
 type Version {
     name: String,
     releaseDate: String,
+}
+
+type Author {
+    id: ID
+    name: String
+    books: [Book]
+}
+
+type Book {
+    id: ID!
+    title: String!
+    publisher: String
+    publishedDate: Date
+    authors: [Author]!
+    reviews: [Review]!
+}
+
+type Review {
+    id: ID
+    book: Book
+    content: String
+    rating: Float
+    createdDate: DateTime
+}
+
+type DeleteBookResponse {
+    success: Boolean!
+}
+type DeleteReviewResponse {
+    success: Boolean!
 }
