@@ -2,6 +2,14 @@ spring:
   application:
     name: demo
 
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    schema:
+      inspection:
+        enabled: true
+
   sql:
     init:
       data-locations: classpath:sql/data.sql
