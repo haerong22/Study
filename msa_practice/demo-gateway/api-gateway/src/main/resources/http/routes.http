@@ -1,0 +1,8 @@
+### book api
+GET http://localhost:8080/books/1
+
+### paymenet api
+GET http://localhost:8080/payments/1
+
+### fast
+GET http://localhost:8080/bobby/search/recommended

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: book-api
+          uri: http://localhost:9001
+          order: 1
+          predicates:
+            - Path=/books/**
+          filters:
+            - RewritePath=/books/(?<segment>.*), /v1/books/$\{segment}
+
+        - id: payment-api
+          uri: http://localhost:9002
+          order: 1
+          predicates:
+            - Path=/payments/**
+          filters:
+            - RewritePath=/payments/(?<segment>.*), /v1/payments/$\{segment}
