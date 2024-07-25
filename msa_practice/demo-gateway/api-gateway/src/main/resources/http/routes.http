@@ -1,5 +1,22 @@
+### login
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234"
+}
+
+> {%  client.global.set("authToken", response.body.token) %}
+
 ### book api
 GET http://localhost:8080/books/1
+Authorization: Bearer {{authToken}}
 
 ### paymenet api
 GET http://localhost:8080/payments/1
+Authorization: Bearer {{authToken}}
+
+### admin api
+GET http://localhost:8080/admin
+Authorization: Bearer {{authToken}}
