@@ -6,7 +6,7 @@ spring:
     gateway:
       routes:
         - id: book-api
-          uri: http://localhost:9001
+          uri: lb://book-api
           order: 1
           predicates:
             - Path=/books/**
@@ -14,9 +14,16 @@ spring:
             - RewritePath=/books/(?<segment>.*), /v1/books/$\{segment}
 
         - id: payment-api
-          uri: http://localhost:9002
+          uri: lb://payment-api
           order: 1
           predicates:
             - Path=/payments/**
           filters:
             - RewritePath=/payments/(?<segment>.*), /v1/payments/$\{segment}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+    register-with-eureka: true
+    fetch-registry: true
