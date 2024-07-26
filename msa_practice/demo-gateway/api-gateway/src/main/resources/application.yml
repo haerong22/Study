@@ -1,6 +1,65 @@
+server:
+  port: 8080
+
 spring:
+  config:
+    activate:
+      on-profile: mobile
+
   application:
-    name: api-gateway
+    name: api-gateway-mobile
+
+  cloud:
+    gateway:
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 1 # 사용자가 일정 시간 동안 발생시킬 수 있는 요청의 수
+            redis-rate-limiter.burstCapacity: 1 # 토큰 버킷이 담을 수 있는 최대 토큰의 수
+            key-resolver: "#{@ipKeyResolver}"
+
+      routes:
+        - id: book-api
+          uri: lb://book-api
+          order: 1
+          predicates:
+            - Path=/books/**
+          filters:
+            - RewritePath=/books/(?<segment>.*), /v1/books/$\{segment}
+
+        - id: payment-api
+          uri: lb://payment-api
+          order: 1
+          predicates:
+            - Path=/payments/**
+          filters:
+            - RewritePath=/payments/(?<segment>.*), /v1/payments/$\{segment}
+  data:
+    redis:
+      port: 16379
+      host: localhost
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+jwt:
+  secret: 1ad35d74dc65cc0ee9a3a409f7f87e332aa6aa89d9cc64c66cdf9a1ffdc534ee
+
+---
+server:
+  port: 8081
+
+spring:
+  config:
+    activate:
+      on-profile: web
+
+  application:
+    name: api-gateway-web
 
   cloud:
     gateway:
