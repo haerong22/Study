@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8001
   compression:
     enabled: true
 
@@ -64,9 +64,21 @@ management:
     tracing:
       endpoint: "http://localhost:9411/api/v2/spans"
 
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - loggers
+          - mappings
+          - metrics
+          - shutdown
+          - prometheus
+
 ---
 server:
-  port: 8081
+  port: 8002
 
 spring:
   config:
@@ -141,3 +153,15 @@ management:
   zipkin:
     tracing:
       endpoint: "http://localhost:9411/api/v2/spans"
+
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - loggers
+          - mappings
+          - metrics
+          - shutdown
+          - prometheus
