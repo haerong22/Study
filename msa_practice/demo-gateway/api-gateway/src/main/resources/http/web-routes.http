@@ -13,6 +13,12 @@ Content-Type: application/json
 GET http://localhost:8081/books/1
 Authorization: Bearer {{authToken}}
 
+### book api with origin
+GET http://localhost:8081/books/2
+Authorization: Bearer {{authToken}}
+Access-Control-Request-Method: GET
+Origin: https://example2.com
+
 ### paymenet api
 GET http://localhost:8081/payments/1
 Authorization: Bearer {{authToken}}

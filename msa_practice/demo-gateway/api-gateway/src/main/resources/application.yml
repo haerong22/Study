@@ -66,6 +66,19 @@ spring:
 
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 모든 경로
+            allowed-origins: # 허용 origin
+              - "https://example.com"
+            allowed-methods: # 허용 HTTP 메소드
+              - GET
+              - POST
+            allowed-headers: # 허용 헤더
+              - Content-Type
+              - Authorization
+            allow-credentials: true # 인증 허용 여부
+            max-age: 3600 # pre-flight 요청의 캐시 시간(초)
       default-filters:
         - name: LoggingFilter
         - name: RequestRateLimiter
