@@ -1,5 +1,5 @@
 ### login
-POST http://localhost:8081/login
+POST http://localhost:8002/login
 Content-Type: application/json
 
 {
@@ -10,17 +10,17 @@ Content-Type: application/json
 > {%  client.global.set("authToken", response.body.token) %}
 
 ### book api
-GET http://localhost:8081/books/1
+GET http://localhost:8002/books/1
 Authorization: Bearer {{authToken}}
 
 ### book api with origin
-GET http://localhost:8081/books/2
+GET http://localhost:8002/books/2
 Authorization: Bearer {{authToken}}
 Access-Control-Request-Method: GET
 Origin: https://example2.com
 
 ### paymenet api
-GET http://localhost:8081/payments/1
+GET http://localhost:8002/payments/1
 Authorization: Bearer {{authToken}}
 
 ### admin api
