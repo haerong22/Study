@@ -1,0 +1,12 @@
+services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./db/mysql/.env
+    volumes:
+#      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+      - ./db/mysql/my.cnf:/etc/mysql/my.cnf
+    restart: always
