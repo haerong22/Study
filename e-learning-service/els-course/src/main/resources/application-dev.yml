@@ -6,14 +6,14 @@ spring:
     name: els-course
 
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/course?useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: bobby
+    password: 1234
 
   jpa:
     defer-datasource-initialization: true
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
       ddl-auto: none
@@ -23,14 +23,10 @@ spring:
         use_sql_comments: true
         default_batch_fetch_size: 100
 
-  h2:
-    console:
-      enabled: true
-
   sql:
     init:
       data-locations: classpath:sql/data.sql
-      schema-locations: classpath:sql/scheme-h2.sql
+      schema-locations: classpath:sql/scheme-mysql.sql
       mode: always
 
 eureka:
