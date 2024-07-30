@@ -1,0 +1,49 @@
+### Create User 1
+POST http://localhost:8002/users
+Content-Type: application/json
+
+{
+  "name": "user1",
+  "email": "user1@example.com",
+  "password": "1234"
+}
+
+### Create User 2
+POST http://localhost:8002/users
+Content-Type: application/json
+
+{
+  "name": "user2",
+  "email": "user2@example.com",
+  "password": "1234"
+}
+
+> {% client.global.set("userId", response.body.id); %}
+
+### Get User by ID
+GET http://localhost:8002/users/{{userId}}
+
+> {% client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }); %}
+
+### Update User
+PUT http://localhost:8002/users/{{userId}}
+Content-Type: application/json
+
+{
+  "name": "user updated",
+  "email": "user2.updated@example.com"
+}
+
+### Get User Login Histories
+GET http://localhost:8002/users/{{userId}}/login-histories
+
+### Change Password
+POST http://localhost:8002/users/{{userId}}/password-change
+Content-Type: application/json
+
+{
+  "oldPassword": "1234",
+  "newPassword": "4321"
+}

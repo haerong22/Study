@@ -1,0 +1,36 @@
+### Create User
+POST http://localhost:8002/users
+Content-Type: application/json
+
+{
+  "name": "user3",
+  "email": "user3@example.com",
+  "password": "1234"
+}
+
+### Generate Token
+POST http://localhost:8002/auth/token
+Content-Type: application/json
+
+{
+  "email": "user3@example.com",
+  "password": "1234"
+}
+
+> {% client.global.set("authToken", response.body.token); %}
+
+### Verify Token
+POST http://localhost:8002/auth/verify-token
+Content-Type: application/json
+
+{
+  "token": "{{authToken}}"
+}
+
+### Refresh Token
+POST http://localhost:8002/auth/refresh-token
+Content-Type: application/json
+
+{
+  "token": "{{authToken}}"
+}
