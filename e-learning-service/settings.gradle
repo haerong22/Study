@@ -1,0 +1,8 @@
+rootProject.name = 'e-learning-service'
+
+include 'els-course'
+include 'els-discovery'
+include 'els-file-manage'
+include 'els-grpc-common'
+include 'els-playback'
+include 'els-user'
