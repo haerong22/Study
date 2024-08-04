@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: els-graphql
+
+  graphql:
+    path: /graphql
+    graphiql:
+      path: /graphiql
+      enabled: true
+    schema:
+      inspection:
+        enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+    registerWithEureka: true
+    fetchRegistry: true
