@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseSessionFile implements Serializable {
-    private Long fileId;
+    private Long id;
     private Long courseSessionId;
     private CourseSession courseSession;
     private String fileName;

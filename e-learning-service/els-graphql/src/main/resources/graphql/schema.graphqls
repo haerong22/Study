@@ -104,7 +104,7 @@ type CourseRating {
 
 # 강의 세션 파일 정보를 나타내는 타입입니다.
 type CourseSessionFile {
-    fileId: ID!                 # 파일 ID
+    id: ID!                     # 파일 ID
     fileName: String!           # 파일 이름
     fileType: String!           # 파일 유형
     filePath: String!           # 파일 경로
@@ -112,7 +112,7 @@ type CourseSessionFile {
 
 # 재생 기록 정보를 나타내는 타입입니다.
 type PlaybackRecord {
-    recordId: ID!               # 재생 기록 ID
+    id: ID!               # 재생 기록 ID
     userId: ID!                 # 사용자 ID
     fileId: ID!                 # 파일 ID
     startTime: String!          # 시작 시간
@@ -121,7 +121,7 @@ type PlaybackRecord {
 
 # 이벤트 로그 정보를 나타내는 타입입니다.
 type EventLog {
-    eventId: ID!                # 이벤트 ID
+    id: ID!                # 이벤트 ID
     recordId: ID!               # 재생 기록 ID
     userId: ID!                 # 사용자 ID
     eventType: String!          # 이벤트 유형

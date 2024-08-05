@@ -12,7 +12,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlaybackRecord implements Serializable {
-    private Long recordId;
+    private Long id;
     private Long userId;
     private Long fileId;
     private String startTime;
@@ -20,7 +20,7 @@ public class PlaybackRecord implements Serializable {
 
     public static PlaybackRecord fromProto(PlaybackServiceOuterClass.PlaybackRecord proto) {
         PlaybackRecord record = new PlaybackRecord();
-        record.setRecordId(proto.getRecordId());
+        record.setId(proto.getRecordId());
         record.setUserId(proto.getUserId());
         record.setFileId(proto.getFileId());
         record.setStartTime(Instant.ofEpochMilli(proto.getStartTime()).toString()); // Convert to ISO 8601
@@ -30,7 +30,7 @@ public class PlaybackRecord implements Serializable {
 
     public static PlaybackServiceOuterClass.PlaybackRecord toProto(PlaybackRecord domain) {
         return PlaybackServiceOuterClass.PlaybackRecord.newBuilder()
-                .setRecordId(domain.getRecordId())
+                .setRecordId(domain.getId())
                 .setUserId(domain.getUserId())
                 .setFileId(domain.getFileId())
                 .setStartTime(Instant.parse(domain.getStartTime()).toEpochMilli())

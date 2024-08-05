@@ -12,7 +12,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventLog implements Serializable {
-    private Long eventId;
+    private Long id;
     private Long recordId;
     private Long userId;
     private String eventType;
@@ -20,7 +20,7 @@ public class EventLog implements Serializable {
 
     public static EventLog fromProto(PlaybackServiceOuterClass.EventLog proto) {
         EventLog log = new EventLog();
-        log.setEventId(proto.getEventId());
+        log.setId(proto.getEventId());
         log.setRecordId(proto.getRecordId());
         log.setUserId(proto.getUserId());
         log.setEventType(proto.getEventType());
@@ -30,7 +30,7 @@ public class EventLog implements Serializable {
 
     public static PlaybackServiceOuterClass.EventLog toProto(EventLog domain) {
         return PlaybackServiceOuterClass.EventLog.newBuilder()
-                .setEventId(domain.getEventId())
+                .setEventId(domain.getId())
                 .setRecordId(domain.getRecordId())
                 .setUserId(domain.getUserId())
                 .setEventType(domain.getEventType())
