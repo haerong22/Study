@@ -1,6 +1,10 @@
 server:
   port: 8004
 
+grpc:
+  server:
+    port: 9090
+
 spring:
   application:
     name: els-playback

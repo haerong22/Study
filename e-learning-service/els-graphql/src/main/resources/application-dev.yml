@@ -17,3 +17,21 @@ eureka:
       defaultZone: http://localhost:8000/eureka
     registerWithEureka: true
     fetchRegistry: true
+
+grpc:
+  client:
+    els-playback:
+      address: 'discovery:///els-playback'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+    els-payment:
+      address: 'discovery:///els-enrollment'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+    els-enrollment:
+      address: 'discovery:///els-enrollment'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
