@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface FileService {
     List<CourseSessionFile> findAll();
 
-    Optional<CourseSessionFile> findById(Long fileId);
+    Optional<CourseSessionFile> findById(Long sessionId, Long fileId);
 
     List<CourseSessionFile> findFilesBySessionId(Long sessionId);
 }

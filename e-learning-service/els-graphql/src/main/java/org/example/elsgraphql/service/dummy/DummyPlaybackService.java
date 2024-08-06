@@ -33,9 +33,9 @@ public class DummyPlaybackService implements PlaybackService {
         records.add(record2);
 
         // Adding some dummy event logs
-        eventLogs.add(new EventLog(eventCounter.getAndIncrement(), record1.getRecordId(), 1L, "play", "2024-01-01T10:00:00Z"));
-        eventLogs.add(new EventLog(eventCounter.getAndIncrement(), record1.getRecordId(), 1L, "pause", "2024-01-01T10:30:00Z"));
-        eventLogs.add(new EventLog(eventCounter.getAndIncrement(), record2.getRecordId(), 2L, "play", "2024-01-02T10:00:00Z"));
+        eventLogs.add(new EventLog(eventCounter.getAndIncrement(), record1.getId(), 1L, "play", "2024-01-01T10:00:00Z"));
+        eventLogs.add(new EventLog(eventCounter.getAndIncrement(), record1.getId(), 1L, "pause", "2024-01-01T10:30:00Z"));
+        eventLogs.add(new EventLog(eventCounter.getAndIncrement(), record2.getId(), 2L, "play", "2024-01-02T10:00:00Z"));
     }
 
     public List<PlaybackRecord> findAll() {
@@ -45,7 +45,7 @@ public class DummyPlaybackService implements PlaybackService {
     @Override
     public PlaybackRecord startRecord(Long userId, Long fileId) {
         PlaybackRecord record = new PlaybackRecord();
-        record.setRecordId(recordCounter.getAndIncrement());
+        record.setId(recordCounter.getAndIncrement());
         record.setUserId(userId);
         record.setFileId(fileId);
 
@@ -55,7 +55,7 @@ public class DummyPlaybackService implements PlaybackService {
 
     @Override
     public PlaybackRecord endRecord(Long recordId) {
-        PlaybackRecord endRecord = records.stream().filter(record -> record.getRecordId().equals(recordId))
+        PlaybackRecord endRecord = records.stream().filter(record -> record.getId().equals(recordId))
                 .findFirst()
                 .orElseThrow();
         endRecord.setEndTime(new Date().toString());
@@ -64,12 +64,12 @@ public class DummyPlaybackService implements PlaybackService {
 
     public Optional<PlaybackRecord> findById(Long recordId) {
         return records.stream()
-                .filter(record -> record.getRecordId().equals(recordId))
+                .filter(record -> record.getId().equals(recordId))
                 .findFirst();
     }
 
     public void delete(Long recordId) {
-        records.removeIf(record -> record.getRecordId().equals(recordId));
+        records.removeIf(record -> record.getId().equals(recordId));
         // Also remove associated event logs
         eventLogs.removeIf(log -> log.getRecordId().equals(recordId));
     }
@@ -82,8 +82,8 @@ public class DummyPlaybackService implements PlaybackService {
 
     @Override
     public EventLog logEvent(EventLog log) {
-        if (log.getEventId() == null) {
-            log.setEventId(eventCounter.getAndIncrement());
+        if (log.getId() == null) {
+            log.setId(eventCounter.getAndIncrement());
         }
         eventLogs.add(log);
         return log;

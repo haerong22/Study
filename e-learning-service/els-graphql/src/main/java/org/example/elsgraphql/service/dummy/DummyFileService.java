@@ -35,9 +35,9 @@ public class DummyFileService implements FileService {
     }
 
     @Override
-    public Optional<CourseSessionFile> findById(Long fileId) {
+    public Optional<CourseSessionFile> findById(Long sessionId, Long fileId) {
         return files.stream()
-                .filter(file -> file.getFileId().equals(fileId))
+                .filter(file -> file.getId().equals(fileId))
                 .findFirst();
     }
 
@@ -49,14 +49,14 @@ public class DummyFileService implements FileService {
     }
 
     public CourseSessionFile save(CourseSessionFile file) {
-        if (file.getFileId() == null) {
-            file.setFileId(counter.getAndIncrement());
+        if (file.getId() == null) {
+            file.setId(counter.getAndIncrement());
         }
         files.add(file);
         return file;
     }
 
     public void delete(Long fileId) {
-        files.removeIf(file -> file.getFileId().equals(fileId));
+        files.removeIf(file -> file.getId().equals(fileId));
     }
 }
