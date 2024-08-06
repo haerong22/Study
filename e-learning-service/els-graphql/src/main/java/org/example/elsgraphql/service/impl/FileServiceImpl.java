@@ -38,8 +38,6 @@ public class FileServiceImpl implements FileService {
         String url = UriComponentsBuilder.fromUriString(BASE_URL)
                 .buildAndExpand(sessionId).toUriString();
         CourseSessionFile file = restTemplate.getForObject(url, CourseSessionFile.class);
-        System.out.println("file = " + file);
-
         return Optional.ofNullable(file).stream().toList();
     }
 }
