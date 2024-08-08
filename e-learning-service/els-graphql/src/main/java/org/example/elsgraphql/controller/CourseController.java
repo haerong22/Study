@@ -1,6 +1,7 @@
 package org.example.elsgraphql.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.elsgraphql.exception.CourseNotFoundException;
 import org.example.elsgraphql.model.Course;
 import org.example.elsgraphql.model.CourseRating;
 import org.example.elsgraphql.model.CourseSession;
@@ -29,7 +30,7 @@ public class CourseController {
             @Argument Long courseId
     ) {
         return courseService.findCourseById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new CourseNotFoundException("Course not found"));
     }
 
     @QueryMapping
