@@ -21,4 +21,6 @@ public interface CourseService {
     CourseSession addSessionToCourse(Long courseId, String title);
 
     CourseRating addRatingToCourse(Long userId, Long courseId, Integer rating, String comment);
+
+    List<Course> findCourseByIds(List<Long> ids);
 }

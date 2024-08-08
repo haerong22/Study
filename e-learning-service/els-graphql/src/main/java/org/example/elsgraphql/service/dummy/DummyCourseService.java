@@ -101,6 +101,11 @@ public class DummyCourseService implements CourseService {
         return newRating;
     }
 
+    @Override
+    public List<Course> findCourseByIds(List<Long> ids) {
+        return courses;
+    }
+
     public Optional<CourseSession> findSessionById(Long sessionId) {
         return sessions.stream()
                 .filter(session -> session.getId().equals(sessionId))
