@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.elsgraphql.model.User;
 import org.example.elsgraphql.service.UserService;
 import org.example.elsgraphql.service.dto.UserDTO;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
         return restTemplate.postForObject(USER_SERVICE_URL, userDTO, User.class);
     }
 
+    @Cacheable(value = "user", key = "#userId")
     @Override
     public Optional<User> findById(Long userId) {
         String url = UriComponentsBuilder.fromHttpUrl(USER_SERVICE_URL)

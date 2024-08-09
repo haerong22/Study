@@ -8,6 +8,7 @@ import org.example.elsgraphql.model.Enrollment;
 import org.example.elsgraphql.model.Payment;
 import org.example.elsgraphql.model.PlanSubscription;
 import org.example.elsgraphql.service.EnrollmentService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +88,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return response.getHasAccess();
     }
 
+    @Cacheable(value = "payment", key = "#paymentId")
     @Override
     public Payment findPaymentById(Long paymentId) {
         EnrollmentServiceOuterClass.PaymentsByIdRequest request = EnrollmentServiceOuterClass.PaymentsByIdRequest.newBuilder()

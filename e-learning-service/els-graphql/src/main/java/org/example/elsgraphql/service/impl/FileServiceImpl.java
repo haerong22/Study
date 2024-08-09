@@ -3,6 +3,7 @@ package org.example.elsgraphql.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.example.elsgraphql.model.CourseSessionFile;
 import org.example.elsgraphql.service.FileService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +34,7 @@ public class FileServiceImpl implements FileService {
         return Optional.ofNullable(file);
     }
 
+    @Cacheable(value = "files", key = "#sessionId")
     @Override
     public List<CourseSessionFile> findFilesBySessionId(Long sessionId) {
         String url = UriComponentsBuilder.fromUriString(BASE_URL)

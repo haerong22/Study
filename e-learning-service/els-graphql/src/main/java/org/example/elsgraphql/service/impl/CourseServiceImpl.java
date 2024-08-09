@@ -6,6 +6,7 @@ import org.example.elsgraphql.model.Course;
 import org.example.elsgraphql.model.CourseRating;
 import org.example.elsgraphql.model.CourseSession;
 import org.example.elsgraphql.service.CourseService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class CourseServiceImpl implements CourseService {
         return Arrays.asList(courses);
     }
 
+    @Cacheable(value = "course", key = "#courseId")
     @Override
     public Optional<Course> findCourseById(Long courseId) {
         Course course = null;
@@ -116,6 +118,7 @@ public class CourseServiceImpl implements CourseService {
         return restTemplate.postForObject(url, courseRating, CourseRating.class);
     }
 
+    @Cacheable(value = "courses", key = "#courseIds")
     @Override
     public List<Course> findCourseByIds(List<Long> courseIds) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(BASE_URL);

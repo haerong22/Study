@@ -11,6 +11,12 @@ spring:
       inspection:
         enabled: true
 
+  data:
+    redis:
+      host: localhost
+      port: 16379
+      client-type: lettuce
+
 eureka:
   client:
     service-url:
