@@ -29,6 +29,11 @@ spring:
           predicates:
             - Path=/auth/**
             - Method=POST, GET
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: authCircuitBreaker
+                fallbackUri: forward:/fallback/authFailure
 
         - id: file-route
           uri: lb://els-file-manage
@@ -57,6 +62,32 @@ eureka:
       connect-timeout: 5000
       connect-request-timeout: 8000
       socket-timeout: 10000
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      authCircuitBreaker:
+        register-health-indicator: true
+        sliding-window-size: 5 # 서킷 브레이커가 고려할 최근 호출 수
+        minimum-number-of-calls: 10 # 최소 호출 횟수, 이 수를 넘어야 서킷 브레이커의 상태가 변경됨
+        permitted-number-of-calls-in-half-open-state: 10 # half-open 상태에서 허용되는 호출 수
+        automatic-transition-from-open-to-half-open-enabled: true # 서킷 브레이커가 자동으로 half-open 상태로 전환되는지 여부
+        wait-duration-in-open-state: 5000 # 서킷 브레이커가 open 상태로 유지되는 시간
+        failure-rate-threshold: 50 # 실패율 기준, 이 비율을 초과하는 실패가 발생하면 서킷 브레이커가 열립니다
+        event-consumer-buffer-size: 10
+        record-exceptions:
+          - java.util.concurrent.TimeoutException
+          - org.springframework.cloud.gateway.support.NotFoundException
+          - io.github.resilience4j.circuitbreaker.CallNotPermittedException
+#        ignore-exceptions: # 서킷 브레이커가 무시할 예외 유형
+#          - org.springframework.web.client.HttpClientErrorException
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - circuitbreakers
 
 logging:
   level:
