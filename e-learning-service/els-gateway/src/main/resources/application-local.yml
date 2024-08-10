@@ -36,6 +36,7 @@ spring:
             - Path=/files/**
             - Method=POST, GET
           filters:
+            - AuthenticationFilter
             - RewritePath=/files/(?<segment>.*), /%\{segment}
 
         - id: graphql-route
@@ -43,6 +44,8 @@ spring:
           predicates:
             - Path=/graphql
             - Method=POST, GET
+          filters:
+            - AuthenticationFilter
 
 eureka:
   client:

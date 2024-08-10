@@ -1,0 +1,47 @@
+### Create User
+GRAPHQL http://localhost:9000/graphql
+
+mutation {
+    createUser(email: "test@email.com", name: "bobby", password: "1234") {
+        email
+        id
+        name
+    }
+}
+
+### Generate Token
+POST http://localhost:9000/auth/token
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "1234"
+}
+
+> {%  client.global.set("authToken", response.body.token); %}
+
+### Validate User
+POST http://localhost:9000/auth/validate
+Content-Type: application/json
+
+{
+  "token": "{{authToken}}"
+}
+
+> {%  client.global.set("userId", response.body.id); %}
+
+### Get Course
+GRAPHQL http://localhost:9000/graphql
+Authorization: Bearer {{authToken}}
+
+query {
+    getCourse(courseId: "100", userId: "{{userId}}") {
+        description
+        id
+        instructorId
+        title
+        courseSessions {
+            title
+        }
+    }
+}
