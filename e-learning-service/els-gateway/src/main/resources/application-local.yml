@@ -5,6 +5,11 @@ spring:
   application:
     name: els-gateway
 
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 16379
+
   cloud:
     gateway:
       global-cors:
@@ -22,6 +27,11 @@ spring:
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 1 # 사용자가 일정 시간 동안(보통 초 단위) 발생시킬 수 있는 요청의 수를 정의
+            redis-rate-limiter.burstCapacity: 5 # 토큰 버킷이 담을 수 있는 최대 토큰의 수를 정의
+            key-resolver: "#{@ipKeyResolver}"
 
       routes:
         - id: auth-route
@@ -81,6 +91,11 @@ resilience4j:
           - io.github.resilience4j.circuitbreaker.CallNotPermittedException
 #        ignore-exceptions: # 서킷 브레이커가 무시할 예외 유형
 #          - org.springframework.web.client.HttpClientErrorException
+
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 5s
 
 management:
   endpoints:
