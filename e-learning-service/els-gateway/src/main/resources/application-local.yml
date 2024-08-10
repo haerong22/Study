@@ -1,0 +1,64 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: els-gateway
+
+  cloud:
+    gateway:
+      global-cors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:9000"
+            allowed-methods:
+              - POST
+              - GET
+              - OPTIONS
+            allowed-headers:
+              - "*"
+            allow-credentials: true
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
+      routes:
+        - id: auth-route
+          uri: lb://els-user
+          predicates:
+            - Path=/auth/**
+            - Method=POST, GET
+
+        - id: file-route
+          uri: lb://els-file-manage
+          predicates:
+            - Path=/files/**
+            - Method=POST, GET
+          filters:
+            - RewritePath=/files/(?<segment>.*), /%\{segment}
+
+        - id: graphql-route
+          uri: lb://els-graphql
+          predicates:
+            - Path=/graphql
+            - Method=POST, GET
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+    registerWithEureka: true
+    fetchRegistry: true
+    rest-template-timeout:
+      connect-timeout: 5000
+      connect-request-timeout: 8000
+      socket-timeout: 10000
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
