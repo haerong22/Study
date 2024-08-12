@@ -11,6 +11,9 @@ dependencies {
 	implementation project(':els-grpc-common')
 	implementation 'net.devh:grpc-server-spring-boot-starter:3.0.0.RELEASE'
 
+	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+	implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
