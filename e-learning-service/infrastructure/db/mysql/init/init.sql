@@ -1,3 +1,12 @@
 CREATE DATABASE IF NOT EXISTS `course`;
+CREATE DATABASE IF NOT EXISTS `user`;
+CREATE DATABASE IF NOT EXISTS `file`;
+CREATE DATABASE IF NOT EXISTS `playback`;
+CREATE DATABASE IF NOT EXISTS `enrollment`;
+
 CREATE USER 'bobby'@'%' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON course.* TO 'bobby'@'%';
+GRANT ALL PRIVILEGES ON `course`.* TO 'bobby'@'%';
+GRANT ALL PRIVILEGES ON `user`.* TO 'bobby'@'%';
+GRANT ALL PRIVILEGES ON `file`.* TO 'bobby'@'%';
+GRANT ALL PRIVILEGES ON `playback`.* TO 'bobby'@'%';
+GRANT ALL PRIVILEGES ON `enrollment`.* TO 'bobby'@'%';
