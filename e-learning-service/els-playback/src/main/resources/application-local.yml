@@ -3,7 +3,7 @@ server:
 
 grpc:
   server:
-    port: 9090
+    port: 9092
 
 spring:
   application:
@@ -51,6 +51,19 @@ management:
     propagation:
       consume: b3
       produce: b3_multi
+
   zipkin:
     tracing:
       endpoint: "http://localhost:9411/api/v2/spans"
+
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - loggers
+          - mappings
+          - metrics
+          - shutdown
+          - prometheus

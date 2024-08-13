@@ -104,6 +104,7 @@ management:
     propagation:
       consume: b3
       produce: b3_multi
+
   zipkin:
     tracing:
       endpoint: "http://localhost:9411/api/v2/spans"
@@ -112,6 +113,13 @@ management:
     web:
       exposure:
         include:
+          - info
+          - health
+          - loggers
+          - mappings
+          - metrics
+          - shutdown
+          - prometheus
           - circuitbreakers
 
 logging:

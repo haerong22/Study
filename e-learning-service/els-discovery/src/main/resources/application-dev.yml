@@ -21,3 +21,27 @@ eureka:
   server:
     enable-self-preservation: true # 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 자기 보호 모드
     renewal-percent-threshold: 0.85
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3
+      produce: b3_multi
+
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - loggers
+          - mappings
+          - metrics
+          - shutdown
+          - prometheus
