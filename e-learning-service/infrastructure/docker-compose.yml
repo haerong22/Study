@@ -54,6 +54,101 @@ services:
     networks:
       - els-network
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'  # 설정 파일 경로
+      - '--storage.tsdb.path=/prometheus'  # 데이터 저장 경로
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'  # 콘솔 라이브러리 경로
+      - '--web.console.templates=/usr/share/prometheus/consoles'  # 콘솔 템플릿 경로
+    ports:
+      - "9090:9090"
+    links:
+      - cadvisor:cadvisor  # cAdvisor와 링크
+      - alertmanager:alertmanager  # Alertmanager와 링크
+    depends_on:
+      - cadvisor
+      # - pushgateway  # 주석 처리된 Pushgateway 종속성
+    networks:
+      - back-tier
+      - els-network
+    restart: always
+
+  alertmanager:
+    image: prom/alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager/:/etc/alertmanager/
+    networks:
+      - back-tier
+      - els-network
+    restart: always
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'  # 설정 파일 경로
+      - '--storage.path=/alertmanager'  # 저장소 경로
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    volumes:
+      - /proc:/host/proc:ro # /proc 디렉토리를 읽기 전용으로 매핑
+      - /sys:/host/sys:ro  # /sys 디렉토리를 읽기 전용으로 매핑
+    command:
+      - '--path.rootfs=/host'  # rootfs 경로 설정
+      - '--path.procfs=/host/proc'  # procfs 경로 설정
+      - '--path.sysfs=/host/sys'  # sysfs 경로 설정
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"  # 무시할 마운트 포인트 패턴
+    ports:
+      - "9100:9100"
+    networks:
+      - back-tier
+    restart: always
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.45.0
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg  # /dev/kmsg 디바이스 매핑
+    volumes:
+      - /var/run:/var/run:ro  # /var/run 디렉토리를 읽기 전용으로 매핑
+      - /sys:/sys:ro  # /sys 디렉토리를 읽기 전용으로 매핑
+      - /var/lib/docker/:/var/lib/docker:ro  # /var/lib/docker 디렉토리를 읽기 전용으로 매핑
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # Docker 소켓을 읽기 전용으로 매핑
+      - /etc/machine-id:/etc/machine-id:ro  # /etc/machine-id 파일을 읽기 전용으로 매핑
+      - /var/lib/dbus/machine-id:/var/lib/dbus/machine-id:ro  # /var/lib/dbus/machine-id 파일을 읽기 전용으로 매핑
+    restart: unless-stopped  # 중지될 경우 다시 시작
+    expose:
+      - "8085"  # 8085 포트를 노출
+    networks:
+      - back-tier  # back-tier 네트워크에 연결
+      - els-network
+    labels:
+      org.label-schema.group: "monitoring"  # monitoring 그룹 레이블
+
+  grafana:
+    image: grafana/grafana
+    user: "472"  # 유저 ID 설정
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/  # Grafana 설정 디렉토리를 매핑
+    env_file:
+      - ./grafana/config.monitoring  # 환경 변수 파일
+    networks:
+      - back-tier
+      - front-tier
+      - els-network
+    restart: always
+
 networks:
+  back-tier:
+    driver: bridge
+  front-tier:
+    driver: bridge
   els-network:
     driver: bridge
