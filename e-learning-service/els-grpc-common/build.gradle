@@ -2,7 +2,6 @@ buildscript {
 	ext {
 		protobufVersion = '3.25.1'
 		grpcVersion = '1.60.1'
-		protoc_platform = 'osx-x86_64'
 	}
 }
 
