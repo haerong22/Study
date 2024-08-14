@@ -1,16 +1,16 @@
 server:
-  port: 8005
+  port: 8080
 
 grpc:
   server:
-    port: 9091
+    port: 9090
 
 spring:
   application:
     name: els-enrollment
 
   datasource:
-    url: jdbc:mysql://localhost:3306/enrollment?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql:3306/enrollment?useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: bobby
     password: 1234
@@ -31,11 +31,12 @@ spring:
     init:
       data-locations: classpath:sql/data.sql
       schema-locations: classpath:sql/schema-mysql.sql
+      mode: always
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8000/eureka
+      defaultZone: http://discovery:8000/eureka
     registerWithEureka: true
     fetchRegistry: true
 
@@ -49,7 +50,7 @@ management:
 
   zipkin:
     tracing:
-      endpoint: "http://localhost:9411/api/v2/spans"
+      endpoint: "http://zipkin:9411/api/v2/spans"
 
   endpoints:
     web:

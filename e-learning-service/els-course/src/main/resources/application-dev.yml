@@ -1,12 +1,12 @@
 server:
-  port: 8001
+  port: 8080
 
 spring:
   application:
     name: els-course
 
   datasource:
-    url: jdbc:mysql://localhost:3306/course?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql:3306/course?useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: bobby
     password: 1234
@@ -32,7 +32,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8000/eureka
+      defaultZone: http://discovery:8000/eureka
     register-with-eureka: true
     fetch-registry: true
 
@@ -46,7 +46,7 @@ management:
 
   zipkin:
     tracing:
-      endpoint: "http://localhost:9411/api/v2/spans"
+      endpoint: "http://zipkin:9411/api/v2/spans"
 
   endpoints:
     web:

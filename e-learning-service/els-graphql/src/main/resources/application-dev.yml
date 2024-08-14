@@ -13,14 +13,14 @@ spring:
 
   data:
     redis:
-      host: localhost
-      port: 16379
+      host: redis
+      port: 6379
       client-type: lettuce
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8000/eureka
+      defaultZone: http://discovery:8000/eureka
     registerWithEureka: true
     fetchRegistry: true
 
@@ -52,7 +52,7 @@ management:
 
   zipkin:
     tracing:
-      endpoint: "http://localhost:9411/api/v2/spans"
+      endpoint: "http://zipkin:9411/api/v2/spans"
 
   endpoints:
     web:

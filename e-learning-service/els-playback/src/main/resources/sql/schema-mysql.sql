@@ -1,4 +1,4 @@
-DROP TABLE playback_records;
+DROP TABLE IF EXISTS playback_records;
 CREATE TABLE playback_records
 (
     id         INT AUTO_INCREMENT PRIMARY KEY COMMENT '고유한 재생 식별자',
@@ -8,7 +8,7 @@ CREATE TABLE playback_records
     end_time   TIMESTAMP COMMENT '재생 종료 시간 (UNIX 타임스탬프, 밀리세컨드 단위)'
 ) COMMENT ='재생 활동 데이터를 저장하는 테이블. 각 레코드는 사용자가 파일을 재생하는 기간 동안의 정보를 포함한다.';
 
-DROP TABLE event_logs;
+DROP TABLE IF EXISTS event_logs;
 CREATE TABLE event_logs
 (
     id         INT AUTO_INCREMENT PRIMARY KEY COMMENT '고유한 이벤트 로그 식별자',

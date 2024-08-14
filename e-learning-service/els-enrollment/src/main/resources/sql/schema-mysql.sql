@@ -1,5 +1,5 @@
 -- 결제 정보를 저장하는 테이블
-DROP TABLE payments;
+DROP TABLE IF EXISTS payments;
 CREATE TABLE payments
 (
     id             INT AUTO_INCREMENT PRIMARY KEY,
@@ -11,7 +11,7 @@ CREATE TABLE payments
 );
 
 -- 강의 등록 정보를 저장하는 테이블
-DROP TABLE enrollments;
+DROP TABLE IF EXISTS enrollments;
 CREATE TABLE enrollments
 (
     id                INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,7 +23,7 @@ CREATE TABLE enrollments
 );
 
 -- 사용자의 구독 정보를 저장하는 테이블
-DROP TABLE subscriptions;
+DROP TABLE IF EXISTS subscriptions;
 CREATE TABLE subscriptions
 (
     id         INT AUTO_INCREMENT PRIMARY KEY,

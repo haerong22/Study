@@ -1,4 +1,4 @@
-DROP TABLE session_files;
+DROP TABLE IF EXISTS session_files;
 CREATE TABLE session_files
 (
     id         INT AUTO_INCREMENT PRIMARY KEY COMMENT '파일의 고유 식별자입니다.',
