@@ -145,6 +145,81 @@ services:
       - els-network
     restart: always
 
+  ### service
+  discovery:
+    image: els-discovery
+    ports:
+      - "8000:8000"
+    networks:
+      - els-network
+
+  gateway:
+    image: els-gateway
+    depends_on:
+      - discovery
+    ports:
+      - "9000:9000"
+    networks:
+      - els-network
+
+  graphql:
+    image: els-graphql
+    depends_on:
+      - discovery
+    ports:
+      - "8080:8080"
+    networks:
+      - els-network
+
+  course:
+    image: els-course
+    depends_on:
+      - discovery
+    ports:
+      - "8081:8080"
+    networks:
+      - els-network
+
+  enrollment:
+    image: els-enrollment
+    depends_on:
+      - discovery
+    ports:
+      - "8082:8080"
+      - "9092:9090"
+    networks:
+      - els-network
+
+  file-manage:
+    image: els-file-manage
+    depends_on:
+      - discovery
+    ports:
+      - "8083:8080"
+    volumes:
+      - ./videos:/videos
+    networks:
+      - els-network
+
+  playback:
+    image: els-playback
+    depends_on:
+      - discovery
+    ports:
+      - "8084:8080"
+      - "9094:9090"
+    networks:
+      - els-network
+
+  user:
+    image: els-user
+    depends_on:
+      - discovery
+    ports:
+      - "8085:8080"
+    networks:
+      - els-network
+
 networks:
   back-tier:
     driver: bridge
