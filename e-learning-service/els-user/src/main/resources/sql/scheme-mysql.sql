@@ -1,4 +1,6 @@
+DROP TABLE IF EXISTS `user_login_histories`;
 DROP TABLE IF EXISTS `users`;
+
 CREATE TABLE `users`
 (
     `id`            INT AUTO_INCREMENT PRIMARY KEY COMMENT '사용자의 고유 식별자',
@@ -10,7 +12,6 @@ CREATE TABLE `users`
     INDEX `idx_email` (`email`)
 ) COMMENT ='사용자 정보를 저장하는 테이블. 사용자의 이름, 이메일, 비밀번호 해시를 포함한다.';
 
-DROP TABLE IF EXISTS `user_login_histories`;
 CREATE TABLE `user_login_histories`
 (
     `id`         INT AUTO_INCREMENT PRIMARY KEY COMMENT '로그인 기록의 고유 식별자',
