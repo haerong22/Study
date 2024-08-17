@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: els-enrollment
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  httpPort: 8080
+  grpcPort: 9090
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  database: jdbc:mysql://host.docker.internal:3306/enrollment?useSSL=false&allowPublicKeyRetrieval=true
+  zipkin: http://host.docker.internal:9411/api/v2/spans

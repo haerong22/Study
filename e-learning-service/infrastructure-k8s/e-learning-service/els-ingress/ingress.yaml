@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-nginx
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: els-gateway
+                port:
+                  number: 8080
+          - path: /graphiql
+            pathType: Prefix
+            backend:
+              service:
+                name: els-graphql
+                port:
+                  number: 8080

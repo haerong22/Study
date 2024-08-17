@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: els-discovery
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  zipkin: http://host.docker.internal:9411/api/v2/spans
