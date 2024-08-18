@@ -3,6 +3,7 @@ package org.example.elsuser.domain.controller;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.example.elsuser.domain.controller.swagger.AuthControllerSwagger;
 import org.example.elsuser.domain.dto.AuthRequest;
 import org.example.elsuser.domain.dto.TokenRequest;
 import org.example.elsuser.domain.entity.User;
@@ -20,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthControllerSwagger {
 
     private final JWTService jwtService;
     private final UserService userService;

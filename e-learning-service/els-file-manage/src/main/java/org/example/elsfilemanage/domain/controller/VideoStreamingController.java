@@ -2,6 +2,7 @@ package org.example.elsfilemanage.domain.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.example.elsfilemanage.domain.controller.swagger.VideoStreamingControllerSwagger;
 import org.example.elsfilemanage.domain.entity.SessionFile;
 import org.example.elsfilemanage.domain.service.SessionFileService;
 import org.springframework.core.io.InputStreamResource;
@@ -26,7 +27,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/sessions/{sessionId}")
 @RequiredArgsConstructor
-public class VideoStreamingController {
+public class VideoStreamingController implements VideoStreamingControllerSwagger {
 
     private final SessionFileService sessionFileService;
 

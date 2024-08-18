@@ -1,6 +1,7 @@
 package org.example.elsfilemanage.domain.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.elsfilemanage.domain.controller.swagger.SessionFileControllerSwagger;
 import org.example.elsfilemanage.domain.entity.SessionFile;
 import org.example.elsfilemanage.domain.service.FileStorageService;
 import org.example.elsfilemanage.domain.service.SessionFileService;
@@ -11,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/sessions/{sessionId}/files")
 @RequiredArgsConstructor
-public class SessionFileController {
+public class SessionFileController implements SessionFileControllerSwagger {
 
     private final SessionFileService sessionFileService;
     private final FileStorageService fileStorageService;

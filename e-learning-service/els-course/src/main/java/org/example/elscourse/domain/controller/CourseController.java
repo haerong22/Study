@@ -1,6 +1,7 @@
 package org.example.elscourse.domain.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.elscourse.domain.controller.swagger.CourseControllerSwagger;
 import org.example.elscourse.domain.entity.Course;
 import org.example.elscourse.domain.service.CourseService;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/courses")
 @RequiredArgsConstructor
-public class CourseController {
+public class CourseController implements CourseControllerSwagger {
 
     private final CourseService courseService;
 

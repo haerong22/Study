@@ -1,6 +1,7 @@
 package org.example.elsuser.domain.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.elsuser.domain.controller.swagger.UserControllerSwagger;
 import org.example.elsuser.domain.dto.PasswordChangeDTO;
 import org.example.elsuser.domain.dto.UserDTO;
 import org.example.elsuser.domain.entity.User;
@@ -18,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserControllerSwagger {
 
     private final UserService userService;
 

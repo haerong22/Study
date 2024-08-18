@@ -1,6 +1,7 @@
 package org.example.elscourse.domain.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.elscourse.domain.controller.swagger.CourseRatingControllerSwagger;
 import org.example.elscourse.domain.entity.CourseRating;
 import org.example.elscourse.domain.service.CourseRatingService;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/courses/{courseId}/ratings")
 @RequiredArgsConstructor
-public class CourseRatingController {
+public class CourseRatingController implements CourseRatingControllerSwagger {
 
     private final CourseRatingService ratingService;
 
