@@ -1,4 +1,7 @@
+# @authenticate는 사용자가 인증된 경우에만 필드나 객체에 접근할 수 있도록 합니다.
 directive @authenticate on FIELD_DEFINITION | OBJECT
+
+# @authorize는 사용자가 특정 역할 및 권한을 가지고 있는지 확인합니다.
 directive @authorize(role: String, permission: String) on FIELD_DEFINITION | OBJECT
 
 type Query {
