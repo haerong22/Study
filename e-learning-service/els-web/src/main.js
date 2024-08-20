@@ -1,4 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp, h } from 'vue';
+import App from './App.vue';
+import { apolloProvider } from './apollo';
 
-createApp(App).mount('#app')
+const app = createApp({
+    render: () => h(App),
+});
+
+app.use(apolloProvider);
+app.mount('#app');
