@@ -1,9 +1,9 @@
 INSERT INTO `users` (`id`, `name`, `email`, `password_hash`, `created_at`, `updated_at`)
 VALUES
-    (100, 'John Doe', 'john.doe@example.com', 'hashed_password_1', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-    (200, 'Jane Smith', 'jane.smith@example.com', 'hashed_password_2', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-    (300, 'Alice Johnson', 'alice.johnson@example.com', 'hashed_password_3', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-    (400, 'Bob Brown', 'bob.brown@example.com', 'hashed_password_4', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+    (100, 'John Doe', 'john.doe@example.com', '$2a$10$9CezX/MK/yP3kzzNN7z8SuNezQSi9crUTcPWMBaBsfBinE1DKIT/O', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+    (200, 'Jane Smith', 'jane.smith@example.com', '$2a$10$9CezX/MK/yP3kzzNN7z8SuNezQSi9crUTcPWMBaBsfBinE1DKIT/O', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+    (300, 'Alice Johnson', 'alice.johnson@example.com', '$2a$10$9CezX/MK/yP3kzzNN7z8SuNezQSi9crUTcPWMBaBsfBinE1DKIT/O', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+    (400, 'Bob Brown', 'bob.brown@example.com', '$2a$10$9CezX/MK/yP3kzzNN7z8SuNezQSi9crUTcPWMBaBsfBinE1DKIT/O', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 INSERT INTO `user_login_histories` (`user_id`, `login_time`, `ip_address`)
 VALUES

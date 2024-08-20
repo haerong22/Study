@@ -16,7 +16,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowed-origins:
-              - "http://localhost:*"
+              - "http://localhost:8081"
             allowed-methods:
               - POST
               - GET
@@ -38,7 +38,7 @@ spring:
           uri: lb://els-user
           predicates:
             - Path=/auth/**
-            - Method=POST, GET
+            - Method=POST, GET, OPTIONS
           filters:
             - name: CircuitBreaker
               args:
@@ -49,7 +49,7 @@ spring:
           uri: lb://els-file-manage
           predicates:
             - Path=/files/**
-            - Method=POST, GET
+            - Method=POST, GET, OPTIONS
           filters:
             - AuthenticationFilter
             - RewritePath=/files/(?<segment>.*), /%\{segment}
@@ -58,7 +58,7 @@ spring:
           uri: lb://els-graphql
           predicates:
             - Path=/graphql
-            - Method=POST, GET
+            - Method=POST, GET, OPTIONS
           filters:
             - AuthenticationFilter
 
