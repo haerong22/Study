@@ -1,6 +1,6 @@
 grpc:
   server:
-    port: 9006
+    port: 9093
 
 server:
   port: 8006
@@ -11,8 +11,8 @@ spring:
 
   data:
     redis:
+      host: localhost
       port: 16379
-      host: 127.0.0.1
 
 eureka:
   client:
