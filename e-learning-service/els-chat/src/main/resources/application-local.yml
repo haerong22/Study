@@ -1,0 +1,22 @@
+grpc:
+  server:
+    port: 9006
+
+server:
+  port: 8006
+
+spring:
+  application:
+    name: els-chat
+
+  data:
+    redis:
+      port: 16379
+      host: 127.0.0.1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+    registerWithEureka: true
+    fetchRegistry: true
