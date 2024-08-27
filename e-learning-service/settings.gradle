@@ -1,6 +1,7 @@
 rootProject.name = 'e-learning-service'
 
 include 'els-course'
+include 'els-chat'
 include 'els-discovery'
 include 'els-file-manage'
 include 'els-enrollment'
