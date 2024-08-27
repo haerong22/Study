@@ -72,7 +72,7 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
             redisTemplate.opsForHash().put(redisKey, "timestamp", String.valueOf(message.getTimestamp()));
 
             // Broadcast message
-            stringRedisTemplate.convertAndSend(channel, message.getUserId() + "::" + message.getContent());
+            stringRedisTemplate.convertAndSend(channel, message.getUserId() + "::" + message.getContent() + "::" + message.getMessageId() + "::" + message.getTimestamp());
 
             Chat.SendMessageResponse response = Chat.SendMessageResponse.newBuilder()
                     .setSuccess(true)
@@ -99,6 +99,8 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
                 String messageContent = new String(message.getBody(), StandardCharsets.UTF_8);
                 String[] splitMessage = messageContent.split("::");
                 Chat.ChatMessage chatMessage = Chat.ChatMessage.newBuilder()
+                        .setTimestamp(Long.parseLong(splitMessage[3]))
+                        .setMessageId(splitMessage[2])
                         .setContent(splitMessage[1])
                         .setUserId(splitMessage[0])
                         .setCourseId(request.getCourseId())
