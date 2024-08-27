@@ -10,6 +10,9 @@ spring:
     schema:
       inspection:
         enabled: true
+    websocket:
+      path: /graphql
+      keep-alive: 60
 
   data:
     redis:
@@ -38,6 +41,11 @@ grpc:
       negotiation-type: plaintext
     els-enrollment:
       address: 'discovery:///els-enrollment'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+    els-chat:
+      address: 'discovery:///els-chat'
       enable-keep-alive: true
       keep-alive-without-calls: true
       negotiation-type: plaintext
