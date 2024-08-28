@@ -62,6 +62,13 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: graphql-subscription-route
+          uri: lb:ws://els-graphql
+          predicates:
+            - Path=/graphql
+          filters:
+            - AuthenticationFilter
+
 eureka:
   client:
     service-url:
