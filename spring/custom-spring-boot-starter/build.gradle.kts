@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
 	id("org.springframework.boot") version "3.3.3"
 	id("io.spring.dependency-management") version "1.1.6"
@@ -10,11 +12,11 @@ plugins {
 
 allprojects {
 	group = "org.example"
-	version = "0.0.1-SNAPSHOT"
+	version = "1.0-SNAPSHOT"
 
 	repositories {
-		mavenLocal()
 		mavenCentral()
+		mavenLocal()
 	}
 }
 
@@ -28,6 +30,12 @@ subprojects {
 	dependencies {
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
 		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom(SpringBootPlugin.BOM_COORDINATES)
+		}
 	}
 
 	java {
