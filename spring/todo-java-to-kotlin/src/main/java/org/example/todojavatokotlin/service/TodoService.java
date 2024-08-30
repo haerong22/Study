@@ -37,12 +37,14 @@ public class TodoService {
     public Todo create(TodoRequest request) {
         Assert.notNull(request, "TodoRequest is null");
 
-        Todo todo = Todo.builder()
-            .title(request.getTitle())
-            .description(request.getDescription())
-            .done(false)
-            .createdAt(LocalDateTime.now())
-            .build();
+        Todo todo = new Todo(
+                null,
+                request.getTitle(),
+                request.getDescription(),
+                false,
+                LocalDateTime.now(),
+                null
+        );
         return todoRepository.save(todo);
     }
 
