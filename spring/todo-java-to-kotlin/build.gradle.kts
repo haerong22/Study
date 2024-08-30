@@ -18,12 +18,6 @@ java {
     }
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(annotationProcessor.get())
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -37,9 +31,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     runtimeOnly("com.h2database:h2")
-
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
