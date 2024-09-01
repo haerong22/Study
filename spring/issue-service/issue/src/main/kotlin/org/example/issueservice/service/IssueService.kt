@@ -2,6 +2,7 @@ package org.example.issueservice.service
 
 import org.example.issueservice.domain.Issue
 import org.example.issueservice.domain.IssueRepository
+import org.example.issueservice.domain.enums.IssueStatus
 import org.example.issueservice.model.IssueRequest
 import org.example.issueservice.model.IssueResponse
 import org.springframework.stereotype.Service
@@ -26,4 +27,9 @@ class IssueService(
 
         return IssueResponse(issueRepository.save(issue))
     }
+
+    @Transactional(readOnly = true)
+    fun getAll(status: IssueStatus) =
+        issueRepository.findAllByStatusOrderByCreatedAtDesc(status)
+            .map { IssueResponse(it) }
 }
