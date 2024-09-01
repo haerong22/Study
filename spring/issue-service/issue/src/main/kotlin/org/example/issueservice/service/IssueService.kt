@@ -40,4 +40,18 @@ class IssueService(
         issueRepository.findByIdOrNull(issueId)
             ?.let { IssueResponse(it) }
             ?: throw NotFoundException("이슈가 존재하지 않습니다.")
+
+    @Transactional
+    fun edit(userId: Long, issueId: Long, request: IssueRequest): IssueResponse =
+        issueRepository.findByIdOrNull(issueId)
+            ?.let {
+                it.summary = request.summary
+                it.description = request.description
+                it.userId = userId
+                it.type = request.type
+                it.priority = request.priority
+                it.status = request.status
+                IssueResponse(issueRepository.save(it))
+            }
+            ?: throw NotFoundException("이슈가 존재하지 않습니다.")
 }

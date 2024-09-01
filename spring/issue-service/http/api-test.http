@@ -15,3 +15,15 @@ GET http://localhost:8080/api/v1/issues
 
 ### 이슈 상세 조회
 GET http://localhost:8080/api/v1/issues/1
+
+### 이슈 수정
+PUT http://localhost:8080/api/v1/issues/1
+Content-Type: application/json
+
+{
+  "summary": "테스트 수정",
+  "description": "테스트 내용 수정",
+  "type": "TASK",
+  "priority": "HIGH",
+  "status": "IN_PROGRESS"
+}
