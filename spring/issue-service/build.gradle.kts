@@ -33,7 +33,7 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
 
         // kotlin logging
-        runtimeOnly("io.github.oshai:kotlin-logging-jvm:7.0.0")
+        implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
 
         // h2
         runtimeOnly("com.h2database:h2")
