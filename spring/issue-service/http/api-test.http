@@ -1,0 +1,11 @@
+### 이슈 등록
+POST http://localhost:8080/api/v1/issues
+Content-Type: application/json
+
+{
+  "summary": "테스트",
+  "description": "테스트 내용",
+  "type": "TASK",
+  "priority": "LOW",
+  "status": "TODO"
+}
