@@ -30,3 +30,11 @@ Content-Type: application/json
 
 ### 이슈 삭제
 DELETE http://localhost:8080/api/v1/issues/1
+
+### 댓글 등록
+POST http://localhost:8080/api/v1/issues/1/comments
+Content-Type: application/json
+
+{
+  "body": "댓글 입니다."
+}
