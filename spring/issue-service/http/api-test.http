@@ -27,3 +27,6 @@ Content-Type: application/json
   "priority": "HIGH",
   "status": "IN_PROGRESS"
 }
+
+### 이슈 삭제
+DELETE http://localhost:8080/api/v1/issues/1
