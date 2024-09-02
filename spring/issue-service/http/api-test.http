@@ -38,3 +38,11 @@ Content-Type: application/json
 {
   "body": "댓글 입니다."
 }
+
+### 댓글 수정
+PUT http://localhost:8080/api/v1/issues/1/comments/1
+Content-Type: application/json
+
+{
+  "body": "변경된 댓글입니다."
+}

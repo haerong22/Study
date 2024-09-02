@@ -6,6 +6,7 @@ import org.example.issueservice.model.CommentResponse
 import org.example.issueservice.service.CommentService
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -24,4 +25,11 @@ class CommentController(
     ): CommentResponse =
         commentService.create(issueId, authUser.userId, authUser.username, request)
 
+    @PutMapping("/{commentId}")
+    fun edit(
+        authUser: AuthUser,
+        @PathVariable commentId: Long,
+        @RequestBody request: CommentRequest,
+    ): CommentResponse =
+        commentService.edit(commentId, authUser.userId, request)
 }

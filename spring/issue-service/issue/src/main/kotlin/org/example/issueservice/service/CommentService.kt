@@ -31,4 +31,13 @@ class CommentService(
                 return commentRepository.save(comment).toResponse()
             }
             ?: throw NotFoundException("이슈가 존재하지 않습니다.")
+
+    @Transactional
+    fun edit(commentId: Long, userId: Long, request: CommentRequest): CommentResponse =
+        commentRepository.findByIdAndUserId(commentId, userId)
+            ?.run {
+                body = request.body
+                commentRepository.save(this).toResponse()
+            }
+            ?: throw NotFoundException("댓글이 존재하지 않습니다.")
 }
