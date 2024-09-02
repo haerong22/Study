@@ -55,6 +55,7 @@ class IssueService(
             }
             ?: throw NotFoundException("이슈가 존재하지 않습니다.")
 
+    @Transactional
     fun delete(issueId: Long) {
         issueRepository.deleteById(issueId)
     }
