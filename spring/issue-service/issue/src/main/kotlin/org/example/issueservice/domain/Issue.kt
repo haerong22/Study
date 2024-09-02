@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import org.example.issueservice.domain.enums.IssuePriority
 import org.example.issueservice.domain.enums.IssueStatus
@@ -21,6 +22,9 @@ class Issue(
 
     @Column
     var userId: Long,
+
+    @OneToMany
+    val comments: MutableList<Comment> = mutableListOf(),
 
     @Column
     var summary: String,
