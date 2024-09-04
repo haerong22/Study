@@ -3,6 +3,7 @@ package org.example.userservice.service
 import org.example.userservice.config.JWTProperties
 import org.example.userservice.domain.entity.User
 import org.example.userservice.domain.repository.UserRepository
+import org.example.userservice.exception.InvalidJwtTokenException
 import org.example.userservice.exception.PasswordNotMatchedException
 import org.example.userservice.exception.UserExistsException
 import org.example.userservice.exception.UserNotFoundException
@@ -70,5 +71,18 @@ class UserService(
 
     suspend fun logout(token: String) {
         cacheManager.awaitEvict(token)
+    }
+
+    suspend fun getByToken(token: String): User {
+        return cacheManager.awaitGetOrPut(key = token, ttl = CACHE_TTL) {
+            val decodedJWT = JWTUtils.decode(token, jwtProperties.secret, jwtProperties.issuer)
+
+            val userId = decodedJWT.claims["userId"]?.asLong() ?: throw InvalidJwtTokenException()
+            get(userId)
+        }
+    }
+
+    suspend fun get(userId: Long): User {
+        return userRepository.findById(userId) ?: throw UserNotFoundException()
     }
 }

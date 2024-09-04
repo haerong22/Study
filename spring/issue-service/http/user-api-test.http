@@ -22,3 +22,7 @@ Content-Type: application/json
 ### 로그아웃
 DELETE http://localhost:9090/api/v1/users/logout
 Authorization: Bearer {{authToken}}
+
+### 내정보 조회
+GET http://localhost:9090/api/v1/users/me
+Authorization: Bearer {{authToken}}
