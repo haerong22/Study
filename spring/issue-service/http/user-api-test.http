@@ -7,3 +7,18 @@ Content-Type: application/json
   "password": "1234",
   "username": "user"
 }
+
+### 로그인
+POST http://localhost:9090/api/v1/users/signin
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "1234"
+}
+
+> {% client.global.set("authToken", response.body.token); %}
+
+### 로그아웃
+DELETE http://localhost:9090/api/v1/users/logout
+Authorization: Bearer {{authToken}}
