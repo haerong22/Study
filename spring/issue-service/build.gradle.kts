@@ -37,6 +37,9 @@ subprojects {
         // kotlin logging
         implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
 
+        // jwt
+        implementation("com.auth0:java-jwt:4.4.0")
+
         // h2
         runtimeOnly("com.h2database:h2")
 

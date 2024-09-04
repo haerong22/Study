@@ -4,3 +4,9 @@ server:
 spring:
   application:
     name: user-service
+
+jwt:
+  issuer: jara
+  subject: auth
+  expires-time: 3600
+  secret: my-secret
