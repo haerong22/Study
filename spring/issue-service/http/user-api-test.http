@@ -26,3 +26,6 @@ Authorization: Bearer {{authToken}}
 ### 내정보 조회
 GET http://localhost:9090/api/v1/users/me
 Authorization: Bearer {{authToken}}
+
+### 리포터 조회
+GET http://localhost:9090/api/v1/users/1/username
