@@ -1,0 +1,9 @@
+### 회원가입
+POST http://localhost:9090/api/v1/users/signup
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "1234",
+  "username": "user"
+}
