@@ -3,7 +3,7 @@ package org.example.userservice.model
 import org.example.userservice.domain.entity.User
 import java.time.LocalDateTime
 
-data class MeResponse (
+data class MeResponse(
     val id: Long,
     val profileUrl: String?,
     val username: String,
@@ -27,3 +27,7 @@ data class MeResponse (
             }
     }
 }
+
+data class UserEditRequest(
+    val username: String,
+)
