@@ -1,6 +1,7 @@
 ### 이슈 등록
 POST http://localhost:8080/api/v1/issues
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqYXJhIiwic3ViIjoiYXV0aCIsImlhdCI6MTcyNTU0Mzk4MSwiZXhwIjoxNzI1NTQ3NTgxLCJ1c2VySWQiOjEsImVtYWlsIjoidGVzdEBlbWFpbC5jb20iLCJwcm9maWxlVXJsIjpudWxsLCJ1c2VybmFtZSI6InVzZXIifQ.KWV_6j1bZlODvlPJDZlghjThnTzRx7yC7kLFcDl-bTQ
 
 {
   "summary": "테스트",
