@@ -11,7 +11,8 @@ public class BoundedMain {
     public static void main(String[] args) {
         // 1. BoundedQueue 선택
 //        BoundedQueue queue = new BoundedQueueV1(2);
-        BoundedQueue queue = new BoundedQueueV2(2);
+//        BoundedQueue queue = new BoundedQueueV2(2);
+        BoundedQueue queue = new BoundedQueueV3(2);
 
         // 2. 생산자, 소비자 실행 순서 선택
 //        producerFirst(queue);
@@ -159,7 +160,97 @@ public class BoundedMain {
 
         ... (종료 안됨 - Lock 을 가진 상태로 대기중)
 
+        BoundedQueueV3 - producerFirst
 
+        2024-10-05 21:25:51.079 [     main] == [생산자 먼저 실행] 시작, BoundedQueueV3 ==
+
+        2024-10-05 21:25:51.080 [     main] 생산자 시작
+        2024-10-05 21:25:51.086 [producer1] [생산 시도]data1 -> []
+        2024-10-05 21:25:51.087 [producer1] [put] 생산자 데이터 저장, notify() 호출
+        2024-10-05 21:25:51.087 [producer1] [생산 완료]data1 -> [data1]
+        2024-10-05 21:25:51.205 [producer2] [생산 시도]data2 -> [data1]
+        2024-10-05 21:25:51.209 [producer2] [put] 생산자 데이터 저장, notify() 호출
+        2024-10-05 21:25:51.212 [producer2] [생산 완료]data2 -> [data1, data2]
+        2024-10-05 21:25:51.309 [producer3] [생산 시도]data3 -> [data1, data2]
+        2024-10-05 21:25:51.309 [producer3] [put] 큐가 가득 참, 생산자 대기
+
+        2024-10-05 21:25:51.414 [     main] 현재 상태 출력, 큐 데이터: [data1, data2]
+        2024-10-05 21:25:51.414 [     main] producer1: TERMINATED
+        2024-10-05 21:25:51.414 [     main] producer2: TERMINATED
+        2024-10-05 21:25:51.415 [     main] producer3: WAITING
+
+        2024-10-05 21:25:51.415 [     main] 소비자 시작
+        2024-10-05 21:25:51.415 [consumer1] [소비 시도]     ? <- [data1, data2]
+        2024-10-05 21:25:51.416 [consumer1] [take] 소비자 데이터 획득, notify() 호출
+        2024-10-05 21:25:51.416 [producer3] [put] 생산자 깨어남
+        2024-10-05 21:25:51.416 [producer3] [put] 생산자 데이터 저장, notify() 호출
+        2024-10-05 21:25:51.416 [producer3] [생산 완료]data3 -> [data2, data3]
+        2024-10-05 21:25:51.416 [consumer1] [소비 완료] data1 <- [data2]
+        2024-10-05 21:25:51.519 [consumer2] [소비 시도]     ? <- [data2, data3]
+        2024-10-05 21:25:51.519 [consumer2] [take] 소비자 데이터 획득, notify() 호출
+        2024-10-05 21:25:51.519 [consumer2] [소비 완료] data2 <- [data3]
+        2024-10-05 21:25:51.620 [consumer3] [소비 시도]     ? <- [data3]
+        2024-10-05 21:25:51.620 [consumer3] [take] 소비자 데이터 획득, notify() 호출
+        2024-10-05 21:25:51.620 [consumer3] [소비 완료] data3 <- []
+
+        2024-10-05 21:25:51.724 [     main] 현재 상태 출력, 큐 데이터: []
+        2024-10-05 21:25:51.724 [     main] producer1: TERMINATED
+        2024-10-05 21:25:51.725 [     main] producer2: TERMINATED
+        2024-10-05 21:25:51.725 [     main] producer3: TERMINATED
+        2024-10-05 21:25:51.725 [     main] consumer1: TERMINATED
+        2024-10-05 21:25:51.725 [     main] consumer2: TERMINATED
+        2024-10-05 21:25:51.725 [     main] consumer3: TERMINATED
+        2024-10-05 21:25:51.725 [     main] == [생산자 먼저 실행] 종료, BoundedQueueV3 ==
+
+        BoundedQueueV3 - consumerFirst
+
+        2024-10-05 21:28:21.224 [     main] == [소비자 먼저 실행] 시작, BoundedQueueV3 ==
+
+        2024-10-05 21:28:21.225 [     main] 소비자 시작
+        2024-10-05 21:28:21.229 [consumer1] [소비 시도]     ? <- []
+        2024-10-05 21:28:21.229 [consumer1] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-05 21:28:21.330 [consumer2] [소비 시도]     ? <- []
+        2024-10-05 21:28:21.330 [consumer2] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-05 21:28:21.433 [consumer3] [소비 시도]     ? <- []
+        2024-10-05 21:28:21.434 [consumer3] [take] 큐에 데이터가 없음, 소비자 대기
+
+        2024-10-05 21:28:21.543 [     main] 현재 상태 출력, 큐 데이터: []
+        2024-10-05 21:28:21.549 [     main] consumer1: WAITING
+        2024-10-05 21:28:21.549 [     main] consumer2: WAITING
+        2024-10-05 21:28:21.549 [     main] consumer3: WAITING
+
+        2024-10-05 21:28:21.549 [     main] 생산자 시작
+        2024-10-05 21:28:21.574 [producer1] [생산 시도]data1 -> []
+        2024-10-05 21:28:21.575 [producer1] [put] 생산자 데이터 저장, notify() 호출
+        2024-10-05 21:28:21.575 [producer1] [생산 완료]data1 -> [data1]
+        2024-10-05 21:28:21.575 [consumer1] [take] 소비자 깨어남
+        2024-10-05 21:28:21.575 [consumer1] [take] 소비자 데이터 획득, notify() 호출
+        2024-10-05 21:28:21.575 [consumer1] [소비 완료] data1 <- []
+        2024-10-05 21:28:21.575 [consumer2] [take] 소비자 깨어남
+        2024-10-05 21:28:21.576 [consumer2] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-05 21:28:21.661 [producer2] [생산 시도]data2 -> []
+        2024-10-05 21:28:21.662 [producer2] [put] 생산자 데이터 저장, notify() 호출
+        2024-10-05 21:28:21.662 [producer2] [생산 완료]data2 -> [data2]
+        2024-10-05 21:28:21.662 [consumer3] [take] 소비자 깨어남
+        2024-10-05 21:28:21.662 [consumer3] [take] 소비자 데이터 획득, notify() 호출
+        2024-10-05 21:28:21.662 [consumer3] [소비 완료] data2 <- []
+        2024-10-05 21:28:21.662 [consumer2] [take] 소비자 깨어남
+        2024-10-05 21:28:21.663 [consumer2] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-05 21:28:21.766 [producer3] [생산 시도]data3 -> []
+        2024-10-05 21:28:21.766 [producer3] [put] 생산자 데이터 저장, notify() 호출
+        2024-10-05 21:28:21.766 [producer3] [생산 완료]data3 -> [data3]
+        2024-10-05 21:28:21.766 [consumer2] [take] 소비자 깨어남
+        2024-10-05 21:28:21.767 [consumer2] [take] 소비자 데이터 획득, notify() 호출
+        2024-10-05 21:28:21.767 [consumer2] [소비 완료] data3 <- []
+
+        2024-10-05 21:28:21.869 [     main] 현재 상태 출력, 큐 데이터: []
+        2024-10-05 21:28:21.869 [     main] consumer1: TERMINATED
+        2024-10-05 21:28:21.869 [     main] consumer2: TERMINATED
+        2024-10-05 21:28:21.869 [     main] consumer3: TERMINATED
+        2024-10-05 21:28:21.869 [     main] producer1: TERMINATED
+        2024-10-05 21:28:21.870 [     main] producer2: TERMINATED
+        2024-10-05 21:28:21.870 [     main] producer3: TERMINATED
+        2024-10-05 21:28:21.870 [     main] == [소비자 먼저 실행] 종료, BoundedQueueV3 ==
      */
 
     private static void consumerFirst(BoundedQueue queue) {
