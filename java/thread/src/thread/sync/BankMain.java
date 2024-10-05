@@ -8,7 +8,10 @@ public class BankMain {
     public static void main(String[] args) throws InterruptedException {
 //        BankAccount account = new BankAccountV1(1000);
 //        BankAccount account = new BankAccountV2(1000);
-        BankAccount account = new BankAccountV3(1000);
+//        BankAccount account = new BankAccountV3(1000);
+//        BankAccount account = new BankAccountV4(1000);
+//        BankAccount account = new BankAccountV5(1000);
+        BankAccount account = new BankAccountV6(1000);
 
         Thread t1 = new Thread(new WithdrawTask(account, 800), "t1");
         Thread t2 = new Thread(new WithdrawTask(account, 800), "t2");
@@ -70,5 +73,45 @@ public class BankMain {
         2024-10-03 16:26:50.351 [       t1] [검증 시작] 출금액: 800, 잔액: 200
         2024-10-03 16:26:50.352 [       t1] [검증 실패] 출금액: 800, 잔액: 200
         2024-10-03 16:26:50.357 [     main] 최종 잔액: 200
+
+        BankAccountV4
+
+        2024-10-04 22:17:29.258 [       t2] 거래 시작: BankAccountV4
+        2024-10-04 22:17:29.258 [       t1] 거래 시작: BankAccountV4
+        2024-10-04 22:17:29.264 [       t2] [검증 시작] 출금액: 800, 잔액: 1000
+        2024-10-04 22:17:29.265 [       t2] [검증 완료] 출금액: 800, 잔액: 1000
+        2024-10-04 22:17:29.746 [     main] t1 state: WAITING
+        2024-10-04 22:17:29.746 [     main] t2 state: TIMED_WAITING
+        2024-10-04 22:17:30.274 [       t2] [출금 완료] 출금액: 800, 잔액: 200
+        2024-10-04 22:17:30.277 [       t2] 거래 종료
+        2024-10-04 22:17:30.278 [       t1] [검증 시작] 출금액: 800, 잔액: 200
+        2024-10-04 22:17:30.295 [       t1] [검증 실패] 출금액: 800, 잔액: 200
+        2024-10-04 22:17:30.299 [     main] 최종 잔액: 200
+
+        BankAccountV5
+
+        2024-10-04 22:26:47.739 [       t1] 거래 시작: BankAccountV5
+        2024-10-04 22:26:47.739 [       t2] 거래 시작: BankAccountV5
+        2024-10-04 22:26:47.740 [       t2] [진입 실패] 이미 처리중인 작업이 있습니다.
+        2024-10-04 22:26:47.743 [       t1] [검증 시작] 출금액: 800, 잔액: 1000
+        2024-10-04 22:26:47.744 [       t1] [검증 완료] 출금액: 800, 잔액: 1000
+        2024-10-04 22:26:48.227 [     main] t1 state: TIMED_WAITING
+        2024-10-04 22:26:48.227 [     main] t2 state: TERMINATED
+        2024-10-04 22:26:48.753 [       t1] [출금 완료] 출금액: 800, 잔액: 200
+        2024-10-04 22:26:48.753 [       t1] 거래 종료
+        2024-10-04 22:26:48.756 [     main] 최종 잔액: 200
+
+        BankAccountV6
+
+        2024-10-04 22:29:53.991 [       t1] 거래 시작: BankAccountV6
+        2024-10-04 22:29:53.991 [       t2] 거래 시작: BankAccountV6
+        2024-10-04 22:29:53.997 [       t1] [검증 시작] 출금액: 800, 잔액: 1000
+        2024-10-04 22:29:53.997 [       t1] [검증 완료] 출금액: 800, 잔액: 1000
+        2024-10-04 22:29:54.479 [     main] t1 state: TIMED_WAITING
+        2024-10-04 22:29:54.479 [     main] t2 state: TIMED_WAITING
+        2024-10-04 22:29:54.497 [       t2] [진입 실패] 이미 처리중인 작업이 있습니다.
+        2024-10-04 22:29:55.012 [       t1] [출금 완료] 출금액: 800, 잔액: 200
+        2024-10-04 22:29:55.014 [       t1] 거래 종료
+        2024-10-04 22:29:55.017 [     main] 최종 잔액: 200
      */
 }
