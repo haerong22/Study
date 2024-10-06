@@ -12,7 +12,8 @@ public class BoundedMain {
         // 1. BoundedQueue 선택
 //        BoundedQueue queue = new BoundedQueueV1(2);
 //        BoundedQueue queue = new BoundedQueueV2(2);
-        BoundedQueue queue = new BoundedQueueV3(2);
+//        BoundedQueue queue = new BoundedQueueV3(2);
+        BoundedQueue queue = new BoundedQueueV4(2);
 
         // 2. 생산자, 소비자 실행 순서 선택
 //        producerFirst(queue);
@@ -251,6 +252,98 @@ public class BoundedMain {
         2024-10-05 21:28:21.870 [     main] producer2: TERMINATED
         2024-10-05 21:28:21.870 [     main] producer3: TERMINATED
         2024-10-05 21:28:21.870 [     main] == [소비자 먼저 실행] 종료, BoundedQueueV3 ==
+
+        BoundedQueueV4 - producerFirst
+
+        2024-10-06 17:37:34.782 [     main] == [생산자 먼저 실행] 시작, BoundedQueueV4 ==
+
+        2024-10-06 17:37:34.783 [     main] 생산자 시작
+        2024-10-06 17:37:34.789 [producer1] [생산 시도]data1 -> []
+        2024-10-06 17:37:34.789 [producer1] [put] 생산자 데이터 저장, condition.signal() 호출
+        2024-10-06 17:37:34.790 [producer1] [생산 완료]data1 -> [data1]
+        2024-10-06 17:37:34.891 [producer2] [생산 시도]data2 -> [data1]
+        2024-10-06 17:37:34.891 [producer2] [put] 생산자 데이터 저장, condition.signal() 호출
+        2024-10-06 17:37:34.892 [producer2] [생산 완료]data2 -> [data1, data2]
+        2024-10-06 17:37:34.995 [producer3] [생산 시도]data3 -> [data1, data2]
+        2024-10-06 17:37:34.995 [producer3] [put] 큐가 가득 참, 생산자 대기
+
+        2024-10-06 17:37:35.100 [     main] 현재 상태 출력, 큐 데이터: [data1, data2]
+        2024-10-06 17:37:35.101 [     main] producer1: TERMINATED
+        2024-10-06 17:37:35.101 [     main] producer2: TERMINATED
+        2024-10-06 17:37:35.101 [     main] producer3: WAITING
+
+        2024-10-06 17:37:35.101 [     main] 소비자 시작
+        2024-10-06 17:37:35.102 [consumer1] [소비 시도]     ? <- [data1, data2]
+        2024-10-06 17:37:35.102 [consumer1] [take] 소비자 데이터 획득, condition.signal() 호출
+        2024-10-06 17:37:35.102 [producer3] [put] 생산자 깨어남
+        2024-10-06 17:37:35.102 [consumer1] [소비 완료] data1 <- [data2]
+        2024-10-06 17:37:35.102 [producer3] [put] 생산자 데이터 저장, condition.signal() 호출
+        2024-10-06 17:37:35.103 [producer3] [생산 완료]data3 -> [data2, data3]
+        2024-10-06 17:37:35.205 [consumer2] [소비 시도]     ? <- [data2, data3]
+        2024-10-06 17:37:35.205 [consumer2] [take] 소비자 데이터 획득, condition.signal() 호출
+        2024-10-06 17:37:35.205 [consumer2] [소비 완료] data2 <- [data3]
+        2024-10-06 17:37:35.306 [consumer3] [소비 시도]     ? <- [data3]
+        2024-10-06 17:37:35.306 [consumer3] [take] 소비자 데이터 획득, condition.signal() 호출
+        2024-10-06 17:37:35.306 [consumer3] [소비 완료] data3 <- []
+
+        2024-10-06 17:37:35.408 [     main] 현재 상태 출력, 큐 데이터: []
+        2024-10-06 17:37:35.408 [     main] producer1: TERMINATED
+        2024-10-06 17:37:35.409 [     main] producer2: TERMINATED
+        2024-10-06 17:37:35.409 [     main] producer3: TERMINATED
+        2024-10-06 17:37:35.409 [     main] consumer1: TERMINATED
+        2024-10-06 17:37:35.409 [     main] consumer2: TERMINATED
+        2024-10-06 17:37:35.409 [     main] consumer3: TERMINATED
+        2024-10-06 17:37:35.410 [     main] == [생산자 먼저 실행] 종료, BoundedQueueV4 ==
+
+        BoundedQueueV4 - consumerFirst
+
+        2024-10-06 17:38:27.690 [     main] == [소비자 먼저 실행] 시작, BoundedQueueV4 ==
+
+        2024-10-06 17:38:27.691 [     main] 소비자 시작
+        2024-10-06 17:38:27.694 [consumer1] [소비 시도]     ? <- []
+        2024-10-06 17:38:27.694 [consumer1] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-06 17:38:27.798 [consumer2] [소비 시도]     ? <- []
+        2024-10-06 17:38:27.798 [consumer2] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-06 17:38:27.899 [consumer3] [소비 시도]     ? <- []
+        2024-10-06 17:38:27.899 [consumer3] [take] 큐에 데이터가 없음, 소비자 대기
+
+        2024-10-06 17:38:28.000 [     main] 현재 상태 출력, 큐 데이터: []
+        2024-10-06 17:38:28.003 [     main] consumer1: WAITING
+        2024-10-06 17:38:28.004 [     main] consumer2: WAITING
+        2024-10-06 17:38:28.004 [     main] consumer3: WAITING
+
+        2024-10-06 17:38:28.004 [     main] 생산자 시작
+        2024-10-06 17:38:28.005 [producer1] [생산 시도]data1 -> []
+        2024-10-06 17:38:28.005 [producer1] [put] 생산자 데이터 저장, condition.signal() 호출
+        2024-10-06 17:38:28.005 [consumer1] [take] 소비자 깨어남
+        2024-10-06 17:38:28.005 [producer1] [생산 완료]data1 -> [data1]
+        2024-10-06 17:38:28.005 [consumer1] [take] 소비자 데이터 획득, condition.signal() 호출
+        2024-10-06 17:38:28.005 [consumer2] [take] 소비자 깨어남
+        2024-10-06 17:38:28.006 [consumer1] [소비 완료] data1 <- []
+        2024-10-06 17:38:28.006 [consumer2] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-06 17:38:28.107 [producer2] [생산 시도]data2 -> []
+        2024-10-06 17:38:28.108 [producer2] [put] 생산자 데이터 저장, condition.signal() 호출
+        2024-10-06 17:38:28.108 [producer2] [생산 완료]data2 -> [data2]
+        2024-10-06 17:38:28.108 [consumer3] [take] 소비자 깨어남
+        2024-10-06 17:38:28.108 [consumer3] [take] 소비자 데이터 획득, condition.signal() 호출
+        2024-10-06 17:38:28.108 [consumer2] [take] 소비자 깨어남
+        2024-10-06 17:38:28.108 [consumer3] [소비 완료] data2 <- []
+        2024-10-06 17:38:28.108 [consumer2] [take] 큐에 데이터가 없음, 소비자 대기
+        2024-10-06 17:38:28.212 [producer3] [생산 시도]data3 -> []
+        2024-10-06 17:38:28.212 [producer3] [put] 생산자 데이터 저장, condition.signal() 호출
+        2024-10-06 17:38:28.213 [producer3] [생산 완료]data3 -> [data3]
+        2024-10-06 17:38:28.213 [consumer2] [take] 소비자 깨어남
+        2024-10-06 17:38:28.213 [consumer2] [take] 소비자 데이터 획득, condition.signal() 호출
+        2024-10-06 17:38:28.213 [consumer2] [소비 완료] data3 <- []
+
+        2024-10-06 17:38:28.312 [     main] 현재 상태 출력, 큐 데이터: []
+        2024-10-06 17:38:28.313 [     main] consumer1: TERMINATED
+        2024-10-06 17:38:28.313 [     main] consumer2: TERMINATED
+        2024-10-06 17:38:28.313 [     main] consumer3: TERMINATED
+        2024-10-06 17:38:28.313 [     main] producer1: TERMINATED
+        2024-10-06 17:38:28.313 [     main] producer2: TERMINATED
+        2024-10-06 17:38:28.313 [     main] producer3: TERMINATED
+        2024-10-06 17:38:28.314 [     main] == [소비자 먼저 실행] 종료, BoundedQueueV4 ==
      */
 
     private static void consumerFirst(BoundedQueue queue) {
