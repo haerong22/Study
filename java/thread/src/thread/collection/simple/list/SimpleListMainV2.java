@@ -6,7 +6,8 @@ public class SimpleListMainV2 {
 
     public static void main(String[] args) throws InterruptedException {
 //        test(new BasicList());
-        test(new SyncList());
+//        test(new SyncList());
+        test(new SyncProxyList(new BasicList()));
     }
 
     /*
@@ -23,6 +24,13 @@ public class SimpleListMainV2 {
         2024-10-09 11:56:25.265 [ Thread-1] Thread-1: list.add(A)
         2024-10-09 11:56:25.371 [ Thread-2] Thread-2: list.add(B)
         2024-10-09 11:56:25.395 [     main] [A, B] size=2, capacity=5
+
+        SyncProxyList
+
+        2024-10-09 12:03:32.133 [     main] SyncProxyList
+        2024-10-09 12:03:32.234 [ Thread-1] Thread-1: list.add(A)
+        2024-10-09 12:03:32.336 [ Thread-2] Thread-2: list.add(B)
+        2024-10-09 12:03:32.337 [     main] [A, B] size=2, capacity=5 by SyncProxyList
      */
 
     private static void test(SimpleList list) throws InterruptedException {
