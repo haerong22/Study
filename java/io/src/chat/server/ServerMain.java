@@ -9,7 +9,8 @@ public class ServerMain {
     public static void main(String[] args) throws IOException {
         SessionManager sessionManager = new SessionManager();
 
-        CommandManager commandManager = new CommandManagerV1(sessionManager);
+//        CommandManager commandManager = new CommandManagerV1(sessionManager);
+        CommandManager commandManager = new CommandManagerV2(sessionManager);
 
         Server server = new Server(PORT, commandManager, sessionManager);
         server.start();
