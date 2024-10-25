@@ -11,7 +11,8 @@ public class ServerMain {
 
 //        CommandManager commandManager = new CommandManagerV1(sessionManager);
 //        CommandManager commandManager = new CommandManagerV2(sessionManager);
-        CommandManager commandManager = new CommandManagerV3(sessionManager);
+//        CommandManager commandManager = new CommandManagerV3(sessionManager);
+        CommandManager commandManager = new CommandManagerV4(sessionManager);
 
         Server server = new Server(PORT, commandManager, sessionManager);
         server.start();
