@@ -2,12 +2,14 @@ package org.example.unittest.article.adapter.out.persistence;
 
 import org.example.unittest.article.adapter.out.persistence.repository.BoardRepository;
 import org.example.unittest.article.domain.Board;
+import org.example.unittest.article.domain.BoardType;
 import org.example.unittest.article.out.persistence.BoardJpaEntityFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Optional;
+import java.util.stream.LongStream;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,5 +42,19 @@ class BoardPersistenceAdapterTest {
                                 .isInstanceOf(Board.class)
                                 .hasFieldOrPropertyWithValue("id", 5L)
                 );
+    }
+
+    @Test
+    void testFindBoardByBoardType() {
+        var list = LongStream.range(1L, 4L)
+                .mapToObj(BoardJpaEntityFixtures::board)
+                .toList();
+        given(boardRepository.findAllByBoardType(any()))
+                .willReturn(list);
+
+        var result = adapter.findBoardsByBoardType(BoardType.GENERAL);
+
+        then(result)
+                .hasSize(3);
     }
 }

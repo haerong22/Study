@@ -6,6 +6,7 @@ import org.example.unittest.article.application.port.out.CommandArticlePort;
 import org.example.unittest.article.application.port.out.LoadArticlePort;
 import org.example.unittest.article.domain.Article;
 import org.example.unittest.article.domain.Board;
+import org.example.unittest.article.domain.BoardType;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class ArticlePersistenceAdapter implements LoadArticlePort, CommandArticl
             .map(article ->
                 Article.builder()
                     .id(article.getId())
-                    .board(new Board(article.getBoard().getId(), article.getBoard().getName()))
+                    .board(new Board(article.getBoard().getId(), article.getBoard().getName(), BoardType.GENERAL))
                     .subject(article.getSubject())
                     .content(article.getContent())
                     .username(article.getUsername())
@@ -40,7 +41,7 @@ public class ArticlePersistenceAdapter implements LoadArticlePort, CommandArticl
             .map(article ->
                 Article.builder()
                     .id(article.getId())
-                    .board(new Board(article.getBoard().getId(), article.getBoard().getName()))
+                    .board(new Board(article.getBoard().getId(), article.getBoard().getName(), BoardType.GENERAL))
                     .subject(article.getSubject())
                     .content(article.getContent())
                     .username(article.getUsername())

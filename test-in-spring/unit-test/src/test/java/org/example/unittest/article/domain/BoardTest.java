@@ -10,7 +10,7 @@ class BoardTest {
     @Test
     @DisplayName("Board Constructor")
     void constructBoard() {
-        var board = new Board(1L, "name");
+        var board = new Board(1L, "name", BoardType.GENERAL);
 
         then(board)
                 .isNotNull()

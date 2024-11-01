@@ -12,7 +12,7 @@ class ArticleTest {
     @Test
     @DisplayName("Article constructor")
     void constructArticle() {
-        var board = new Board(5L, "board");
+        var board = new Board(5L, "board", BoardType.GENERAL);
 
         var article = Article.builder()
                 .id(1L)
@@ -39,7 +39,7 @@ class ArticleTest {
         // Given
         var article = Article.builder()
                 .id(1L)
-                .board(new Board(5L, "board"))
+                .board(new Board(5L, "board", BoardType.GENERAL))
                 .subject("subject")
                 .content("content")
                 .username("user")

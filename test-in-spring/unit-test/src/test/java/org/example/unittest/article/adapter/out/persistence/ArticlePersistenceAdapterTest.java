@@ -5,6 +5,7 @@ import org.example.unittest.article.adapter.out.persistence.entity.BoardJpaEntit
 import org.example.unittest.article.adapter.out.persistence.repository.ArticleRepository;
 import org.example.unittest.article.domain.Article;
 import org.example.unittest.article.domain.Board;
+import org.example.unittest.article.domain.BoardType;
 import org.example.unittest.article.out.persistence.ArticleJpaEntityFixtures;
 import org.example.unittest.article.out.persistence.BoardJpaEntityFixtures;
 import org.junit.jupiter.api.BeforeEach;
@@ -96,7 +97,7 @@ class ArticlePersistenceAdapterTest {
         ArgumentCaptor<ArticleJpaEntity> captor;
 
         private final Article article = Article.builder()
-                .board(new Board(5L, "board"))
+                .board(new Board(5L, "board", BoardType.GENERAL))
                 .subject("subject")
                 .content("content")
                 .username("user")
@@ -152,13 +153,13 @@ class ArticlePersistenceAdapterTest {
 
         final Article article = Article.builder()
                 .id(1L)
-                .board(new Board(6L, "new board"))
+                .board(new Board(6L, "new board", BoardType.GENERAL))
                 .subject("new subject")
                 .content("new content")
                 .username("new user")
                 .createdAt(LocalDateTime.now())
                 .build();
-        var boardJpaEntity = new BoardJpaEntity("new board");
+        var boardJpaEntity = new BoardJpaEntity("new board", BoardType.GENERAL);
         ReflectionTestUtils.setField(boardJpaEntity, "id", 6L);
         var articleJpaEntity = new ArticleJpaEntity(boardJpaEntity, "new subject", "new content", "new user",
                 LocalDateTime.parse("2023-02-10T11:12:33"));
