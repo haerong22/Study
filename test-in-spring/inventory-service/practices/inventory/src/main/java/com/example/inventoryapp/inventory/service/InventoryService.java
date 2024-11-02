@@ -3,6 +3,9 @@ package com.example.inventoryapp.inventory.service;
 import com.example.inventoryapp.inventory.repository.InventoryJpaRepository;
 import com.example.inventoryapp.inventory.repository.entity.InventoryEntity;
 import com.example.inventoryapp.inventory.service.domain.Inventory;
+import com.example.inventoryapp.inventory.service.exception.InsufficientStockException;
+import com.example.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
+import com.example.inventoryapp.inventory.service.exception.ItemNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,6 +20,29 @@ public class InventoryService {
         return inventoryJpaRepository.findByItemId(itemId)
                 .map(this::mapToDomain)
                 .orElse(null);
+    }
+
+    public @NotNull Inventory decreaseByItemId(@NotNull String itemId,@NotNull Long quantity) {
+        if (quantity < 0) {
+            throw new InvalidDecreaseQuantityException();
+        }
+
+        InventoryEntity entity = inventoryJpaRepository.findByItemId(itemId)
+                .orElseThrow(ItemNotFoundException::new);
+
+        if (quantity > entity.getStock()) {
+            throw new InsufficientStockException();
+        }
+
+        final Integer updateCount = inventoryJpaRepository.decreaseStock(itemId, quantity);
+        if (updateCount == 0) {
+            throw new ItemNotFoundException();
+        }
+
+        final InventoryEntity updatedEntity = inventoryJpaRepository.findByItemId(itemId)
+                .orElseThrow(ItemNotFoundException::new);
+
+        return mapToDomain(updatedEntity);
     }
 
     private Inventory mapToDomain(InventoryEntity entity) {
