@@ -9,9 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface InventoryJpaRepository extends JpaRepository<InventoryEntity, Long> {
-    @NotNull Optional<InventoryEntity> findByItemId(@NotNull String itemId);
+    @NotNull
+    Optional<InventoryEntity> findByItemId(@NotNull String itemId);
 
     @Modifying
-    @Query("update InventoryEntity i set i.stock = i.stock - :quantity where i.itemId = :itemId")
-    @NotNull Integer decreaseStock(@NotNull String itemId, @NotNull Long quantity);
+    @Query("update InventoryEntity i set i.stock = i.stock - :quantity, i.updatedAt = current_timestamp  where i.itemId = :itemId")
+    @NotNull
+    Integer decreaseStock(@NotNull String itemId, @NotNull Long quantity);
 }
