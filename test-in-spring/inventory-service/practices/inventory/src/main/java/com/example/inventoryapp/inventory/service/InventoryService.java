@@ -9,7 +9,10 @@ import com.example.inventoryapp.inventory.service.exception.InvalidStockExceptio
 import com.example.inventoryapp.inventory.service.exception.ItemNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class InventoryService {
     private final InventoryJpaRepository inventoryJpaRepository;
 
@@ -23,6 +26,7 @@ public class InventoryService {
                 .orElse(null);
     }
 
+    @Transactional
     public @NotNull Inventory decreaseByItemId(@NotNull String itemId,@NotNull Long quantity) {
         if (quantity < 0) {
             throw new InvalidDecreaseQuantityException();
