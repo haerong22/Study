@@ -8,10 +8,10 @@ dependencies {
     implementation(Spring.boot.web)
     implementation(Spring.boot.actuator)
     implementation(Spring.boot.data.jpa)
+    implementation("mysql:mysql-connector-java:_")
 
     // test
     testImplementation("com.h2database:h2")
-    testImplementation("mysql:mysql-connector-java:_")
 
     // testcontainers
     testImplementation(platform("org.testcontainers:testcontainers-bom:_"))
