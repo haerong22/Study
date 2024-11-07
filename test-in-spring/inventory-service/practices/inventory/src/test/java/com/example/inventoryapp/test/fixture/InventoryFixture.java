@@ -10,6 +10,7 @@ public class InventoryFixture {
             @Nullable Long stock
     ) {
         return new Inventory(
+                null,
                 itemId == null ? "1" : itemId,
                 stock == null ? 100L : stock
         );

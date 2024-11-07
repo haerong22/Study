@@ -64,7 +64,7 @@ public class InventoryControllerTest {
         @Test
         void test1000() throws Exception {
             // given
-            final Inventory inventory = new Inventory(itemId, stock);
+            final Inventory inventory = InventoryFixture.sampleInventory(itemId, null);
             given(inventoryService.findByItemId(itemId))
                     .willReturn(inventory);
 
@@ -155,7 +155,7 @@ public class InventoryControllerTest {
         @Test
         void test1000() throws Exception {
             // given
-            final Inventory inventory = new Inventory(itemId, stock);
+            final Inventory inventory = InventoryFixture.sampleInventory(itemId, stock);
             given(inventoryService.decreaseByItemId(itemId, quantity))
                     .willReturn(inventory);
 

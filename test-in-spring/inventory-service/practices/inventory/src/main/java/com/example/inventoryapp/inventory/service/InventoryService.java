@@ -1,12 +1,11 @@
 package com.example.inventoryapp.inventory.service;
 
-import com.example.inventoryapp.inventory.repository.InventoryJpaRepository;
-import com.example.inventoryapp.inventory.repository.entity.InventoryEntity;
 import com.example.inventoryapp.inventory.service.domain.Inventory;
 import com.example.inventoryapp.inventory.service.exception.InsufficientStockException;
 import com.example.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
 import com.example.inventoryapp.inventory.service.exception.InvalidStockException;
 import com.example.inventoryapp.inventory.service.exception.ItemNotFoundException;
+import com.example.inventoryapp.inventory.service.persistence.InventoryPersistenceAdapter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
@@ -14,16 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class InventoryService {
-    private final InventoryJpaRepository inventoryJpaRepository;
+    private final InventoryPersistenceAdapter inventoryAdapter;
 
-    public InventoryService(InventoryJpaRepository inventoryJpaRepository) {
-        this.inventoryJpaRepository = inventoryJpaRepository;
+    public InventoryService(InventoryPersistenceAdapter inventoryAdapter) {
+        this.inventoryAdapter = inventoryAdapter;
     }
 
     public @Nullable Inventory findByItemId(@NotNull String itemId) {
-        return inventoryJpaRepository.findByItemId(itemId)
-                .map(this::mapToDomain)
-                .orElse(null);
+        return inventoryAdapter.findByItemId(itemId);
     }
 
     @Transactional
@@ -32,26 +29,21 @@ public class InventoryService {
             throw new InvalidDecreaseQuantityException();
         }
 
-        InventoryEntity entity = inventoryJpaRepository.findByItemId(itemId)
-                .orElseThrow(ItemNotFoundException::new);
-
-        if (quantity > entity.getStock()) {
-            throw new InsufficientStockException();
-        }
-
-        final Integer updateCount = inventoryJpaRepository.decreaseStock(itemId, quantity);
-        if (updateCount == 0) {
+        Inventory inventory = inventoryAdapter.findByItemId(itemId);
+        if (inventory == null) {
             throw new ItemNotFoundException();
         }
 
-        final InventoryEntity updatedEntity = inventoryJpaRepository.findByItemId(itemId)
-                .orElseThrow(ItemNotFoundException::new);
+        if (inventory.getStock() < quantity) {
+            throw new InsufficientStockException();
+        }
 
-        return mapToDomain(updatedEntity);
-    }
+        final Inventory updatedInventory = inventoryAdapter.decreaseStock(itemId, quantity);
+        if (updatedInventory == null) {
+            throw new ItemNotFoundException();
+        }
 
-    private Inventory mapToDomain(InventoryEntity entity) {
-        return new Inventory(entity.getItemId(), entity.getStock());
+        return updatedInventory;
     }
 
     public @NotNull Inventory updateStock(@NotNull String itemId, @NotNull Long stock) {
@@ -59,11 +51,15 @@ public class InventoryService {
             throw new InvalidStockException();
         }
 
-        InventoryEntity entity = inventoryJpaRepository.findByItemId(itemId)
-                .orElseThrow(ItemNotFoundException::new);
+        Inventory inventory = inventoryAdapter.findByItemId(itemId);
 
-        entity.setStock(stock);
+        if (inventory == null) {
+            throw new ItemNotFoundException();
+        }
 
-        return mapToDomain(inventoryJpaRepository.save(entity));
+
+        inventory.setStock(stock);
+
+        return inventoryAdapter.save(inventory);
     }
 }

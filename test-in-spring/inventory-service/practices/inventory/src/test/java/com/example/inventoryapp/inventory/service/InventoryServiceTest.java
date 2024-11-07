@@ -1,11 +1,11 @@
 package com.example.inventoryapp.inventory.service;
 
-import com.example.inventoryapp.inventory.repository.InventoryJpaRepositoryStub;
 import com.example.inventoryapp.inventory.service.domain.Inventory;
 import com.example.inventoryapp.inventory.service.exception.InsufficientStockException;
 import com.example.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
 import com.example.inventoryapp.inventory.service.exception.InvalidStockException;
 import com.example.inventoryapp.inventory.service.exception.ItemNotFoundException;
+import com.example.inventoryapp.inventory.service.persistence.InventoryPersistenceAdapterStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,7 +25,7 @@ public class InventoryServiceTest {
     private InventoryService sut;
 
     @Spy
-    private InventoryJpaRepositoryStub inventoryJpaRepository;
+    private InventoryPersistenceAdapterStub inventoryAdapter;
 
     @Nested
     class FindByItemId {
@@ -34,7 +34,7 @@ public class InventoryServiceTest {
 
         @BeforeEach
         void setUp() {
-            inventoryJpaRepository.addInventoryEntity(itemId, stock);
+            inventoryAdapter.addInventory(itemId, stock);
         }
 
         @DisplayName("itemId를 갖는 entity 를 찾지 못하면, null 을 반환한다.")
@@ -74,7 +74,7 @@ public class InventoryServiceTest {
 
         @BeforeEach
         void setUp() {
-            inventoryJpaRepository.addInventoryEntity(existingItemId, stock);
+            inventoryAdapter.addInventory(existingItemId, stock);
         }
 
         @DisplayName("quantity 가 음수라면, Exception 을 throw 한다.")
@@ -120,15 +120,14 @@ public class InventoryServiceTest {
             // given
             final Long quantity = 10L;
 
-            doReturn(0).when(inventoryJpaRepository)
-                    .decreaseStock(existingItemId, quantity);
+            doReturn(null).when(inventoryAdapter).decreaseStock(existingItemId, quantity);
 
             // when
             assertThrows(ItemNotFoundException.class, () -> {
                 sut.decreaseByItemId(existingItemId, quantity);
             });
 
-            verify(inventoryJpaRepository).decreaseStock(existingItemId, quantity);
+            verify(inventoryAdapter).decreaseStock(existingItemId, quantity);
         }
 
         @DisplayName("itemId 를 갖는 entity 를 찾으면, stock 을 차감하고 inventory 를 반환한다.")
@@ -154,7 +153,7 @@ public class InventoryServiceTest {
 
         @BeforeEach
         void setUp() {
-            inventoryJpaRepository.addInventoryEntity(existingItemId, stock);
+            inventoryAdapter.addInventory(existingItemId, stock);
         }
 
         @DisplayName("수정할 stock 이 유효하지 않다면, Exception 을 throw 한다.")

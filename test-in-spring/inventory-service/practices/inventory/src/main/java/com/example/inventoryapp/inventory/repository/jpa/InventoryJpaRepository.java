@@ -1,6 +1,6 @@
-package com.example.inventoryapp.inventory.repository;
+package com.example.inventoryapp.inventory.repository.jpa;
 
-import com.example.inventoryapp.inventory.repository.entity.InventoryEntity;
+import com.example.inventoryapp.inventory.repository.jpa.entity.InventoryEntity;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

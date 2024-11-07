@@ -1,7 +1,7 @@
-package com.example.inventoryapp.inventory.repository;
+package com.example.inventoryapp.inventory.repository.jpa;
 
 import com.example.inventoryapp.config.JpaConfig;
-import com.example.inventoryapp.inventory.repository.entity.InventoryEntity;
+import com.example.inventoryapp.inventory.repository.jpa.entity.InventoryEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

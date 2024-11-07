@@ -1,6 +1,6 @@
-package com.example.inventoryapp.inventory.repository;
+package com.example.inventoryapp.inventory.repository.jpa;
 
-import com.example.inventoryapp.inventory.repository.entity.InventoryEntity;
+import com.example.inventoryapp.inventory.repository.jpa.entity.InventoryEntity;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -159,7 +159,9 @@ public class InventoryJpaRepositoryStub implements InventoryJpaRepository {
 
     @Override
     public Optional<InventoryEntity> findById(Long aLong) {
-        return Optional.empty();
+        return inventoryEntities.stream()
+                .filter(entity -> entity.getId() != null && entity.getId().equals(aLong))
+                .findFirst();
     }
 
     @Override
