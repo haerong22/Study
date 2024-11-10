@@ -8,6 +8,8 @@ dependencies {
     implementation(Spring.boot.web)
     implementation(Spring.boot.actuator)
     implementation(Spring.boot.data.jpa)
+    implementation(Spring.boot.data.redis)
+
     implementation("mysql:mysql-connector-java:_")
 
     // test
