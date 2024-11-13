@@ -1,6 +1,9 @@
 package com.example.inventoryapp.inventory.service;
 
 import com.example.inventoryapp.inventory.service.domain.Inventory;
+import com.example.inventoryapp.inventory.service.event.InventoryDecreasedEvent;
+import com.example.inventoryapp.inventory.service.event.InventoryEventPublisher;
+import com.example.inventoryapp.inventory.service.event.InventoryUpdatedEvent;
 import com.example.inventoryapp.inventory.service.exception.InsufficientStockException;
 import com.example.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
 import com.example.inventoryapp.inventory.service.exception.InvalidStockException;
@@ -14,9 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InventoryService {
     private final InventoryPersistenceAdapter inventoryAdapter;
+    private final InventoryEventPublisher inventoryEventPublisher;
 
-    public InventoryService(InventoryPersistenceAdapter inventoryAdapter) {
+    public InventoryService(InventoryPersistenceAdapter inventoryAdapter, InventoryEventPublisher inventoryEventPublisher) {
         this.inventoryAdapter = inventoryAdapter;
+        this.inventoryEventPublisher = inventoryEventPublisher;
     }
 
     public @Nullable Inventory findByItemId(@NotNull String itemId) {
@@ -43,6 +48,9 @@ public class InventoryService {
             throw new ItemNotFoundException();
         }
 
+        final InventoryDecreasedEvent event = new InventoryDecreasedEvent(itemId, quantity, updatedInventory.getStock());
+        inventoryEventPublisher.publish(event);
+
         return updatedInventory;
     }
 
@@ -60,6 +68,10 @@ public class InventoryService {
 
         inventory.setStock(stock);
 
-        return inventoryAdapter.save(inventory);
+        Inventory updatedInventory = inventoryAdapter.save(inventory);
+
+        final InventoryUpdatedEvent event = new InventoryUpdatedEvent(itemId, updatedInventory.getStock());
+        inventoryEventPublisher.publish(event);
+        return updatedInventory;
     }
 }

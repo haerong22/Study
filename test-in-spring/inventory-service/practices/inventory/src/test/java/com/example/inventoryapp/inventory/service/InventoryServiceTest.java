@@ -1,6 +1,9 @@
 package com.example.inventoryapp.inventory.service;
 
 import com.example.inventoryapp.inventory.service.domain.Inventory;
+import com.example.inventoryapp.inventory.service.event.InventoryDecreasedEvent;
+import com.example.inventoryapp.inventory.service.event.InventoryEventPublisher;
+import com.example.inventoryapp.inventory.service.event.InventoryUpdatedEvent;
 import com.example.inventoryapp.inventory.service.exception.InsufficientStockException;
 import com.example.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
 import com.example.inventoryapp.inventory.service.exception.InvalidStockException;
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -26,6 +30,9 @@ public class InventoryServiceTest {
 
     @Spy
     private InventoryPersistenceAdapterStub inventoryAdapter;
+
+    @Mock
+    private InventoryEventPublisher inventoryEventPublisher;
 
     @Nested
     class FindByItemId {
@@ -143,6 +150,9 @@ public class InventoryServiceTest {
             assertNotNull(result);
             assertEquals(existingItemId, result.getItemId());
             assertEquals(stock - quantity, result.getStock());
+
+            final InventoryDecreasedEvent event = new InventoryDecreasedEvent(existingItemId, quantity, stock - quantity);
+            verify(inventoryEventPublisher).publish(event);
         }
     }
 
@@ -185,15 +195,18 @@ public class InventoryServiceTest {
         @Test
         void test1000() {
             // given
-            final Long nextStock = 200L;
+            final Long newStock = 200L;
 
             // when
-            final Inventory result = sut.updateStock(existingItemId, nextStock);
+            final Inventory result = sut.updateStock(existingItemId, newStock);
 
             // then
             assertNotNull(result);
             assertEquals(existingItemId, result.getItemId());
-            assertEquals(nextStock, result.getStock());
+            assertEquals(newStock, result.getStock());
+
+            final InventoryUpdatedEvent event = new InventoryUpdatedEvent(existingItemId, newStock);
+            verify(inventoryEventPublisher).publish(event);
         }
     }
 }
