@@ -19,3 +19,18 @@ spring:
       host: localhost
       port: 6379
       password: 1234
+
+  cloud:
+    stream:
+      bindings:
+        inventory-out-0:
+          destination: inventory
+          content-type: application/json
+      kafka:
+        bindings:
+          inventory-out-0:
+            producer:
+              configuration:
+                key.serializer: org.apache.kafka.common.serialization.StringSerializer
+        binder:
+          brokers: localhost:9094

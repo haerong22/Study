@@ -4,26 +4,46 @@ import com.example.inventoryapp.inventory.service.event.InventoryDecreasedEvent;
 import com.example.inventoryapp.inventory.service.event.InventoryEvent;
 import com.example.inventoryapp.inventory.service.event.InventoryEventPublisher;
 import com.example.inventoryapp.inventory.service.event.InventoryUpdatedEvent;
+import com.example.inventoryapp.test.binder.KafkaOutputDestination;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.stream.binder.test.OutputDestination;
 import org.springframework.messaging.Message;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import static com.example.inventoryapp.test.assertion.Assertions.assertDecreasedEventEquals;
 import static com.example.inventoryapp.test.assertion.Assertions.assertUpdatedEventEquals;
 
+@Testcontainers
+@ActiveProfiles("kafka-binder-test")
 @SpringBootTest
 class InventoryEventPublisherTest {
+
+    @Container
+    private static final KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.6.1"))
+            .withKraft()
+            .withEnv("KAFKA_AUTO_CREATE_TOPICS_ENABLE", "true")
+            .withEnv("KAFKA_CREATE_TOPICS", "inventory");
+
+    @DynamicPropertySource
+    static void setDatasourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.cloud.stream.kafka.binder.brokers", kafkaContainer::getBootstrapServers);
+    }
 
     @Autowired
     private InventoryEventPublisher sut;
 
     @Autowired
-    private OutputDestination outputDestination;
+    private KafkaOutputDestination outputDestination;
 
     @Nested
     class InventoryDecreasedEventTest {
