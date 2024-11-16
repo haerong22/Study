@@ -8,6 +8,7 @@ import com.example.inventoryapp.test.binder.KafkaOutputDestination;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,7 @@ import org.testcontainers.utility.DockerImageName;
 import static com.example.inventoryapp.test.assertion.Assertions.assertDecreasedEventEquals;
 import static com.example.inventoryapp.test.assertion.Assertions.assertUpdatedEventEquals;
 
+@Tag("integration")
 @Testcontainers
 @ActiveProfiles("kafka-binder-test")
 @SpringBootTest

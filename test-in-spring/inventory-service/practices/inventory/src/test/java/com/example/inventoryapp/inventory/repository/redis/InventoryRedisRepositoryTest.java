@@ -13,6 +13,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("integration")
 @Import(InventoryRedisRepositoryImpl.class)
 @Testcontainers
 @DataRedisTest

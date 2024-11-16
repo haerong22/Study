@@ -8,6 +8,8 @@ plugins {
 }
 ```
 
+---
+
 ### JMeter
 
 - JMeter 다운로드
@@ -26,6 +28,8 @@ https://jmeter-plugins.org/wiki/PluginsManager
 1. 상단 `Options` 메뉴에서 plugin manager 실행
 2. `Available Plugins`에서 `3 Basic Graphs` 검색
 3. 체크 후 하단 `Apply Changes and Restart JMeter` 실행
+
+---
 
 ### K6
 - https://k6.io/docs/get-started/installation
@@ -108,3 +112,26 @@ export const options = {
 - 15 * maxVus * rps = 전체 요청 수
 
 참고: https://k6.io/docs/using-k6/metrics/reference
+
+---
+
+### Act
+
+#### act 다운로드
+https://nektosact.com/installation/index.html
+
+#### act 실행
+
+```shell
+# workflow list
+act -l 
+
+# job graph
+act -g 
+
+# pr
+act -P ubuntu-22.04=catthehacker/ubuntu:act-22.04 pull_request
+
+# push
+act -P ubuntu-22.04=catthehacker/ubuntu:act-22.04 push
+```
