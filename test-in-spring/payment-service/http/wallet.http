@@ -1,0 +1,19 @@
+### create wallet
+POST http://localhost:8080/api/wallets
+Content-Type: application/json
+
+{
+  "userId": 100
+}
+
+### find wallet
+GET http://localhost:8080/api/users/100/wallets
+
+### add balance
+POST http://localhost:8080/api/wallets/add-balance
+Content-Type: application/json
+
+{
+  "walletId": 4,
+  "amount": 10000
+}
