@@ -15,7 +15,7 @@ public class TransactionService {
 
     @Transactional
     public ChargeTransactionResponse charge(ChargeTransactionRequest request) {
-        final var findWalletResponse = walletService.findWalletByWalletId(request.userId());
+        final var findWalletResponse = walletService.findWalletByUserId(request.userId());
         if (findWalletResponse == null) {
             throw new RuntimeException("사용자 지갑이 존재하지 않습니다.");
         }
@@ -30,5 +30,24 @@ public class TransactionService {
         );
         transactionRepository.save(transaction);
         return new ChargeTransactionResponse(wallet.id(), wallet.balance());
+    }
+
+
+    @Transactional
+    public PaymentTransactionResponse payment(PaymentTransactionRequest request) {
+        final var findWalletResponse = walletService.findWalletByWalletId(request.walletId());
+        if (findWalletResponse == null) {
+            throw new RuntimeException("사용자 지갑이 존재하지 않습니다.");
+        }
+
+        if (transactionRepository.findTransactionByOrderId(request.courseId()).isPresent()) {
+            throw new RuntimeException("이미 결제 된 강좌입니다.");
+        }
+
+        final var wallet = walletService.addBalance(new AddBalanceWalletRequest(findWalletResponse.id(), request.amount().negate()));
+        final var transaction = Transaction.createPaymentTransaction(wallet.userId(), wallet.id(), request.courseId(), request.amount());
+        transactionRepository.save(transaction);
+
+        return new PaymentTransactionResponse(wallet.id(), wallet.balance());
     }
 }

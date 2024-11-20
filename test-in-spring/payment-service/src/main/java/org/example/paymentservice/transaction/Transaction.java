@@ -46,6 +46,23 @@ public class Transaction {
         transaction.transactionType = TransactionType.CHARGE;
         transaction.amount = amount;
         transaction.description = "충전";
+        transaction.updatedAt = LocalDateTime.now();
+        transaction.createdAt = LocalDateTime.now();
+        return transaction;
+    }
+
+    public static Transaction createPaymentTransaction(
+            Long userId, Long walletId, String courseId, BigDecimal amount
+    ) {
+        Transaction transaction = new Transaction();
+        transaction.userId = userId;
+        transaction.walletId = walletId;
+        transaction.orderId = courseId;
+        transaction.transactionType = TransactionType.PAYMENT;
+        transaction.amount = amount;
+        transaction.description = courseId + " 결제";
+        transaction.updatedAt = LocalDateTime.now();
+        transaction.createdAt = LocalDateTime.now();
         return transaction;
     }
 }
