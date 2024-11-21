@@ -34,7 +34,7 @@ public class WalletService {
     }
 
     public FindWalletResponse findWalletByWalletId(Long walletId) {
-        return walletRepository.findByUserId(walletId)
+        return walletRepository.findById(walletId)
                 .map(wallet -> new FindWalletResponse(
                         wallet.getId(), wallet.getUserId(), wallet.getBalance(), wallet.getCreatedAt(), wallet.getUpdatedAt()
                 ))
