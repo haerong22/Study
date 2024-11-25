@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+</head>
+<body>
+
+<p th:text="${courseName}"></p>
+<p th:text="${amount}"></p>
+<p th:text="${requestId}"></p>
+<p th:text="${customerKey}"></p>
+
+<div id="payment-method"></div>
+<div id="agreement"></div>
+
+<button id="payment-button">결제하기</button>
+
+<script>
+    const button = document.getElementById("payment-button");
+    const amount = [[${amount}]];
+    const orderName = `[[${courseName}]]`
+    const orderId = `[[${requestId}]]`
+    const customerKey = `[[${customerKey}]]`
+
+    const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const paymentWidget = PaymentWidget(widgetClientKey, customerKey);
+
+    const paymentMethodWidget = paymentWidget.renderPaymentMethods(
+        "#payment-method",
+        { value: amount },
+        { variantKey: "DEFAULT" }
+    );
+
+    paymentWidget.renderAgreement(
+        "#agreement",
+        { variantKey: "AGREEMENT" }
+    );
+
+    button.addEventListener("click", function () {
+        paymentWidget.requestPayment({
+            orderId: orderId,
+            orderName: orderName,
+            successUrl: window.location.origin + "/success",
+            failUrl: window.location.origin + "/fail",
+            customerEmail: "customer123@gmail.com",
+            customerName: "김토스",
+            customerMobilePhone: "01012341234",
+        });
+    });
+</script>
+</body>
+</html>
