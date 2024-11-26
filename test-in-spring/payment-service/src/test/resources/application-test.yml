@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: payment-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/payments?serverTimezone=Asia/Seoul&useSSL=false
+    username: root
+    password: 1234
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  data:
+    redis:
+      port: 6379
+      host: localhost
+      password: 1234
+
+
+pg:
+  url: https://api.tosspayments.com/v1/payments/confirm
