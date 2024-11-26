@@ -6,6 +6,8 @@ import org.example.paymentservice.wallet.WalletService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
@@ -49,5 +51,14 @@ public class TransactionService {
         transactionRepository.save(transaction);
 
         return new PaymentTransactionResponse(wallet.id(), wallet.balance());
+    }
+
+    public void pgPayment() {
+        // TODO
+        final Transaction transaction = Transaction.createPaymentTransaction(
+                1L, null,
+                "10", new BigDecimal(1000)
+        );
+        transactionRepository.save(transaction);
     }
 }

@@ -4,9 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.paymentservice.order.Order;
 import org.example.paymentservice.order.OrderRepository;
+import org.example.paymentservice.processing.PaymentProcessingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,6 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CheckoutController {
     private final OrderRepository orderRepository;
+    private final PaymentProcessingService paymentProcessingService;
 
     @GetMapping("/order")
     public String order(
@@ -49,9 +55,9 @@ public class CheckoutController {
         return "checkout";
     }
 
-    @GetMapping("/success")
-    public String success() {
-        return "success";
+    @GetMapping("/order-requested")
+    public String orderRequested() {
+        return "order-requested";
     }
 
     @GetMapping("/fail")
@@ -59,10 +65,14 @@ public class CheckoutController {
         return "fail";
     }
 
-    @ResponseBody
     @PostMapping("/confirm")
-    public String confirm(@RequestBody ConfirmRequest request) {
-        System.out.println("request = " + request);
-        return "confirm";
+    public ResponseEntity<String> confirm(@RequestBody ConfirmRequest request) {
+        Order order = orderRepository.findByRequestId(request.orderId());
+        order.setUpdatedAt(LocalDateTime.now());
+        order.setStatus(Order.Status.REQUESTED);
+        orderRepository.save(order);
+
+        paymentProcessingService.createPayment(request);
+        return ResponseEntity.ok("confirm");
     }
 }
