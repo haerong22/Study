@@ -6,9 +6,12 @@ import org.example.paymentservice.checkout.ConfirmRequest;
 import org.example.paymentservice.external.PaymentGatewayService;
 import org.example.paymentservice.order.Order;
 import org.example.paymentservice.order.OrderRepository;
+import org.example.paymentservice.transaction.ChargeTransactionRequest;
 import org.example.paymentservice.transaction.TransactionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -19,14 +22,30 @@ public class PaymentProcessingService {
     private final TransactionService transactionService;
     private final OrderRepository orderRepository;
 
+    @Transactional
     public void createPayment(ConfirmRequest confirmRequest) {
         paymentGatewayService.confirm(confirmRequest);
         transactionService.pgPayment();
-        approveOrder(confirmRequest.orderId());
+        final Order order = orderRepository.findByRequestId(confirmRequest.orderId());
+        approveOrder(order);
     }
 
-    private void approveOrder(String orderId) {
-        final Order order = orderRepository.findByRequestId(orderId);
+    @Transactional
+    public void createCharge(ConfirmRequest confirmRequest) {
+        paymentGatewayService.confirm(confirmRequest);
+
+        final Order order = orderRepository.findByRequestId(confirmRequest.orderId());
+        transactionService.charge(
+                new ChargeTransactionRequest(
+                        order.getUserId(),
+                        confirmRequest.orderId(),
+                        new BigDecimal(confirmRequest.amount())
+                )
+        );
+        approveOrder(order);
+    }
+
+    private void approveOrder(Order order) {
         order.setStatus(Order.Status.APPROVED);
         order.setUpdatedAt(LocalDateTime.now());
         orderRepository.save(order);
