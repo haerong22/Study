@@ -61,7 +61,7 @@ public class ChargeController {
         order.setStatus(Order.Status.REQUESTED);
         orderRepository.save(order);
 
-        paymentProcessingService.createCharge(confirmRequest);
+        paymentProcessingService.createCharge(confirmRequest, false);
         return ResponseEntity.ok(null);
     }
 }
