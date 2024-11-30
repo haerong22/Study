@@ -2,6 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.0'
     id 'io.spring.dependency-management' version '1.1.6'
+    id "org.jooq.jooq-codegen-gradle" version "3.19.8"
+}
+
+ext {
+    jooqVersion = "3.19.8"
 }
 
 group = 'org.example'
@@ -25,10 +30,20 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+    // jooq
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
-    compileOnly 'org.projectlombok:lombok'
+    implementation "org.jooq:jooq:${jooqVersion}"
+    jooqCodegen 'com.mysql:mysql-connector-j'
+
+    // mysql
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -36,4 +51,29 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jooq {
+    configuration {
+        jdbc {
+            driver = 'com.mysql.cj.jdbc.Driver'
+            url = 'jdbc:mysql://localhost:3306/trxbatch'
+            user = System.getenv('TRX_BATCH_DB_USER')
+            password = System.getenv('TRX_BATCH_DB_PASS')
+        }
+
+        generator {
+            database {
+                name = 'org.jooq.meta.mysql.MySQLDatabase'
+                inputSchema = 'trxbatch'
+                includes = '.*'
+                excludes = 'BATCH_.*'
+            }
+
+            target {
+                packageName = 'org.example.trxbatch.generated'
+                directory = "src/main/java"
+            }
+        }
+    }
 }
