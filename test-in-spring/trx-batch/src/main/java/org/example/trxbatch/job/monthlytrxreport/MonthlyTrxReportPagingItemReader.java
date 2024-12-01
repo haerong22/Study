@@ -7,6 +7,8 @@ import org.springframework.batch.item.database.AbstractPagingItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 import static org.example.trxbatch.job.monthlytrxreport.MonthlyTrxReportJobConfig.*;
 
 @Slf4j
@@ -22,6 +24,6 @@ public class MonthlyTrxReportPagingItemReader extends AbstractPagingItemReader<C
 
     @Override
     protected void doReadPage() {
-        // TODO
+        this.results = new ArrayList<>();
     }
 }
