@@ -6,3 +6,8 @@ spring:
     url: jdbc:mysql://localhost:3306/trxbatch
     username: ${TRX_BATCH_DB_USER}
     password: ${TRX_BATCH_DB_PASS}
+
+# Email server
+email-server:
+  url: http://localhost:8181
+  api-key: EMAIL-SERVER-API-KEY
