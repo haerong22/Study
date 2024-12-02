@@ -3,6 +3,7 @@ package org.example.trxbatch.job.monthlytrxreport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.trxbatch.dto.CustomerMonthlyTrxReport;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import static org.example.trxbatch.job.monthlytrxreport.MonthlyTrxReportJobConfi
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@StepScope
 public class MonthlyTrxReportViaPostWriter implements ItemWriter<CustomerMonthlyTrxReport> {
 
     public MonthlyTrxReportViaPostWriter(
