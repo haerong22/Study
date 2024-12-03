@@ -11,3 +11,8 @@ spring:
 email-server:
   url: http://localhost:8181
   api-key: EMAIL-SERVER-API-KEY
+
+post-service:
+  csv:
+    save:
+      path: ./
