@@ -10,6 +10,20 @@ import java.util.List;
 
 public class CustomerMonthlyTrxReportFixtures {
 
+    public static CustomerMonthlyTrxReport FIXTURE_REPORT_OF_SINGLE_CUSTOMER_SINGLE_TRX() {
+        CustomerMonthlyTrxReport report = new CustomerMonthlyTrxReport();
+        report.setCustomerId(1L);
+        report.setCustomerMonthlyTrxReportDetails(List.of((new CustomerMonthlyTrxReportDetail("acct01",
+                "ticker01",
+                LocalDateTime.now(),
+                TransactionType.BUY,
+                1000,
+                10,
+                BigInteger.valueOf(10000),
+                "KRW"))));
+        return report;
+    }
+
     public static CustomerMonthlyTrxReport FIXTURE_REPORT_OF_SINGLE_CUSTOMER_WITH_ID_1_THREE_TRXS() {
         CustomerMonthlyTrxReport reportOne = new CustomerMonthlyTrxReport();
         LocalDateTime transactionDateTimeOne = LocalDateTime.of(2024, 5, 1, 10, 20, 30, 123456);
