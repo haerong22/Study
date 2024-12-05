@@ -67,3 +67,16 @@ CREATE TABLE APP_MESSAGE
     created_at  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE MONTHLY_TRX_REPORT_RESULT
+(
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id       BIGINT                              NOT NULL,
+    target_year_month CHAR(7)                             NOT NULL,
+    channel           VARCHAR(20)                         NOT NULL,
+    status            VARCHAR(20)                         NOT NULL,
+    fail_reason       VARCHAR(40)                         NULL,
+    fail_detail       TEXT                                NULL,
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP
+);

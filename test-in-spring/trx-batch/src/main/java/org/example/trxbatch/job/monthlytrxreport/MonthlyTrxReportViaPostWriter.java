@@ -5,7 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.trxbatch.dto.CustomerMonthlyTrxReport;
+import org.example.trxbatch.dto.enums.ReportChannel;
 import org.example.trxbatch.dto.enums.TransactionType;
+import org.example.trxbatch.exception.TrxBatchCsvWriteException;
+import org.example.trxbatch.repository.MonthlyTrxReportResultRepository;
 import org.example.trxbatch.util.MaskUtil;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.Chunk;
@@ -21,7 +24,9 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,10 +46,14 @@ public class MonthlyTrxReportViaPostWriter implements ItemWriter<CustomerMonthly
 
     private final String targetYearMonthStr;
 
+    private final MonthlyTrxReportResultRepository monthlyTrxReportResultRepository;
+
     public MonthlyTrxReportViaPostWriter(
-            @Value(JOB_PARAM_TARGET_YEAR_MONTH_EXPRESSION) String targetYearMonthStr
+            @Value(JOB_PARAM_TARGET_YEAR_MONTH_EXPRESSION) String targetYearMonthStr,
+            MonthlyTrxReportResultRepository monthlyTrxReportResultRepository
     ) {
         this.targetYearMonthStr = targetYearMonthStr;
+        this.monthlyTrxReportResultRepository = monthlyTrxReportResultRepository;
     }
 
     @Override
@@ -53,21 +62,47 @@ public class MonthlyTrxReportViaPostWriter implements ItemWriter<CustomerMonthly
             return;
         }
 
+        List<Long> successCustomerIds = new ArrayList<>();
         for (CustomerMonthlyTrxReport report : reports) {
             FlatFileItemWriter<MonthlyTrxReportRow> fileItemWriter = new FlatFileItemWriter<>();
             fileItemWriter.setResource(new FileSystemResource(decideTargetPath(report)));
             fileItemWriter.setLineAggregator(MonthlyTrxReportRow.getLineAggregator());
-
             try {
                 fileItemWriter.afterPropertiesSet();
                 fileItemWriter.open(new ExecutionContext());
                 fileItemWriter.write(collectRows(report));
+                successCustomerIds.add(report.getCustomerId());
             } catch (Exception e) {
                 log.error("Failed to write CSV file for customer {}", report.getCustomerId(), e);
+                handleFileWriteError(report.getCustomerId(), e);
             } finally {
                 fileItemWriter.close();
             }
         }
+
+        handleSuccessCases(successCustomerIds);
+    }
+
+    private void handleSuccessCases(List<Long> customerIds) {
+        int i = monthlyTrxReportResultRepository.batchInsertSuccessMonthlyTrxReportResult(
+                customerIds,
+                YearMonth.parse(targetYearMonthStr),
+                ReportChannel.POST
+        );
+
+        log.info("Inserted {} success records to monthlyTrxReportResultRepository", i);
+    }
+
+
+    private void handleFileWriteError(Long customerId, Exception e) {
+        int i = monthlyTrxReportResultRepository.insertFailMonthlyTrxReportResult(
+                customerId,
+                YearMonth.parse(targetYearMonthStr),
+                ReportChannel.POST,
+                new TrxBatchCsvWriteException(e)
+        );
+
+        log.info("Inserted {} fail records to monthlyTrxReportResultRepository", i);
     }
 
     private static Chunk<MonthlyTrxReportRow> collectRows(CustomerMonthlyTrxReport item) {
