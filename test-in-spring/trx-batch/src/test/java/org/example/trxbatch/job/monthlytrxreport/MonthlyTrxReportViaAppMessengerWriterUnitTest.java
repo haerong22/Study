@@ -3,6 +3,7 @@ package org.example.trxbatch.job.monthlytrxreport;
 import org.example.trxbatch.dto.CustomerMonthlyTrxReport;
 import org.example.trxbatch.dto.MonthlyTrxSummary;
 import org.example.trxbatch.repository.AppMessageRepository;
+import org.example.trxbatch.repository.MonthlyTrxReportResultRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,11 +28,14 @@ class MonthlyTrxReportViaAppMessengerWriterUnitTest {
     @Mock
     private AppMessageRepository appMessageRepository;
 
+    @Mock
+    private MonthlyTrxReportResultRepository monthlyTrxReportResultRepository;
+
     private MonthlyTrxReportViaAppMessengerWriter writer;
 
     @BeforeEach
     void setUp() {
-        writer = new MonthlyTrxReportViaAppMessengerWriter("2024-05", appMessageRepository);
+        writer = new MonthlyTrxReportViaAppMessengerWriter("2024-05", appMessageRepository, monthlyTrxReportResultRepository);
     }
 
     @Test
@@ -68,6 +72,8 @@ class MonthlyTrxReportViaAppMessengerWriterUnitTest {
         assertEquals(2L, summary2.customerId());
         assertEquals(3, summary2.trxCount());
         assertEquals(new BigInteger("140000"), summary2.trxAmountSum());
+
+        verify(monthlyTrxReportResultRepository, times(1)).batchInsertSuccessMonthlyTrxReportResult(any(), any(), any());
     }
 
     @Test
@@ -80,5 +86,6 @@ class MonthlyTrxReportViaAppMessengerWriterUnitTest {
 
         // then
         verify(appMessageRepository, never()).batchInsertMonthlyTrxReport(anyInt(), anyInt(), any(), any());
+        verify(monthlyTrxReportResultRepository, never()).batchInsertSuccessMonthlyTrxReportResult(any(), any(), any());
     }
 }
