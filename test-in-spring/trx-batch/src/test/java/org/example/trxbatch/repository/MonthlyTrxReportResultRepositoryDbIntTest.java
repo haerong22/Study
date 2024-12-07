@@ -20,10 +20,10 @@ import static org.example.trxbatch.generated.tables.MonthlyTrxReportResult.MONTH
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ActiveProfiles("dbtest")
 @SpringBootTest
 @Transactional
-@ActiveProfiles("dbtest")
-class MonthlyTrxReportResultRepositoryTest {
+class MonthlyTrxReportResultRepositoryDbIntTest {
     @Autowired
     private DSLContext trxBatchDsl;
 

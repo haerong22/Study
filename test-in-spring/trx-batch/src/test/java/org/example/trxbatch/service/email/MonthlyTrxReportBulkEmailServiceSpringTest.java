@@ -30,7 +30,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RestClientTest(components = {MonthlyTrxReportBulkEmailService.class, RestClientConfig.class})
-class MonthlyTrxReportBulkEmailServiceTest {
+class MonthlyTrxReportBulkEmailServiceSpringTest {
 
     @Autowired
     private ObjectMapper objectMapper;

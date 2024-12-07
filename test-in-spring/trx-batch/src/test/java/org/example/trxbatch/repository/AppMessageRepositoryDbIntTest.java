@@ -4,6 +4,7 @@ import org.example.trxbatch.dto.MonthlyTrxSummary;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
@@ -12,9 +13,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ActiveProfiles("dbtest")
 @SpringBootTest
 @Transactional
-class AppMessageRepositoryTest {
+class AppMessageRepositoryDbIntTest {
 
     @Autowired
     private AppMessageRepository appMessageRepository;
