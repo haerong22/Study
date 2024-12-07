@@ -51,23 +51,32 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-
 jooq {
     configuration {
-        jdbc {
-            driver = 'com.mysql.cj.jdbc.Driver'
-            url = 'jdbc:mysql://localhost:3306/trxbatch'
-            user = System.getenv('TRX_BATCH_DB_USER')
-            password = System.getenv('TRX_BATCH_DB_PASS')
+        if (System.getProperty('spring.profiles.active') == 'dbtest') {
+            jdbc {
+                driver = "com.mysql.cj.jdbc.Driver"
+                url = 'jdbc:mysql://localhost:3306/' + tasks.testDbSetup.output()
+                user = System.getenv('TEST_TRX_BATCH_DB_USER')
+                password = System.getenv('TEST_TRX_BATCH_DB_PASS')
+            }
+        } else {
+            jdbc {
+                driver = "com.mysql.cj.jdbc.Driver"
+                url = 'jdbc:mysql://localhost:3306/trxbatch'
+                user = System.getenv('TRX_BATCH_DB_USER')
+                password = System.getenv('TRX_BATCH_DB_PASS')
+            }
         }
 
         generator {
             database {
                 name = 'org.jooq.meta.mysql.MySQLDatabase'
-                inputSchema = 'trxbatch'
+                if (System.getProperty('spring.profiles.active') == 'dbtest') {
+                    inputSchema = tasks.testDbSetup.output()
+                } else {
+                    inputSchema = "trxbatch"
+                }
                 includes = '.*'
                 excludes = 'BATCH_.*'
             }
@@ -78,4 +87,92 @@ jooq {
             }
         }
     }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+test {
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching 'org.example.trxbatch.*'
+        excludeTestsMatching '*IntTest'
+    }
+}
+
+tasks.register('unitTest', Test) {
+    println("Custom task `unitTest` is started")
+
+    description = 'Run unit tests'
+    group = 'verification'
+
+    useJUnitPlatform()
+
+    filter {
+        includeTestsMatching '*UnitTest'
+    }
+}
+
+tasks.register('springTest', Test) {
+    println("Custom task `springTest` is started")
+
+    description = 'Run spring tests'
+    group = 'verification'
+
+    useJUnitPlatform()
+
+    filter {
+        includeTestsMatching '*SpringTest'
+    }
+}
+
+tasks.register('testDbSetup', Exec) {
+    println("Custom task `testDbSetup` is started")
+
+    description = 'Setup test database'
+    group = 'other'
+
+    String randomTestDbSuffix = UUID.randomUUID().toString().replaceAll('-', '_').substring(0, 10)
+    String testDbName = 'test_db_' + randomTestDbSuffix
+
+    commandLine './scripts/setup_test_db.sh', System.getenv('TEST_TRX_BATCH_DB_USER'), System.getenv('TEST_TRX_BATCH_DB_PASS'), testDbName
+
+    ext.output = {
+        return testDbName
+    }
+
+    doLast {
+        File propertiesFile = file('src/main/resources/application-dbtest.properties')
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(propertiesFile))
+        properties.setProperty('spring.datasource.url', 'jdbc:mysql://localhost:3306/' + testDbName)
+        properties.store(new FileOutputStream(propertiesFile), null)
+
+        println "Updated application-dbtest.properties with test database: $testDbName"
+    }
+
+}
+
+tasks.register('dbIntTest', Test) {
+    println("Custom task `dbIntTest` is started")
+
+    description = 'Run database integration tests'
+    group = 'verification'
+
+    useJUnitPlatform()
+
+    filter {
+        includeTestsMatching '*DbIntTest'
+    }
+}
+
+if (System.getProperty('spring.profiles.active') == 'dbtest') {
+    println("Custom dependencies for spring.profiles.active=dbtest: `testDbSetup`, `jooqCodegen` ")
+
+    tasks.compileJava.dependsOn(tasks.testDbSetup, tasks.jooqCodegen)
+    tasks.compileTestJava.dependsOn(tasks.testDbSetup, tasks.jooqCodegen)
+    tasks.dbIntTest.dependsOn(tasks.testDbSetup, tasks.jooqCodegen)
+
+    tasks.jooqCodegen.dependsOn(tasks.testDbSetup)
 }
