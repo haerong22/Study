@@ -37,3 +37,4 @@ out/
 .vscode/
 
 src/main/java/org/example/trxbatch/generated
+dbtest

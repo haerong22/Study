@@ -10,6 +10,7 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Record2;
 import org.jooq.Table;
+import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -40,6 +41,14 @@ public class MonthlyTrxReportRepository {
                 .where(CUSTOMER_COMM.TYPE.eq(CustomerCommType.MONTHLY_TRX_REPORT.name()))
                 .and(CUSTOMER_COMM.CHANNEL.in(ReportChannel.POST.name(), ReportChannel.APP_MESSAGE.name(), ReportChannel.EMAIL.name()))
                 .and(lastCustomerId != null ? CUSTOMER_COMM.CUSTOMER_ID.gt(lastCustomerId) : noCondition())
+                .and(CUSTOMER_COMM.CUSTOMER_ID.in(DSL
+                        .select(ACCOUNT.CUSTOMER_ID)
+                        .from(ACCOUNT)
+                        .join(TRX)
+                        .on(ACCOUNT.ACCT_NO.eq(TRX.ACCT_NO))
+                        .where(TRX.TRANSACTION_AT.ge(from))
+                        .and(TRX.TRANSACTION_AT.lt(before))))
+                .orderBy(CUSTOMER_COMM.CUSTOMER_ID)
                 .limit(limit)
                 .asTable();
 
