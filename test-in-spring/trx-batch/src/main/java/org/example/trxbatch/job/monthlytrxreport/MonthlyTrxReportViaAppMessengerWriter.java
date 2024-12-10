@@ -69,6 +69,7 @@ public class MonthlyTrxReportViaAppMessengerWriter implements ItemWriter<Custome
         } catch (Exception e) {
             log.error("Failed to send monthly transaction report to App Messenger. count={}", summaries, e);
             handleException(summaries, e);
+            return;
         }
         handleSuccess(summaries);
     }
