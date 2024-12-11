@@ -3,6 +3,8 @@ package org.example.trxbatch.job.monthlytrxreport;
 import lombok.RequiredArgsConstructor;
 import org.example.trxbatch.dto.CustomerMonthlyTrxReport;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration;
@@ -14,6 +16,9 @@ import org.springframework.batch.item.support.builder.ClassifierCompositeItemWri
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
 
 @Configuration
 @RequiredArgsConstructor
@@ -31,8 +36,26 @@ public class MonthlyTrxReportJobConfig extends DefaultBatchConfiguration {
             JobRepository jobRepository,
             Step customerMonthlyTrxReportStep
     ) {
-        return new JobBuilder(JOB_NAME, jobRepository).start(customerMonthlyTrxReportStep).build();
+        return new JobBuilder(JOB_NAME, jobRepository)
+                .validator(validateTargetYearMonthParam())
+                .start(customerMonthlyTrxReportStep)
+                .build();
     }
+
+    private JobParametersValidator validateTargetYearMonthParam() {
+        return parameters -> {
+            if (parameters == null || parameters.getString("targetYearMonth") == null) {
+                throw new JobParametersInvalidException("Required parameter is missing: " + JOB_PARAM_TARGET_YEAR_MONTH);
+            }
+
+            try {
+                YearMonth.parse(parameters.getString("targetYearMonth"));
+            } catch (DateTimeParseException e) {
+                throw new JobParametersInvalidException("Invalid parameter format: " + JOB_PARAM_TARGET_YEAR_MONTH);
+            }
+        };
+    }
+
 
     @Bean
     public Step customerMonthlyTrxReportStep(
