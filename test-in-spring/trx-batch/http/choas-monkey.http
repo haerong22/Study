@@ -1,0 +1,35 @@
+### enable
+POST http://localhost:8080/actuator/chaosmonkey/enable
+Content-Type: application/json
+
+### disable
+POST http://localhost:8080/actuator/chaosmonkey/disable
+Content-Type: application/json
+
+### watchers
+POST http://localhost:8080/actuator/chaosmonkey/watchers
+Content-Type: application/json
+
+{
+  "controller": false,
+  "restController": false,
+  "service": false,
+  "repository": false,
+  "component": true,
+  "restTemplate": false,
+  "webClient": false,
+  "actuatorHealth": false,
+  "beanClasses": ["org.example.trxbatch.service.email.MonthlyTrxReportBulkEmailService"]
+}
+
+### assaults
+POST http://localhost:8080/actuator/chaosmonkey/assaults
+Content-Type: application/json
+
+{
+  "level": 1,
+  "exceptionsActive": false,
+  "exception": {
+    "type": "org.example.trxbatch.exception.TrxBatchEmailServerCommunicationException"
+  }
+}
