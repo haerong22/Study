@@ -6,9 +6,13 @@ chaos:
   monkey:
     enabled: true
     watcher:
-      service: true
+      bean-classes: org.example.trxbatch.service.email.MonthlyTrxReportBulkEmailService
     assaults:
-      latencyActive: true
+      level: 3
+      exceptions-active: true
+      deterministic: true
+      exception:
+        type: org.example.trxbatch.exception.TrxBatchEmailServerCommunicationException
 
 management:
   endpoint:

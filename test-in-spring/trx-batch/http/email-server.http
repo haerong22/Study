@@ -1,0 +1,35 @@
+POST http://localhost:8181/bulk-reserve
+Content-Type: application/json
+
+{
+  "templateId": 123,
+  "templateData": {
+    "1": {
+      "tableRows": [
+        {
+          "col1": "value1",
+          "col2": "value2",
+          "col5": "value5",
+          "col6": "value6"
+        },
+        {
+          "col6": "vatadfvxclue6",
+          "col7": "vatadfvxclue7",
+          "col9": "vatadfvxclue9",
+          "col10": "vtadfvxcalue10"
+        }
+      ]
+    },
+    "2": {
+      "tableRows": [
+        {
+          "col1": "vvalue1",
+          "col2": "vvalue2",
+          "col3": "vvalue3",
+          "col4": "vvalue4"
+        }
+      ]
+    }
+  },
+  "sendAt": "2024-05-23T10:15:30"
+}
