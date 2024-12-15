@@ -33,3 +33,7 @@ Content-Type: application/json
     "type": "org.example.trxbatch.exception.TrxBatchEmailServerCommunicationException"
   }
 }
+
+### runtime attack
+POST http://localhost:8080/actuator/chaosmonkey/assaults/runtime/attack
+Content-Type: application/json

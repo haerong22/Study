@@ -2,17 +2,30 @@ spring:
   config:
     activate:
       on-profile: chaos-monkey
+
+#chaos:
+#  monkey:
+#    enabled: true
+#    watcher:
+#      bean-classes: org.example.trxbatch.service.email.MonthlyTrxReportBulkEmailService
+#    assaults:
+#      level: 3
+#      exceptions-active: true
+#      deterministic: true
+#      exception:
+#        type: org.example.trxbatch.exception.TrxBatchEmailServerCommunicationException
+
 chaos:
   monkey:
     enabled: true
     watcher:
-      bean-classes: org.example.trxbatch.service.email.MonthlyTrxReportBulkEmailService
+      repository: true
     assaults:
-      level: 3
-      exceptions-active: true
-      deterministic: true
-      exception:
-        type: org.example.trxbatch.exception.TrxBatchEmailServerCommunicationException
+      level: 1
+      kill-application-active: true
+      latency-active: true
+      latency-range-start: 100
+      latency-range-end: 1000
 
 management:
   endpoint:
