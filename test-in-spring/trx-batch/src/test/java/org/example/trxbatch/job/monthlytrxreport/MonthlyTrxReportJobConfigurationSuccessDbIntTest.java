@@ -120,6 +120,7 @@ class MonthlyTrxReportJobConfigurationSuccessDbIntTest {
         // then
         assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
 
+        assertEquals(HEAVY_CUSTOMER_COUNT, getHeavyCustomerCount(trxBatchDsl));
         assertEquals(SUCCESSFUL_REPORT_SUCCESS_COUNT, getReportSuccessCount(trxBatchDsl));
         assertEquals(SUCCESSFUL_REPORT_VIA_POST_SUCCESS_COUNT, getReportViaPostSuccessCount(trxBatchDsl));
         assertEquals(SUCCESSFUL_REPORT_VIA_EMAIL_SUCCESS_COUNT, getReportViaEmailSuccessCount(trxBatchDsl));
