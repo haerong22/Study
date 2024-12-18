@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.mockk.every
 import io.mockk.spyk
 import io.mockk.verify
+import org.example.kotlintestframework.mockk.Car
 
 class SpykExample : FunSpec({
 

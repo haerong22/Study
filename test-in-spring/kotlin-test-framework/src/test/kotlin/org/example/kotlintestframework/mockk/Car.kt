@@ -1,4 +1,4 @@
-package org.example.kotlintestframework.mockk.mock
+package org.example.kotlintestframework.mockk
 
 class Car {
     fun drive(direction: String): String {

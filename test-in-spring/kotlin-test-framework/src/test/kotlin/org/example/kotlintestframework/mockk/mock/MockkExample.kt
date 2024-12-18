@@ -5,6 +5,7 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.example.kotlintestframework.mockk.Car
 
 class MockkExample: FunSpec({
     val car2 = mockk<Car>()

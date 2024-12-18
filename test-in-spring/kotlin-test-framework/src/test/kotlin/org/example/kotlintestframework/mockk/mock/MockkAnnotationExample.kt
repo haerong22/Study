@@ -5,6 +5,7 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
+import org.example.kotlintestframework.mockk.Car
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
