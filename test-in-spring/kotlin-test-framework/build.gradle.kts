@@ -32,6 +32,7 @@ dependencies {
     testImplementation("io.kotest:kotest-framework-datatest:5.9.1")
     testImplementation("io.mockk:mockk:1.13.13")
     implementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 kotlin {
