@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: r2dbc
+
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/r2dbc
+    username: root
+    password: 1234
