@@ -1,4 +1,4 @@
-package com.example.webflux.r2dbc.entity;
+package com.example.webflux.r2dbc.common;
 
 import lombok.Data;
 

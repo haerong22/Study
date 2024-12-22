@@ -1,9 +1,9 @@
 package com.example.webflux.r2dbc.service;
 
-import com.example.webflux.r2dbc.entity.EmptyImage;
-import com.example.webflux.r2dbc.entity.Image;
-import com.example.webflux.r2dbc.entity.User;
-import com.example.webflux.r2dbc.repository.UserReactorRepository;
+import com.example.webflux.r2dbc.common.EmptyImage;
+import com.example.webflux.r2dbc.common.Image;
+import com.example.webflux.r2dbc.common.User;
+import com.example.webflux.r2dbc.repository.UserR2dbcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,11 +14,12 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserReactorRepository userRepository;
+    private final UserR2dbcRepository userRepository;
+
     private final WebClient webClient = WebClient.create("http://localhost:8081");
 
     public Mono<User> findById(String userId) {
-        return userRepository.findById(userId)
+        return userRepository.findById(Long.parseLong(userId))
                 .flatMap(userEntity -> {
                     String imageId = userEntity.getProfileImageId();
 
@@ -34,7 +35,7 @@ public class UserService {
                             ))
                             .switchIfEmpty(Mono.just(new EmptyImage()))
                             .map(image -> new User(
-                                    userEntity.getId(),
+                                    userEntity.getId().toString(),
                                     userEntity.getName(),
                                     userEntity.getAge(),
                                     image
