@@ -7,9 +7,13 @@ POST http://localhost:8080/api/users/signup
 Content-Type: application/json
 
 {
-  "name": "kim",
+  "name": "peter",
   "age": 30,
   "gender": "F",
   "password": "1234",
   "profileImageId": "2"
 }
+
+### 유저 정보 조회
+GET http://localhost:8080/api/users/2
+X-I-AM: SNCCOT
