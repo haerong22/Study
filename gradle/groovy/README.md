@@ -10,3 +10,10 @@
   - String, BigInteger, BigDecimal, List, Map, Range
 - Special Data types
   - Closure, Null
+
+### If with Groovy Truth
+
+- Numbers: 0 -> false
+- Strings: Empty -> false
+- Colections: Empty -> false
+- Object: null -> false
