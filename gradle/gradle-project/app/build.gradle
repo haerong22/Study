@@ -1,0 +1,33 @@
+plugins {
+    id 'application'
+}
+
+project.version = '1.0.0'
+project.description = 'A sample gradle project'
+
+// custom properties
+project.ext.prop1 = "foo"
+
+project.repositories({
+    mavenCentral()
+})
+
+project.dependencies({
+    testImplementation libs.junit
+    implementation libs.guava
+})
+
+project.java({
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+})
+
+project.application({
+    println "Project Name: ${project.name}"
+    println "UUID: ${project.getPath()}"
+    println "Project Version: ${project.version}"
+    println "Project Description: ${project.description}"
+    println "Project Custom Prop1: ${project.ext.prop1}"
+    mainClass = 'org.example.App'
+})
