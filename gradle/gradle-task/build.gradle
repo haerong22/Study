@@ -1,0 +1,41 @@
+project.task("prepTask") {
+    println "configuring prepTask"
+    doLast() {
+        println "Doing preparation"
+    }
+}
+
+task publishDockerImage {
+    ext.version = "1.0.0"
+    def customVariable = "abc"
+    println "customVariable ${customVariable}"
+    doFirst() {
+        println "publishing DockerImage"
+    }
+}
+
+task deployingDockerImage(dependsOn: publishDockerImage) {
+    onlyIf { publishDockerImage.version == "1.0.0" }
+    doFirst() {
+        println "deploying DockerImage"
+    }
+}
+
+task cleanUp {
+    doFirst() {
+        println "Cleaning up..."
+    }
+}
+
+task fileTask {
+    doLast {
+        def file = project.file("fileTaskSample.txt")
+        file.text = "Hello, Gradle!!"
+        println "Create file at ${file.absolutePath}"
+    }
+}
+
+deployingDockerImage.finalizedBy cleanUp
+
+// gradle 로 실행
+defaultTasks "deployingDockerImage"
