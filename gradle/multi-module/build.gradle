@@ -1,0 +1,51 @@
+// task getProjectName() {
+//     doLast() {
+//         println project.name
+//     }   
+// }
+
+// allprojects {
+//     task getProjectName() {
+//         doLast() {
+//             println project.name
+//         }   
+//     }
+// }
+
+subprojects {
+    task getProjectName() {
+        doLast() {
+            println project.name
+        }   
+    }
+
+    version = "1.0.0"
+
+    apply plugin: "application"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation libs.junit
+        implementation libs.guava
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    application {
+        mainClass = 'org.example.App'
+    }
+
+}
+
+project(":service") {
+    dependencies {
+        implementation project(":data")
+    }
+}
