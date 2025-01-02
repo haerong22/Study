@@ -1,5 +1,7 @@
 package com.example.webflux.websocket.handler;
 
+import com.example.webflux.websocket.service.Chat;
+import com.example.webflux.websocket.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,8 +22,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
         String iam = (String) session.getAttributes().get("iam");
 
         Flux<Chat> chatFlux = chatService.register(iam);
-        chatService.sendChat(iam, new Chat(iam + "님 채팅방에 오신 것을 환영합니다.", "system"));
-
+        chatService.sendChat("system", iam, iam + "님 채팅방에 오신 것을 환영합니다.");
 
         session.receive()
                 .doOnNext(webSocketMessage -> {
@@ -32,12 +33,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
                     String to = splits[0].trim();
                     String message = splits[1].trim();
 
-                    boolean result = chatService.sendChat(to, new Chat(message, iam));
-
-                    if (!result) {
-                        chatService.sendChat(iam, new Chat("대화 상대가 없습니다.", "system"));
-                    }
-
+                    chatService.sendChat(iam, to, message);
                 }).subscribe();
 
         return session.send(

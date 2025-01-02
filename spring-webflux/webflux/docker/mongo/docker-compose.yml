@@ -13,7 +13,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./data/db/replica/mongo1:/data/db
+#      - ./data/db/replica/mongo1:/data/db
       - ./mongodb.key:/etc/mongodb.key
     command:
       - '--replSet'
@@ -35,7 +35,7 @@ services:
     ports:
       - "27018:27018"
     volumes:
-      - ./data/db/replica/mongo2:/data/db
+#      - ./data/db/replica/mongo2:/data/db
       - ./mongodb.key:/etc/mongodb.key
     command:
       - '--replSet'
