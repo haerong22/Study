@@ -18,6 +18,7 @@ public class RouteConfig {
                 .path("/api", r1 -> r1
                         .path("/images", r2 -> r2
                                 .GET("/{imageId:[0-9]+}", imageHandler::getImageById)
+                                .POST(imageHandler::addImage)
                         )
                 )
                 .build();

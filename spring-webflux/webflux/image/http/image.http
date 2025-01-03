@@ -1,0 +1,15 @@
+### 이미지 조회
+GET http://localhost:8081/api/images/1
+
+### 이미지 생성
+POST http://localhost:8081/api/images
+Content-Type: application/json
+
+{
+  "id": "2",
+  "name": "image2",
+  "url": "http://image.com/images/2"
+}
+
+###
+GET http://localhost:8081/api/images/2
