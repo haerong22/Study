@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":controller"))
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 }

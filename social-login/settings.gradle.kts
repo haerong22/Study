@@ -3,3 +3,4 @@ plugins {
 }
 rootProject.name = "social-login"
 include("app")
+include("controller")
