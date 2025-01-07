@@ -5,4 +5,7 @@ plugins {
 
 dependencies {
     implementation(project(":controller"))
+    implementation(project(":application"))
+    implementation(project(":domain"))
+    implementation(project(":gateway:social"))
 }
