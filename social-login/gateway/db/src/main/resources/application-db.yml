@@ -1,0 +1,14 @@
+spring:
+
+  sql:
+    init:
+      schema-locations: classpath*:sql/schema.sql
+
+  r2dbc:
+    url: r2dbc:h2:mem:///test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    username: sa
+    password:
+
+h2:
+  console:
+    port: 8090
