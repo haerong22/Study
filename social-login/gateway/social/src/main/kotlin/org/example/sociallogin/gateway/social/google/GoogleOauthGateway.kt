@@ -1,7 +1,8 @@
-package org.example.sociallogin.social.google
+package org.example.sociallogin.gateway.social.google
 
 import org.example.sociallogin.domain.social.OauthProvider
-import org.example.sociallogin.social.SocialOauth
+import org.example.sociallogin.domain.social.SocialUser
+import org.example.sociallogin.gateway.social.SocialOauth
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
@@ -9,7 +10,7 @@ import reactor.core.publisher.Mono
 @Component
 class GoogleOauthGateway(
     private val googleOauth: GoogleOauth,
-    private val googleWebClient: WebClient,
+    private val webClient: WebClient,
 ): SocialOauth {
 
     override fun isSupported(oauthProvider: OauthProvider): Boolean {
@@ -17,7 +18,7 @@ class GoogleOauthGateway(
     }
 
     override fun getOauthUrl(): String {
-        return "${googleOauth.url}?scope=profile&response_type=code&client_id=${googleOauth.clientId}&redirect_uri=${googleOauth.redirectUri}"
+        return "${googleOauth.oauthUrl}?scope=${googleOauth.scope}&response_type=code&client_id=${googleOauth.clientId}&redirect_uri=${googleOauth.redirectUri}"
     }
 
     override fun getAccessToken(code: String): Mono<String> {
@@ -29,12 +30,19 @@ class GoogleOauthGateway(
             "redirect_uri" to googleOauth.redirectUri,
         )
 
-        val result = googleWebClient.post()
-            .uri("/token")
+        return webClient.post()
+            .uri(googleOauth.accessTokenUrl)
             .bodyValue(body)
             .retrieve()
-            .bodyToMono(String::class.java)
+            .bodyToMono(GoogleOauthDto::class.java)
+            .map { it.accessToken }
+    }
 
-        return result
+    override fun getUserInfo(accessToken: String): Mono<SocialUser> {
+        return webClient.get()
+            .uri(googleOauth.userInfoUrl)
+            .header("Authorization", "Bearer $accessToken")
+            .retrieve()
+            .bodyToMono(SocialUser::class.java)
     }
 }

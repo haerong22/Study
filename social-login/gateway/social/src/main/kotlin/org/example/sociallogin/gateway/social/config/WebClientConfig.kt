@@ -1,4 +1,4 @@
-package org.example.sociallogin.social.config
+package org.example.sociallogin.gateway.social.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,9 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient
 class WebClientConfig {
 
     @Bean
-    fun googleWebClient(): WebClient {
-        return WebClient.builder()
-            .baseUrl("https://oauth2.googleapis.com")
-            .build()
+    fun webClient(): WebClient {
+        return WebClient.builder().build()
     }
 }
