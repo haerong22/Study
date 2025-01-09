@@ -8,4 +8,5 @@ dependencies {
     implementation(project(":application"))
     implementation(project(":domain"))
     implementation(project(":gateway:social"))
+    implementation(project(":gateway:db"))
 }

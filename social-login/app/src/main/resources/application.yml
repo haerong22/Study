@@ -2,10 +2,7 @@ spring:
   application:
     name: social-login
 
-oauth:
-  google:
-    url: https://accounts.google.com/o/oauth2/v2/auth
-    client-id: ${GOOGLE_CLIENT_ID}
-    client-secret: ${GOOGLE_CLIENT_SECRET}
-    redirect-uri: http://localhost:8080/oauth/google/approve
-    scope: https://www.googleapis.com/auth/userinfo.email https://googleapis.com/auth/userinfo.profile
+  profiles:
+    include:
+      - db
+      - social

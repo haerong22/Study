@@ -23,6 +23,6 @@ class LoginController(
         @PathVariable oauthProvider: String,
         code: String
     ): Mono<String> {
-        return loginService.getAccessToken(oauthProvider, code)
+        return loginService.getUserInfo(oauthProvider, code)
     }
 }
