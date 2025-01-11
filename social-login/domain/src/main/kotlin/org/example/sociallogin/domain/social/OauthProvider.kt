@@ -1,7 +1,8 @@
 package org.example.sociallogin.domain.social
 
 enum class OauthProvider {
-    GOOGLE
+    GOOGLE,
+    NAVER,
     ;
 
     companion object {

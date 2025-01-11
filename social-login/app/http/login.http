@@ -1,2 +1,5 @@
 ### get google url
 http://localhost:8080/api/login/google
+
+### get naver url
+http://localhost:8080/api/login/naver

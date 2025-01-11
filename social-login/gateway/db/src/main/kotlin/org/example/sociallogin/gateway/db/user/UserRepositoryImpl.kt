@@ -14,7 +14,8 @@ class UserRepositoryImpl(
         val userEntity = UserEntity(
             name = user.name,
             email = user.email,
-            googleId = user.googleId,
+            socialId = user.socialId,
+            provider = user.provider,
         )
         return userR2dbcRepository.save(userEntity)
             .map { it.toDomain() }
