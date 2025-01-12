@@ -21,6 +21,6 @@ class LoginService(
         return socialOauthService.getAccessToken(provider, code)
             .flatMap { socialOauthService.getUserInfo(provider, it) }
             .flatMap { userRepository.save(User(name = it.name, email = it.email, socialId = it.id, provider = provider)) }
-            .map { it.email }
+            .map { it.socialId }
     }
 }

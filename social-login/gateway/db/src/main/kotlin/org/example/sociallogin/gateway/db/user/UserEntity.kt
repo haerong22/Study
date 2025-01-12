@@ -9,8 +9,8 @@ import org.springframework.data.relational.core.mapping.Table
 class UserEntity(
     @Id
     val id: Long? = null,
-    val name: String,
-    val email: String,
+    val name: String?,
+    val email: String?,
     val socialId: String,
     val provider: OauthProvider,
 ) {

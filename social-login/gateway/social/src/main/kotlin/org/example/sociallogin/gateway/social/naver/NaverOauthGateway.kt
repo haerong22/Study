@@ -23,15 +23,6 @@ class NaverOauthGateway(
     }
 
     override fun getAccessToken(code: String): Mono<String> {
-        val queryParams = mapOf(
-            "code" to code,
-            "client_id" to naverOauth.clientId,
-            "client_secret" to naverOauth.clientSecret,
-            "grant_type" to "authorization_code",
-            "redirect_uri" to naverOauth.redirectUri,
-            "state" to "test"
-        )
-
         return webClient.get()
             .uri("${naverOauth.accessTokenUrl}?code=$code&client_id=${naverOauth.clientId}&client_secret=${naverOauth.clientSecret}&grant_type=authorization_code&redirect_uri=${naverOauth.redirectUri}&state=test")
             .retrieve()
