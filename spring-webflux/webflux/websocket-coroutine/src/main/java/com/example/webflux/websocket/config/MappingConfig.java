@@ -1,11 +1,9 @@
 package com.example.webflux.websocket.config;
 
-import com.example.webflux.websocket.handler.ChatWebSocketHandler;
-import com.example.webflux.websocket.handler.SimpleWebSocketHandler;
+import com.example.webflux.websocket.handler.ChatCoroutineWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
-import org.springframework.web.reactive.socket.WebSocketHandler;
 
 import java.util.Map;
 
@@ -14,11 +12,9 @@ public class MappingConfig {
 
     @Bean
     public SimpleUrlHandlerMapping simpleUrlHandlerMapping(
-            SimpleWebSocketHandler simpleWebSocketHandler,
-            ChatWebSocketHandler chatWebSocketHandler
+            ChatCoroutineWebSocketHandler chatWebSocketHandler
     ) {
-        Map<String, WebSocketHandler> urlMapper = Map.of(
-                "/simple", simpleWebSocketHandler,
+        Map<String, ChatCoroutineWebSocketHandler> urlMapper = Map.of(
                 "/chat", chatWebSocketHandler
         );
 
