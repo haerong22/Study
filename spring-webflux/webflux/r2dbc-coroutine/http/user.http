@@ -1,6 +1,6 @@
 ### 유저 정보 조회
 GET http://localhost:8080/api/users/1
-X-I-AM: abcd
+X-I-AM: NDRJJF
 
 ### 유저 등록
 POST http://localhost:8080/api/users/signup
