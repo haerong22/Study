@@ -3,10 +3,8 @@ package com.example.webflux.websocket.service
 import com.example.webflux.websocket.entity.ChatDocument
 import com.example.webflux.websocket.helper.logger
 import com.example.webflux.websocket.repository.ChatMongoCoroutineRepository
-import com.example.webflux.websocket.repository.ChatMongoRepository
 import com.mongodb.client.model.changestream.OperationType
 import jakarta.annotation.PostConstruct
-import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.core.ChangeStreamEvent
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 import org.springframework.stereotype.Service
