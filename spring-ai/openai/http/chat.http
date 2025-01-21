@@ -1,0 +1,2 @@
+### Chat Model
+GET http://localhost:8080/chat?message=대한민국의 수도는?
