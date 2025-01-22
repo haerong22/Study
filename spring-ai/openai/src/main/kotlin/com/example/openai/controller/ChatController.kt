@@ -24,4 +24,13 @@ class ChatController(
         return chatService.chatMessage(message)
     }
 
+    @GetMapping("/chat/placeholder")
+    fun chatPlaceholder(
+        @RequestParam subject: String,
+        @RequestParam tone: String,
+        @RequestParam message: String,
+    ): String? {
+        return chatService.chatPlaceholder(subject, tone, message)
+    }
+
 }

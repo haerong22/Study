@@ -24,4 +24,15 @@ class ChatService(
             ?.output
             ?.content
     }
+
+    fun chatPlaceholder(subject: String, tone: String, message: String): String? {
+        return chatClient.prompt()
+            .user(message)
+            .system {
+                it.param("subject", subject)
+                it.param("tone", tone)
+            }
+            .call()
+            .content()
+    }
 }
