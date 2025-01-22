@@ -16,4 +16,12 @@ class ChatController(
     ): String? {
         return chatService.chat(message)
     }
+
+    @GetMapping("/chat-message")
+    fun chatMessage(
+        @RequestParam("message") message: String,
+    ): String? {
+        return chatService.chatMessage(message)
+    }
+
 }

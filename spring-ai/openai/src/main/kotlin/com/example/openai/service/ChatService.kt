@@ -14,4 +14,14 @@ class ChatService(
             .call()
             .content()
     }
+
+    fun chatMessage(message: String): String? {
+        return chatClient.prompt()
+            .user(message)
+            .call()
+            .chatResponse()
+            ?.result
+            ?.output
+            ?.content
+    }
 }

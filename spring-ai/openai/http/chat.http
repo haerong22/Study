@@ -1,2 +1,5 @@
-### Chat Model
+### Chat
 GET http://localhost:8080/chat?message=대한민국의 수도는?
+
+### Chat Message
+GET http://localhost:8080/chat-message?message=뉴턴의 운동 제2법칙을 간단하게 설명하세요
