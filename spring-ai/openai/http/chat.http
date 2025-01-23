@@ -40,3 +40,97 @@ GET http://localhost:8080/chat/placeholder?subject=자바&tone=friendly&message=
 # 자바의 Collection 프레임워크는 이러한 구조 외에도 다양한 유틸리티 메서드를 제공하여, 컬렉션을 쉽게 조작할 수 있도록 돕습니다. 예를 들어, `Collections` 클래스에는 정렬, 검색, 채우기 등의 메서드가 포함되어 있습니다.
 #
 # 이 프레임워크를 사용하면 데이터 구조를 직접 구현하지 않고도 효율적인 데이터 관리와 조작을 수행할 수 있어, 개발 시간을 절약하고 코드의 가독성을 높일 수 있습니다. 추가적으로, 자바 8부터는 스트림(Stream) API를 통해 컬렉션을 더욱 직관적이고 선언적으로 다룰 수 있게 되었습니다.
+
+### chat response(json)
+GET http://localhost:8080/chat-json?message=미국의 수도는?
+
+#{
+#  "result": {
+#    "output": {
+#      "messageType": "ASSISTANT",
+#      "metadata": {
+#        "refusal": "",
+#        "finishReason": "STOP",
+#        "index": 0,
+#        "id": "chatcmpl-Asrw2thdhPGs2v949H6SB2enZCrEZ",
+#        "role": "ASSISTANT",
+#        "messageType": "ASSISTANT"
+#      },
+#      "toolCalls": [],
+#      "content": "미국의 수도는 워싱턴 D.C.입니다."
+#    },
+#    "metadata": {
+#      "finishReason": "STOP",
+#      "contentFilterMetadata": null
+#    }
+#  },
+#  "results": [
+#    {
+#      "output": {
+#        "messageType": "ASSISTANT",
+#        "metadata": {
+#          "refusal": "",
+#          "finishReason": "STOP",
+#          "index": 0,
+#          "id": "chatcmpl-Asrw2thdhPGs2v949H6SB2enZCrEZ",
+#          "role": "ASSISTANT",
+#          "messageType": "ASSISTANT"
+#        },
+#        "toolCalls": [],
+#        "content": "미국의 수도는 워싱턴 D.C.입니다."
+#      },
+#      "metadata": {
+#        "finishReason": "STOP",
+#        "contentFilterMetadata": null
+#      }
+#    }
+#  ],
+#  "metadata": {
+#    "id": "chatcmpl-Asrw2thdhPGs2v949H6SB2enZCrEZ",
+#    "model": "gpt-4o-2024-08-06",
+#    "rateLimit": {
+#      "requestsLimit": 500,
+#      "requestsRemaining": 499,
+#      "requestsReset": "PT0.12S",
+#      "tokensLimit": 30000,
+#      "tokensRemaining": 29978,
+#      "tokensReset": "PT0.044S"
+#    },
+#    "usage": {
+#      "audioTokens": 0,
+#      "totalTokens": 27,
+#      "promptTokensDetails": {
+#        "audioTokens": 0,
+#        "cachedTokens": 0
+#      },
+#      "reasoningTokens": 0,
+#      "promptTokens": 13,
+#      "generationTokens": 14,
+#      "acceptedPredictionTokens": 0,
+#      "rejectedPredictionTokens": 0,
+#      "completionTokenDetails": {
+#        "reasoningTokens": 0,
+#        "acceptedPredictionTokens": 0,
+#        "audioTokens": 0,
+#        "rejectedPredictionTokens": 0
+#      },
+#      "promptTokensDetailsCachedTokens": 0
+#    },
+#    "promptMetadata": [],
+#    "empty": false
+#  }
+#}
+
+### chat response(object)
+GET http://localhost:8080/chat-object?message=햄 볶음밥의 재료를 알려줘
+
+#{
+#  "answer": "햄, 밥, 양파, 당근, 파, 계란, 간장, 식용유, 소금, 후추"
+#}
+
+### recipe
+GET http://localhost:8080/recipe?foodName=햄버거&question=주요 재료는?
+
+#{
+#  "answer": "햄버거의 주요 재료는 빵, 패티, 양상추, 토마토, 치즈, 양파, 피클, 그리고 소스입니다."
+#}

@@ -1,6 +1,8 @@
 package com.example.openai.controller
 
+import com.example.openai.entity.Answer
 import com.example.openai.service.ChatService
+import org.springframework.ai.chat.model.ChatResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -31,6 +33,30 @@ class ChatController(
         @RequestParam message: String,
     ): String? {
         return chatService.chatPlaceholder(subject, tone, message)
+    }
+
+    @GetMapping("/chat-json")
+    fun chatJson(
+        @RequestParam message: String,
+    ): ChatResponse? {
+        return chatService.chatJson(message)
+    }
+
+    @GetMapping("/chat-object")
+    fun chatObject(
+        @RequestParam message: String,
+    ): Answer? {
+        return chatService.chatObject(message)
+    }
+
+
+
+    @GetMapping("/recipe")
+    fun recipe(
+        @RequestParam foodName: String,
+        @RequestParam question: String,
+    ): Answer? {
+        return chatService.recipe(foodName, question)
     }
 
 }
