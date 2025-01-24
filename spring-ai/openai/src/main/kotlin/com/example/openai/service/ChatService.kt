@@ -1,6 +1,7 @@
 package com.example.openai.service
 
 import com.example.openai.entity.Answer
+import com.example.openai.entity.Movie
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.model.ChatResponse
 import org.springframework.ai.converter.ListOutputConverter
@@ -80,5 +81,22 @@ class ChatService(
             .user(message)
             .call()
             .entity(object : ParameterizedTypeReference<Map<String, String>>() {})
+    }
+
+    fun chatMovie(directorName: String): List<Movie>? {
+        val template = """
+            Generate a list of movies directed by {directorName}. If the director is unknown, return null
+            한국 영화는 한글로 표기해줘.
+            Each movie should include a title and release year. {format}
+        """.trimMargin()
+
+        return chatClient.prompt()
+            .user {
+                it.text(template)
+                    .param("directorName", directorName)
+                    .param("format", "json")
+            }
+            .call()
+            .entity(object : ParameterizedTypeReference<List<Movie>>() {})
     }
 }

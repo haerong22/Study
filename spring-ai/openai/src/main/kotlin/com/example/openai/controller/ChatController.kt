@@ -1,6 +1,7 @@
 package com.example.openai.controller
 
 import com.example.openai.entity.Answer
+import com.example.openai.entity.Movie
 import com.example.openai.service.ChatService
 import org.springframework.ai.chat.model.ChatResponse
 import org.springframework.web.bind.annotation.GetMapping
@@ -73,4 +74,10 @@ class ChatController(
         return chatService.chatMap(message)
     }
 
+    @GetMapping("/chat/movie")
+    fun chatMovie(
+        @RequestParam directorName: String,
+    ): List<Movie>? {
+        return chatService.chatMovie(directorName)
+    }
 }
