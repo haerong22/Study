@@ -59,4 +59,18 @@ class ChatController(
         return chatService.recipe(foodName, question)
     }
 
+    @GetMapping("/chat-list")
+    fun chatList(
+        @RequestParam message: String,
+    ): List<String>? {
+        return chatService.chatList(message)
+    }
+
+    @GetMapping("/chat-map")
+    fun chatMap(
+        @RequestParam message: String,
+    ): Map<String, String>? {
+        return chatService.chatMap(message)
+    }
+
 }

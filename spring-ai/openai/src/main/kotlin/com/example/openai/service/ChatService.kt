@@ -3,6 +3,9 @@ package com.example.openai.service
 import com.example.openai.entity.Answer
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.model.ChatResponse
+import org.springframework.ai.converter.ListOutputConverter
+import org.springframework.core.ParameterizedTypeReference
+import org.springframework.core.convert.support.DefaultConversionService
 import org.springframework.stereotype.Service
 
 @Service
@@ -63,5 +66,19 @@ class ChatService(
             }
             .call()
             .entity(Answer::class.java)
+    }
+
+    fun chatList(message: String): List<String>? {
+        return chatClient.prompt()
+            .user(message)
+            .call()
+            .entity(ListOutputConverter(DefaultConversionService()))
+    }
+
+    fun chatMap(message: String): Map<String, String>? {
+        return chatClient.prompt()
+            .user(message)
+            .call()
+            .entity(object : ParameterizedTypeReference<Map<String, String>>() {})
     }
 }

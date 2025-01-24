@@ -134,3 +134,25 @@ GET http://localhost:8080/recipe?foodName=햄버거&question=주요 재료는?
 #{
 #  "answer": "햄버거의 주요 재료는 빵, 패티, 양상추, 토마토, 치즈, 양파, 피클, 그리고 소스입니다."
 #}
+
+### chat list
+GET http://localhost:8080/chat-list?message=미국의 주요 도시 5개를 알려줘
+
+#[
+#  "New York",
+#  "Los Angeles",
+#  "Chicago",
+#  "Houston",
+#  "Phoenix"
+#]
+
+### chat map
+GET http://localhost:8080/chat-map?message=한국 영화제목을 키, 그 영화의 감독 이름을 value로 5개 만들어줘
+
+#{
+#  "기생충": "봉준호",
+#  "올드보이": "박찬욱",
+#  "버닝": "이창동",
+#  "괴물": "봉준호",
+#  "아가씨": "박찬욱"
+#}
