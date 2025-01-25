@@ -8,6 +8,7 @@ import org.springframework.ai.converter.ListOutputConverter
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.convert.support.DefaultConversionService
 import org.springframework.stereotype.Service
+import java.util.Scanner
 
 @Service
 class ChatService(
