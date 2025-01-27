@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask AI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Ask AI</h2>
+    <div class="form-group">
+        <label for="question">질문을 입력하세요:</label>
+        <input type="text" id="question" class="form-control" placeholder="질문 입력">
+    </div>
+    <button class="btn btn-primary mt-2" onclick="getResponse()">Ask</button>
+    <button class="btn btn-secondary mt-2" onclick="getResponseOptions()">Ask with Options</button>
+
+    <div class="mt-4">
+        <div id="response" class="alert alert-info" role="alert" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    async function getResponse() {
+        const question = document.getElementById('question').value;
+        if (question.trim() === '') {
+            alert('질문을 입력하세요');
+            return;
+        }
+
+        const responseDiv = document.getElementById('response');
+        responseDiv.innerText = '응답이 생성중입니다...';
+        responseDiv.style.display = 'block';
+
+        try {
+            const response = await fetch(`/ask?message=${encodeURIComponent(question)}`);
+            const result = await response.text();
+            responseDiv.innerText = result;
+        } catch (error) {
+            console.error('Error:', error);
+            responseDiv.innerText = '오류가 발생했습니다.';
+        }
+    }
+
+    async function getResponseOptions() {
+        const question = document.getElementById('question').value;
+        if (question.trim() === '') {
+            alert('질문을 입력하세요');
+            return;
+        }
+
+        const responseDiv = document.getElementById('response');
+        responseDiv.innerText = '응답이 생성중입니다...';
+        responseDiv.style.display = 'block';
+
+        try {
+            const response = await fetch(`/ask-ai?message=${encodeURIComponent(question)}`);
+            const result = await response.text();
+            responseDiv.innerText = result;
+        } catch (error) {
+            console.error('Error:', error);
+            responseDiv.innerText = '오류가 발생했습니다.';
+        }
+    }
+</script>
+
+</body>
+</html>
