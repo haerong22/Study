@@ -5,3 +5,4 @@ plugins {
 rootProject.name = "openai"
 include("basic")
 include("chat")
+include("image")
