@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이미지 생성</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        async function generateImage() {
+            const message = document.getElementById("message").value;
+            const model = document.getElementById("model").value;
+            const n = document.getElementById("n").value;
+
+            // "이미지 생성 중" 메시지 표시
+            const loadingAlert = document.getElementById("loadingAlert");
+            loadingAlert.style.display = "block";
+
+            try {
+                const response = await fetch('/image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        model: model,
+                        n: parseInt(n)
+                    })
+                });
+
+                const imageUrls = await response.json();
+                console.log(imageUrls);
+                // 이미지 컨테이너를 비웁니다.
+                const imageContainer = document.getElementById("imageContainer");
+                imageContainer.innerHTML = "";
+
+                // 이미지 URL로 이미지 요소 생성 및 다운로드 링크 추가
+                imageUrls.forEach((url, index) => {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = url;
+                    imgElement.classList.add("img-thumbnail", "m-2");
+                    imgElement.style.width = "300px"; // 이미지 너비 설정
+                    imageContainer.appendChild(imgElement);
+
+                    // 클릭 이벤트 추가
+                    imgElement.addEventListener("click", () => {
+                        // Spring Boot의 엔드포인트로 요청 보내기
+                        downloadImage(url);
+                    });
+                });
+            } catch (error) {
+                console.error("이미지 생성 중 오류가 발생했습니다:", error);
+                alert("이미지 생성에 실패했습니다. 다시 시도해 주세요.");
+            } finally {
+                // "이미지 생성 중" 메시지 숨김
+                loadingAlert.style.display = "none";
+            }
+        }
+
+        // 이미지 다운로드 함수
+        function downloadImage(imageUrl) {
+            const downloadUrl = `/download-file?url=${encodeURIComponent(imageUrl)}`;
+            window.location.href = downloadUrl; // 브라우저에서 파일 다운로드 트리거
+        }
+    </script>
+</head>
+<body>
+<div class="container my-5">
+    <h2 class="mb-4">이미지 생성</h2>
+
+    <!-- 메시지 입력과 버튼을 한 줄로 배치 -->
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="message" placeholder="상세 메시지를 입력하세요">
+        <button class="btn btn-primary" onclick="generateImage()">이미지 생성</button>
+    </div>
+
+    <!-- 모델 선택과 이미지 개수 선택을 한 줄로 배치 -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="model" class="form-label">모델 선택</label>
+            <select class="form-select" id="model">
+                <option value="dall-e-2">DALL-E 2</option>
+                <option value="dall-e-3">DALL-E 3</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="n" class="form-label">이미지 개수 (1-3)</label>
+            <input type="number" class="form-control" id="n" min="1" max="3" value="1">
+        </div>
+    </div>
+
+    <!-- 로딩 메시지 (Bootstrap alert) -->
+    <div id="loadingAlert" class="alert alert-info mt-3" role="alert" style="display: none;">
+        이미지 생성 중입니다...
+    </div>
+
+    <!-- 이미지 출력 컨테이너 -->
+    <div id="imageContainer" class="d-flex flex-wrap mt-4"></div>
+</div>
+</body>
+</html>
