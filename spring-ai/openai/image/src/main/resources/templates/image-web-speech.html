@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이미지 생성</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        let recognition; // 음성 인식을 위한 변수
+
+        async function generateImage() {
+            const message = document.getElementById("message").value;
+            const model = document.getElementById("model").value;
+            const n = document.getElementById("n").value;
+
+            // "이미지 생성 중" 메시지 표시
+            const loadingAlert = document.getElementById("loadingAlert");
+            loadingAlert.style.display = "block";
+
+            try {
+                const response = await fetch('/image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        model: model,
+                        n: parseInt(n)
+                    })
+                });
+
+                const imageUrls = await response.json();
+                console.log(imageUrls);
+
+                // 이미지 컨테이너를 비웁니다.
+                const imageContainer = document.getElementById("imageContainer");
+                imageContainer.innerHTML = "";
+
+                // 이미지 URL로 이미지 요소 생성
+                imageUrls.forEach((url) => {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = url;
+                    imgElement.classList.add("img-thumbnail", "m-2");
+                    imgElement.style.width = "300px"; // 이미지 너비 설정
+                    imageContainer.appendChild(imgElement);
+
+                    // 클릭 이벤트 추가
+                    imgElement.addEventListener("click", () => {
+                        // Spring Boot의 엔드포인트로 요청 보내기
+                        downloadImage(url);
+                    });
+                });
+            } catch (error) {
+                console.error("이미지 생성 중 오류가 발생했습니다:", error);
+                alert("이미지 생성에 실패했습니다. 다시 시도해 주세요.");
+            } finally {
+                // "이미지 생성 중" 메시지 숨김
+                loadingAlert.style.display = "none";
+            }
+        }
+
+        // 이미지 다운로드 함수
+        function downloadImage(imageUrl) {
+            const downloadUrl = `/download-file?url=${encodeURIComponent(imageUrl)}`;
+            window.location.href = downloadUrl; // 브라우저에서 파일 다운로드 트리거
+        }
+
+        // 음성 인식 시작
+        function startSpeechRecognition() {
+            recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'ko-KR'; // 한국어 설정
+            recognition.continuous = false; // 한 번만 인식
+            recognition.interimResults = false; // 중간 결과 비활성화
+
+            recognition.onstart = () => {
+                console.log("음성 인식 시작");
+                document.getElementById("status").innerText = "음성 인식 중...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript; // 첫 번째 결과
+                console.log("음성 인식 결과:", transcript);
+
+                // 텍스트 박스에 음성 인식 결과 입력
+                document.getElementById("message").value = transcript;
+                document.getElementById("status").innerText = "음성 인식 완료";
+
+                // 텍스트 길이가 10자 이상일 경우 generateImage() 호출
+                if (transcript.length >= 10) {
+                    generateImage();
+                } else {
+                    document.getElementById("status").innerText += " - 텍스트 길이가 너무 짧습니다.";
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error("오류 발생:", event.error);
+                document.getElementById("status").innerText = "오류 발생: " + event.error;
+            };
+
+            recognition.onend = () => {
+                console.log("음성 인식 종료");
+                document.getElementById("status").innerText = "음성 인식이 종료되었습니다.";
+            };
+
+            recognition.start(); // 음성 인식 시작
+        }
+    </script>
+</head>
+<body>
+<div class="container my-5">
+    <h2 class="mb-4">Web Speech와 OpenAI로 음성 기반 이미지 생성</h2>
+
+    <!-- 메시지 입력과 버튼을 한 줄로 배치 -->
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="message" placeholder="음성 메시지가 표시됩니다.(최소 10자 이상이 되어야 합니다.)">
+        <button class="btn btn-default" onclick="startSpeechRecognition()">
+            <i class="fas fa-microphone" style="color: red;"></i>
+        </button>
+    </div>
+
+    <!-- 음성 인식 상태 -->
+    <p id="status" class="text-muted"></p>
+
+    <!-- 모델 선택과 이미지 개수 선택을 한 줄로 배치 -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="model" class="form-label">모델 선택</label>
+            <select class="form-select" id="model">
+                <option value="dall-e-2">DALL-E 2</option>
+                <option value="dall-e-3">DALL-E 3</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="n" class="form-label">이미지 개수 (1-3)</label>
+            <input type="number" class="form-control" id="n" min="1" max="3" value="1">
+        </div>
+    </div>
+
+    <!-- 로딩 메시지 (Bootstrap alert) -->
+    <div id="loadingAlert" class="alert alert-info mt-3" role="alert" style="display: none;">
+        이미지 생성 중입니다...
+    </div>
+
+    <!-- 이미지 출력 컨테이너 -->
+    <div id="imageContainer" class="d-flex flex-wrap mt-4"></div>
+</div>
+</body>
+</html>

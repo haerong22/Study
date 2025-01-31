@@ -10,4 +10,9 @@ class RouteController {
     fun imageview(): String {
         return "image"
     }
+
+    @GetMapping("/image-web-speech")
+    fun imageWebSpeechView(): String {
+        return "image-web-speech"
+    }
 }
