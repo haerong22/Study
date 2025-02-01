@@ -6,3 +6,4 @@ rootProject.name = "openai"
 include("basic")
 include("chat")
 include("image")
+include("math")
