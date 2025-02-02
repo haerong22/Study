@@ -8,6 +8,6 @@ class RouteController {
 
     @GetMapping("/image-to-text")
     fun imageview(): String {
-        return "image-to-text"
+        return "image-analysis"
     }
 }
