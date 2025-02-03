@@ -14,6 +14,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Paths
 
+
 @RestController
 @RequestMapping("/image-text")
 class ImageAnalysisController(
@@ -37,10 +38,12 @@ class ImageAnalysisController(
         val filePath = Paths.get(uploadPath, filename)
         Files.write(filePath, imageFile.bytes)
 
-        val analysisText: String = imageAnalysisService.analyzeImage(imageFile, message)
+        val analysisText = imageAnalysisService.analyzeImage(imageFile, message)
+        val searchKeyword = imageAnalysisService.extractKeyYouTubeSearch(analysisText)
+        val youtubeUrls = imageAnalysisService.searchYouTubeVideos(searchKeyword)
         val imageUrl = "/uploads/$filename"
 
-        val response = ImageAnalysisVO(imageUrl, analysisText)
+        val response = ImageAnalysisVO(imageUrl, analysisText, youtubeUrls)
         return ResponseEntity.ok(response)
     }
 }

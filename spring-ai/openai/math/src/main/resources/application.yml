@@ -8,3 +8,7 @@ spring:
 
 upload:
   path: math/src/main/resources/static/uploads/
+
+youtube:
+  api-url: https://www.googleapis.com/youtube/v3/search
+  api-key: ${YOUTUBE_API_KEY}
