@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: recipe
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+
+google:
+  api-url: https://www.googleapis.com/customsearch/v1
+  api-key: ${GOOGLE_API_KEY}
+  search-engine-id: ${SEARCH_ENGINE_ID}
