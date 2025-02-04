@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>레시피 생성기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- 상단 메뉴 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">레시피 생성기</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">레시피 찾기</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">문의하기</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 메인 컨텐츠 -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- 이미지 배너 왼쪽에 배치 -->
+        <div class="col-md-6 text-center mb-4">
+            <img src="/images/recipe.webp"
+                 alt="레시피 배너 이미지"
+                 class="img-fluid rounded shadow-sm">
+        </div>
+
+        <!-- 레시피 생성 폼 오른쪽에 배치 -->
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">레시피 생성기</h2>
+            <form id="recipeForm" class="mb-4">
+                <div class="mb-3">
+                    <label for="ingredients" class="form-label">재료</label>
+                    <input type="text" class="form-control" id="ingredients" placeholder="예: 새우, 아보카도, 고수">
+                </div>
+                <div class="mb-3">
+                    <label for="cuisine" class="form-label">요리 유형</label>
+                    <input type="text" class="form-control" id="cuisine" placeholder="예: 멕시코 요리">
+                </div>
+                <div class="mb-3">
+                    <label for="dietaryRestrictions" class="form-label">식이 제한</label>
+                    <input type="text" class="form-control" id="dietaryRestrictions" placeholder="예: 페스코테리언, 유제품 없음">
+                </div>
+                <button type="button" class="btn btn-primary w-100" onclick="createRecipe()">레시피 생성</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 출력 영역 전체 너비로 배치 -->
+    <div class="row">
+        <div class="col-12">
+            <!-- 대기 메시지 표시 영역 -->
+            <div id="loadingMessage" class="alert alert-info text-center" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <span class="ms-2">레시피가 생성 중입니다...</span>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <!-- 레시피 출력 영역 -->
+            <div id="recipeOutput" class="alert alert-secondary" style="display: none;"></div>
+        </div>
+
+        <div class="col-12">
+            <!-- 참고 URL 출력 영역 -->
+            <div id="recipeUrl" class="alert alert-secondary" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function createRecipe() {
+        const ingredients = document.getElementById('ingredients').value;
+        const cuisine = document.getElementById('cuisine').value;
+        const dietaryRestrictions = document.getElementById('dietaryRestrictions').value;
+
+        const recipeData = {
+            ingredients: ingredients,
+            cuisine: cuisine,
+            dietaryRestrictions: dietaryRestrictions
+        };
+
+        // 로딩 메시지 표시
+        document.getElementById('loadingMessage').style.display = 'block';
+        document.getElementById('recipeOutput').style.display = 'none';
+        document.getElementById('recipeUrl').style.display = 'none';
+
+        try {
+            const response = await fetch('/recipe', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(recipeData)
+            });
+
+            const data = await response.json();
+
+            // 로딩 메시지 숨기기
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            // 레시피와 URL을 출력
+            document.getElementById('recipeOutput').innerText = `${data.recipe}`;
+            document.getElementById('recipeOutput').style.display = 'block';
+
+            // URL 목록을 HTML 형식으로 생성
+            const urlsHtml = data.urls && data.urls.length > 0
+                ? data.urls.map(url => `<li><a href="${url}" target="_blank">${url}</a></li>`).join('')
+                : '<li>참고할 수 있는 웹사이트가 없습니다.</li>';
+
+            document.getElementById('recipeUrl').innerHTML = `<h4>참고할 수 있는 웹사이트</h4><ul>${urlsHtml}</ul>`;
+            document.getElementById('recipeUrl').style.display = 'block';
+
+        } catch (error) {
+            console.error('에러 발생:', error);
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('recipeOutput').innerHTML = `<p class="text-danger">레시피 생성 중 오류가 발생했습니다.</p>`;
+            document.getElementById('recipeOutput').style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>
