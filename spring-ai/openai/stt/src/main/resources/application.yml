@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: stt
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
