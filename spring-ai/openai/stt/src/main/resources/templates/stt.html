@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Transcription</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Upload Audio/Video File for Transcription</h1>
+
+    <form id="uploadForm" enctype="multipart/form-data" method="post">
+        <div class="mb-3">
+            <label for="fileInput" class="form-label">Select audio/video file (MP4)</label>
+            <input class="form-control" type="file" id="fileInput" name="file" accept=".mp4" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Upload and Transcribe</button>
+    </form>
+
+    <!-- Loading message -->
+    <div id="loadingMessage" class="text-center text-warning my-3" style="display: none;">
+        Transcription in progress, please wait...
+    </div>
+
+    <!-- Transcription result -->
+    <div id="transcriptionResult" class="mt-4">
+        <h4>Transcribed Text:</h4>
+        <div id="transcriptionText" class="p-3 border rounded bg-light"></div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const uploadForm = document.getElementById('uploadForm');
+    const loadingMessage = document.getElementById('loadingMessage');
+    const transcriptionResult = document.getElementById('transcriptionResult');
+    const transcriptionText = document.getElementById('transcriptionText');
+
+    // Hide the result section initially
+    transcriptionResult.style.display = 'none';
+
+    // Handle form submission
+    uploadForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(uploadForm);
+        loadingMessage.style.display = 'block';
+        transcriptionResult.style.display = 'none';
+
+        // Send file to server for transcription
+        fetch('/transcribe', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                // Display the transcribed text
+                transcriptionText.innerHTML = data.replace(/\n/g, '<br/>');
+                loadingMessage.style.display = 'none';
+                transcriptionResult.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loadingMessage.textContent = 'An error occurred during transcription.';
+            });
+    });
+</script>
+
+</body>
+</html>
