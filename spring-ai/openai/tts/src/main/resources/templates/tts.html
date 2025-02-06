@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3 Streaming</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">텍스트를 음성으로 변환(TTS)</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- 파일 업로드 폼 -->
+            <form id="uploadForm" class="mb-3">
+                <div class="mb-3">
+                    <label for="fileInput" class="form-label">텍스트 파일 업로드</label>
+                    <input class="form-control" type="file" id="fileInput" accept=".txt" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">파일 업로드 및 변환</button>
+            </form>
+
+            <!-- 로딩 메시지 -->
+            <div id="loadingMessage" class="text-center text-warning my-3" style="display: none;">
+                변환 중입니다. 잠시만 기다려주세요...
+            </div>
+
+            <!-- 오디오 플레이어 -->
+            <div class="mt-4">
+                <audio id="audioPlayer" controls class="w-100" style="display:none;"></audio>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const uploadForm = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('fileInput');
+    const audioElement = document.getElementById('audioPlayer');
+    const loadingMessage = document.getElementById('loadingMessage');
+
+    // 파일 업로드 및 서버 요청
+    uploadForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('텍스트 파일을 선택해주세요.');
+            return;
+        }
+
+        // FormData에 파일 추가
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // 로딩 메시지 표시
+        loadingMessage.style.display = 'block';
+        audioElement.style.display = 'none';
+
+        try {
+            // 서버에 요청
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) throw new Error('네트워크 오류');
+
+            const reader = response.body.getReader();
+            const chunks = [];
+            const contentType = response.headers.get('Content-Type');
+
+            while (true) {
+                const { done, value } = await reader.read(); // 4,8,16KB
+                if (done) break;
+                chunks.push(value);
+            }
+
+            // Blob으로 변환
+            const blob = new Blob(chunks, { type: contentType || 'audio/mpeg' });
+            const url = URL.createObjectURL(blob);
+
+            // 오디오 설정 및 재생
+            audioElement.src = url;
+            loadingMessage.style.display = 'none';
+            audioElement.style.display = 'block';
+        } catch (error) {
+            console.error('Error:', error);
+            loadingMessage.textContent = '변환에 실패했습니다. 다시 시도해주세요.';
+        }
+    });
+</script>
+</body>
+</html>
