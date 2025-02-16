@@ -6,6 +6,6 @@ plugins {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-    implementation("org.jsoup:jsoup:1.14.3")
+    implementation("org.json:json:20250107")
     implementation("org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter")
 }
