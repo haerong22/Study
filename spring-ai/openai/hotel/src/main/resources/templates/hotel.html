@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-box {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .message .sender {
+            font-weight: bold;
+        }
+
+        .message .content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">RAG기반 호텔 AI 챗봇 서비스</h1>
+    호텔 챗봇은 고객의 질문에 답변하거나 필요한 정보를 제공하는 AI 기반 서비스입니다.
+    <!-- Chat Messages -->
+    <div class="chat-box border rounded p-3 mb-3 bg-light" id="chatBox">
+        <!-- Messages will be appended here -->
+    </div>
+
+    <!-- Chat Input -->
+    <form id="chatForm" class="form-inline">
+        <div class="form-group flex-fill">
+            <input type="text" id="messageInput" class="form-control w-100" placeholder="Type your message..." required>
+        </div>
+        <button type="submit" class="btn btn-primary ml-2">Send</button>
+    </form>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chatBox');
+    const chatForm = document.getElementById('chatForm');
+    const messageInput = document.getElementById('messageInput');
+
+    chatForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const userMessage = messageInput.value.trim();
+        if (!userMessage) return;
+
+        // Add user message to chat
+        appendMessage('User', userMessage);
+
+        // Clear input field
+        messageInput.value = '';
+
+        try {
+            // Fetch streaming response
+            const response = await fetch(`/question?question=${encodeURIComponent(userMessage)}`);
+            // 스트리밍 방식으로 응답부분
+            const reader = response.body.getReader();
+            let botMessageElement = appendMessage('Bot', ''); // Add empty bot message
+            let contentElement = botMessageElement.querySelector('.content');
+            await processStream(reader, contentElement);
+        } catch (error) {
+            console.error('Error:', error);
+            appendMessage('System', 'An error occurred. Please try again.');
+        }
+    });
+
+    function appendMessage(sender, content) {
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.innerHTML = `
+            <div class="sender ${sender === 'User' ? 'text-primary' : 'text-success'}">${sender}:</div>
+            <div class="content">${content}</div>
+        `;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        return messageElement;
+    }
+
+    async function processStream(reader, contentElement) {
+        const decoder = new TextDecoder('utf-8');
+        try {
+            while (true) {
+                const {done, value} = await reader.read();
+                if (done) break;
+                contentElement.innerHTML += decoder.decode(value, {stream: true});
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        } catch (error) {
+            console.error('Error processing stream:', error);
+            contentElement.innerHTML += '<br><span class="text-danger">[Stream interrupted]</span>';
+        }
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
