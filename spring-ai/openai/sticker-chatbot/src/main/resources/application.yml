@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: sticker-chatbot
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydatabase
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536
+        table-name: sticker_vector
+        initialize-schema: true
