@@ -45,7 +45,7 @@ class StickerService(
                         .withSimilarityThreshold(0.7)
                         .withTopK(1)
                 )
-                Flux.just("\n", results[0].content)
+                Flux.just("\n", results[0].metadata["path"].toString())
             })
 
     }

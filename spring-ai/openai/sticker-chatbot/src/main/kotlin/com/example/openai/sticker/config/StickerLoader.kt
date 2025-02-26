@@ -32,9 +32,11 @@ class StickerLoader(
         if (count == 0) {
             val documents = mutableListOf<Document>()
             for (i in 1..5) {
-                val desc = stickerDesc("sticker/$i.png")
+                val path = "sticker/$i.png"
+                val desc = stickerDesc(path)
+                val metadata = mapOf("path" to path)
                 println(desc)
-                documents.add(Document(desc))
+                documents.add(Document(desc, metadata))
             }
             save(documents)
         }
