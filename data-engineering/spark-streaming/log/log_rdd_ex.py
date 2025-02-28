@@ -115,4 +115,9 @@ if __name__ == '__main__':
         .reduceByKey(lambda x, y: f"{x},{y}") \
         .map(lambda x: (x[0], x[1].split(",")))
 
-    result2.foreach(print)
+    # result2.foreach(print)
+
+    result2.collect()
+
+    while True:
+        pass
