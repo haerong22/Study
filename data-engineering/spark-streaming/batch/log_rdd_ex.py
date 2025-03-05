@@ -12,13 +12,13 @@ if __name__ == '__main__':
 
     sc: SparkContext = ss.sparkContext
 
-    log_rdd: RDD[str] = sc.textFile("data/log.txt")
+    log_rdd: RDD[str] = sc.textFile("data/batch.txt")
 
     print(f"count of RDD ==> {log_rdd.count()}")
 
 
     # map
-    # - log.txt 의 각 행을 List[str]
+    # - batch.txt 의 각 행을 List[str]
     def parse_line(row: str):
         return row.strip().split(" | ")
 

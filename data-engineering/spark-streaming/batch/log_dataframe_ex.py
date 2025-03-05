@@ -1,10 +1,12 @@
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, to_timestamp, max, min, mean, date_trunc, collect_set, hour, minute, count
+
 from pyspark.sql.types import *
 
 
 def load_data(ss: SparkSession, from_file, schema):
     if from_file:
-        return ss.read.schema(schema).csv("data/log.csv")
+        return ss.read.schema(schema).csv("data/batch.csv")
 
     log_data_inmemory = [
         ["130.31.184.234", "2023-02-26 04:15:21", "PATCH", "/users", "400", 61],
@@ -20,10 +22,8 @@ def load_data(ss: SparkSession, from_file, schema):
 if __name__ == "__main__":
     ss: SparkSession = SparkSession.builder \
         .master("local") \
-        .appName("log sql ex") \
+        .appName("batch dataframe ex") \
         .getOrCreate()
-
-    from_file = True
 
     # define schema
     fields = StructType([
@@ -35,54 +35,46 @@ if __name__ == "__main__":
         StructField("latency", IntegerType(), False),  # 단위 : milliseconds
     ])
 
-    table_name = "log_data"
+    from_file = True
 
-    load_data(ss, from_file, fields) \
-        .createOrReplaceTempView(table_name)
+    df = load_data(ss, from_file, fields)
+
 
     # 데이터 확인
-    ss.sql(f"SELECT * FROM {table_name}").show()
+    # df.show()
+
     # 스키마 확인
-    ss.sql(f"SELECT * FROM {table_name}").printSchema()
+    # df.printSchema()
 
     # latency (millisecond -> second)
-    ss.sql(f"""
-        SELECT *, latency / 1000 AS latency_seconds
-        FROM {table_name}
-        """).show()
+    def milliseconds_to_seconds(n):
+        return n / 1000
+
+
+    df = df.withColumn("latency_seconds", milliseconds_to_seconds(df.latency))
 
     # timestamp (String -> Timestamp)
-    ss.sql(f"""
-        SELECT ip, TIMESTAMP(timestamp) AS timestamp, method, endpoint, status_code, latency
-        FROM {table_name}
-        """).printSchema()
+    df = df.withColumn("timestamp", to_timestamp(col("timestamp")))
 
     # filter: status_code = 400, endpoint = "/users"
-    ss.sql(f"""
-        SELECT * FROM {table_name}
-        WHERE status_code = '400' AND endpoint = '/users'
-        """).show()
+    df.where((df.status_code == "400") & (df.endpoint == "/users"))
 
     # group by: method, endpoint 별 latency 최대,최소,평균
-    ss.sql(f"""
-        SELECT 
-            method, 
-            endpoint, 
-            MAX(latency) AS max_latency,
-            MIN(latency) AS min_latency,
-            AVG(latency) AS mean_latency
-        FROM  {table_name}
-        GROUP BY method, endpoint
-        """).show()
+    group_cols = ["method", "endpoint"]
+    df.groupby(group_cols) \
+    .agg(
+        max("latency").alias("max_latency"),
+        min("latency").alias("min_latency"),
+        mean("latency").alias("mean_latency"),
+    ).show()
 
     # group by: 분 단위, 중복 제거한 ip 리스트 개수
-    ss.sql(f"""
-        SELECT 
-            hour(date_trunc('HOUR', timestamp)) AS hour,
-            minute(date_trunc('MINUTE', timestamp)) AS minute,
-            collect_set(ip) AS ip_list,
-            count(ip) AS ip_count
-        FROM {table_name}
-        GROUP BY hour, minute
-        ORDER BY hour, minute
-        """).show()
+    group_cols = ["hour", "minute"]
+    df \
+     .withColumn("hour", hour(date_trunc("hour", col("timestamp")))) \
+     .withColumn("minute", minute(date_trunc("minute", col("timestamp")))) \
+     .groupby(group_cols).agg(
+        collect_set("ip").alias("ip_list"),
+        count("ip").alias("ip_count"),
+    ).sort(group_cols).show()
+
