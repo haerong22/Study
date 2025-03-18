@@ -1,0 +1,119 @@
+# 쿼리 정의
+type Query {
+  # 유저 조회
+  getUser(userId: ID!): User!
+  # 제품 목록 조회
+  getProducts: [Product!]!
+  # 유저 장바구니 목록 조회
+  getUserCart(userId: ID!): Cart!
+  # 검색
+  search(keyword: String!): [SearchResult!]
+}
+
+# 검색 결과 유니언 정의
+union SearchResult = User | Electronics | Clothing
+
+# 뮤테이션 정의
+type Mutation {
+  # 새로운 사용자 추가
+  addUser(addUserInput: AddUserInput!): User!
+
+  # 새로운 제품 추가
+  addProduct(addProductInput: AddProductInput!): Product!
+
+  # 사용자의 장바구니에 아이템 추가
+  addCartItem(addCartItemInput: AddCartItemInput!): Cart!
+
+  #장바구니 아이템 제거
+  deleteCartItem(deleteCartItemInput: DeleteCartItemInput!): Cart!
+}
+
+# 서브스크립션 정의
+type Subscription {
+  newProduct(productName: String): Product!
+}
+
+scalar DateTime
+
+# 사용자(User) 타입 정의
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  cart: Cart!
+  createdAt: DateTime!
+}
+
+# addUser 입력 타입 정의: 유저 추가 시 필요한 필드
+input AddUserInput {
+  name: String!
+  email: String!
+}
+
+# 제품(Product)  인터페이스 정의
+interface Product {
+  id: ID!
+  name: String!
+  price: Float!
+  productType: ProductType!
+}
+
+# 구체적인 카테고리 타입 정의
+type Electronics implements Product {
+  id: ID!
+  name: String!
+  price: Float!
+  productType: ProductType!
+  warrantyPeriod: String!
+}
+
+type Clothing implements Product {
+  id: ID!
+  name: String!
+  price: Float!
+  productType: ProductType!
+  size: String!
+}
+
+# 제품 상태 ENUM 정의
+enum ProductType {
+  ELECTRONICS
+  CLOTHING
+}
+
+# addProduct 입력 타입 정의
+input AddProductInput {
+  name: String!
+  price: Float!
+  productType: ProductType!
+  warrantyPeriod: String
+  size: String
+}
+
+# 장바구니 타입 정의
+type Cart {
+  id: ID!
+  user: User!
+  items: [CartItem!]!
+  totalAmount: Float
+}
+
+# 장바구니 아이템 타입 정의
+type CartItem {
+  id: ID!
+  product: Product!
+  quantity: Int!
+}
+
+# addCartItem 입력 타입 정의: 제품 추가 시 필요한 필드
+input AddCartItemInput {
+  userId: ID!
+  productId: ID!
+  quantity: Int!
+}
+
+# deleteCartItem 입력 타입 정의: 제품 추가 시 필요한 필드
+input DeleteCartItemInput {
+  cartItemId: ID!
+  userId: ID!
+}
