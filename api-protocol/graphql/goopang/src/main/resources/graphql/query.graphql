@@ -1,0 +1,14 @@
+# 쿼리 정의
+type Query {
+    # 유저 조회
+    getUser(userId: ID!): User!
+    # 제품 목록 조회
+    getProducts: [Product!]!
+    # 유저 장바구니 목록 조회
+    getUserCart(userId: ID!): Cart!
+    # 검색
+    search(keyword: String!): [SearchResult!]
+}
+
+# 검색 결과 유니언 정의
+union SearchResult = User | Electronics | Clothing

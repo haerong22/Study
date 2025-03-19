@@ -1,0 +1,14 @@
+# 뮤테이션 정의
+type Mutation {
+    # 새로운 사용자 추가
+    addUser(addUserInput: AddUserInput!): User!
+
+    # 새로운 제품 추가
+    addProduct(addProductInput: AddProductInput!): Product!
+
+    # 사용자의 장바구니에 아이템 추가
+    addCartItem(addCartItemInput: AddCartItemInput!): Cart!
+
+    #장바구니 아이템 제거
+    deleteCartItem(deleteCartItemInput: DeleteCartItemInput!): Cart!
+}

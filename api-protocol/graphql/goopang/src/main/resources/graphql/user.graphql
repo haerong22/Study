@@ -2,15 +2,15 @@ scalar DateTime
 
 # 사용자(User) 타입 정의
 type User {
-  id: ID!
-  name: String!
-  email: String!
-  cart: Cart!
-  createdAt: DateTime!
+    id: ID!
+    name: String!
+    email: String!
+    cart: Cart!
+    createdAt: DateTime!
 }
 
 # addUser 입력 타입 정의: 유저 추가 시 필요한 필드
 input AddUserInput {
-  name: String!
-  email: String!
+    name: String!
+    email: String!
 }

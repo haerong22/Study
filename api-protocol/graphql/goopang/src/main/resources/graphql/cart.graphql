@@ -1,27 +1,27 @@
 # 장바구니 타입 정의
 type Cart {
-  id: ID!
-  user: User!
-  items: [CartItem!]!
-  totalAmount: Float
+    id: ID!
+    user: User!
+    items: [CartItem!]!
+    totalAmount: Float
 }
 
 # 장바구니 아이템 타입 정의
 type CartItem {
-  id: ID!
-  product: Product!
-  quantity: Int!
+    id: ID!
+    product: Product!
+    quantity: Int!
 }
 
 # addCartItem 입력 타입 정의: 제품 추가 시 필요한 필드
 input AddCartItemInput {
-  userId: ID!
-  productId: ID!
-  quantity: Int!
+    userId: ID!
+    productId: ID!
+    quantity: Int!
 }
 
 # deleteCartItem 입력 타입 정의: 제품 추가 시 필요한 필드
 input DeleteCartItemInput {
-  cartItemId: ID!
-  userId: ID!
+    cartItemId: ID!
+    userId: ID!
 }

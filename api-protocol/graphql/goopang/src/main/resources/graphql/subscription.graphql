@@ -1,4 +1,4 @@
 # 서브스크립션 정의
 type Subscription {
-  newProduct(productName: String): Product!
+    newProduct(productName: String): Product!
 }

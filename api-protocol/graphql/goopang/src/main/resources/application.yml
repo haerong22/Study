@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: goopang
+
+  graphql:
+    schema:
+      file-extensions: graphql

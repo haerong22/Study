@@ -1,0 +1,39 @@
+# 제품(Product)  인터페이스 정의
+interface Product {
+    id: ID!
+    name: String!
+    price: Float!
+    productType: ProductType!
+}
+
+# 구체적인 카테고리 타입 정의
+type Electronics implements Product {
+    id: ID!
+    name: String!
+    price: Float!
+    productType: ProductType!
+    warrantyPeriod: String!
+}
+
+type Clothing implements Product {
+    id: ID!
+    name: String!
+    price: Float!
+    productType: ProductType!
+    size: String!
+}
+
+# 제품 상태 ENUM 정의
+enum ProductType {
+    ELECTRONICS
+    CLOTHING
+}
+
+# addProduct 입력 타입 정의
+input AddProductInput {
+    name: String!
+    price: Float!
+    productType: ProductType!
+    warrantyPeriod: String
+    size: String
+}
