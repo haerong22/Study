@@ -9,5 +9,5 @@ data class User(
     val email: String,
     val createdAt: OffsetDateTime,
 ) {
-    val cart: Cart? = null
+    var cart: Cart? = null
 }
