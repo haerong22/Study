@@ -13,6 +13,10 @@ class UserService(
     private val cartService: CartService,
 ) {
 
+    fun getUsers(): List<User> {
+        return Database.users
+    }
+
     fun getUser(userId: String): User {
         return Database.users.firstOrNull { it.id == userId }
             ?.also { user -> user.cart = cartService.getUserCart(userId) }
