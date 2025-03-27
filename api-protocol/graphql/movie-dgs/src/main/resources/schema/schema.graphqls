@@ -1,3 +1,6 @@
+""" Date 타입입니다 """
+scalar Date
+
 type Query {
     movie(movieId: ID!): Movie!
     movies: [Movie]!
@@ -17,7 +20,7 @@ type Subscription {
 type Movie {
     id: ID!
     title: String!
-    releaseDate: String!
+    releaseDate: Date!
     director: Director
     reviews: [Review!]
 }
