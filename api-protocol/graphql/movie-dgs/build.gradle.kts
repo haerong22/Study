@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
     kotlin("plugin.jpa") version "1.9.25"
+    id ("com.netflix.dgs.codegen") version "7.0.3"
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -57,4 +58,12 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.generateJava {
+    language = "kotlin"
+    packageName = "com.example.moviedgs"
+    typeMapping = mutableMapOf(
+        "ID" to "Long"
+    )
 }
