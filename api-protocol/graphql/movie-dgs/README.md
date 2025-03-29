@@ -26,3 +26,11 @@ tasks.generateJava {
 ```
 - CodeGenerator 옵션
     - https://netflix.github.io/dgs/generating-code-from-schema/#configuring-code-generation
+
+### Data Fetcher
+- @DgsComponent
+- @DgsData
+- @DgsQuery
+- @DgsMutation
+- @DgsSubscription
+- @InputArgument
