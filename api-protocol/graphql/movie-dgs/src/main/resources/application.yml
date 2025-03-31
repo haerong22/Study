@@ -2,6 +2,10 @@ spring:
   application:
     name: movie-dgs
 
+  graphql:
+    websocket:
+      path: graphql
+
   jpa:
     defer-datasource-initialization: true
     hibernate:

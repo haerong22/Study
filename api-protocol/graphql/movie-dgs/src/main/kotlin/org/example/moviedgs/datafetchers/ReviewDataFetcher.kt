@@ -3,9 +3,13 @@ package org.example.moviedgs.datafetchers
 import com.example.moviedgs.types.AddReviewInput
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsMutation
+import com.netflix.graphql.dgs.DgsSubscription
 import com.netflix.graphql.dgs.InputArgument
 import org.example.moviedgs.entities.Review
 import org.example.moviedgs.repositories.ReviewRepository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Sinks
+import reactor.util.concurrent.Queues
 
 @DgsComponent
 class ReviewDataFetcher(
@@ -27,7 +31,22 @@ class ReviewDataFetcher(
             user = user,
             movie = movie,
         )
+        reviewRepository.save(review)
 
-        return reviewRepository.save(review)
+        reviewSink.tryEmitNext(review)
+        return review
+    }
+
+    private val reviewSink = Sinks
+        .many()
+        .multicast()
+        .onBackpressureBuffer<Review>(Queues.SMALL_BUFFER_SIZE, false)
+
+    @DgsSubscription
+    fun newReview(
+        @InputArgument movieId: Long,
+    ): Flux<Review> {
+        return reviewSink.asFlux()
+            .filter { it.movie.id == movieId }
     }
 }
