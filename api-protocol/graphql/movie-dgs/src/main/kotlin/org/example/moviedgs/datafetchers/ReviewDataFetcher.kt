@@ -8,6 +8,7 @@ import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsSubscription
 import com.netflix.graphql.dgs.InputArgument
+import org.example.moviedgs.dataloaders.ReviewsByMovieIdDataLoader
 import org.example.moviedgs.entities.Movie
 import org.example.moviedgs.entities.Review
 import org.example.moviedgs.entities.User
@@ -15,6 +16,7 @@ import org.example.moviedgs.repositories.ReviewRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Sinks
 import reactor.util.concurrent.Queues
+import java.util.concurrent.CompletableFuture
 
 @DgsComponent
 class ReviewDataFetcher(
@@ -61,10 +63,12 @@ class ReviewDataFetcher(
     )
     fun getReviewsByMovie(
         dfe: DgsDataFetchingEnvironment
-    ): List<Review> {
+    ): CompletableFuture<List<Review>> {
         val movie = dfe.getSourceOrThrow<Movie>()
 
-        return reviewRepository.findAllByMovie(movie)
+        val dataLoader = dfe.getDataLoader<Long, List<Review>>(ReviewsByMovieIdDataLoader::class.java)
+
+        return dataLoader.load(movie.id)
     }
 
     @DgsData(
