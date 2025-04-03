@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface MovieRepository: JpaRepository<Movie, Long> {
 
     fun findAllByDirector(director: Director): List<Movie>
+
+    fun findAllByDirectorIdIn(directorIds: Collection<Long>): List<Movie>
 }

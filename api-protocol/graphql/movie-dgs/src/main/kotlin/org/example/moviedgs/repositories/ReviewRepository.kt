@@ -12,4 +12,6 @@ interface ReviewRepository : JpaRepository<Review, Long> {
     fun findAllByUser(user: User): List<Review>
 
     fun findAllByMovieIdIn(movieIds: Collection<Long>): List<Review>
+
+    fun findAllByUserIdIn(userIds: Collection<Long>): List<Review>
 }

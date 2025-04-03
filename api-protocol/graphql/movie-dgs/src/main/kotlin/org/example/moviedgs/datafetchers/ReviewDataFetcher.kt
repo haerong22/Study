@@ -9,6 +9,7 @@ import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsSubscription
 import com.netflix.graphql.dgs.InputArgument
 import org.example.moviedgs.dataloaders.ReviewsByMovieIdDataLoader
+import org.example.moviedgs.dataloaders.ReviewsByUserDataLoader
 import org.example.moviedgs.entities.Movie
 import org.example.moviedgs.entities.Review
 import org.example.moviedgs.entities.User
@@ -77,9 +78,11 @@ class ReviewDataFetcher(
     )
     fun getReviewsByUser(
         dfe: DgsDataFetchingEnvironment
-    ): List<Review> {
+    ): CompletableFuture<List<Review>>? {
         val user = dfe.getSourceOrThrow<User>()
 
-        return reviewRepository.findAllByUser(user)
+        val dataLoader = dfe.getDataLoader<Long, List<Review>>(ReviewsByUserDataLoader::class.java)
+
+        return dataLoader.load(user.id)
     }
 }

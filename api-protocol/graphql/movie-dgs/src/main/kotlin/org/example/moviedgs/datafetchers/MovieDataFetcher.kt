@@ -6,9 +6,11 @@ import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
+import org.example.moviedgs.dataloaders.MoviesByDirectorDataLoader
 import org.example.moviedgs.entities.Director
 import org.example.moviedgs.entities.Movie
 import org.example.moviedgs.repositories.MovieRepository
+import java.util.concurrent.CompletableFuture
 
 @DgsComponent
 class MovieDataFetcher(
@@ -33,9 +35,11 @@ class MovieDataFetcher(
     )
     fun getMoviesByDirector(
         dfe: DgsDataFetchingEnvironment
-    ): List<Movie> {
+    ): CompletableFuture<List<Movie>>? {
         val director = dfe.getSourceOrThrow<Director>()
 
-        return movieRepository.findAllByDirector(director)
+        val dataLoader = dfe.getDataLoader<Long, List<Movie>>(MoviesByDirectorDataLoader::class.java)
+
+        return dataLoader.load(director.id)
     }
 }
