@@ -10,21 +10,26 @@ import org.springframework.stereotype.Component
 import java.util.concurrent.CompletableFuture
 
 @Component
-class CustomDataFetcherExceptionHandler: DataFetcherExceptionHandler {
+class CustomDataFetcherExceptionHandler : DataFetcherExceptionHandler {
 
     override fun handleException(handlerParameters: DataFetcherExceptionHandlerParameters): CompletableFuture<DataFetcherExceptionHandlerResult> {
-        val graphQLError = TypedGraphQLError.newBuilder()
-            .errorType(ErrorType.BAD_REQUEST)
-            .message(handlerParameters.exception.message ?: "UnknownError")
-            .location(handlerParameters.sourceLocation)
-            .path(handlerParameters.path)
+        val graphQLError = if (handlerParameters.exception is CustomException) {
+            (handlerParameters.exception as CustomException)
+                .toGraphQlError(handlerParameters.path, handlerParameters.sourceLocation)
+        } else {
+            TypedGraphQLError.newBuilder()
+                .errorType(ErrorType.BAD_REQUEST)
+                .message(handlerParameters.exception.message ?: "UnknownError")
+                .location(handlerParameters.sourceLocation)
+                .path(handlerParameters.path)
 
-            .errorDetail(ErrorDetail.Common.FIELD_NOT_FOUND)
-            .debugInfo(mapOf("stackTrace" to handlerParameters.exception.stackTrace.first()))
-            .origin("movie-service")
-            .extensions(mapOf("errorCode" to "1001"))
+                .errorDetail(ErrorDetail.Common.FIELD_NOT_FOUND)
+                .debugInfo(mapOf("stackTrace" to handlerParameters.exception.stackTrace.first()))
+                .origin("movie-service")
+                .extensions(mapOf("errorCode" to "1001"))
 
-            .build()
+                .build()
+        }
 
         val result = DataFetcherExceptionHandlerResult.newResult()
             .error(graphQLError)
