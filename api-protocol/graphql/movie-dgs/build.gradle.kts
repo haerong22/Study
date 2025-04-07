@@ -66,4 +66,5 @@ tasks.generateJava {
     typeMapping = mutableMapOf(
         "ID" to "Long"
     )
+    generateClientv2 = true
 }
