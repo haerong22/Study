@@ -8,6 +8,7 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest
 import com.netflix.graphql.dgs.test.EnableDgsTest
 import org.assertj.core.api.Assertions.assertThat
 import org.example.moviedgs.config.DataLoaderExecutor
+import org.example.moviedgs.customscalars.EmailScalar
 import org.example.moviedgs.dataloaders.DirectorByIdDataLoader
 import org.example.moviedgs.entities.Director
 import org.example.moviedgs.entities.Movie
@@ -30,7 +31,8 @@ import java.util.Optional
         CustomDataFetcherExceptionHandler::class,
         DirectorDataFetcher::class,
         DirectorByIdDataLoader::class,
-        DataLoaderExecutor::class
+        DataLoaderExecutor::class,
+        EmailScalar::class
     ]
 )
 class MovieDataFetcherTest {

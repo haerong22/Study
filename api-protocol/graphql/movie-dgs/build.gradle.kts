@@ -64,7 +64,8 @@ tasks.generateJava {
     language = "kotlin"
     packageName = "com.example.moviedgs"
     typeMapping = mutableMapOf(
-        "ID" to "Long"
+        "ID" to "Long",
+        "Email" to "String"
     )
     generateClientv2 = true
 }

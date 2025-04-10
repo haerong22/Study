@@ -1,6 +1,9 @@
 """ Date 타입입니다 """
 scalar Date
 
+""" Email 형식을 검증하는 Custom Scalar """
+scalar Email
+
 type Query {
     movie(movieId: ID!): Movie!
     movies: [Movie]!
@@ -42,7 +45,7 @@ type Review {
 type User {
     id: ID!
     username: String!
-    email: String!
+    email: Email!
     reviews: [Review!]!
 }
 
@@ -55,5 +58,5 @@ input AddReviewInput {
 
 input AddUserInput {
     username: String!
-    email: String!
+    email: Email!
 }
