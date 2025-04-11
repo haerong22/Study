@@ -8,15 +8,21 @@ import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsSubscription
 import com.netflix.graphql.dgs.InputArgument
+import jakarta.annotation.PreDestroy
 import org.example.moviedgs.dataloaders.ReviewsByMovieIdDataLoader
 import org.example.moviedgs.dataloaders.ReviewsByUserDataLoader
 import org.example.moviedgs.entities.Movie
 import org.example.moviedgs.entities.Review
 import org.example.moviedgs.entities.User
 import org.example.moviedgs.repositories.ReviewRepository
+import org.springframework.util.StringUtils
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Sinks
 import reactor.util.concurrent.Queues
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardCopyOption
+import java.util.UUID
 import java.util.concurrent.CompletableFuture
 
 @DgsComponent
@@ -25,6 +31,14 @@ class ReviewDataFetcher(
     private val movieDataFetcher: MovieDataFetcher,
     private val reviewRepository: ReviewRepository,
 ) {
+    val tempDir: Path = Files.createTempDirectory("review_images")
+
+    @PreDestroy
+    fun cleanUp() {
+        Files.walk(tempDir)
+            .map { it.toFile() }
+            .forEach { it.delete() }
+    }
 
     @DgsMutation
     fun addReview(
@@ -33,11 +47,24 @@ class ReviewDataFetcher(
         val user = userDataFetcher.user(input.movieId)
         val movie = movieDataFetcher.movie(input.movieId)
 
+        val imageFileUrl = input.imageFile
+            ?.let { imageFile ->
+                // 파일명 생성
+                val fileName = UUID.randomUUID().toString() + "_" + StringUtils.cleanPath(imageFile.originalFilename!!)
+                val targetLocation = tempDir.resolve(fileName)
+
+                // 파일 저장
+                Files.copy(imageFile.inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING)
+
+                targetLocation.toString()
+            }
+
         val review = Review(
             rating = input.rating,
             comment = input.comment,
             user = user,
             movie = movie,
+            imageFileUrl = imageFileUrl
         )
         reviewRepository.save(review)
 

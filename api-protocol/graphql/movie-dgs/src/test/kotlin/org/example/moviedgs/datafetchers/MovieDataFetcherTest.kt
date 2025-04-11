@@ -5,6 +5,7 @@ import com.example.moviedgs.client.MovieProjectionRoot
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.netflix.graphql.dgs.autoconfig.DgsExtendedScalarsAutoConfiguration
 import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest
+import com.netflix.graphql.dgs.scalars.UploadScalar
 import com.netflix.graphql.dgs.test.EnableDgsTest
 import org.assertj.core.api.Assertions.assertThat
 import org.example.moviedgs.config.DataLoaderExecutor
@@ -32,7 +33,8 @@ import java.util.Optional
         DirectorDataFetcher::class,
         DirectorByIdDataLoader::class,
         DataLoaderExecutor::class,
-        EmailScalar::class
+        EmailScalar::class,
+        UploadScalar::class,
     ]
 )
 class MovieDataFetcherTest {

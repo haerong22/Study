@@ -2,11 +2,9 @@ package org.example.moviedgs.datafetchers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.graphql.dgs.DgsQueryExecutor
-import com.netflix.graphql.dgs.autoconfig.DgsExtendedScalarsAutoConfiguration
 import com.netflix.graphql.dgs.test.EnableDgsTest
 import graphql.ExecutionResult
 import org.assertj.core.api.Assertions.assertThat
-import org.example.moviedgs.customscalars.EmailScalar
 import org.example.moviedgs.entities.Director
 import org.example.moviedgs.entities.Movie
 import org.example.moviedgs.entities.Review
@@ -23,13 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
 import java.time.LocalDate
 
 @EnableDgsTest
-@SpringBootTest(
-    classes = [
-        DgsExtendedScalarsAutoConfiguration::class,
-        ReviewDataFetcher::class,
-        EmailScalar::class,
-    ]
-)
+@SpringBootTest
 class ReviewSubscriptionTest {
 
     @MockitoBean
@@ -38,7 +30,7 @@ class ReviewSubscriptionTest {
     @MockitoBean
     lateinit var movieDataFetcher: MovieDataFetcher
 
-    @MockitoBean
+    @Autowired
     lateinit var reviewRepository: ReviewRepository
 
     @Autowired

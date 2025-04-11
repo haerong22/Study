@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne
 @Entity
 class Review(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 0,
+    val id: Long? = null,
 
     @Column(nullable = false)
     val rating: Int,
@@ -27,5 +27,8 @@ class Review(
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "movie_id")
     val movie: Movie,
+
+    @Column(nullable = true)
+    val imageFileUrl: String? = null,
 ) {
 }

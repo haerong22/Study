@@ -4,6 +4,8 @@ scalar Date
 """ Email 형식을 검증하는 Custom Scalar """
 scalar Email
 
+scalar Upload
+
 type Query {
     movie(movieId: ID!): Movie!
     movies: [Movie]!
@@ -54,6 +56,7 @@ input AddReviewInput {
     userId: ID!
     rating: Int!
     comment: String
+    imageFile: Upload
 }
 
 input AddUserInput {
