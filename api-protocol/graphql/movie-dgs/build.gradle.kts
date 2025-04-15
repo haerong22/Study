@@ -38,6 +38,9 @@ dependencies {
     implementation("name.nkonev.multipart-spring-graphql:multipart-spring-graphql:1.5.3")
     implementation("com.github.ben-manes.caffeine:caffeine:3.2.0")
 
+    implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-micrometer")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
