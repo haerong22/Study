@@ -9,7 +9,8 @@ import static util.MyLogger.log;
 
 public class SumTask extends RecursiveTask<Integer> {
 
-    private static final int THRESHOLD = 4;
+//    private static final int THRESHOLD = 4;
+    private static final int THRESHOLD = 2;
 
     private final List<Integer> list;
 
