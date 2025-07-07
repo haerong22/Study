@@ -3,7 +3,7 @@ package stream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-public class _04_NonBufferedWrite {
+public class _05_NonBufferedWrite {
 
     public static void main(String[] args) {
         try (OutputStream os = new FileOutputStream("./tmp/test.dat")) {
