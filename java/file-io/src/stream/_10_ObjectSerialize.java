@@ -2,7 +2,7 @@ package stream;
 
 import java.io.*;
 
-public class _10_DataObject {
+public class _10_ObjectSerialize {
 
     private static final String targetPath = "./tmp/test.dat";
 
@@ -52,36 +52,4 @@ public class _10_DataObject {
         Data: 10, TEST_DATA
      */
 
-}
-
-class DataObject implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    private int type = 0;
-    private final String data;
-
-    public DataObject(int type, String data) {
-        this.type = type;
-        this.data = data;
-    }
-
-    public long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    @Override
-    public String toString() {
-        return "Ver: " + serialVersionUID + "\n" +
-                "Data: " + type + ", " + data;
-    }
 }
