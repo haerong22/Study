@@ -51,4 +51,12 @@ public class _01_EchoServer {
             }
         }
     }
+
+    /*
+        Server start...
+        Client connected
+        Received: Hello echo server
+        Received: bye
+        Server stop...
+     */
 }
