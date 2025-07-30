@@ -24,7 +24,7 @@ class MemberTest {
             }
         };
 
-        this.member = Member.create("bobby@email.com", "bobby", "secret", passwordEncoder);
+        this.member = Member.create(new MemberCreateRequest("bobby@email.com", "bobby", "secret"), passwordEncoder);
     }
 
     @Test
@@ -100,5 +100,18 @@ class MemberTest {
         member.changePassword("verysecret", passwordEncoder);
 
         assertThat(member.verifyPassword("verysecret", passwordEncoder)).isTrue();
+    }
+
+    @Test
+    void isActive() {
+        assertThat(member.isActive()).isFalse();
+
+        member.activate();
+
+        assertThat(member.isActive()).isTrue();
+
+        member.deactivate();
+
+        assertThat(member.isActive()).isFalse();
     }
 }
