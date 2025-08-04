@@ -6,8 +6,12 @@ import org.example.splearn.application.required.EmailSender;
 import org.example.splearn.application.required.MemberRepository;
 import org.example.splearn.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Transactional
+@Validated
 @RequiredArgsConstructor
 public class MemberService implements MemberRegister {
 

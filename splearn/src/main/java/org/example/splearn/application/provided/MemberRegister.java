@@ -1,5 +1,6 @@
 package org.example.splearn.application.provided;
 
+import jakarta.validation.Valid;
 import org.example.splearn.domain.Member;
 import org.example.splearn.domain.MemberRegisterRequest;
 
@@ -8,5 +9,5 @@ import org.example.splearn.domain.MemberRegisterRequest;
  */
 public interface MemberRegister {
 
-    Member register(MemberRegisterRequest registerRequest);
+    Member register(@Valid MemberRegisterRequest registerRequest);
 }

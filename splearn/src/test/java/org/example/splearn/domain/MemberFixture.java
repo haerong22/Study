@@ -3,7 +3,7 @@ package org.example.splearn.domain;
 public class MemberFixture {
 
     public static MemberRegisterRequest createMemberRegisterRequest(String email) {
-        return new MemberRegisterRequest(email, "bobby", "secret");
+        return new MemberRegisterRequest(email, "bobby", "longsecret");
     }
 
     public static MemberRegisterRequest createMemberRegisterRequest() {
