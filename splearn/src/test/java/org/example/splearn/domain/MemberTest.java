@@ -3,7 +3,8 @@ package org.example.splearn.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.example.splearn.domain.MemberFixture.createMemberRegisterRequest;
 import static org.example.splearn.domain.MemberFixture.createPasswordEncoder;
 
