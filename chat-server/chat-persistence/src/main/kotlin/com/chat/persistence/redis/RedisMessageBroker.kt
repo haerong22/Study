@@ -5,9 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.PreDestroy
 import org.slf4j.LoggerFactory
+import org.springframework.data.redis.connection.Message
+import org.springframework.data.redis.connection.MessageListener
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.listener.ChannelTopic
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 
 @Service
@@ -15,7 +19,7 @@ class RedisMessageBroker(
     private val redisTemplate: RedisTemplate<String, String>,
     private val messageListenerContainer: RedisMessageListenerContainer,
     private val objectMapper: ObjectMapper,
-) {
+) : MessageListener {
     private val log = LoggerFactory.getLogger(javaClass)
     private val serverId = System.getenv("HOSTNAME") ?: "server-${System.currentTimeMillis()}"
     private val processedMessages = ConcurrentHashMap<String, Long>()
@@ -45,13 +49,87 @@ class RedisMessageBroker(
     @PreDestroy
     fun cleanup() {
         subscribeRooms.forEach { roomId ->
-            // TODO 구독 취소
+            unsubscribeFromRoom(roomId)
         }
         log.info("Removing RedisMessageListenerContainer")
     }
 
     fun setLocalMessageHandler(handler: (Long, ChatMessage) -> Unit) {
         this.localMessageHandler = handler
+    }
+
+    fun subscribeToRoom(roomId: Long) {
+        if (subscribeRooms.add(roomId)) {
+            val topic = ChannelTopic("chat.room.$roomId")
+            messageListenerContainer.addMessageListener(this, topic)
+            log.info("Subscribe to $roomId")
+        } else {
+            log.error("Room $roomId does not exist")
+        }
+
+    }
+
+    fun unsubscribeFromRoom(roomId: Long) {
+        if (subscribeRooms.remove(roomId)) {
+            val topic = ChannelTopic("chat.room.$roomId")
+            messageListenerContainer.removeMessageListener(this, topic)
+            log.info("Unsubscribe from $roomId")
+        } else {
+            log.error("Room $roomId does not exist")
+        }
+    }
+
+    fun broadcastToRoom(roomId: Long, message: ChatMessage, excludeServerId: String? = null) {
+        try {
+            val distributedMessage = DistribuetedMessge(
+                id = "$serverId-${System.currentTimeMillis()}-${System.nanoTime()}",
+                serverId = serverId,
+                roomId = roomId,
+                excludeServerId = excludeServerId,
+                timestamp = LocalDateTime.now(),
+                payload = message,
+            )
+
+            val json = objectMapper.writeValueAsString(distributedMessage)
+            redisTemplate.convertAndSend("chat.room.$roomId", json)
+
+            log.info("Broadcast to $roomId to $json")
+        } catch (e: Exception) {
+            log.error("Error broadcast to $roomId", e)
+        }
+    }
+
+    override fun onMessage(message: Message, pattern: ByteArray?) {
+        try {
+            val json = String(message.body)
+            val distribuetedMessage = objectMapper.readValue(json, DistribuetedMessge::class.java)
+
+            if (distribuetedMessage.excludeServerId == serverId) {
+                log.error("excludeServerId to $serverId")
+                return
+            }
+
+            if (processedMessages.containsKey(distribuetedMessage.id)) {
+                log.error("proceedMessages $distribuetedMessage")
+                return
+            }
+
+            localMessageHandler?.invoke(distribuetedMessage.roomId, distribuetedMessage.payload)
+
+            processedMessages[distribuetedMessage.id] = System.currentTimeMillis()
+
+            if (processedMessages.size > 10000) {
+                val oldestEntries = processedMessages.entries.sortedBy { it.value }
+                    .take(processedMessages.size - 10000)
+
+                oldestEntries.forEach { processedMessages.remove(it.key) }
+            }
+
+            log.info("processedMessages ${distribuetedMessage.id}")
+
+        } catch (e: Exception) {
+            log.error("Error in onMessage", e)
+        }
     }
 
     private fun cleanupProcessedMessages() {
@@ -66,4 +144,13 @@ class RedisMessageBroker(
             log.info("Remove ${processedMessages.size} messages from Redis")
         }
     }
+
+    data class DistribuetedMessge(
+        val id: String,
+        val serverId: String,
+        val roomId: Long,
+        val excludeServerId: String?,
+        val timestamp: LocalDateTime,
+        val payload: ChatMessage
+    )
 }
