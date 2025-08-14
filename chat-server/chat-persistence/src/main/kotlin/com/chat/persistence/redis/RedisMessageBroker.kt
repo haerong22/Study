@@ -81,7 +81,7 @@ class RedisMessageBroker(
 
     fun broadcastToRoom(roomId: Long, message: ChatMessage, excludeServerId: String? = null) {
         try {
-            val distributedMessage = DistribuetedMessge(
+            val distributedMessage = DistributedMessage(
                 id = "$serverId-${System.currentTimeMillis()}-${System.nanoTime()}",
                 serverId = serverId,
                 roomId = roomId,
@@ -102,21 +102,21 @@ class RedisMessageBroker(
     override fun onMessage(message: Message, pattern: ByteArray?) {
         try {
             val json = String(message.body)
-            val distribuetedMessage = objectMapper.readValue(json, DistribuetedMessge::class.java)
+            val distributedMessage = objectMapper.readValue(json, DistributedMessage::class.java)
 
-            if (distribuetedMessage.excludeServerId == serverId) {
+            if (distributedMessage.excludeServerId == serverId) {
                 log.error("excludeServerId to $serverId")
                 return
             }
 
-            if (processedMessages.containsKey(distribuetedMessage.id)) {
-                log.error("proceedMessages $distribuetedMessage")
+            if (processedMessages.containsKey(distributedMessage.id)) {
+                log.error("proceedMessages $distributedMessage")
                 return
             }
 
-            localMessageHandler?.invoke(distribuetedMessage.roomId, distribuetedMessage.payload)
+            localMessageHandler?.invoke(distributedMessage.roomId, distributedMessage.payload)
 
-            processedMessages[distribuetedMessage.id] = System.currentTimeMillis()
+            processedMessages[distributedMessage.id] = System.currentTimeMillis()
 
             if (processedMessages.size > 10000) {
                 val oldestEntries = processedMessages.entries.sortedBy { it.value }
@@ -125,7 +125,7 @@ class RedisMessageBroker(
                 oldestEntries.forEach { processedMessages.remove(it.key) }
             }
 
-            log.info("processedMessages ${distribuetedMessage.id}")
+            log.info("processedMessages ${distributedMessage.id}")
 
         } catch (e: Exception) {
             log.error("Error in onMessage", e)
@@ -145,7 +145,7 @@ class RedisMessageBroker(
         }
     }
 
-    data class DistribuetedMessge(
+    data class DistributedMessage(
         val id: String,
         val serverId: String,
         val roomId: Long,
