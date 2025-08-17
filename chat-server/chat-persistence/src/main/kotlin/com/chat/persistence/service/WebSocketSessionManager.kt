@@ -13,7 +13,7 @@ import org.springframework.web.socket.WebSocketSession
 import java.util.concurrent.ConcurrentHashMap
 
 @Service
-class WebsocketSessionManager(
+class WebSocketSessionManager(
     private val redisTemplate: RedisTemplate<String, String>,
     private val objectMapper: ObjectMapper,
     private val redisMessageBroker: RedisMessageBroker,
@@ -76,7 +76,7 @@ class WebsocketSessionManager(
             redisMessageBroker.subscribeToRoom(roomId)
         }
 
-        log.info("Joined $roomId for $serverId to server $serverRoomKey")
+        log.info("Joined $roomId for $userId $serverId to server $serverRoomKey")
     }
 
     fun sendMessageToLocalRoom(roomId: Long, message: ChatMessage, excludeUserId: Long? = null) {
