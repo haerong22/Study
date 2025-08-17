@@ -20,6 +20,8 @@ import com.chat.persistence.repository.ChatRoomRepository
 import com.chat.persistence.repository.MessageRepository
 import com.chat.persistence.repository.UserRepository
 import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.cache.annotation.Caching
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -68,28 +70,75 @@ class ChatServiceImpl(
         return chatRoomToDto(savedRoom)
     }
 
+    @Cacheable(value = ["chatRooms"], key = "#roomId")
     override fun getChatRoom(roomId: Long): ChatRoomDto {
-        TODO("Not yet implemented")
+        val chatRoom = chatRoomRepository.findById(roomId)
+            .orElseThrow { IllegalArgumentException("채팅방을 찾을 수 없습니다: $roomId") }
+        return chatRoomToDto(chatRoom)
     }
 
     override fun getChatRooms(userId: Long, pageable: Pageable): Page<ChatRoomDto> {
-        TODO("Not yet implemented")
+        return chatRoomRepository.findUserChatRooms(userId, pageable)
+            .map { chatRoomToDto(it) }
     }
 
     override fun searchChatRooms(query: String, userId: Long): List<ChatRoomDto> {
-        TODO("Not yet implemented")
+        val chatRooms = if (query.isBlank()) {
+            chatRoomRepository.findByIsActiveTrueOrderByCreatedAtDesc()
+        } else {
+            chatRoomRepository.findByNameContainingIgnoreCaseAndIsActiveTrueOrderByCreatedAtDesc(query)
+        }
+
+        return chatRooms.map { chatRoomToDto(it) }
     }
 
+    @Caching(evict = [
+        CacheEvict(value = ["chatRoomMembers"], key = "#roomId"),
+        CacheEvict(value = ["chatRooms"], key = "#roomId")
+    ])
     override fun joinChatRoom(roomId: Long, userId: Long) {
-        TODO("Not yet implemented")
+        // 채팅방 확인
+        val chatRoom = chatRoomRepository.findById(roomId)
+            .orElseThrow { IllegalArgumentException("채팅방을 찾을 수 없습니다: $roomId") }
+
+        // 사용자 확인
+        val user = userRepository.findById(userId)
+            .orElseThrow { IllegalArgumentException("사용자를 찾을 수 없습니다: $userId") }
+
+        // 이미 참여중인지 확인
+        if (chatRoomMemberRepository.existsByChatRoomIdAndUserIdAndIsActiveTrue(roomId, userId)) {
+            throw IllegalStateException("이미 참여한 채팅방입니다")
+        }
+
+        val currentMemberCount = chatRoomMemberRepository.countActiveMembersInRoom(roomId)
+        if (currentMemberCount >= chatRoom.maxMembers) {
+            throw IllegalStateException("채팅방이 가득 찼습니다")
+        }
+
+        val member = ChatRoomMember(
+            chatRoom = chatRoom,
+            user = user,
+            role = MemberRole.MEMBER
+        )
+        chatRoomMemberRepository.save(member)
+
+        if (webSocketSessionManager.isUserOnlineLocally(userId)) {
+            webSocketSessionManager.joinRoom(userId, roomId)
+        }
     }
 
+    @Caching(evict = [
+        CacheEvict(value = ["chatRoomMembers"], key = "#roomId"),
+        CacheEvict(value = ["chatRooms"], key = "#roomId")
+    ])
     override fun leaveChatRoom(roomId: Long, userId: Long) {
-        TODO("Not yet implemented")
+        chatRoomMemberRepository.leaveChatRoom(roomId, userId)
     }
 
+    @Cacheable(value = ["chatRoomMembers"], key = "#roomId")
     override fun getChatRoomMembers(roomId: Long): List<ChatRoomMemberDto> {
-        TODO("Not yet implemented")
+        return chatRoomMemberRepository.findByChatRoomIdAndIsActiveTrue(roomId)
+            .map { memberToDto(it) }
     }
 
     override fun sendMessage(request: SendMessageRequest, senderId: Long): MessageDto {
@@ -148,6 +197,18 @@ class ChatServiceImpl(
             isActive = user.isActive,
             lastSeenAt = user.lastSeenAt,
             createdAt = user.createdAt
+        )
+    }
+
+    private fun memberToDto(member: ChatRoomMember): ChatRoomMemberDto {
+        return ChatRoomMemberDto(
+            id = member.id,
+            user = userToDto(member.user),
+            role = member.role,
+            isActive = member.isActive,
+            lastReadMessageId = member.lastReadMessageId,
+            joinedAt = member.joinedAt,
+            leftAt = member.leftAt
         )
     }
 }
