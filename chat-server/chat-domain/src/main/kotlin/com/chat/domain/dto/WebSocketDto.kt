@@ -3,7 +3,6 @@ package com.chat.domain.dto
 import com.chat.domain.model.MessageType
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import java.awt.TrayIcon
 import java.time.LocalDateTime
 
 @JsonTypeInfo(
@@ -24,7 +23,7 @@ sealed class WebSocketMessage {
 data class ChatMessage(
     val id: Long,
     val content: String,
-    val type: TrayIcon.MessageType,
+    val type: MessageType,
     val senderId: Long,
     val senderName: String,
     val sequenceNumber: Long,
