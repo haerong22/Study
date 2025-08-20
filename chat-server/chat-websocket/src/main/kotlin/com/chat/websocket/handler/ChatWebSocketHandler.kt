@@ -58,15 +58,31 @@ class ChatWebSocketHandler(
     }
 
     override fun handleTransportError(session: WebSocketSession, exception: Throwable) {
-        TODO("Not yet implemented")
+        val userId = getUserIdFromSession(session)
+
+        // EOFException -> 클라이언트 연결 해제, 정상적인 상황
+        if (exception is java.io.EOFException) {
+            log.debug("WebSocket connection closed by client for user: $userId")
+        } else {
+            log.error("WebSocket transport error for user: $userId", exception)
+        }
+
+        if (userId != null) {
+            sessionManager.removeSession(userId, session)
+        }
     }
 
     override fun afterConnectionClosed(session: WebSocketSession, closeStatus: CloseStatus) {
-        TODO("Not yet implemented")
+        val userId = getUserIdFromSession(session)
+
+        if (userId != null) {
+            sessionManager.removeSession(userId, session)
+            log.info("Session removed for $userId")
+        }
     }
 
     override fun supportsPartialMessages(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     private fun getUserIdFromSession(session: WebSocketSession): Long? {
