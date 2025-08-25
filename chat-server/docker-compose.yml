@@ -10,8 +10,8 @@ services:
       POSTGRES_USER: chatuser
       POSTGRES_PASSWORD: chatpass
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+      - ./infra/postgres/data:/var/lib/postgresql/data
+      - ./infra/postgres/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
     ports:
       - "5432:5432"
     healthcheck:
@@ -28,7 +28,7 @@ services:
     container_name: chat-redis
     command: redis-server --appendonly yes
     volumes:
-      - redis_data:/data
+      - ./infra/redis/data:/data
     ports:
       - "6379:6379"
     healthcheck:
@@ -107,7 +107,7 @@ services:
     image: nginx:alpine
     container_name: chat-nginx
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
     depends_on:
