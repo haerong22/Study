@@ -34,7 +34,14 @@ class UserServiceImpl(
     }
 
     override fun login(request: LoginRequest): UserDto {
-        TODO("Not yet implemented")
+        val user = userRepository.findByUsername(request.username)
+            ?: throw IllegalArgumentException("사용자를 찾을 수 없거나 비밀번호가 일치하지 않습니다.")
+
+        if (user.password != hashPassword(request.password)) {
+            throw IllegalArgumentException("사용자를 찾을 수 없거나 비밀번호가 일치하지 않습니다.")
+        }
+
+        return userToDto(user)
     }
 
     override fun getUserById(userId: Long): UserDto {
