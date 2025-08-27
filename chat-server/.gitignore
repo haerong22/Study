@@ -43,3 +43,5 @@ bin/
 
 ./infra/postgres/data
 ./infra/redis/data
+
+client/node_modules

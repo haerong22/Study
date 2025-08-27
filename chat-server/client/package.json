@@ -1,0 +1,57 @@
+{
+  "name": "chat-client",
+  "version": "1.0.0",
+  "description": "분산 채팅 시스템 React 클라이언트 - SendBird 스타일",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "axios": "^1.6.0",
+    "web-vitals": "^3.5.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "lucide-react": "^0.400.0",
+    "date-fns": "^2.30.0",
+    "react-virtualized-auto-sizer": "^1.0.24",
+    "react-window": "^1.8.8",
+    "react-intersection-observer": "^9.5.3",
+    "react-hotkeys-hook": "^4.4.1",
+    "emoji-picker-react": "^4.5.16",
+    "react-dropzone": "^14.2.3",
+    "react-loading-skeleton": "^3.3.1",
+    "framer-motion": "^10.16.5",
+    "react-tooltip": "^5.25.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/react-window": "^1.8.8",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:80"
+}
