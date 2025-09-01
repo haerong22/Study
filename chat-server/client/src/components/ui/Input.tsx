@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react';
-import { InputProps } from '../../types/index';
-import { theme } from '../../styles/theme.ts';
+import React, {forwardRef} from 'react';
+import {InputProps} from '../../types/index';
+import {theme} from '../../styles/theme.ts';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({
                                                             value,
@@ -48,7 +48,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
     };
 
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{width: '100%'}}>
             <input
                 ref={ref}
                 type={type}
