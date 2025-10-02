@@ -1,0 +1,16 @@
+###
+POST {{host}}/orders/place
+Content-Type: application/json
+
+{
+  "orderItems": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 2
+    }
+  ]
+}
