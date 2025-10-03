@@ -1,5 +1,5 @@
-###
-POST {{host}}/orders/place
+### 주문 생성
+POST {{host}}/orders
 Content-Type: application/json
 
 {
@@ -13,4 +13,12 @@ Content-Type: application/json
       "quantity": 2
     }
   ]
+}
+
+### 주문 결제
+POST {{host}}/orders/place
+Content-Type: application/json
+
+{
+  "orderId": 1
 }

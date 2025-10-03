@@ -9,9 +9,19 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "orders")
 class Order(
-
+    var status: OrderStatus = OrderStatus.CREATED
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    fun isCompleted() = this.status == OrderStatus.COMPLETED
+
+    fun complete() {
+        this.status = OrderStatus.COMPLETED
+    }
+}
+
+enum class OrderStatus {
+    CREATED, COMPLETED
 }

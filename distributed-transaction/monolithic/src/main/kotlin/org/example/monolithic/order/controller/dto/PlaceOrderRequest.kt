@@ -3,17 +3,10 @@ package org.example.monolithic.order.controller.dto
 import org.example.monolithic.order.application.dto.PlaceOrderCommand
 
 data class PlaceOrderRequest(
-    val orderItems: List<OrderItem>,
+    val orderId: Long,
 ) {
 
     fun toCommand(): PlaceOrderCommand {
-        return PlaceOrderCommand(
-            orderItems.map { PlaceOrderCommand.OrderItem(it.productId, it.quantity) },
-        )
+        return PlaceOrderCommand(orderId)
     }
-
-    data class OrderItem(
-        val productId: Long,
-        val quantity: Long,
-    )
 }
