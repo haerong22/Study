@@ -11,3 +11,9 @@ spring:
     url: jdbc:mysql://localhost:3306/commerce
     username: root
     password: 1234
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 1234
