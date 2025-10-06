@@ -11,6 +11,7 @@ import jakarta.persistence.Table
 class Product(
     var quantity: Long,
     val price: Long,
+    var reservedQuantity: Long,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +26,17 @@ class Product(
         }
 
         this.quantity -= quantity
+    }
+
+    fun reserve(requestedQuantity: Long): Long {
+        this.quantity - this.reservedQuantity
+
+        if (reservedQuantity < requestedQuantity) {
+            throw RuntimeException("예약 할 수 있는 수량이 부족합니다.")
+        }
+
+        this.reservedQuantity += requestedQuantity
+
+        return price * requestedQuantity
     }
 }
