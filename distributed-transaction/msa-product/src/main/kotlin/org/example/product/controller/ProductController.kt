@@ -1,6 +1,6 @@
 package org.example.product.controller
 
-import org.example.product.application.ProductService
+import org.example.product.application.ProductFacadeService
 import org.example.product.application.RedisLockService
 import org.example.product.controller.dto.ProductReserveRequest
 import org.example.product.controller.dto.ProductReserveResponse
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ProductController(
-    private val productService: ProductService,
+    private val productFacadeService: ProductFacadeService,
     private val redisLockService: RedisLockService,
 ) {
 
@@ -26,7 +26,7 @@ class ProductController(
         }
 
         try {
-            val result = productService.tryReserve(request.toCommand())
+            val result = productFacadeService.tryReserve(request.toCommand())
             return ProductReserveResponse(result.totalPrice)
         } finally {
             redisLockService.releaseLock(key)
