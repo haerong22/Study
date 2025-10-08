@@ -10,8 +10,8 @@ import jakarta.persistence.Version
 @Entity
 @Table(name = "products")
 class Product(
-    var quantity: Long,
     val price: Long,
+    var quantity: Long,
     var reservedQuantity: Long,
 ) {
     @Id
@@ -33,14 +33,27 @@ class Product(
     }
 
     fun reserve(requestedQuantity: Long): Long {
-        this.quantity - this.reservedQuantity
+        val reservableQuantity = this.quantity - this.reservedQuantity
 
-        if (reservedQuantity < requestedQuantity) {
+        if (reservableQuantity < requestedQuantity) {
             throw RuntimeException("예약 할 수 있는 수량이 부족합니다.")
         }
 
         this.reservedQuantity += requestedQuantity
 
         return price * requestedQuantity
+    }
+
+    fun confirm(requestedQuantity: Long) {
+        if (this.quantity < requestedQuantity) {
+            throw RuntimeException("재고가 부족합니다.")
+        }
+
+        if (this.reservedQuantity < requestedQuantity) {
+            throw RuntimeException("예약된 수량이 부족합니다.")
+        }
+
+        this.quantity -= requestedQuantity
+        this.reservedQuantity -= requestedQuantity
     }
 }

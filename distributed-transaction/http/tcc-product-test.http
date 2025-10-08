@@ -1,0 +1,21 @@
+### Try
+POST {{product-server}}/products/reserve
+Content-Type: application/json
+
+{
+  "requestId": "1",
+  "items": [
+    {
+      "productId": 1,
+      "reserveQuantity": 1
+    }
+  ]
+}
+
+### Confirm
+POST {{product-server}}/products/confirm
+Content-Type: application/json
+
+{
+  "requestId": "1"
+}

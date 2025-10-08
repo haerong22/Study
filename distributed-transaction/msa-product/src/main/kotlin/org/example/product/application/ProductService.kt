@@ -1,6 +1,7 @@
 package org.example.product.application
 
 import org.example.product.application.dto.ProductReserveCommand
+import org.example.product.application.dto.ProductReserveConfirmCommand
 import org.example.product.application.dto.ProductReserveResult
 import org.example.product.domain.ProductReservation
 import org.example.product.infrastructure.ProductRepository
@@ -41,5 +42,27 @@ class ProductService(
         }
 
         return ProductReserveResult(totalPrice)
+    }
+
+    @Transactional
+    fun confirmReserve(cmd: ProductReserveConfirmCommand) {
+        val reservations = productReservationRepository.findAllByRequestId(cmd.requestId)
+
+        if (reservations.isEmpty()) {
+            throw RuntimeException("예약된 정보가 없습니다.")
+        }
+
+        val alreadyConfirmed = reservations.any { it.isConfirmed() }
+
+        if (alreadyConfirmed) {
+            println("이미 확정이 되었습니다.")
+            return
+        }
+
+        reservations.forEach { reservation ->
+            val product = productRepository.findById(reservation.productId).orElseThrow()
+            product.confirm(reservation.reservedQuantity)
+            reservation.confirm()
+        }
     }
 }
