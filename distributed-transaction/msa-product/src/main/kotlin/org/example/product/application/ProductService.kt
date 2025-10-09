@@ -1,5 +1,6 @@
 package org.example.product.application
 
+import org.example.product.application.dto.ProductReserveCancelCommand
 import org.example.product.application.dto.ProductReserveCommand
 import org.example.product.application.dto.ProductReserveConfirmCommand
 import org.example.product.application.dto.ProductReserveResult
@@ -63,6 +64,28 @@ class ProductService(
             val product = productRepository.findById(reservation.productId).orElseThrow()
             product.confirm(reservation.reservedQuantity)
             reservation.confirm()
+        }
+    }
+
+    @Transactional
+    fun cancelReserve(cmd: ProductReserveCancelCommand) {
+        val reservations = productReservationRepository.findAllByRequestId(cmd.requestId)
+
+        if (reservations.isEmpty()) {
+            throw RuntimeException("예약된 정보가 없습니다.")
+        }
+
+        val alreadyCancelled = reservations.any { it.isCancelled() }
+
+        if (alreadyCancelled) {
+            println("이미 취소된 요청입니다.")
+            return
+        }
+
+        reservations.forEach { reservation ->
+            val product = productRepository.findById(reservation.productId).orElseThrow()
+            product.cancel(reservation.reservedQuantity)
+            reservation.cancel()
         }
     }
 }

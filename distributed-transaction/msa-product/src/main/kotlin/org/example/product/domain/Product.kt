@@ -56,4 +56,12 @@ class Product(
         this.quantity -= requestedQuantity
         this.reservedQuantity -= requestedQuantity
     }
+
+    fun cancel(requestedQuantity: Long) {
+        if (this.reservedQuantity < requestedQuantity) {
+            throw RuntimeException("예약된 수량이 부족합니다.")
+        }
+
+        this.reservedQuantity -= requestedQuantity
+    }
 }

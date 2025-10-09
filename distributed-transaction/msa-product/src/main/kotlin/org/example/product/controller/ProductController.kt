@@ -2,6 +2,7 @@ package org.example.product.controller
 
 import org.example.product.application.ProductFacadeService
 import org.example.product.application.RedisLockService
+import org.example.product.controller.dto.ProductReserveCancelRequest
 import org.example.product.controller.dto.ProductReserveConfirmRequest
 import org.example.product.controller.dto.ProductReserveRequest
 import org.example.product.controller.dto.ProductReserveResponse
@@ -47,6 +48,24 @@ class ProductController(
 
         try {
             productFacadeService.confirmReserve(request.toCommand())
+        } finally {
+            redisLockService.releaseLock(key)
+        }
+    }
+
+    @PostMapping("/products/cancel")
+    fun cancel(
+        @RequestBody request: ProductReserveCancelRequest
+    ) {
+        val key = "product:${request.requestId}"
+        val acquiredLock = redisLockService.tryLock(key, request.requestId)
+
+        if (!acquiredLock) {
+            throw RuntimeException("락 획득에 실패하였습니다.")
+        }
+
+        try {
+            productFacadeService.cancelReserve(request.toCommand())
         } finally {
             redisLockService.releaseLock(key)
         }
