@@ -1,0 +1,9 @@
+### Try
+POST {{point-server}}/points/reserve
+Content-Type: application/json
+
+{
+  "requestId": "1",
+  "userId": 1,
+  "reserveAmount": 50
+}

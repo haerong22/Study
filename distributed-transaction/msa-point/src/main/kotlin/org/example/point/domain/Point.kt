@@ -5,16 +5,21 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import jakarta.persistence.Version
 
 @Entity
 @Table(name = "points")
 class Point(
     val userId: Long,
     var amount: Long,
+    var reservedAmount: Long,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    @Version
+    private var version: Long = 0
 
     fun use(amount: Long) {
         if (this.amount < amount) {
@@ -22,5 +27,15 @@ class Point(
         }
 
         this.amount -= amount
+    }
+
+    fun reserve(reserveAmount: Long) {
+        val reservableAmount = this.amount - reserveAmount
+
+        if (reservableAmount < reserveAmount) {
+            throw RuntimeException("금액이 부족합니다.")
+        }
+
+        this.reservedAmount += reserveAmount
     }
 }
