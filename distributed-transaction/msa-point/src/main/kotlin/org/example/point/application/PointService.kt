@@ -1,6 +1,7 @@
 package org.example.point.application
 
 import org.example.point.application.dto.PointReserveCommand
+import org.example.point.application.dto.PointReserveConfirmCommand
 import org.example.point.domain.PointReservation
 import org.example.point.infrastructure.PointRepository
 import org.example.point.infrastructure.PointReservationRepository
@@ -32,5 +33,21 @@ class PointService(
                 cmd.reserveAmount
             )
         )
+    }
+
+    @Transactional
+    fun confirmReserve(cmd: PointReserveConfirmCommand) {
+        val reservation = pointReservationRepository.findByRequestId(cmd.requestId)
+            ?: throw RuntimeException("예약 내역이 존재하지 않습니다.")
+
+        if (reservation.isConfirmed()) {
+            println("이미 확정된 예약입니다.")
+            return
+        }
+
+        val point = pointRepository.findById(reservation.pointId).orElseThrow()
+
+        point.confirm(reservation.reservationAmount)
+        reservation.confirm()
     }
 }

@@ -21,6 +21,16 @@ class PointReservation(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 
+    fun isConfirmed() = status == PointReservationStatus.CONFIRMED
+    fun isCancelled() = status == PointReservationStatus.CANCELLED
+
+    fun confirm() {
+        if (isCancelled()) {
+            throw RuntimeException("이미 취소된 예약입니다.")
+        }
+
+        this.status = PointReservationStatus.CONFIRMED
+    }
 }
 
 enum class PointReservationStatus {

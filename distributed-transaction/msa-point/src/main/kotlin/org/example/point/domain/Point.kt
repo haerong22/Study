@@ -38,4 +38,17 @@ class Point(
 
         this.reservedAmount += reserveAmount
     }
+
+    fun confirm(reserveAmount: Long) {
+        if (this.amount < reserveAmount) {
+            throw RuntimeException("포인트가 부족합니다.")
+        }
+
+        if (this.reservedAmount < reserveAmount) {
+            throw RuntimeException("예약된 금액이 부족합니다.")
+        }
+
+        this.amount -= reserveAmount
+        this.reservedAmount -= reserveAmount
+    }
 }

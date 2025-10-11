@@ -7,3 +7,11 @@ Content-Type: application/json
   "userId": 1,
   "reserveAmount": 50
 }
+
+### Confirm
+POST {{point-server}}/points/confirm
+Content-Type: application/json
+
+{
+  "requestId": "1"
+}
