@@ -31,6 +31,14 @@ class PointReservation(
 
         this.status = PointReservationStatus.CONFIRMED
     }
+
+    fun cancel() {
+        if (isConfirmed()) {
+            throw RuntimeException("이미 확정된 예약입니다.")
+        }
+
+        this.status = PointReservationStatus.CANCELLED
+    }
 }
 
 enum class PointReservationStatus {

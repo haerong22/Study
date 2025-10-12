@@ -2,6 +2,7 @@ package org.example.point.controller
 
 import org.example.point.application.PointFacadeService
 import org.example.point.application.RedisLockService
+import org.example.point.controller.dto.PointReserveCancelRequest
 import org.example.point.controller.dto.PointReserveConfirmRequest
 import org.example.point.controller.dto.PointReserveRequest
 import org.springframework.web.bind.annotation.PostMapping
@@ -45,6 +46,24 @@ class PointController(
 
         try {
             pointFacadeService.confirmReserve(request.toCommand())
+        } finally {
+            redisLockService.releaseLock(key)
+        }
+    }
+
+    @PostMapping("/points/cancel")
+    fun cancel(
+        @RequestBody request: PointReserveCancelRequest,
+    ) {
+        val key = "point:${request.requestId}"
+        val acquiredLock = redisLockService.tryLock(key, request.requestId)
+
+        if (!acquiredLock) {
+            throw RuntimeException("락 획득에 실패하였습니다.")
+        }
+
+        try {
+            pointFacadeService.cancelReserve(request.toCommand())
         } finally {
             redisLockService.releaseLock(key)
         }

@@ -1,5 +1,6 @@
 package org.example.point.application
 
+import org.example.point.application.dto.PointReserveCancelCommand
 import org.example.point.application.dto.PointReserveCommand
 import org.example.point.application.dto.PointReserveConfirmCommand
 import org.springframework.dao.OptimisticLockingFailureException
@@ -29,6 +30,20 @@ class PointFacadeService(
         while (tryCount < 3) {
             try {
                 return pointService.confirmReserve(cmd)
+            } catch (e: OptimisticLockingFailureException) {
+                tryCount++
+            }
+        }
+
+        throw RuntimeException("예약에 실패하였습니다.")
+    }
+
+    fun cancelReserve(cmd: PointReserveCancelCommand) {
+        var tryCount = 0
+
+        while (tryCount < 3) {
+            try {
+                return pointService.cancelReserve(cmd)
             } catch (e: OptimisticLockingFailureException) {
                 tryCount++
             }
