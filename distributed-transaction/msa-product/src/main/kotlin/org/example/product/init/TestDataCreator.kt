@@ -13,5 +13,6 @@ class TestDataCreator(
     @PostConstruct
     fun createTestData() {
         productRepository.save(Product(100L, 100L, 0))
+        productRepository.save(Product(200L, 100L, 0))
     }
 }
