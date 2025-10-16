@@ -1,0 +1,24 @@
+### Order
+POST {{order-server}}/orders
+Content-Type: application/json
+
+{
+  "orderItems": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 2
+    }
+  ]
+}
+
+### Place Order
+POST {{order-server}}/orders/place
+Content-Type: application/json
+
+{
+  "orderId": 1
+}
