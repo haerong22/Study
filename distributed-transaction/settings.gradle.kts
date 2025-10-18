@@ -1,6 +1,6 @@
 rootProject.name = "distributed-transaction"
 
 include("monolithic")
-include("msa-order")
-include("msa-point")
-include("msa-product")
+include("tcc-order")
+include("tcc-point")
+include("tcc-product")
