@@ -2,6 +2,7 @@ package org.example.product.controller
 
 import org.example.product.application.ProductService
 import org.example.product.application.RedisLockService
+import org.example.product.controller.dto.ProductBuyCancelRequest
 import org.example.product.controller.dto.ProductBuyRequest
 import org.example.product.controller.dto.ProductBuyResponse
 import org.springframework.web.bind.annotation.PostMapping
@@ -28,6 +29,26 @@ class ProductController(
 
         try {
             val result = productService.buy(request.toCommand())
+            return ProductBuyResponse(result.totalPrice)
+        } finally {
+            redisLockService.releaseLock(key)
+        }
+    }
+
+    @PostMapping("/products/buy/cancel")
+    fun cancel(
+        @RequestBody request: ProductBuyCancelRequest
+    ): ProductBuyResponse {
+        val key = "product:orchestration:${request.requestId}"
+
+        val acquiredLock = redisLockService.tryLock(key, request.requestId)
+
+        if (!acquiredLock) {
+            throw RuntimeException("락 획득에 실패하였습니다.")
+        }
+
+        try {
+            val result = productService.cancel(request.toCommand())
             return ProductBuyResponse(result.totalPrice)
         } finally {
             redisLockService.releaseLock(key)

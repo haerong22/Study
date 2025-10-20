@@ -1,5 +1,7 @@
 package org.example.product.application
 
+import org.example.product.application.dto.ProductBuyCancelCommand
+import org.example.product.application.dto.ProductBuyCancelResult
 import org.example.product.application.dto.ProductBuyCommand
 import org.example.product.application.dto.ProductBuyResult
 import org.example.product.domain.ProductTransactionHistory
@@ -43,5 +45,48 @@ class ProductService(
         }
 
         return ProductBuyResult(totalPrice)
+    }
+
+    @Transactional
+    fun cancel(cmd: ProductBuyCancelCommand): ProductBuyCancelResult {
+        val buyHistories = productTransactionHistoryRepository.findAllByRequestIdAndTransactionType(
+            cmd.requestId,
+            TransactionType.PURCHASE
+        )
+
+        if (buyHistories.isEmpty()) {
+            throw RuntimeException("구매이력이 존재하지 않습니다.")
+        }
+
+        val cancelHistories = productTransactionHistoryRepository.findAllByRequestIdAndTransactionType(
+            cmd.requestId,
+            TransactionType.CANCEL
+        )
+
+        if (cancelHistories.isNotEmpty()) {
+            println("이미 취소되었습니다.")
+            val totalPrice = cancelHistories.sumOf { it.price }
+
+            return ProductBuyCancelResult(totalPrice)
+        }
+
+        var totalPrice: Long = 0
+        buyHistories.forEach {
+            val product = productRepository.findById(it.productId).orElseThrow()
+
+            product.cancel(it.quantity)
+            totalPrice += it.price
+
+            val history = ProductTransactionHistory(
+                cmd.requestId,
+                it.productId,
+                it.quantity,
+                it.price,
+                TransactionType.CANCEL
+            )
+            productTransactionHistoryRepository.save(history)
+        }
+
+        return ProductBuyCancelResult(totalPrice)
     }
 }
