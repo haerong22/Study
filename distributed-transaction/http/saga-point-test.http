@@ -1,0 +1,9 @@
+### use
+POST {{point-server}}/points/use
+Content-Type: application/json
+
+{
+  "requestId": "1",
+  "userId": 1,
+  "amount": 1000
+}
