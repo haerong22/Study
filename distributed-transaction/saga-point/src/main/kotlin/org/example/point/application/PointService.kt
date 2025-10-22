@@ -1,5 +1,6 @@
 package org.example.point.application
 
+import org.example.point.application.dto.PointUseCancelCommand
 import org.example.point.application.dto.PointUseCommand
 import org.example.point.domain.PointTransactionHistory
 import org.example.point.domain.TransactionType
@@ -16,10 +17,12 @@ class PointService(
 
     @Transactional
     fun use(cmd: PointUseCommand) {
-        val useHistory = pointTransactionHistoryRepository.findByRequestIdAndTransactionType(cmd.requestId, TransactionType.USE)
+        val useHistory =
+            pointTransactionHistoryRepository.findByRequestIdAndTransactionType(cmd.requestId, TransactionType.USE)
 
         if (useHistory != null) {
             println("이미 사용한 이력이 존재합니다.")
+            return
         }
 
         val point = pointRepository.findByUserId(cmd.userId) ?: throw RuntimeException("포인트가 존재하지 않습니다.")
@@ -32,6 +35,34 @@ class PointService(
             cmd.amount,
             TransactionType.USE
         )
+        pointTransactionHistoryRepository.save(history)
+    }
+
+    @Transactional
+    fun cancel(cmd: PointUseCancelCommand) {
+        val useHistory =
+            pointTransactionHistoryRepository.findByRequestIdAndTransactionType(cmd.requestId, TransactionType.USE)
+                ?: throw RuntimeException("포인트 사용내역이 존재하지 않습니다.")
+
+        val cancelHistory =
+            pointTransactionHistoryRepository.findByRequestIdAndTransactionType(cmd.requestId, TransactionType.CANCEL)
+
+        if (cancelHistory != null) {
+            println("이미 사용한 이력이 존재합니다.")
+            return
+        }
+
+        val point = pointRepository.findById(useHistory.pointId).orElseThrow()
+
+        point.cancel(useHistory.amount)
+
+        val history = PointTransactionHistory(
+            cmd.requestId,
+            point.id!!,
+            useHistory.amount,
+            TransactionType.CANCEL
+        )
+
         pointTransactionHistoryRepository.save(history)
     }
 }

@@ -28,4 +28,8 @@ class Point(
 
         this.amount -= amount
     }
+
+    fun cancel(amount: Long) {
+        this.amount += amount
+    }
 }
