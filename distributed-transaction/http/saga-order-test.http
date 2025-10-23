@@ -1,0 +1,12 @@
+### Create Order
+POST {{order-server}}/orders
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productid": 1,
+      "quantity": 1
+    }
+  ]
+}
