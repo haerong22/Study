@@ -55,7 +55,7 @@ class ProductService(
         )
 
         if (buyHistories.isEmpty()) {
-            throw RuntimeException("구매이력이 존재하지 않습니다.")
+            return ProductBuyCancelResult(0)
         }
 
         val cancelHistories = productTransactionHistoryRepository.findAllByRequestIdAndTransactionType(

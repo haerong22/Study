@@ -2,6 +2,7 @@ package org.example.order.application
 
 import org.example.order.application.dto.CreateOrderCommand
 import org.example.order.application.dto.CreateOrderResult
+import org.example.order.application.dto.OrderDto
 import org.example.order.domain.Order
 import org.example.order.domain.OrderItem
 import org.example.order.infrastructure.OrderItemRepository
@@ -24,5 +25,33 @@ class OrderService(
         orderItemRepository.saveAll(orderItems)
 
         return CreateOrderResult(order.id!!)
+    }
+
+    @Transactional(readOnly = true)
+    fun getOrder(orderId: Long): OrderDto {
+        val orderItems = orderItemRepository.findAllByOrderId(orderId)
+
+        return OrderDto(orderItems.map { OrderDto.OrderItem(it.orderId, it.quantity) })
+    }
+
+    @Transactional
+    fun request(orderId: Long) {
+        val order = orderRepository.findById(orderId).orElseThrow()
+
+        order.request()
+    }
+
+    @Transactional
+    fun complete(orderId: Long) {
+        val order = orderRepository.findById(orderId).orElseThrow()
+
+        order.complete()
+    }
+
+    @Transactional
+    fun fail(orderId: Long) {
+        val order = orderRepository.findById(orderId).orElseThrow()
+
+        order.fail()
     }
 }

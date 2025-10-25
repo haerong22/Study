@@ -42,7 +42,7 @@ class PointService(
     fun cancel(cmd: PointUseCancelCommand) {
         val useHistory =
             pointTransactionHistoryRepository.findByRequestIdAndTransactionType(cmd.requestId, TransactionType.USE)
-                ?: throw RuntimeException("포인트 사용내역이 존재하지 않습니다.")
+                ?: return
 
         val cancelHistory =
             pointTransactionHistoryRepository.findByRequestIdAndTransactionType(cmd.requestId, TransactionType.CANCEL)
