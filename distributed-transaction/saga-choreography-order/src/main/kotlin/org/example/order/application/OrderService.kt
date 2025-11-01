@@ -37,6 +37,12 @@ class OrderService(
                 }
             }
         )
+    }
 
+    @Transactional
+    fun fail(orderId: Long) {
+        val order = orderRepository.findById(orderId).orElseThrow()
+
+        order.fail()
     }
 }
