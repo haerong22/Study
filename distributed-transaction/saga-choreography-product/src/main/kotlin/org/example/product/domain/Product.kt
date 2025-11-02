@@ -26,4 +26,8 @@ class Product(
 
         this.quantity -= quantity
     }
+
+    fun cancel(quantity: Long) {
+        this.quantity += quantity
+    }
 }
