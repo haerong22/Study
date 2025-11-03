@@ -45,4 +45,11 @@ class OrderService(
 
         order.fail()
     }
+
+    @Transactional
+    fun complete(orderId: Long) {
+        val order = orderRepository.findById(orderId).orElseThrow()
+
+        order.complete()
+    }
 }
