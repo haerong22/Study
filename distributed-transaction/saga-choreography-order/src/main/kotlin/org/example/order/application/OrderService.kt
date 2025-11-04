@@ -1,6 +1,7 @@
 package org.example.order.application
 
 import org.example.order.application.dto.PlaceOrderCommand
+import org.example.order.domain.OrderStatus
 import org.example.order.infrastructure.OrderItemRepository
 import org.example.order.infrastructure.OrderRepository
 import org.example.order.infrastructure.kafka.OrderPlaceProducer
@@ -51,5 +52,11 @@ class OrderService(
         val order = orderRepository.findById(orderId).orElseThrow()
 
         order.complete()
+    }
+
+    fun getStatus(orderId: Long): OrderStatus {
+        val order = orderRepository.findById(orderId).orElseThrow()
+
+        return order.status
     }
 }

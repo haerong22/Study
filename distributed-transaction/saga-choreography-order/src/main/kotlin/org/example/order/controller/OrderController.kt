@@ -3,6 +3,9 @@ package org.example.order.controller
 import org.example.order.application.OrderService
 import org.example.order.application.RedisLockService
 import org.example.order.controller.dto.PlaceOrderRequest
+import org.example.order.domain.OrderStatus
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -30,6 +33,13 @@ class OrderController(
         } finally {
             redisLockService.releaseLock(key)
         }
+    }
+
+    @GetMapping("/orders/{orderId}/status")
+    fun getStatus(
+        @PathVariable orderId: Long,
+    ): OrderStatus {
+        return orderService.getStatus(orderId)
     }
 
 }
