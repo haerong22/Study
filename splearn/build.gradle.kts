@@ -51,3 +51,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
 }
+
+spotbugs {
+    excludeFilter.set(file("${projectDir}/spotbugs-exclude-filter.xml"))
+}
