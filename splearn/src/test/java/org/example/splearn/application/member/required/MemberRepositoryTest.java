@@ -1,7 +1,7 @@
-package org.example.splearn.application.required;
+package org.example.splearn.application.member.required;
 
 import jakarta.persistence.EntityManager;
-import org.example.splearn.domain.Member;
+import org.example.splearn.domain.member.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -9,8 +9,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.example.splearn.domain.MemberFixture.createMemberRegisterRequest;
-import static org.example.splearn.domain.MemberFixture.createPasswordEncoder;
+import static org.example.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
+import static org.example.splearn.domain.member.MemberFixture.createPasswordEncoder;
 
 @DataJpaTest
 class MemberRepositoryTest {

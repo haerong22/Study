@@ -1,10 +1,11 @@
-package org.example.splearn.domain;
+package org.example.splearn.domain.member;
 
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.example.splearn.domain.AbstractEntity;
 
 import java.time.LocalDateTime;
 

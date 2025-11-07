@@ -1,10 +1,13 @@
-package org.example.splearn.domain;
+package org.example.splearn.domain.member;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.example.splearn.domain.AbstractEntity;
+import org.example.splearn.domain.shared.Email;
 import org.hibernate.annotations.NaturalId;
 
 import static java.util.Objects.requireNonNull;
@@ -25,6 +28,7 @@ public class Member extends AbstractEntity {
 
     private MemberStatus status;
 
+    @OneToOne
     private MemberDetail detail;
 
     public static Member register(MemberRegisterRequest createRequest, PasswordEncoder passwordEncoder) {

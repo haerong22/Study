@@ -1,4 +1,4 @@
-package org.example.splearn.domain;
+package org.example.splearn.domain.shared;
 
 import org.junit.jupiter.api.Test;
 

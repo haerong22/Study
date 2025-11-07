@@ -1,7 +1,7 @@
-package org.example.splearn.application.required;
+package org.example.splearn.application.member.required;
 
-import org.example.splearn.domain.Email;
-import org.example.splearn.domain.Member;
+import org.example.splearn.domain.shared.Email;
+import org.example.splearn.domain.member.Member;
 import org.springframework.data.repository.Repository;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package org.example.splearn.adapter.integration;
 
-import org.example.splearn.domain.Email;
+import org.example.splearn.domain.shared.Email;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.StdIo;
 import org.junitpioneer.jupiter.StdOut;
