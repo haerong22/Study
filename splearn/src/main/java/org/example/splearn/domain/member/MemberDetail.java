@@ -1,13 +1,16 @@
 package org.example.splearn.domain.member;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.example.splearn.domain.AbstractEntity;
+import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -15,7 +18,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDetail extends AbstractEntity {
 
-    private String profile;
+    @Embedded
+    private Profile profile;
 
     private String introduction;
 
@@ -23,5 +27,21 @@ public class MemberDetail extends AbstractEntity {
 
     private LocalDateTime activatedAt;
 
-    private LocalDateTime deactivatedAt;
+    private LocalDateTime deactivateAt;
+
+    static MemberDetail create() {
+        MemberDetail memberDetail = new MemberDetail();
+        memberDetail.registeredAt = LocalDateTime.now();
+        return memberDetail;
+    }
+
+    void activate() {
+        Assert.isTrue(activatedAt == null, "already set activated at");
+        this.activatedAt = LocalDateTime.now();
+    }
+
+    void deactivate() {
+        Assert.isTrue(deactivateAt == null, "already set deactivated at");
+        this.deactivateAt = LocalDateTime.now();
+    }
 }
