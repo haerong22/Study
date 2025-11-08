@@ -2,6 +2,7 @@ package org.example.splearn.domain.member;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ProfileTest {
@@ -21,4 +22,10 @@ class ProfileTest {
         assertThatThrownBy(() -> new Profile("프로필")).isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void url() {
+        var profile = new Profile("bobby");
+
+        assertThat(profile.url()).isEqualTo("@bobby");
+    }
 }

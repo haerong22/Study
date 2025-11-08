@@ -17,4 +17,8 @@ public record Profile(String address) {
 
         if (address.length() > 15) throw new IllegalArgumentException("프로필 주소는 최대 15자리를 넘을 수 없습니다.");
     }
+
+    public String url() {
+        return "@" + address;
+    }
 }

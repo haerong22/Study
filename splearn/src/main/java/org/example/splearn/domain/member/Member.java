@@ -67,6 +67,11 @@ public class Member extends AbstractEntity {
         this.nickname = requireNonNull(nickname);
     }
 
+    public void updateInfo(MemberInfoUpdateRequest updateRequest) {
+        this.nickname = Objects.requireNonNull(updateRequest.nickname());
+        this.detail.updateInfo(updateRequest);
+    }
+
     public void changePassword(String password, PasswordEncoder passwordEncoder) {
         this.passwordHash = passwordEncoder.encode(requireNonNull(password));
     }
