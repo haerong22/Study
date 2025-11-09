@@ -12,4 +12,6 @@ public interface MemberRegister {
     Member register(@Valid MemberRegisterRequest registerRequest);
 
     Member activate(Long memberId);
+
+    Member deactivate(Long memberId);
 }
