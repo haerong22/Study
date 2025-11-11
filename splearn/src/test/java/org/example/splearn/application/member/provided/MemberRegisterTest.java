@@ -76,6 +76,39 @@ record MemberRegisterTest(
     }
 
     @Test
+    void updateInfoFail() {
+        Member member = registerMember();
+        memberRegister.activate(member.getId());
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("bobby", "bobby", "자기소개"));
+
+        Member member2 = registerMember("bobby2@email.com");
+        memberRegister.activate(member2.getId());
+
+        entityManager.flush();
+        entityManager.clear();
+
+        // member2는 기존의 member와 같은 프로필 주소를 사용할 수 없다.
+        assertThatThrownBy(() -> {
+            memberRegister.updateInfo(member2.getId(), new MemberInfoUpdateRequest("james", "bobby", "introduction"));
+        }).isInstanceOf(DuplicateProfileException.class);
+
+        // 다른 프로필 주소로는 변경 가능
+        memberRegister.updateInfo(member2.getId(), new MemberInfoUpdateRequest("james", "james", "introduction"));
+
+        // 기존 프로필 주소를 바꾸는 것 가능
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("james", "bobby", "introduction"));
+
+        // 프로필 주소를 제거하는 것도 가능
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("james", "", "introduction"));
+
+        // 프로필 주소 중복은 허용하지 않음
+        assertThatThrownBy(() -> {
+            memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("james", "james", "introduction"));
+        }).isInstanceOf(DuplicateProfileException.class);
+
+    }
+
+    @Test
     void memberRegisterRequestFail() {
         checkValidation(new MemberRegisterRequest("bobby@email.com", "name", "longsecret"));
         checkValidation(new MemberRegisterRequest("bobby@email.com", "long_nickname_________________", "longsecret"));
@@ -89,6 +122,13 @@ record MemberRegisterTest(
 
     private Member registerMember() {
         Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
+        entityManager.flush();
+        entityManager.clear();
+        return member;
+    }
+
+    private Member registerMember(String email) {
+        Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest(email));
         entityManager.flush();
         entityManager.clear();
         return member;
