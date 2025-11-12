@@ -1,5 +1,6 @@
 package org.example.splearn.adapter.webapi;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.splearn.adapter.webapi.dto.MemberRegisterResponse;
 import org.example.splearn.application.member.provided.MemberRegister;
@@ -16,7 +17,7 @@ public class MemberApi {
 
     @PostMapping("/api/members")
     public MemberRegisterResponse register(
-            @RequestBody MemberRegisterRequest request
+            @RequestBody @Valid MemberRegisterRequest request
     ) {
         Member member = memberRegister.register(request);
         return MemberRegisterResponse.of(member);
