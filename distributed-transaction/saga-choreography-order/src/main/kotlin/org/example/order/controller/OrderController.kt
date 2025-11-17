@@ -2,6 +2,8 @@ package org.example.order.controller
 
 import org.example.order.application.OrderService
 import org.example.order.application.RedisLockService
+import org.example.order.controller.dto.CreateOrderRequest
+import org.example.order.controller.dto.CreateOrderResponse
 import org.example.order.controller.dto.PlaceOrderRequest
 import org.example.order.domain.OrderStatus
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,6 +17,14 @@ class OrderController(
     private val orderService: OrderService,
     private val redisLockService: RedisLockService,
 ) {
+
+    @PostMapping("/orders")
+    fun createOrder(
+        @RequestBody request: CreateOrderRequest
+    ): CreateOrderResponse {
+        val result = orderService.createOrder(request.toCommand())
+        return CreateOrderResponse(result.orderId)
+    }
 
     @PostMapping("/orders/place")
     fun placeOrder(

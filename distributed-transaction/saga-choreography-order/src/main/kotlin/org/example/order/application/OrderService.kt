@@ -1,6 +1,10 @@
 package org.example.order.application
 
+import org.example.order.application.dto.CreateOrderCommand
+import org.example.order.application.dto.CreateOrderResult
 import org.example.order.application.dto.PlaceOrderCommand
+import org.example.order.domain.Order
+import org.example.order.domain.OrderItem
 import org.example.order.domain.OrderStatus
 import org.example.order.infrastructure.OrderItemRepository
 import org.example.order.infrastructure.OrderRepository
@@ -17,6 +21,17 @@ class OrderService(
     private val orderItemRepository: OrderItemRepository,
     private val orderPlaceProducer: OrderPlaceProducer,
 ) {
+
+    @Transactional
+    fun createOrder(cmd: CreateOrderCommand): CreateOrderResult {
+        val order = orderRepository.save(Order())
+
+        val orderItems = cmd.items.map { OrderItem(order.id!!, it.productid, it.quantity) }
+
+        orderItemRepository.saveAll(orderItems)
+
+        return CreateOrderResult(order.id!!)
+    }
 
     @Transactional
     fun placeOrder(cmd: PlaceOrderCommand) {

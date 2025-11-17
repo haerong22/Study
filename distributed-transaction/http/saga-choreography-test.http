@@ -1,0 +1,27 @@
+### 주문 생성
+POST {{order-server}}/orders
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 2
+    }
+  ]
+}
+
+### 주문 결제
+POST {{order-server}}/orders/place
+Content-Type: application/json
+
+{
+  "orderId": 1
+}
+
+### 주문 상태 조회
+GET {{order-server}}/orders/1/status
